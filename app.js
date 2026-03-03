@@ -311,9 +311,12 @@
       title.textContent = s.name + startMark;
       const meta = document.createElement("div");
       meta.className = "meta";
-      meta.textContent = `${s.id}${s.ability_id ? ` | talent: ${s.ability_id}` : ""}`;
+      if (s.ability_id) {
+        const reqTalent = state.talents.find((t) => t.id === s.ability_id);
+        meta.textContent = `Vyžaduje: ${reqTalent ? reqTalent.name : s.ability_id}`;
+      }
       left.appendChild(title);
-      left.appendChild(meta);
+      if (meta.textContent) left.appendChild(meta);
 
       const controls = document.createElement("div");
       controls.className = "skill-rank-controls";
