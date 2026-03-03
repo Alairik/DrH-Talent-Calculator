@@ -365,9 +365,6 @@ button:hover {
   color: #555;
 }
 
-.skill-item.pdf-covered {
-  box-shadow: inset 0 0 0 1px rgba(94, 164, 214, 0.45);
-}
 
 .skill-rank-controls {
   display: flex;
