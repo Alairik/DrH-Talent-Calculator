@@ -170,248 +170,339 @@
     },
     {
       "id": "PDF_ABI_ALC_01",
-      "name": "Efektivní výroba",
+      "name": "Efektivni vyroba",
       "prof_id": "PROF_3",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Zlevnuje nebo zefektivnuje pripravu alchymistickych vyrobku."
     },
     {
       "id": "PDF_ABI_ALC_02",
-      "name": "Precizní výroba",
+      "name": "Odolnost vuci jedum",
       "prof_id": "PROF_3",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Zvysuje odolnost proti jedum a podobnym ucinkum."
     },
     {
       "id": "PDF_ABI_ALC_03",
-      "name": "Substituce",
+      "name": "Pokrocila identifikace",
       "prof_id": "PROF_3",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Urcis nezname kouzelne predmety a jejich vlastnosti."
     },
     {
       "id": "PDF_ABI_ALC_04",
-      "name": "Výroba svitků",
+      "name": "Precizni vyroba",
       "prof_id": "PROF_3",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Zvysuje kvalitu a spolehlivost alchymisticke vyroby."
     },
     {
       "id": "PDF_ABI_ALC_05",
-      "name": "Pokročilá identifikace",
+      "name": "Substituce",
       "prof_id": "PROF_3",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Umoznuje nahradit nektere slozky alternativnimi surovinami."
+    },
+    {
+      "id": "PDF_ABI_ALC_06",
+      "name": "Vyroba svitku",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Umoznuje vytvaret kouzelne svitky."
+    },
+    {
+      "id": "PDF_ABI_ALC_07",
+      "name": "Nauka anatomie",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk pro vyzkum tela a biologickych latek."
+    },
+    {
+      "id": "PDF_ABI_ALC_08",
+      "name": "Nauka sestavy",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk pro kombinace a sestavy receptur."
+    },
+    {
+      "id": "PDF_ABI_ALC_09",
+      "name": "Nauka energie",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk o energetickych principech a proudech."
+    },
+    {
+      "id": "PDF_ABI_ALC_10",
+      "name": "Nauka elixiry",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk se zamerenim na elixiry."
+    },
+    {
+      "id": "PDF_ABI_ALC_11",
+      "name": "Nauka predmety",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk se zamerenim na kouzelne predmety."
+    },
+    {
+      "id": "PDF_ABI_ALC_12",
+      "name": "Nauka substance",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Rozsireni nauk se zamerenim na substance a smesi."
     },
     {
       "id": "PDF_ABI_WIZ_01",
       "name": "Koncentrace many",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Za kazdou uroven postavy ziskavas 2 body many navic."
     },
     {
       "id": "PDF_ABI_WIZ_02",
-      "name": "Kouzlení z knih",
+      "name": "Kouzleni z knih",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Umoznuje sesilat i kouzla z kouzelnickych knih."
     },
     {
       "id": "PDF_ABI_WIZ_03",
-      "name": "Paměť na kouzla",
+      "name": "Pamet na kouzla",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Rozsiruje zapamatovatelny repertorar kouzel."
     },
     {
       "id": "PDF_ABI_WIZ_04",
-      "name": "Rituál krve",
+      "name": "Ritual krve",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Ritualni technika kouzleni s krvi."
     },
     {
       "id": "PDF_ABI_WIZ_05",
-      "name": "Rychlé kouzlení",
+      "name": "Rychle kouzleni",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Umoznuje sesilat kouzla rychleji."
     },
     {
       "id": "PDF_ABI_WIZ_06",
-      "name": "Vyvolání přítele",
+      "name": "Vyvolani pritele",
       "prof_id": "PROF_4",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Umoznuje vyvolat pomocnika."
+    },
+    {
+      "id": "PDF_ABI_WIZ_07",
+      "name": "Obor Divoka magie",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Divoka magie."
+    },
+    {
+      "id": "PDF_ABI_WIZ_08",
+      "name": "Obor Magie promen",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Magie promen."
+    },
+    {
+      "id": "PDF_ABI_WIZ_09",
+      "name": "Obor Mentalni magie",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Mentalni magie."
+    },
+    {
+      "id": "PDF_ABI_WIZ_10",
+      "name": "Obor Ochranna magie",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Ochranna magie."
+    },
+    {
+      "id": "PDF_ABI_WIZ_11",
+      "name": "Obor Vitalni magie",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Vitalni magie."
+    },
+    {
+      "id": "PDF_ABI_WIZ_12",
+      "name": "Obor Vysoka magie",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Otevre pristup ke kouzlum oboru Vysoka magie."
     },
     {
       "id": "PDF_ABI_THF_01",
-      "name": "Vrhání dýk",
-      "prof_id": "PROF_5",
-      "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
-    },
-    {
-      "id": "PDF_ABI_THF_02",
-      "name": "Odezírání ze rtů",
-      "prof_id": "PROF_5",
-      "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
-    },
-    {
-      "id": "PDF_ABI_THF_03",
-      "name": "Zlodějská hantýrka",
-      "prof_id": "PROF_5",
-      "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
-    },
-    {
-      "id": "PDF_ABI_THF_04",
-      "name": "Zákeřná kuše",
-      "prof_id": "PROF_5",
-      "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
-    },
-    {
-      "id": "PDF_ABI_THF_05",
-      "name": "Vražedné ostří",
-      "prof_id": "PROF_5",
-      "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
-    },
-    {
-      "id": "PDF_ABI_THF_06",
       "name": "Improvizace",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Umoznuje vyuzit okoli a improvizovane postupy ve prospech zlodeje."
+    },
+    {
+      "id": "PDF_ABI_THF_02",
+      "name": "Odezirani ze rtu",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Dokazes cist rec ze rt?."
+    },
+    {
+      "id": "PDF_ABI_THF_03",
+      "name": "Vrazedne ostri",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Zesiluje ucinek utoku ostrou zbrani."
+    },
+    {
+      "id": "PDF_ABI_THF_04",
+      "name": "Vrhani dyk",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Zlepsuje pouziti vrhacich dyk."
+    },
+    {
+      "id": "PDF_ABI_THF_05",
+      "name": "Zakerna kuse",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Rozsiruje boj se zakerne pouzitou kusi."
+    },
+    {
+      "id": "PDF_ABI_THF_06",
+      "name": "Zlodejska hantyrka",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Pristup k tajnym informacim podsveti."
     },
     {
       "id": "PDF_ABI_THF_07",
-      "name": "Umění kočičího pohybu",
+      "name": "Umeni kociciho pohybu",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Lezeni, ohebnost a pad z vysky."
     },
     {
       "id": "PDF_ABI_THF_08",
-      "name": "Umění proměn",
+      "name": "Umeni promen",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Pokrocile maskovani a zmena identity."
     },
     {
       "id": "PDF_ABI_THF_09",
-      "name": "Umění skrývání",
+      "name": "Umeni rvacu",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Poulicni boj a techniky rvace."
     },
     {
       "id": "PDF_ABI_THF_10",
-      "name": "Umění šarmu",
+      "name": "Umeni skryvani",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Splynuti se stinem a davem."
     },
     {
       "id": "PDF_ABI_THF_11",
-      "name": "Umění rváčů",
+      "name": "Umeni sarmu",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Odhad lidi a odvedeni pozornosti."
     },
     {
       "id": "PDF_ABI_THF_12",
-      "name": "Umění železného klíče",
+      "name": "Umeni zelezneho klice",
       "prof_id": "PROF_5",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Odstraneni pasti a otevirani zamku."
     },
     {
       "id": "PDF_ABI_CLR_01",
-      "name": "Boží bojovník",
+      "name": "Bozi bojovnik",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Bojove zamereni klerika podporene virou."
     },
     {
       "id": "PDF_ABI_CLR_02",
-      "name": "Dar slitování",
+      "name": "Dar slitovani",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Pri kritickych hodech souvisejicich se smrti hazis dvakrat."
     },
     {
       "id": "PDF_ABI_CLR_03",
-      "name": "Osvícení",
+      "name": "Osviceni",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Za kazdou uroven ziskavas 2 body Prizne navic."
     },
     {
       "id": "PDF_ABI_CLR_04",
-      "name": "Posvátný symbol",
+      "name": "Posvatny symbol",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Bonus +2 k uspechu provadeni proseb."
     },
     {
       "id": "PDF_ABI_CLR_05",
-      "name": "Požehnané zdraví",
+      "name": "Pozehnane zdravi",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "1 zivot navic za kazdou uroven klerika, odolnost proti neduhum."
     },
     {
       "id": "PDF_ABI_CLR_06",
-      "name": "Rituály a obřady",
+      "name": "Ritualy a obrady",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Znalost obradu, ktere mohou zvysit Prizen."
     },
     {
       "id": "PDF_ABI_CLR_07",
-      "name": "Nauka Božích patronů",
+      "name": "Nauka Bojovniku viry",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Bojovniku viry."
     },
     {
       "id": "PDF_ABI_CLR_08",
-      "name": "Nauka Bojovníků víry",
+      "name": "Nauka Bozich patronu",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Bozich patronu."
     },
     {
       "id": "PDF_ABI_CLR_09",
-      "name": "Nauka Démonologie",
+      "name": "Nauka Demonologie",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Demonologie."
     },
     {
       "id": "PDF_ABI_CLR_10",
-      "name": "Nauka Milosrdenství",
+      "name": "Nauka Milosrdenstvi",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Milosrdenstvi."
     },
     {
       "id": "PDF_ABI_CLR_11",
-      "name": "Nauka Svaté pravdy",
+      "name": "Nauka Svate pravdy",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Svate pravdy."
     },
     {
       "id": "PDF_ABI_CLR_12",
-      "name": "Nauka Žehnání aurami",
+      "name": "Nauka Zehnani aurami",
       "prof_id": "PROF_6",
       "required_level": 2,
-      "description": "Doplněno z PDF (OCR)."
+      "description": "Otevre dalsi prosby vetve Zehnani aurami."
     }
   ]
 }
