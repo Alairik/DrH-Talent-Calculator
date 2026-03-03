@@ -39,6 +39,10 @@
     "znalost prirody",
     "zpracovani zvere"
   ]);
+  const SKILL_CLASS_OVERRIDES = new Map([
+    ["znalost prirody", "PROF_2"],
+    ["zpracovani zvere", "PROF_2"]
+  ]);
 
   const state = {
     professions: [],
@@ -99,13 +103,21 @@
   });
 
   async function init() {
-    const [professionsPayload, racesPayload, talentsPayload, skillsPayload, pdfCoveragePayload] =
+    const [
+      professionsPayload,
+      racesPayload,
+      talentsPayload,
+      skillsPayload,
+      pdfCoveragePayload,
+      manualPdfTalentsPayload
+    ] =
       await Promise.all([
         fetchJson("./research/sirael-professions.json"),
         fetchJson("./research/sirael-races.json"),
         fetchJson("./research/sirael-player-talents.json"),
         fetchJson("./research/sirael-skills-all.json"),
-        fetchJsonOptional("./research/pdf_consolidation/pdf_coverage_map.json")
+        fetchJsonOptional("./research/pdf_consolidation/pdf_coverage_map.json"),
+        fetchJsonOptional("./research/pdf_consolidation/manual_talents_from_pdf.json")
       ]);
 
     state.professions = professionsPayload.items || [];
@@ -114,8 +126,16 @@
       name: fixMojibake(r.name),
       ability: fixMojibake(r.ability)
     }));
-    state.talents = (talentsPayload.items || []).map((x) => ({ ...x, type: "talent" }));
-    state.skills = (skillsPayload.items || []).map((x) => ({ ...x, type: "skill" }));
+    const baseTalents = (talentsPayload.items || []).map((x) => ({
+      ...normalizeTalentRecord(x),
+      type: "talent"
+    }));
+    state.talents = mergeManualTalents(baseTalents, manualPdfTalentsPayload);
+    const baseSkills = (skillsPayload.items || []).map((x) => ({
+      ...normalizeSkillRecord(x),
+      type: "skill"
+    }));
+    state.skills = applyKnownSkillClassOverrides(baseSkills);
     if (pdfCoveragePayload && typeof pdfCoveragePayload === "object") {
       state.pdfCoverage.skills = new Set(Array.isArray(pdfCoveragePayload.skills) ? pdfCoveragePayload.skills : []);
       state.pdfCoverage.talents = new Set(Array.isArray(pdfCoveragePayload.talents) ? pdfCoveragePayload.talents : []);
@@ -852,6 +872,53 @@
 
   function isBasicSkill(skill) {
     return BASIC_SKILL_NAMES.has(normalize(skill && skill.name));
+  }
+
+  function normalizeTalentRecord(talent) {
+    return {
+      ...talent,
+      name: fixMojibake(talent.name),
+      description: fixMojibake(talent.description),
+      text: fixMojibake(talent.text),
+      text_formatted: fixMojibake(talent.text_formatted)
+    };
+  }
+
+  function normalizeSkillRecord(skill) {
+    return {
+      ...skill,
+      name: fixMojibake(skill.name),
+      description: fixMojibake(skill.description),
+      check: fixMojibake(skill.check)
+    };
+  }
+
+  function mergeManualTalents(baseTalents, manualPayload) {
+    if (!manualPayload || !Array.isArray(manualPayload.items)) return baseTalents;
+    const byId = new Set(baseTalents.map((x) => x.id));
+    const byNameAndProf = new Set(baseTalents.map((x) => `${normalize(x.name)}|${x.prof_id || ""}`));
+    const merged = [...baseTalents];
+    for (const raw of manualPayload.items) {
+      const t = {
+        ...normalizeTalentRecord(raw),
+        type: "talent",
+        source: "pdf-manual"
+      };
+      const key = `${normalize(t.name)}|${t.prof_id || ""}`;
+      if (byId.has(t.id) || byNameAndProf.has(key)) continue;
+      merged.push(t);
+      byId.add(t.id);
+      byNameAndProf.add(key);
+    }
+    return merged;
+  }
+
+  function applyKnownSkillClassOverrides(skills) {
+    return skills.map((skill) => {
+      const overrideProf = SKILL_CLASS_OVERRIDES.get(normalize(skill.name));
+      if (!overrideProf) return skill;
+      return { ...skill, prof_id: overrideProf };
+    });
   }
 
   function fixMojibake(value) {
