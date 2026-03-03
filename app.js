@@ -508,13 +508,13 @@
 
     els.skillList.innerHTML = "";
     for (const s of visibleSkills) {
-      const starterRank = starterIds.has(s.id) ? 3 : 0;
-      const targetRank = getSkillTargetRank(s.id, starterRank);
+      const floorRank = getSkillFloor(s, starterIds, profId);
+      const targetRank = getSkillTargetRank(s.id, floorRank);
       const isPdfCovered = state.pdfCoverage.skills.has(s.id);
 
       const row = document.createElement("div");
       row.className = "skill-item";
-      if (closeStarterIds.has(s.id)) {
+      if (closeStarterIds.has(s.id) || floorRank >= 3) {
         row.classList.add("starter");
       } else if (!isBasicSkill(s) && s.prof_id) {
         row.classList.add(`class-${s.prof_id.toLowerCase()}`);
@@ -544,12 +544,12 @@
         const minus = document.createElement("button");
         minus.type = "button";
         minus.textContent = "-";
-        minus.disabled = targetRank <= starterRank;
+        minus.disabled = targetRank <= floorRank;
         minus.addEventListener("click", () => {
           const isClass = isCurrentClassSkill(s);
           const desired =
-            isClass && starterRank === 0 && targetRank === 3 ? 0 : targetRank - 1;
-          setSkillTargetRank(s.id, desired, starterRank);
+            isClass && floorRank === 0 && targetRank === 3 ? 0 : targetRank - 1;
+          setSkillTargetRank(s.id, desired, floorRank);
         });
 
         const badge = document.createElement("span");
@@ -560,7 +560,7 @@
         plus.type = "button";
         plus.textContent = "+";
         plus.disabled = targetRank >= 10;
-        plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, starterRank));
+        plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, floorRank));
 
         controls.appendChild(minus);
         controls.appendChild(badge);
@@ -574,7 +574,7 @@
 
     fitSkillRowsToViewport(visibleSkills.length);
 
-    const selectedVisible = visibleSkills.filter((s) => getSkillTargetRank(s.id, starterIds.has(s.id) ? 3 : 0) > 0).length;
+    const selectedVisible = visibleSkills.filter((s) => getSkillTargetRank(s.id, getSkillFloor(s, starterIds, profId)) > 0).length;
     els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
   }
 
@@ -594,6 +594,15 @@
     const hasReq = requiresPrereqForSkill(skill);
     if (!hasReq) return isClassSkill ? 1 : 2;
     return isClassSkill ? 3 : 4;
+  }
+
+  function getSkillFloor(skill, starterIds, profId = state.selectedProfessionId) {
+    if (!skill) return 0;
+    let floor = starterIds && starterIds.has(skill.id) ? 3 : 0;
+    const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
+    const reqLevel = Number(skill.required_level || 1);
+    if (isClassSkill && reqLevel <= 1) floor = Math.max(floor, 3);
+    return floor;
   }
 
   function setSkillTargetRank(id, desired, floor) {
@@ -727,7 +736,7 @@
     const skillPlans = [];
     for (const s of state.skills) {
       if (!isSkillAvailableForClass(s, profId) && !starterIds.has(s.id)) continue;
-      const startRank = starterIds.has(s.id) ? 3 : 0;
+      const startRank = getSkillFloor(s, starterIds, profId);
       const targetRank = getSkillTargetRank(s.id, startRank);
       if (targetRank <= 0) continue;
       skillPlans.push({ skill: s, startRank, targetRank, currentRank: startRank });
@@ -1051,7 +1060,7 @@
       const s = state.skills.find((x) => x.id === id);
       if (!s) continue;
       if (!isSkillAvailableForClass(s, profId) && !starterIds.has(id)) continue;
-      const floor = starterIds.has(id) ? 3 : 0;
+      const floor = getSkillFloor(s, starterIds, profId);
       const t = Math.max(floor, Number(target) || floor);
       if (t > floor) cleaned[id] = t;
     }
@@ -1281,7 +1290,7 @@
     for (const s of state.skills) {
       if (s.ability_id !== talentId) continue;
       if (!isCurrentClassSkill(s)) continue;
-      const floor = starterIds.has(s.id) ? 3 : 0;
+      const floor = getSkillFloor(s, starterIds, state.selectedProfessionId);
       const current = getSkillTargetRank(s.id, floor);
       if (current < 3) state.selectedSkillTargets[s.id] = 3;
     }
