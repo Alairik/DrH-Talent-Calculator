@@ -49,6 +49,10 @@
     selectedRaceId: "",
     selectedTalentIds: new Set(),
     selectedSkillTargets: {},
+    pdfCoverage: {
+      skills: new Set(),
+      talents: new Set()
+    },
     manualLevel: 1,
     levelMode: "auto",
     config: {
@@ -95,12 +99,13 @@
   });
 
   async function init() {
-    const [professionsPayload, racesPayload, talentsPayload, skillsPayload] =
+    const [professionsPayload, racesPayload, talentsPayload, skillsPayload, pdfCoveragePayload] =
       await Promise.all([
         fetchJson("./research/sirael-professions.json"),
         fetchJson("./research/sirael-races.json"),
         fetchJson("./research/sirael-player-talents.json"),
-        fetchJson("./research/sirael-skills-all.json")
+        fetchJson("./research/sirael-skills-all.json"),
+        fetchJsonOptional("./research/pdf_consolidation/pdf_coverage_map.json")
       ]);
 
     state.professions = professionsPayload.items || [];
@@ -111,6 +116,10 @@
     }));
     state.talents = (talentsPayload.items || []).map((x) => ({ ...x, type: "talent" }));
     state.skills = (skillsPayload.items || []).map((x) => ({ ...x, type: "skill" }));
+    if (pdfCoveragePayload && typeof pdfCoveragePayload === "object") {
+      state.pdfCoverage.skills = new Set(Array.isArray(pdfCoveragePayload.skills) ? pdfCoveragePayload.skills : []);
+      state.pdfCoverage.talents = new Set(Array.isArray(pdfCoveragePayload.talents) ? pdfCoveragePayload.talents : []);
+    }
 
     hydrateFromStorage();
     ensureDefaults();
@@ -305,8 +314,11 @@
         node.textContent = " ";
       } else {
         const isSelected = state.selectedTalentIds.has(talent.id);
+        const isPdfCovered = state.pdfCoverage.talents.has(talent.id);
         if (isSelected) node.classList.add("selected");
+        if (isPdfCovered) node.classList.add("pdf-covered");
         node.title = `${talent.name}\n${talent.description || ""}`;
+        if (isPdfCovered) node.title += "\n[PDF]";
         node.textContent = talent.name;
         node.addEventListener("click", () => toggleTalent(talent.id, !isSelected));
       }
@@ -330,6 +342,7 @@
     for (const s of visibleSkills) {
       const starterRank = starterIds.has(s.id) ? 3 : 0;
       const targetRank = getSkillTargetRank(s.id, starterRank);
+      const isPdfCovered = state.pdfCoverage.skills.has(s.id);
 
       const row = document.createElement("div");
       row.className = "skill-item";
@@ -338,6 +351,7 @@
       } else if (!isBasicSkill(s) && s.prof_id) {
         row.classList.add(`class-${s.prof_id.toLowerCase()}`);
       }
+      if (isPdfCovered) row.classList.add("pdf-covered");
 
       const left = document.createElement("div");
       const title = document.createElement("div");
@@ -351,6 +365,12 @@
       }
       left.appendChild(title);
       if (meta.textContent) left.appendChild(meta);
+      if (isPdfCovered) {
+        const pdfMeta = document.createElement("div");
+        pdfMeta.className = "meta";
+        pdfMeta.textContent = "PDF";
+        left.appendChild(pdfMeta);
+      }
 
       const controls = document.createElement("div");
       controls.className = "skill-rank-controls";
@@ -865,6 +885,14 @@
     const res = await fetch(path);
     if (!res.ok) throw new Error(`Cannot load ${path}: ${res.status}`);
     return await res.json();
+  }
+
+  async function fetchJsonOptional(path) {
+    try {
+      return await fetchJson(path);
+    } catch (_err) {
+      return null;
+    }
   }
 
   function escapeHtml(v) {

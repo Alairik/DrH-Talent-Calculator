@@ -1,0 +1,15 @@
+{
+  "skills": [
+    "SKILL_2",
+    "SKILL_39",
+    "SKILL_50",
+    "SKILL_54"
+  ],
+  "talents": [
+    "ABI_2"
+  ],
+  "generated_from": [
+    "dovednosti_1_ocr.txt",
+    "dovednosti2_ocr.txt"
+  ]
+}

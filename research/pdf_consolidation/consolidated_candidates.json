@@ -1,0 +1,406 @@
+[
+  {
+    "raw": ": Zvlastni schopnost Rozvaznost",
+    "normalized": "zvlastni schopnost rozvaznost"
+  },
+  {
+    "raw": "napachat obrovske skody. Jeho bojove triky tomu",
+    "normalized": "napachat obrovske skody jeho bojove triky tomu"
+  },
+  {
+    "raw": ": Zvlastni schopnost Urputnost",
+    "normalized": "zvlastni schopnost urputnost"
+  },
+  {
+    "raw": ": Zvlastni schopnost Veleni",
+    "normalized": "zvlastni schopnost veleni"
+  },
+  {
+    "raw": "SCHOPNOSTI HRANICARE",
+    "normalized": "schopnosti hranicare"
+  },
+  {
+    "raw": "zviraty (S)",
+    "normalized": "zviraty (s)"
+  },
+  {
+    "raw": "ostri (S)",
+    "normalized": "ostri (s)"
+  },
+  {
+    "raw": "zvirat (D)",
+    "normalized": "zvirat (d)"
+  },
+  {
+    "raw": "nictvi (D)",
+    "normalized": "nictvi (d)"
+  },
+  {
+    "raw": "strelba (S)",
+    "normalized": "strelba (s)"
+  },
+  {
+    "raw": "Zoceleni (S)",
+    "normalized": "zoceleni (s)"
+  },
+  {
+    "raw": "prirody (S)",
+    "normalized": "prirody (s)"
+  },
+  {
+    "raw": "schopnosti Zvir",
+    "normalized": "schopnosti zvir"
+  },
+  {
+    "raw": "bez schopnosti",
+    "normalized": "bez schopnosti"
+  },
+  {
+    "raw": "zvirat (S)",
+    "normalized": "zvirat (s)"
+  },
+  {
+    "raw": "znalost Magie prirody",
+    "normalized": "znalost magie prirody"
+  },
+  {
+    "raw": "schopnost Bojova hil",
+    "normalized": "schopnost bojova hil"
+  },
+  {
+    "raw": "• znalost Magie pocestnych",
+    "normalized": "znalost magie pocestnych"
+  },
+  {
+    "raw": ".schopnost Obratne ostii",
+    "normalized": "schopnost obratne ostii"
+  },
+  {
+    "raw": "znalost Magie zvirat",
+    "normalized": "znalost magie zvirat"
+  },
+  {
+    "raw": "• schopnost Boj se zveri",
+    "normalized": "schopnost boj se zveri"
+  },
+  {
+    "raw": "VOLITELNE SCHOPNOSTI",
+    "normalized": "volitelne schopnosti"
+  },
+  {
+    "raw": "TABULKA VOLITELNYCH SCHOPNOSTI ALCHYMISTY",
+    "normalized": "tabulka volitelnych schopnosti alchymisty"
+  },
+  {
+    "raw": "Efektivni vyroba (S)",
+    "normalized": "efektivni vyroba (s)"
+  },
+  {
+    "raw": "vici jedim (S)",
+    "normalized": "vici jedim (s)"
+  },
+  {
+    "raw": "identifikace (D)",
+    "normalized": "identifikace (d)"
+  },
+  {
+    "raw": "Precizni vyroba (S)",
+    "normalized": "precizni vyroba (s)"
+  },
+  {
+    "raw": "Substituce (S)",
+    "normalized": "substituce (s)"
+  },
+  {
+    "raw": "Vyroba svitki (D)",
+    "normalized": "vyroba svitki (d)"
+  },
+  {
+    "raw": "Obor Alchymisticka",
+    "normalized": "obor alchymisticka"
+  },
+  {
+    "raw": "anatomie (S)",
+    "normalized": "anatomie (s)"
+  },
+  {
+    "raw": "Obor Hvezdne",
+    "normalized": "obor hvezdne"
+  },
+  {
+    "raw": "Naucis se vyrabét tyto predmety: Celenka porozumeni, Létajici koste, Mec",
+    "normalized": "naucis se vyrabet tyto predmety celenka porozumeni letajici koste mec"
+  },
+  {
+    "raw": "sestavy (S)",
+    "normalized": "sestavy (s)"
+  },
+  {
+    "raw": "Obor Krystaly",
+    "normalized": "obor krystaly"
+  },
+  {
+    "raw": "a energie (S)",
+    "normalized": "a energie (s)"
+  },
+  {
+    "raw": "Obor Lektvary",
+    "normalized": "obor lektvary"
+  },
+  {
+    "raw": "a elixiry (S)",
+    "normalized": "a elixiry (s)"
+  },
+  {
+    "raw": "Obor Magické",
+    "normalized": "obor magicke"
+  },
+  {
+    "raw": "predméty (S)",
+    "normalized": "predmety (s)"
+  },
+  {
+    "raw": "Obor Nestabilni",
+    "normalized": "obor nestabilni"
+  },
+  {
+    "raw": "substance (S)",
+    "normalized": "substance (s)"
+  },
+  {
+    "raw": "Studium magie vyzac",
+    "normalized": "studium magie vyzac"
+  },
+  {
+    "raw": ": schopnost Vyroba svitki",
+    "normalized": "schopnost vyroba svitki"
+  },
+  {
+    "raw": "tanku. Jejich umeni je precizni a zalozene na moci",
+    "normalized": "tanku jejich umeni je precizni a zalozene na moci"
+  },
+  {
+    "raw": ". schopnost Substituce",
+    "normalized": "schopnost substituce"
+  },
+  {
+    "raw": ": schopnost Precizni vyroba",
+    "normalized": "schopnost precizni vyroba"
+  },
+  {
+    "raw": "zvlastnich schopnosti ti umozni stat se",
+    "normalized": "zvlastnich schopnosti ti umozni stat se"
+  },
+  {
+    "raw": "TABULKA VOLITELNYCH SCHOPNOSTi KOUZELNiKA",
+    "normalized": "tabulka volitelnych schopnosti kouzelnika"
+  },
+  {
+    "raw": "Koncentrace many (S)",
+    "normalized": "koncentrace many (s)"
+  },
+  {
+    "raw": "Kouzleni z knih (S)",
+    "normalized": "kouzleni z knih (s)"
+  },
+  {
+    "raw": "Pamet na kouzla (S)",
+    "normalized": "pamet na kouzla (s)"
+  },
+  {
+    "raw": "Ritual krve (S)",
+    "normalized": "ritual krve (s)"
+  },
+  {
+    "raw": "Rychle kouzleni (S)",
+    "normalized": "rychle kouzleni (s)"
+  },
+  {
+    "raw": "Vyvolani pritele (S)",
+    "normalized": "vyvolani pritele (s)"
+  },
+  {
+    "raw": "obor Divoka magie (S)",
+    "normalized": "obor divoka magie (s)"
+  },
+  {
+    "raw": "obor Magie promén (S)",
+    "normalized": "obor magie promen (s)"
+  },
+  {
+    "raw": "obor Mentalni magie (S)",
+    "normalized": "obor mentalni magie (s)"
+  },
+  {
+    "raw": "obor Ochranna magie (S)",
+    "normalized": "obor ochranna magie (s)"
+  },
+  {
+    "raw": "obor Vitalni magie (S)",
+    "normalized": "obor vitalni magie (s)"
+  },
+  {
+    "raw": "obor Vysoka magie (S)",
+    "normalized": "obor vysoka magie (s)"
+  },
+  {
+    "raw": "Vrhani dyk (S)",
+    "normalized": "vrhani dyk (s)"
+  },
+  {
+    "raw": "Odezirani ze rti (S)",
+    "normalized": "odezirani ze rti (s)"
+  },
+  {
+    "raw": "Umeni kociciho pohybu (D)",
+    "normalized": "umeni kociciho pohybu (d)"
+  },
+  {
+    "raw": "Zlodejska hantyrka (S)",
+    "normalized": "zlodejska hantyrka (s)"
+  },
+  {
+    "raw": "Zakerna kuse (S)",
+    "normalized": "zakerna kuse (s)"
+  },
+  {
+    "raw": "Vrazedne ostri (S)",
+    "normalized": "vrazedne ostri (s)"
+  },
+  {
+    "raw": "Umeni promen (D)",
+    "normalized": "umeni promen (d)"
+  },
+  {
+    "raw": "Umenirvaci (D)",
+    "normalized": "umenirvaci (d)"
+  },
+  {
+    "raw": "Umeni skryvani (D)",
+    "normalized": "umeni skryvani (d)"
+  },
+  {
+    "raw": "Umenizeleznehoklice (D)",
+    "normalized": "umenizeleznehoklice (d)"
+  },
+  {
+    "raw": "Umeni sarmu (D)",
+    "normalized": "umeni sarmu (d)"
+  },
+  {
+    "raw": "Improvizace (S)",
+    "normalized": "improvizace (s)"
+  },
+  {
+    "raw": "TABULKA VOLITELNYCH SCHOPNOSTI ZLODEJE",
+    "normalized": "tabulka volitelnych schopnosti zlodeje"
+  },
+  {
+    "raw": "Pochybne umeni rvacu z nej totiz udelalo zaker-",
+    "normalized": "pochybne umeni rvacu z nej totiz udelalo zaker-"
+  },
+  {
+    "raw": "schopnost Improvizace",
+    "normalized": "schopnost improvizace"
+  },
+  {
+    "raw": "schopnost Vrhani dyk",
+    "normalized": "schopnost vrhani dyk"
+  },
+  {
+    "raw": "Sve umeni zalozili na kocicim pohybu, diky ktere-",
+    "normalized": "sve umeni zalozili na kocicim pohybu diky ktere-"
+  },
+  {
+    "raw": ". Umeni promen",
+    "normalized": "umeni promen"
+  },
+  {
+    "raw": ".Umeni sarmu",
+    "normalized": "umeni sarmu"
+  },
+  {
+    "raw": "• schopnost Zlodejska hantyrka",
+    "normalized": "schopnost zlodejska hantyrka"
+  },
+  {
+    "raw": "Bozibojovnik (S)",
+    "normalized": "bozibojovnik (s)"
+  },
+  {
+    "raw": "Darslitovani(S)",
+    "normalized": "darslitovani(s)"
+  },
+  {
+    "raw": "Osviceni(S)",
+    "normalized": "osviceni(s)"
+  },
+  {
+    "raw": "Posvatny symbol (S)",
+    "normalized": "posvatny symbol (s)"
+  },
+  {
+    "raw": "Poiehnane zdravi (S)",
+    "normalized": "poiehnane zdravi (s)"
+  },
+  {
+    "raw": "Ritualya obrady (S)",
+    "normalized": "ritualya obrady (s)"
+  },
+  {
+    "raw": "Ovladnes tyto dalsi prosby: Svata zbroj, Utok stesteny, Vraceni ideru.",
+    "normalized": "ovladnes tyto dalsi prosby svata zbroj utok stesteny vraceni ideru"
+  },
+  {
+    "raw": "nauka Bojovniki viry (S)",
+    "normalized": "nauka bojovniki viry (s)"
+  },
+  {
+    "raw": "Ovladnes tyto dalsi prosby: Posel bojovnik, Posel rovnovahy, Posel stezky",
+    "normalized": "ovladnes tyto dalsi prosby posel bojovnik posel rovnovahy posel stezky"
+  },
+  {
+    "raw": "nauka Bozich patroni (S)",
+    "normalized": "nauka bozich patroni (s)"
+  },
+  {
+    "raw": "Ovladnes tyto dalsi prosby: Najdi temnotu, Odstran kletbu, Odvraceni",
+    "normalized": "ovladnes tyto dalsi prosby najdi temnotu odstran kletbu odvraceni"
+  },
+  {
+    "raw": "nauka Demonologie (S)",
+    "normalized": "nauka demonologie (s)"
+  },
+  {
+    "raw": "Ovladnes tyto dalsi prosby: Napraveni tela, Odstran paralyzu, Udrzeni",
+    "normalized": "ovladnes tyto dalsi prosby napraveni tela odstran paralyzu udrzeni"
+  },
+  {
+    "raw": "nauka Milosrdenstvi(S)",
+    "normalized": "nauka milosrdenstvi(s)"
+  },
+  {
+    "raw": "nauka Svate pravdy (S)",
+    "normalized": "nauka svate pravdy (s)"
+  },
+  {
+    "raw": "nauka Zehnani aurami (S)",
+    "normalized": "nauka zehnani aurami (s)"
+  },
+  {
+    "raw": "Diky svemu umeni dokazi rozpoznat kacife, odpad-",
+    "normalized": "diky svemu umeni dokazi rozpoznat kacife odpad-"
+  },
+  {
+    "raw": ".schopnost Osviceni",
+    "normalized": "schopnost osviceni"
+  },
+  {
+    "raw": "schopnost Bozi bojovnik",
+    "normalized": "schopnost bozi bojovnik"
+  },
+  {
+    "raw": "· schopnost Pozehnane zdravi",
+    "normalized": "schopnost pozehnane zdravi"
+  }
+]

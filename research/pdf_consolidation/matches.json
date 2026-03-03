@@ -1,0 +1,42 @@
+[
+  {
+    "source": "contains",
+    "type": "skill",
+    "id": "SKILL_2",
+    "name": "Lov",
+    "raw": "Lov",
+    "score": 1
+  },
+  {
+    "source": "contains",
+    "type": "skill",
+    "id": "SKILL_39",
+    "name": "Prosby",
+    "raw": "Prosby",
+    "score": 1
+  },
+  {
+    "source": "contains",
+    "type": "skill",
+    "id": "SKILL_50",
+    "name": "První pomoc",
+    "raw": "První pomoc",
+    "score": 1
+  },
+  {
+    "source": "contains",
+    "type": "skill",
+    "id": "SKILL_54",
+    "name": "Umění",
+    "raw": "Umění",
+    "score": 1
+  },
+  {
+    "source": "contains",
+    "type": "talent",
+    "id": "ABI_2",
+    "name": "Bojové triky",
+    "raw": "Bojové triky",
+    "score": 1
+  }
+]
