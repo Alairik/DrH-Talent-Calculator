@@ -41,7 +41,9 @@
   ]);
   const SKILL_CLASS_OVERRIDES = new Map([
     ["znalost prirody", "PROF_2"],
-    ["zpracovani zvere", "PROF_2"]
+    ["zpracovani zvere", "PROF_2"],
+    ["videni many", "PROF_3"],
+    ["destilace many", "PROF_3"]
   ]);
 
   const state = {
@@ -236,6 +238,9 @@
         alert("Import failed: invalid JSON.");
       }
     });
+    window.addEventListener("resize", () => {
+      renderSkills();
+    });
   }
 
   function bindNumber(input, onChange) {
@@ -349,6 +354,9 @@
   function renderSkills() {
     const profId = state.selectedProfessionId;
     const starterIds = new Set(getClassStarterSkillIds());
+    const selectedTalentIds = new Set(state.selectedTalentIds);
+    const raceTalent = getRaceBonusTalent();
+    if (raceTalent) selectedTalentIds.add(raceTalent.id);
     const visibleSkills = state.skills
       .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
       .sort((a, b) => {
@@ -381,51 +389,59 @@
       const title = document.createElement("div");
       title.className = "skill-title";
       title.textContent = s.name;
-      const meta = document.createElement("div");
-      meta.className = "meta";
-      if (s.ability_id) {
-        const reqTalent = state.talents.find((t) => t.id === s.ability_id);
-        meta.textContent = `Vyžaduje: ${reqTalent ? reqTalent.name : s.ability_id}`;
-      }
       left.appendChild(title);
-      if (meta.textContent) left.appendChild(meta);
-      if (isPdfCovered) {
-        const pdfMeta = document.createElement("div");
-        pdfMeta.className = "meta";
-        pdfMeta.textContent = "PDF";
-        left.appendChild(pdfMeta);
-      }
 
       const controls = document.createElement("div");
       controls.className = "skill-rank-controls";
+      const hasPrereq = !s.ability_id || selectedTalentIds.has(s.ability_id);
+      const reqTalent = s.ability_id ? state.talents.find((t) => t.id === s.ability_id) : null;
 
-      const minus = document.createElement("button");
-      minus.type = "button";
-      minus.textContent = "-";
-      minus.disabled = targetRank <= starterRank;
-      minus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank - 1, starterRank));
+      if (!hasPrereq) {
+        const lock = document.createElement("span");
+        lock.className = "skill-lock";
+        lock.textContent = `Vyžaduje ${reqTalent ? reqTalent.name : s.ability_id}`;
+        controls.appendChild(lock);
+      } else {
+        const minus = document.createElement("button");
+        minus.type = "button";
+        minus.textContent = "-";
+        minus.disabled = targetRank <= starterRank;
+        minus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank - 1, starterRank));
 
-      const badge = document.createElement("span");
-      badge.className = "skill-rank-badge";
-      badge.textContent = targetRank > 0 ? `Stupen ${targetRank}` : "Nevybrano";
+        const badge = document.createElement("span");
+        badge.className = "skill-rank-badge";
+        badge.textContent = String(targetRank);
 
-      const plus = document.createElement("button");
-      plus.type = "button";
-      plus.textContent = "+";
-      plus.disabled = targetRank >= 10;
-      plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, starterRank));
+        const plus = document.createElement("button");
+        plus.type = "button";
+        plus.textContent = "+";
+        plus.disabled = targetRank >= 10;
+        plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, starterRank));
 
-      controls.appendChild(minus);
-      controls.appendChild(badge);
-      controls.appendChild(plus);
+        controls.appendChild(minus);
+        controls.appendChild(badge);
+        controls.appendChild(plus);
+      }
 
       row.appendChild(left);
       row.appendChild(controls);
       els.skillList.appendChild(row);
     }
 
+    fitSkillRowsToViewport(visibleSkills.length);
+
     const selectedVisible = visibleSkills.filter((s) => getSkillTargetRank(s.id, starterIds.has(s.id) ? 3 : 0) > 0).length;
     els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
+  }
+
+  function fitSkillRowsToViewport(rowCount) {
+    if (!els.skillList || rowCount <= 0) return;
+    const listHeight = els.skillList.clientHeight;
+    if (!listHeight || !Number.isFinite(listHeight)) return;
+    const gapPx = 4;
+    const raw = (listHeight - Math.max(0, rowCount - 1) * gapPx) / rowCount;
+    const rowPx = Math.max(22, Math.min(42, Math.floor(raw)));
+    els.skillList.style.gridAutoRows = `${rowPx}px`;
   }
 
   function setSkillTargetRank(id, desired, floor) {

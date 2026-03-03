@@ -85,7 +85,7 @@
                       "check_type":  [
                                          "int"
                                      ],
-                      "prof_id":  "PROF_2"
+                      "prof_id":  "PROF_3"
                   },
                   {
                       "id":  "SKILL_12",
@@ -99,7 +99,7 @@
                       "check_type":  [
                                          "dex"
                                      ],
-                      "prof_id":  "PROF_2"
+                      "prof_id":  "PROF_3"
                   },
                   {
                       "id":  "SKILL_13",
