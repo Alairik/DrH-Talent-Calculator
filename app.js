@@ -49,6 +49,7 @@
     selectedRaceId: "",
     selectedTalentIds: new Set(),
     selectedSkillTargets: {},
+    manualLevel: null,
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
@@ -73,6 +74,8 @@
     talentPerLevel: document.getElementById("talentPerLevel"),
     skillL1: document.getElementById("skillL1"),
     skillPerLevel: document.getElementById("skillPerLevel"),
+    manualLevelToggle: document.getElementById("manualLevelToggle"),
+    manualLevelInput: document.getElementById("manualLevelInput"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -172,6 +175,18 @@
         window.APP_CONFIG.points.skillPerLevel
       );
     });
+    els.manualLevelToggle.addEventListener("change", () => {
+      els.manualLevelInput.disabled = !els.manualLevelToggle.checked;
+      state.manualLevel = els.manualLevelToggle.checked
+        ? clampInt(els.manualLevelInput.value, 1, state.config.maxLevel, 1)
+        : null;
+      renderPlanOnly();
+      persist();
+    });
+    bindNumber(els.manualLevelInput, (v) => {
+      if (!els.manualLevelToggle.checked) return;
+      state.manualLevel = clampInt(v, 1, state.config.maxLevel, 1);
+    });
 
     els.exportBtn.addEventListener("click", () => {
       els.exchangeBox.value = JSON.stringify(exportBuild(), null, 2);
@@ -221,6 +236,11 @@
     els.talentPerLevel.value = state.config.points.talentPerLevel;
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
+    const manual = Number.isFinite(state.manualLevel) ? state.manualLevel : 1;
+    els.manualLevelToggle.checked = Number.isFinite(state.manualLevel);
+    els.manualLevelInput.disabled = !Number.isFinite(state.manualLevel);
+    els.manualLevelInput.max = String(state.config.maxLevel);
+    els.manualLevelInput.value = String(clampInt(manual, 1, state.config.maxLevel, 1));
   }
 
   function renderClassPicker() {
@@ -519,7 +539,7 @@
         selectedSkills: skillPlans.length,
         assignedTalents: (talents.length - unscheduledTalents.length) + (raceTalent ? 1 : 0),
         assignedSkills: skillPlans.length - unscheduledSkills.length,
-        currentLevel: Math.max(maxAssignedTalent, maxSkillActionLevel)
+        currentLevel: getEffectiveCurrentLevel(Math.max(maxAssignedTalent, maxSkillActionLevel))
       }
     };
   }
@@ -576,6 +596,7 @@
       }
       const card = document.createElement("div");
       card.className = "level-card";
+      if (lvl.level > plan.totals.currentLevel) card.classList.add("future");
       card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D +${lvl.skillGain}, spent ${lvl.skillSpent}, carry ${lvl.skillCarry}</span></div>`;
       const tags = document.createElement("div");
       tags.className = "tags";
@@ -615,6 +636,7 @@
       raceId: state.selectedRaceId,
       selectedTalentIds: [...state.selectedTalentIds],
       selectedSkillTargets: state.selectedSkillTargets,
+      manualLevel: state.manualLevel,
       config: state.config
     };
   }
@@ -625,6 +647,9 @@
     if (payload.raceId) state.selectedRaceId = payload.raceId;
     state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
     state.selectedSkillTargets = payload.selectedSkillTargets || {};
+    state.manualLevel = Number.isFinite(payload.manualLevel)
+      ? clampInt(payload.manualLevel, 1, 30, 1)
+      : null;
     if (payload.selectedSkillIds && !payload.selectedSkillTargets) {
       // backward compatibility with old binary model
       for (const id of payload.selectedSkillIds) state.selectedSkillTargets[id] = 1;
@@ -760,6 +785,12 @@
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim();
+  }
+
+  function getEffectiveCurrentLevel(autoLevel) {
+    const fallback = clampInt(autoLevel, 1, state.config.maxLevel, 1);
+    if (!Number.isFinite(state.manualLevel)) return fallback;
+    return clampInt(state.manualLevel, 1, state.config.maxLevel, fallback);
   }
 
   function fixMojibake(value) {

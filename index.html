@@ -64,8 +64,15 @@
     </section>
 
     <section class="panel plan-panel">
-      <div class="panel-head">
+      <div class="panel-head timeline-head">
         <h2>Level Timeline</h2>
+        <div class="timeline-tools">
+          <label class="inline-check">
+            <input id="manualLevelToggle" type="checkbox" />
+            Ruční lvl
+          </label>
+          <input id="manualLevelInput" type="number" min="1" max="30" />
+        </div>
       </div>
       <div id="summary" class="summary"></div>
       <div id="issues" class="issues"></div>
