@@ -1,4 +1,13 @@
-﻿(function () {
+(function () {
+  const BRANCH_NAMES = {
+    PROF_1: ["Berserk", "Strážce", "Veterán"],
+    PROF_2: ["Lovec", "Stopař", "Hraniční magie"],
+    PROF_3: ["Mastičkář", "Mistr směsí", "Runotvůrce"],
+    PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
+    PROF_5: ["Vrah", "Akrobat", "Stín"],
+    PROF_6: ["Inkvizitor", "Ochránce víry", "Mystik"]
+  };
+
   const state = {
     professions: [],
     talents: [],
@@ -6,7 +15,6 @@
     selectedProfessionId: "",
     selectedTalentIds: new Set(),
     selectedSkillIds: new Set(),
-    filters: { talent: "", skill: "" },
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
@@ -15,21 +23,25 @@
 
   const els = {
     professionSelect: document.getElementById("professionSelect"),
+    resetBtn: document.getElementById("resetBtn"),
+    branchTitle1: document.getElementById("branchTitle1"),
+    branchTitle2: document.getElementById("branchTitle2"),
+    branchTitle3: document.getElementById("branchTitle3"),
+    branch1: document.getElementById("branch1"),
+    branch2: document.getElementById("branch2"),
+    branch3: document.getElementById("branch3"),
+    generalTalents: document.getElementById("generalTalents"),
+    talentCount: document.getElementById("talentCount"),
+    skillList: document.getElementById("skillList"),
+    skillCount: document.getElementById("skillCount"),
     maxLevel: document.getElementById("maxLevel"),
     talentL1: document.getElementById("talentL1"),
     talentPerLevel: document.getElementById("talentPerLevel"),
     skillL1: document.getElementById("skillL1"),
     skillPerLevel: document.getElementById("skillPerLevel"),
-    talentSearch: document.getElementById("talentSearch"),
-    skillSearch: document.getElementById("skillSearch"),
-    talentList: document.getElementById("talentList"),
-    skillList: document.getElementById("skillList"),
-    talentCount: document.getElementById("talentCount"),
-    skillCount: document.getElementById("skillCount"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
-    resetBtn: document.getElementById("resetBtn"),
     exportBtn: document.getElementById("exportBtn"),
     importBtn: document.getElementById("importBtn"),
     exchangeBox: document.getElementById("exchangeBox")
@@ -37,7 +49,7 @@
 
   init().catch((err) => {
     console.error(err);
-    document.body.innerHTML = "<pre>Chyba při načítání dat. Spusť stránku přes lokální server (ne file://).\n" + String(err) + "</pre>";
+    document.body.innerHTML = "<pre>Chyba při načítání dat. Spusť přes lokální server (ne file://).\n" + String(err) + "</pre>";
   });
 
   async function init() {
@@ -64,51 +76,27 @@
       persist();
     });
 
-    els.maxLevel.addEventListener("change", () => {
-      state.config.maxLevel = clampInt(els.maxLevel.value, 1, 30, window.APP_CONFIG.maxLevel);
-      renderPlanOnly();
-      persist();
-    });
-
-    els.talentL1.addEventListener("change", () => {
-      state.config.points.talentLevel1 = clampInt(els.talentL1.value, 0, 50, window.APP_CONFIG.points.talentLevel1);
-      renderPlanOnly();
-      persist();
-    });
-
-    els.talentPerLevel.addEventListener("change", () => {
-      state.config.points.talentPerLevel = clampInt(els.talentPerLevel.value, 0, 50, window.APP_CONFIG.points.talentPerLevel);
-      renderPlanOnly();
-      persist();
-    });
-
-    els.skillL1.addEventListener("change", () => {
-      state.config.points.skillLevel1 = clampInt(els.skillL1.value, 0, 50, window.APP_CONFIG.points.skillLevel1);
-      renderPlanOnly();
-      persist();
-    });
-
-    els.skillPerLevel.addEventListener("change", () => {
-      state.config.points.skillPerLevel = clampInt(els.skillPerLevel.value, 0, 50, window.APP_CONFIG.points.skillPerLevel);
-      renderPlanOnly();
-      persist();
-    });
-
-    els.talentSearch.addEventListener("input", () => {
-      state.filters.talent = els.talentSearch.value.trim().toLowerCase();
-      renderTalents();
-    });
-
-    els.skillSearch.addEventListener("input", () => {
-      state.filters.skill = els.skillSearch.value.trim().toLowerCase();
-      renderSkills();
-    });
-
     els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
       state.selectedSkillIds.clear();
       renderAll();
       persist();
+    });
+
+    bindNumber(els.maxLevel, (v) => {
+      state.config.maxLevel = clampInt(v, 1, 30, window.APP_CONFIG.maxLevel);
+    });
+    bindNumber(els.talentL1, (v) => {
+      state.config.points.talentLevel1 = clampInt(v, 0, 50, window.APP_CONFIG.points.talentLevel1);
+    });
+    bindNumber(els.talentPerLevel, (v) => {
+      state.config.points.talentPerLevel = clampInt(v, 0, 50, window.APP_CONFIG.points.talentPerLevel);
+    });
+    bindNumber(els.skillL1, (v) => {
+      state.config.points.skillLevel1 = clampInt(v, 0, 50, window.APP_CONFIG.points.skillLevel1);
+    });
+    bindNumber(els.skillPerLevel, (v) => {
+      state.config.points.skillPerLevel = clampInt(v, 0, 50, window.APP_CONFIG.points.skillPerLevel);
     });
 
     els.exportBtn.addEventListener("click", () => {
@@ -121,33 +109,39 @@
         importBuild(payload);
         renderAll();
         persist();
-      } catch (e) {
+      } catch (_err) {
         alert("Import selhal: neplatný JSON.");
       }
     });
   }
 
+  function bindNumber(input, onChange) {
+    input.addEventListener("change", () => {
+      onChange(input.value);
+      renderPlanOnly();
+      persist();
+    });
+  }
+
   function renderAll() {
     renderControls();
-    renderTalents();
+    renderTalentTree();
     renderSkills();
     renderPlanOnly();
   }
 
   function renderControls() {
-    const select = els.professionSelect;
-    select.innerHTML = "";
-    state.professions.forEach((p) => {
+    els.professionSelect.innerHTML = "";
+    for (const p of state.professions) {
       const opt = document.createElement("option");
       opt.value = p.id;
       opt.textContent = p.name;
       if (p.id === state.selectedProfessionId) opt.selected = true;
-      select.appendChild(opt);
-    });
-
-    if (!state.selectedProfessionId && state.professions.length) {
+      els.professionSelect.appendChild(opt);
+    }
+    if (!state.selectedProfessionId && state.professions.length > 0) {
       state.selectedProfessionId = state.professions[0].id;
-      select.value = state.selectedProfessionId;
+      els.professionSelect.value = state.selectedProfessionId;
     }
 
     els.maxLevel.value = state.config.maxLevel;
@@ -157,74 +151,118 @@
     els.skillPerLevel.value = state.config.points.skillPerLevel;
   }
 
-  function renderTalents() {
-    const list = els.talentList;
-    list.innerHTML = "";
+  function renderTalentTree() {
     const profId = state.selectedProfessionId;
-    const visible = state.talents.filter((t) =>
-      belongsToProfession(t.prof_id, profId) &&
-      matchesFilter(t, state.filters.talent)
-    ).sort(byName);
+    const branchNames = BRANCH_NAMES[profId] || ["Větev I", "Větev II", "Větev III"];
+    els.branchTitle1.textContent = branchNames[0];
+    els.branchTitle2.textContent = branchNames[1];
+    els.branchTitle3.textContent = branchNames[2];
 
-    visible.forEach((t) => list.appendChild(renderItemRow(t, state.selectedTalentIds, onToggleTalent)));
-    els.talentCount.textContent = `${state.selectedTalentIds.size} / ${visible.length} viditelných`;
+    const classTalents = state.talents
+      .filter((t) => t.prof_id === profId)
+      .sort(byRequiredThenName);
+
+    const generalTalents = state.talents
+      .filter((t) => !t.prof_id)
+      .sort(byRequiredThenName);
+
+    const branches = [[], [], []];
+    classTalents.forEach((talent, idx) => {
+      branches[idx % 3].push(talent);
+    });
+
+    renderBranch(els.branch1, branches[0]);
+    renderBranch(els.branch2, branches[1]);
+    renderBranch(els.branch3, branches[2]);
+
+    els.generalTalents.innerHTML = "";
+    for (const t of generalTalents) {
+      const row = document.createElement("label");
+      row.className = "general-item";
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = state.selectedTalentIds.has(t.id);
+      checkbox.addEventListener("change", () => toggleTalent(t.id, checkbox.checked));
+      const text = document.createElement("span");
+      text.textContent = `${t.name} (${t.id})`;
+      row.appendChild(checkbox);
+      row.appendChild(text);
+      els.generalTalents.appendChild(row);
+    }
+
+    const visibleTalentTotal = classTalents.length + generalTalents.length;
+    els.talentCount.textContent = `${countSelectedVisibleTalents(classTalents, generalTalents)} / ${visibleTalentTotal}`;
+  }
+
+  function renderBranch(container, talents) {
+    container.innerHTML = "";
+    const maxNodes = Math.max(9, talents.length);
+    for (let i = 0; i < maxNodes; i += 1) {
+      const talent = talents[i];
+      const node = document.createElement("button");
+      node.type = "button";
+      node.className = "node";
+
+      if (!talent) {
+        node.classList.add("empty");
+        node.disabled = true;
+        node.textContent = " ";
+      } else {
+        const isSelected = state.selectedTalentIds.has(talent.id);
+        if (isSelected) node.classList.add("selected");
+        node.title = `${talent.name}\n${talent.description || ""}`;
+        node.textContent = talent.name;
+        node.addEventListener("click", () => toggleTalent(talent.id, !isSelected));
+      }
+      container.appendChild(node);
+    }
   }
 
   function renderSkills() {
-    const list = els.skillList;
-    list.innerHTML = "";
     const profId = state.selectedProfessionId;
-    const visible = state.skills.filter((s) =>
-      belongsToProfession(s.prof_id, profId) &&
-      matchesFilter(s, state.filters.skill)
-    ).sort(byName);
+    const visibleSkills = state.skills
+      .filter((s) => belongsToProfession(s.prof_id, profId))
+      .sort(byName);
 
-    visible.forEach((s) => list.appendChild(renderItemRow(s, state.selectedSkillIds, onToggleSkill)));
-    els.skillCount.textContent = `${state.selectedSkillIds.size} / ${visible.length} viditelných`;
+    els.skillList.innerHTML = "";
+    for (const s of visibleSkills) {
+      const row = document.createElement("label");
+      row.className = "skill-item";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = state.selectedSkillIds.has(s.id);
+      checkbox.addEventListener("change", () => toggleSkill(s.id, checkbox.checked));
+
+      const box = document.createElement("div");
+      const title = document.createElement("div");
+      title.textContent = s.name;
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = `${s.id}${s.ability_id ? ` | talent: ${s.ability_id}` : ""}`;
+      box.appendChild(title);
+      box.appendChild(meta);
+      row.appendChild(checkbox);
+      row.appendChild(box);
+      els.skillList.appendChild(row);
+    }
+
+    const selectedVisible = visibleSkills.filter((s) => state.selectedSkillIds.has(s.id)).length;
+    els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
   }
 
-  function renderItemRow(item, selectedSet, handler) {
-    const wrapper = document.createElement("label");
-    wrapper.className = "item";
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.checked = selectedSet.has(item.id);
-    checkbox.addEventListener("change", () => handler(item.id, checkbox.checked));
-
-    const text = document.createElement("div");
-    const title = document.createElement("div");
-    title.textContent = item.name;
-
-    const meta = document.createElement("div");
-    meta.className = "meta";
-    const prof = item.prof_id ? ` | ${professionName(item.prof_id)}` : " | obecné";
-    const req = item.ability_id ? ` | vyžaduje talent ${item.ability_id}` : "";
-    meta.textContent = `${item.id}${prof}${req}`;
-
-    const small = document.createElement("small");
-    small.textContent = item.description || "";
-
-    text.appendChild(title);
-    text.appendChild(meta);
-    text.appendChild(small);
-
-    wrapper.appendChild(checkbox);
-    wrapper.appendChild(text);
-    return wrapper;
-  }
-
-  function onToggleTalent(id, checked) {
+  function toggleTalent(id, checked) {
     if (checked) state.selectedTalentIds.add(id);
     else state.selectedTalentIds.delete(id);
-    renderPlanOnly();
+    renderAll();
     persist();
   }
 
-  function onToggleSkill(id, checked) {
+  function toggleSkill(id, checked) {
     if (checked) state.selectedSkillIds.add(id);
     else state.selectedSkillIds.delete(id);
     renderPlanOnly();
+    renderSkills();
     persist();
   }
 
@@ -241,14 +279,10 @@
     const skills = state.skills.filter((s) => state.selectedSkillIds.has(s.id) && belongsToProfession(s.prof_id, profId));
 
     const selectedTalentMap = new Map(talents.map((t) => [t.id, t]));
-    const skillMap = new Map(skills.map((s) => [s.id, s]));
-
     const issues = [];
     const missingPrereq = [];
     for (const s of skills) {
-      if (s.ability_id && !selectedTalentMap.has(s.ability_id)) {
-        missingPrereq.push(s);
-      }
+      if (s.ability_id && !selectedTalentMap.has(s.ability_id)) missingPrereq.push(s);
     }
 
     const maxLevel = state.config.maxLevel;
@@ -270,19 +304,19 @@
 
     for (const lvlState of levels) {
       while (lvlState.talents.length < lvlState.talentCapacity && talentQueue.length > 0) {
-        const idx = talentQueue.findIndex((t) => t.required_level <= lvlState.level);
+        const idx = talentQueue.findIndex((t) => Number(t.required_level || 1) <= lvlState.level);
         if (idx < 0) break;
-        const talent = talentQueue.splice(idx, 1)[0];
-        lvlState.talents.push(talent);
-        assignedTalentLevel.set(talent.id, lvlState.level);
+        const t = talentQueue.splice(idx, 1)[0];
+        lvlState.talents.push(t);
+        assignedTalentLevel.set(t.id, lvlState.level);
       }
 
       const assignableSkills = [...remainingSkills.values()]
-        .filter((s) => s.required_level <= lvlState.level)
+        .filter((s) => Number(s.required_level || 1) <= lvlState.level)
         .filter((s) => {
           if (!s.ability_id) return true;
-          const reqTalentLevel = assignedTalentLevel.get(s.ability_id);
-          return typeof reqTalentLevel === "number" && reqTalentLevel <= lvlState.level;
+          const reqLvl = assignedTalentLevel.get(s.ability_id);
+          return typeof reqLvl === "number" && reqLvl <= lvlState.level;
         })
         .sort(byRequiredThenName);
 
@@ -299,42 +333,37 @@
       issues.push(`Chybí prerequisite talent pro ${missingPrereq.length} dovedností.`);
     }
 
-    const unscheduledTalents = talentQueue;
-    const unscheduledSkills = [...remainingSkills.values()];
-
-    if (unscheduledTalents.length > 0 || unscheduledSkills.length > 0) {
-      issues.push("Nedostatek bodů nebo úrovní v aktuálním limitu plánování.");
+    if (talentQueue.length > 0 || remainingSkills.size > 0) {
+      issues.push("Nedostatek bodů v aktuálním level capu.");
     }
 
-    const assignedLevels = [
-      ...[...assignedTalentLevel.values()],
-      ...[...assignedSkillLevel.values()]
-    ];
-    const computedLevel = assignedLevels.length > 0 ? Math.max(...assignedLevels) : 1;
+    const maxAssigned = Math.max(
+      1,
+      ...assignedTalentLevel.values(),
+      ...assignedSkillLevel.values()
+    );
 
     return {
       levels,
       issues,
+      unscheduledTalents: talentQueue,
+      unscheduledSkills: [...remainingSkills.values()],
       totals: {
         selectedTalents: talents.length,
         selectedSkills: skills.length,
         assignedTalents: assignedTalentLevel.size,
         assignedSkills: assignedSkillLevel.size,
-        currentLevel: computedLevel,
-        unscheduledTalents: unscheduledTalents.length,
-        unscheduledSkills: unscheduledSkills.length
-      },
-      unscheduledTalents,
-      unscheduledSkills
+        currentLevel: maxAssigned
+      }
     };
   }
 
   function renderSummary(plan) {
     const kpis = [
-      ["Aktuální úroveň", String(plan.totals.currentLevel)],
+      ["Aktuální level", String(plan.totals.currentLevel)],
       ["Talenty", `${plan.totals.assignedTalents}/${plan.totals.selectedTalents}`],
       ["Dovednosti", `${plan.totals.assignedSkills}/${plan.totals.selectedSkills}`],
-      ["Nezařazeno", `${plan.totals.unscheduledTalents + plan.totals.unscheduledSkills}`]
+      ["Nezařazeno", `${plan.unscheduledTalents.length + plan.unscheduledSkills.length}`]
     ];
     els.summary.innerHTML = "";
     for (const [label, value] of kpis) {
@@ -347,34 +376,21 @@
 
   function renderIssues(plan) {
     const lines = [];
-    for (const msg of plan.issues) lines.push(`- ${msg}`);
-    if (plan.unscheduledTalents.length > 0) {
-      lines.push(`- Nezařazené talenty: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
-    }
-    if (plan.unscheduledSkills.length > 0) {
-      lines.push(`- Nezařazené dovednosti: ${plan.unscheduledSkills.map((x) => x.name).join(", ")}`);
-    }
-    els.issues.innerHTML = lines.length > 0
-      ? `<strong>Varování:</strong><br>${lines.map(escapeHtml).join("<br>")}`
-      : "";
+    for (const issue of plan.issues) lines.push(`- ${issue}`);
+    if (plan.unscheduledTalents.length) lines.push(`- Talenty bez místa: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
+    if (plan.unscheduledSkills.length) lines.push(`- Dovednosti bez místa: ${plan.unscheduledSkills.map((x) => x.name).join(", ")}`);
+    els.issues.innerHTML = lines.length ? lines.map((x) => escapeHtml(x)).join("<br>") : "";
   }
 
   function renderTimeline(plan) {
-    const root = els.timeline;
-    root.innerHTML = "";
-
+    els.timeline.innerHTML = "";
     for (const lvl of plan.levels) {
-      if (lvl.talents.length === 0 && lvl.skills.length === 0) continue;
+      if (!lvl.talents.length && !lvl.skills.length) continue;
       const card = document.createElement("div");
       card.className = "level-card";
-
-      const head = document.createElement("div");
-      head.className = "level-head";
-      head.innerHTML = `<strong>Úroveň ${lvl.level}</strong><span>Body: T ${lvl.talents.length}/${lvl.talentCapacity} | D ${lvl.skills.length}/${lvl.skillCapacity}</span>`;
-
+      card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D ${lvl.skills.length}/${lvl.skillCapacity}</span></div>`;
       const tags = document.createElement("div");
       tags.className = "tags";
-
       for (const t of lvl.talents) {
         const tag = document.createElement("span");
         tag.className = "tag";
@@ -387,16 +403,14 @@
         tag.textContent = `D: ${s.name}`;
         tags.appendChild(tag);
       }
-
-      card.appendChild(head);
       card.appendChild(tags);
-      root.appendChild(card);
+      els.timeline.appendChild(card);
     }
   }
 
   function exportBuild() {
     return {
-      version: 1,
+      version: 2,
       professionId: state.selectedProfessionId,
       selectedTalentIds: [...state.selectedTalentIds],
       selectedSkillIds: [...state.selectedSkillIds],
@@ -406,12 +420,10 @@
 
   function importBuild(payload) {
     if (!payload || typeof payload !== "object") throw new Error("Invalid payload");
-
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
     state.selectedTalentIds = new Set(Array.isArray(payload.selectedTalentIds) ? payload.selectedTalentIds : []);
     state.selectedSkillIds = new Set(Array.isArray(payload.selectedSkillIds) ? payload.selectedSkillIds : []);
-
-    if (payload.config && typeof payload.config === "object") {
+    if (payload.config) {
       state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 30, state.config.maxLevel);
       if (payload.config.points) {
         state.config.points.talentLevel1 = clampInt(payload.config.points.talentLevel1, 0, 50, state.config.points.talentLevel1);
@@ -420,40 +432,7 @@
         state.config.points.skillPerLevel = clampInt(payload.config.points.skillPerLevel, 0, 50, state.config.points.skillPerLevel);
       }
     }
-
     cleanseInvalidSelections();
-  }
-
-  function belongsToProfession(itemProfId, selectedProfId) {
-    return !itemProfId || itemProfId === selectedProfId;
-  }
-
-  function professionName(id) {
-    const p = state.professions.find((x) => x.id === id);
-    return p ? p.name : id;
-  }
-
-  function matchesFilter(item, rawFilter) {
-    if (!rawFilter) return true;
-    const f = rawFilter.toLowerCase();
-    return (`${item.name} ${item.id} ${item.description || ""}`).toLowerCase().includes(f);
-  }
-
-  function cleanseInvalidSelections() {
-    const profId = state.selectedProfessionId;
-    for (const t of [...state.selectedTalentIds]) {
-      const item = state.talents.find((x) => x.id === t);
-      if (!item || !belongsToProfession(item.prof_id, profId)) state.selectedTalentIds.delete(t);
-    }
-    for (const s of [...state.selectedSkillIds]) {
-      const item = state.skills.find((x) => x.id === s);
-      if (!item || !belongsToProfession(item.prof_id, profId)) state.selectedSkillIds.delete(s);
-    }
-  }
-
-  function persist() {
-    const payload = exportBuild();
-    localStorage.setItem(window.APP_CONFIG.storageKey, JSON.stringify(payload));
   }
 
   function hydrateFromStorage() {
@@ -462,14 +441,35 @@
     try {
       importBuild(JSON.parse(raw));
     } catch (_e) {
-      // ignore corrupted storage
+      // ignore corrupted data
     }
   }
 
-  async function fetchJson(path) {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error(`Nepodarilo se nacist ${path}: ${res.status}`);
-    return await res.json();
+  function persist() {
+    localStorage.setItem(window.APP_CONFIG.storageKey, JSON.stringify(exportBuild()));
+  }
+
+  function cleanseInvalidSelections() {
+    const profId = state.selectedProfessionId;
+    for (const id of [...state.selectedTalentIds]) {
+      const t = state.talents.find((x) => x.id === id);
+      if (!t || !belongsToProfession(t.prof_id, profId)) state.selectedTalentIds.delete(id);
+    }
+    for (const id of [...state.selectedSkillIds]) {
+      const s = state.skills.find((x) => x.id === id);
+      if (!s || !belongsToProfession(s.prof_id, profId)) state.selectedSkillIds.delete(id);
+    }
+  }
+
+  function countSelectedVisibleTalents(classTalents, generalTalents) {
+    const visibleIds = new Set([...classTalents.map((x) => x.id), ...generalTalents.map((x) => x.id)]);
+    let count = 0;
+    for (const id of state.selectedTalentIds) if (visibleIds.has(id)) count += 1;
+    return count;
+  }
+
+  function belongsToProfession(itemProfId, selectedProfId) {
+    return !itemProfId || itemProfId === selectedProfId;
   }
 
   function byName(a, b) {
@@ -489,12 +489,18 @@
     return Math.max(min, Math.min(max, n));
   }
 
-  function escapeHtml(value) {
-    return String(value)
+  async function fetchJson(path) {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(`Nepodarilo se nacist ${path}: ${res.status}`);
+    return await res.json();
+  }
+
+  function escapeHtml(v) {
+    return String(v)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
+      .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
 })();
