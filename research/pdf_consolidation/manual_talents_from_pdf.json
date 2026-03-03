@@ -1,57 +1,417 @@
 {
   "items": [
-    { "id": "PDF_ABI_WAR_01", "name": "Mistrovství ve zbrani", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WAR_02", "name": "Rozvážnost", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WAR_03", "name": "Skvělá kondice", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WAR_04", "name": "Urputnost", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WAR_05", "name": "Vícenásobný útok", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WAR_06", "name": "Velení", "prof_id": "PROF_1", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-
-    { "id": "PDF_ABI_RNG_01", "name": "Boj se zvířaty", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_02", "name": "Bojová hůl", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_03", "name": "Obranné ostří", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_04", "name": "Ochočování zvířat", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_05", "name": "Přesná střelba", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_06", "name": "Rychlá střelba", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_RNG_07", "name": "Zocelení", "prof_id": "PROF_2", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-
-    { "id": "PDF_ABI_ALC_01", "name": "Efektivní výroba", "prof_id": "PROF_3", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_ALC_02", "name": "Precizní výroba", "prof_id": "PROF_3", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_ALC_03", "name": "Substituce", "prof_id": "PROF_3", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_ALC_04", "name": "Výroba svitků", "prof_id": "PROF_3", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_ALC_05", "name": "Pokročilá identifikace", "prof_id": "PROF_3", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-
-    { "id": "PDF_ABI_WIZ_01", "name": "Koncentrace many", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WIZ_02", "name": "Kouzlení z knih", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WIZ_03", "name": "Paměť na kouzla", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WIZ_04", "name": "Rituál krve", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WIZ_05", "name": "Rychlé kouzlení", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_WIZ_06", "name": "Vyvolání přítele", "prof_id": "PROF_4", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-
-    { "id": "PDF_ABI_THF_01", "name": "Vrhání dýk", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_02", "name": "Odezírání ze rtů", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_03", "name": "Zlodějská hantýrka", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_04", "name": "Zákeřná kuše", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_05", "name": "Vražedné ostří", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_06", "name": "Improvizace", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_07", "name": "Umění kočičího pohybu", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_08", "name": "Umění proměn", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_09", "name": "Umění skrývání", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_10", "name": "Umění šarmu", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_11", "name": "Umění rváčů", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_THF_12", "name": "Umění železného klíče", "prof_id": "PROF_5", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-
-    { "id": "PDF_ABI_CLR_01", "name": "Boží bojovník", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_02", "name": "Dar slitování", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_03", "name": "Osvícení", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_04", "name": "Posvátný symbol", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_05", "name": "Požehnané zdraví", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_06", "name": "Rituály a obřady", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_07", "name": "Nauka Božích patronů", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_08", "name": "Nauka Bojovníků víry", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_09", "name": "Nauka Démonologie", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_10", "name": "Nauka Milosrdenství", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_11", "name": "Nauka Svaté pravdy", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." },
-    { "id": "PDF_ABI_CLR_12", "name": "Nauka Žehnání aurami", "prof_id": "PROF_6", "required_level": 2, "description": "Doplněno z PDF (OCR)." }
+    {
+      "id": "PDF_ABI_WAR_01",
+      "name": "Mistrovstvi ve zbrani",
+      "description": "Bonus +2 k UC a OC pro zvoleny typ zbrane.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_02",
+      "name": "Rozvaznost",
+      "description": "Volba stylu boje: ofenzivni (+3 k UC, -2 body obrany) nebo defenzivni (-3 k UC, +3 k OC).",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_03",
+      "name": "Skvela kondice",
+      "description": "Bonus +3 zivoty za kazdou uroven valecnika.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_04",
+      "name": "Urputnost",
+      "description": "Na valecnika se nevztahuje efekt meze vyrazeni (neupada do bezvedomi).",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_05",
+      "name": "Veleni",
+      "description": "Posilovani druziny rozkazy: utocny a obranny rezim.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_06",
+      "name": "Vicenasobny utok",
+      "description": "Valecnik muze utocit 3x za 2 kola.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_07",
+      "name": "Skola boje drtice kosti",
+      "description": "Bonus v boji beze zbrane; bojove triky stylu drtice kosti.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_08",
+      "name": "Skola boje s bodnou zbrani",
+      "description": "Bonus pri boji bodnymi zbranemi; bojove triky stylu.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_09",
+      "name": "Skola boje s jednorucni zbrani",
+      "description": "Bonus pri boji jednorucnimi zbranemi; bojove triky stylu.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_10",
+      "name": "Skola boje s obourucni zbrani",
+      "description": "Bonus pri boji obourucnimi zbranemi; bojove triky stylu.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_11",
+      "name": "Skola boje se dvema zbranemi",
+      "description": "Umoznuje scitat utocnost, zraneni a obranu obou zbrani; bojove triky stylu.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_WAR_12",
+      "name": "Skola boje se stitem",
+      "description": "Bonus pri boji se stitem; bojove triky stylu.",
+      "prof_id": "PROF_1",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_01",
+      "name": "Boj se zviraty",
+      "description": "Bonus +2 k UC a OC pri boji se zviraty.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_02",
+      "name": "Bojova hul",
+      "description": "Bonus +2 k UC a OC pri boji holi.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_03",
+      "name": "Lecitelstvi",
+      "description": "Vylecis tolik zivotu, jaky je stupen zvladnuti teto dovednosti.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_04",
+      "name": "Obranne ostri",
+      "description": "Pri boji mecem se do UC zapocitava OBR misto SIL.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_05",
+      "name": "Ochocovani zvirat",
+      "description": "Ziskas zviraciho pritele, ktery pomaha v boji i mimo nej.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_06",
+      "name": "Pruzkumnictvi",
+      "description": "Ovladnes kamuflaz, zahlazovani stop a liceni pasti.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_07",
+      "name": "Presna strelba",
+      "description": "Strilis co dve kola a ziskavas bonus +8 k utoku.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_08",
+      "name": "Rychla strelba",
+      "description": "Dokazes vystrelit z luku 3x za dve kola.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_09",
+      "name": "Zoceleni",
+      "description": "Trvale zvysi odolnost hranicare o 2 body a tim i pocet zivotu.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_10",
+      "name": "Magie pocestnych",
+      "description": "Muzes sesilat kouzla: Bdely spanek, Ochrana pred bouri a Rychlost chodce.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_11",
+      "name": "Magie prirody",
+      "description": "Muzes sesilat kouzla: Neutralizuj jed, Uder varovani a Uzdrav lehka zraneni.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_RNG_12",
+      "name": "Magie zvirat",
+      "description": "Muzes sesilat kouzla: Najdi zvire, Privolej zvire a Zviraci smysly.",
+      "prof_id": "PROF_2",
+      "required_level": 2
+    },
+    {
+      "id": "PDF_ABI_ALC_01",
+      "name": "Efektivní výroba",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_ALC_02",
+      "name": "Precizní výroba",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_ALC_03",
+      "name": "Substituce",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_ALC_04",
+      "name": "Výroba svitků",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_ALC_05",
+      "name": "Pokročilá identifikace",
+      "prof_id": "PROF_3",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_01",
+      "name": "Koncentrace many",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_02",
+      "name": "Kouzlení z knih",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_03",
+      "name": "Paměť na kouzla",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_04",
+      "name": "Rituál krve",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_05",
+      "name": "Rychlé kouzlení",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_WIZ_06",
+      "name": "Vyvolání přítele",
+      "prof_id": "PROF_4",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_01",
+      "name": "Vrhání dýk",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_02",
+      "name": "Odezírání ze rtů",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_03",
+      "name": "Zlodějská hantýrka",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_04",
+      "name": "Zákeřná kuše",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_05",
+      "name": "Vražedné ostří",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_06",
+      "name": "Improvizace",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_07",
+      "name": "Umění kočičího pohybu",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_08",
+      "name": "Umění proměn",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_09",
+      "name": "Umění skrývání",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_10",
+      "name": "Umění šarmu",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_11",
+      "name": "Umění rváčů",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_THF_12",
+      "name": "Umění železného klíče",
+      "prof_id": "PROF_5",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_01",
+      "name": "Boží bojovník",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_02",
+      "name": "Dar slitování",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_03",
+      "name": "Osvícení",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_04",
+      "name": "Posvátný symbol",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_05",
+      "name": "Požehnané zdraví",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_06",
+      "name": "Rituály a obřady",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_07",
+      "name": "Nauka Božích patronů",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_08",
+      "name": "Nauka Bojovníků víry",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_09",
+      "name": "Nauka Démonologie",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_10",
+      "name": "Nauka Milosrdenství",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_11",
+      "name": "Nauka Svaté pravdy",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    },
+    {
+      "id": "PDF_ABI_CLR_12",
+      "name": "Nauka Žehnání aurami",
+      "prof_id": "PROF_6",
+      "required_level": 2,
+      "description": "Doplněno z PDF (OCR)."
+    }
   ]
 }
