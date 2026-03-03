@@ -16,6 +16,9 @@
 
 body {
   margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   font-family: "Segoe UI", Tahoma, sans-serif;
   color: var(--text);
   background: radial-gradient(circle at 15% 0%, #2b2017 0%, var(--bg) 40%);
@@ -54,9 +57,11 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 1.38fr 0.72fr 0.9fr;
+  grid-template-columns: 1.55fr 0.68fr 0.72fr;
   gap: 0.9rem;
   padding: 0.9rem;
+  flex: 1;
+  min-height: 0;
 }
 
 .panel {
@@ -64,6 +69,9 @@ body {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .panel-head {
@@ -191,14 +199,16 @@ button:hover {
 
 .branch-nodes {
   display: grid;
-  grid-template-columns: repeat(3, minmax(54px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.45rem;
 }
 
 .node {
   display: grid;
   place-items: center;
-  min-height: 62px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
   border: 1px solid #6b522f;
   border-radius: 8px;
   padding: 0.25rem;
@@ -227,7 +237,8 @@ button:hover {
 .skills-list {
   display: grid;
   gap: 0.45rem;
-  max-height: 56vh;
+  flex: 1;
+  min-height: 0;
   overflow: auto;
   padding-right: 0.2rem;
 }
@@ -357,7 +368,8 @@ button:hover {
 .timeline {
   display: grid;
   gap: 0.45rem;
-  max-height: 54vh;
+  flex: 1;
+  min-height: 0;
   overflow: auto;
   padding-right: 0.2rem;
 }
@@ -367,17 +379,24 @@ button:hover {
   border-radius: 8px;
   padding: 0.45rem;
   background: #17130f;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 0.45rem;
 }
 
 .level-card.future {
   opacity: 0.58;
 }
 
-.level-head {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.77rem;
-  margin-bottom: 0.35rem;
+.level-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.08rem 0.42rem;
+  background: #1f1914;
 }
 
 .tags {
@@ -415,6 +434,7 @@ textarea {
 @media (max-width: 1200px) {
   .layout {
     grid-template-columns: 1fr;
+    height: auto;
   }
 
   .class-picker {

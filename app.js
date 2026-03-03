@@ -446,6 +446,8 @@
     const maxLevel = state.config.maxLevel;
     const levels = [];
     const classRule = CLASS_RULES[profId] || { skillPointsMultiplier: 3 };
+    const hasSkillRaceBonus =
+      !!raceTalent && (racePointBonus.skillLevel1 > 0 || racePointBonus.skillPerLevel > 0);
     for (let lvl = 1; lvl <= maxLevel; lvl += 1) {
       const talentBase =
         lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
@@ -460,7 +462,7 @@
         skillGain,
         skillSpent: 0,
         skillCarry: 0,
-        raceBonuses: lvl === 1 && raceTalent ? [raceTalent] : [],
+        raceBonuses: lvl === 1 && hasSkillRaceBonus ? [raceTalent] : [],
         startSkills: lvl === 1 ? skillPlans.filter((x) => x.startRank >= 3).map((x) => x.skill) : [],
         talents: [],
         skillActions: []
@@ -616,7 +618,9 @@
       const card = document.createElement("div");
       card.className = "level-card";
       if (lvl.level > plan.totals.currentLevel) card.classList.add("future");
-      card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D +${lvl.skillGain}, spent ${lvl.skillSpent}, carry ${lvl.skillCarry}</span></div>`;
+      const levelBadge = document.createElement("div");
+      levelBadge.className = "level-badge";
+      levelBadge.textContent = `Lv ${lvl.level}`;
       const tags = document.createElement("div");
       tags.className = "tags";
       for (const r of lvl.raceBonuses) {
@@ -643,6 +647,7 @@
         tag.textContent = `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`;
         tags.appendChild(tag);
       }
+      card.appendChild(levelBadge);
       card.appendChild(tags);
       els.timeline.appendChild(card);
     }
