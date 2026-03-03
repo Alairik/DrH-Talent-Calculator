@@ -251,6 +251,13 @@ button:hover {
   grid-template-columns: 1fr auto;
   gap: 0.32rem;
   font-size: 0.72rem;
+  align-items: center;
+}
+
+.skill-item > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .skill-item .meta {
