@@ -81,12 +81,18 @@
     { id: "PDF_SKILL_THF_01", name: "Lezeni", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
     { id: "PDF_SKILL_THF_02", name: "Ohebnost", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
     { id: "PDF_SKILL_THF_03", name: "Pad z vysky", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_10", name: "Tichy pohyb", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
     { id: "PDF_SKILL_THF_04", name: "Schovani se ve stinu", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
     { id: "PDF_SKILL_THF_05", name: "Splynuti s davem", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["cha"] },
-    { id: "PDF_SKILL_THF_06", name: "Maskovani", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["int"] },
+    { id: "PDF_SKILL_THF_06", name: "Imitace", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_11", name: "Mimika", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_12", name: "Prevleky", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["int"] },
     { id: "PDF_SKILL_THF_07", name: "Odstraneni pasti", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
     { id: "PDF_SKILL_THF_08", name: "Otevirani zamku", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_09", name: "Padelani", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["int"] }
+    { id: "PDF_SKILL_THF_09", name: "Padelani", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["int"] },
+    { id: "PDF_SKILL_THF_13", name: "Odhad lidi", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["int"] },
+    { id: "PDF_SKILL_THF_14", name: "Odvedeni pozornosti", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_15", name: "Ziskani duvery", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] }
   ];
 
   const state = {
