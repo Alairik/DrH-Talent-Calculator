@@ -545,7 +545,12 @@
         minus.type = "button";
         minus.textContent = "-";
         minus.disabled = targetRank <= starterRank;
-        minus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank - 1, starterRank));
+        minus.addEventListener("click", () => {
+          const isClass = isCurrentClassSkill(s);
+          const desired =
+            isClass && starterRank === 0 && targetRank === 3 ? 0 : targetRank - 1;
+          setSkillTargetRank(s.id, desired, starterRank);
+        });
 
         const badge = document.createElement("span");
         badge.className = "skill-rank-badge";
@@ -592,7 +597,11 @@
   }
 
   function setSkillTargetRank(id, desired, floor) {
-    const next = Math.max(floor, Math.min(10, desired));
+    const skill = state.skills.find((x) => x.id === id);
+    const isClass = isCurrentClassSkill(skill);
+    let next = Math.max(floor, Math.min(10, desired));
+    // Class skills start at rank 3 once selected.
+    if (isClass && floor === 0 && desired > 0) next = Math.max(3, next);
     if (next <= floor && floor === 0) {
       delete state.selectedSkillTargets[id];
     } else if (next === floor && floor > 0) {
@@ -611,8 +620,10 @@
   }
 
   function toggleTalent(id, checked) {
-    if (checked) state.selectedTalentIds.add(id);
-    else state.selectedTalentIds.delete(id);
+    if (checked) {
+      state.selectedTalentIds.add(id);
+      autoGrantSkillsFromSTalent(id);
+    } else state.selectedTalentIds.delete(id);
     renderAll();
     persist();
   }
@@ -680,7 +691,10 @@
     ).branches);
     if (lockedIndex !== null && lockedIndex !== branchIndex) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
-    if (checked) state.selectedTalentIds.add(talentId);
+    if (checked) {
+      state.selectedTalentIds.add(talentId);
+      autoGrantSkillsFromSTalent(talentId);
+    }
     else {
       state.selectedTalentIds.delete(talentId);
       const classTalents = state.talents
@@ -1244,9 +1258,33 @@
     return D_TALENT_NAMES.has(normalize(t.name));
   }
 
+  function isSTalentId(id) {
+    if (!id) return false;
+    const t = state.talents.find((x) => x.id === id);
+    if (!t) return false;
+    return !isDTalentId(id);
+  }
+
   function requiresPrereqForSkill(skill) {
     if (!skill || !skill.ability_id) return false;
     return isDTalentId(skill.ability_id);
+  }
+
+  function isCurrentClassSkill(skill) {
+    if (!skill) return false;
+    return skill.prof_id === state.selectedProfessionId && !isBasicSkill(skill);
+  }
+
+  function autoGrantSkillsFromSTalent(talentId) {
+    if (!isSTalentId(talentId)) return;
+    const starterIds = new Set(getClassStarterSkillIds());
+    for (const s of state.skills) {
+      if (s.ability_id !== talentId) continue;
+      if (!isCurrentClassSkill(s)) continue;
+      const floor = starterIds.has(s.id) ? 3 : 0;
+      const current = getSkillTargetRank(s.id, floor);
+      if (current < 3) state.selectedSkillTargets[s.id] = 3;
+    }
   }
 
   function fixMojibake(value) {
