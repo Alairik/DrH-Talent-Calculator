@@ -598,7 +598,7 @@
     let floor = starterIds && starterIds.has(skill.id) ? 3 : 0;
     const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
     const reqLevel = Number(skill.required_level || 1);
-    if (isClassSkill && reqLevel <= 1) floor = Math.max(floor, 3);
+    if (isClassSkill && reqLevel <= 1 && !requiresPrereqForSkill(skill)) floor = Math.max(floor, 3);
     return floor;
   }
 
