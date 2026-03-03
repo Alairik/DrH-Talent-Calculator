@@ -27,6 +27,7 @@
     branchTitle1: document.getElementById("branchTitle1"),
     branchTitle2: document.getElementById("branchTitle2"),
     branchTitle3: document.getElementById("branchTitle3"),
+    classPicker: document.getElementById("classPicker"),
     branch1: document.getElementById("branch1"),
     branch2: document.getElementById("branch2"),
     branch3: document.getElementById("branch3"),
@@ -144,11 +145,32 @@
       els.professionSelect.value = state.selectedProfessionId;
     }
 
+    renderClassPicker();
+
     els.maxLevel.value = state.config.maxLevel;
     els.talentL1.value = state.config.points.talentLevel1;
     els.talentPerLevel.value = state.config.points.talentPerLevel;
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
+  }
+
+  function renderClassPicker() {
+    els.classPicker.innerHTML = "";
+    for (const p of state.professions) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "class-box";
+      if (p.id === state.selectedProfessionId) btn.classList.add("active");
+      btn.textContent = p.name;
+      btn.addEventListener("click", () => {
+        state.selectedProfessionId = p.id;
+        els.professionSelect.value = p.id;
+        cleanseInvalidSelections();
+        renderAll();
+        persist();
+      });
+      els.classPicker.appendChild(btn);
+    }
   }
 
   function renderTalentTree() {

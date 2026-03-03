@@ -121,6 +121,35 @@ button:hover {
   gap: 0.7rem;
 }
 
+.class-picker {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(90px, 1fr));
+  gap: 0.45rem;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.class-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #17130f;
+  color: var(--muted);
+  padding: 0.38rem 0.3rem;
+  font-size: 0.74rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.class-box:hover {
+  border-color: #7b6240;
+}
+
+.class-box.active {
+  border-color: var(--gold);
+  color: #f7e8cc;
+  background: #2a1f14;
+  box-shadow: 0 0 0 1px var(--gold-soft), 0 0 12px rgba(212, 173, 102, 0.16);
+}
+
 .branch {
   border: 1px solid var(--line);
   border-radius: 10px;
@@ -309,6 +338,10 @@ textarea {
 @media (max-width: 1200px) {
   .layout {
     grid-template-columns: 1fr;
+  }
+
+  .class-picker {
+    grid-template-columns: repeat(3, minmax(90px, 1fr));
   }
 
   .branch-grid {
