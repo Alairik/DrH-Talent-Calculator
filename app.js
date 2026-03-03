@@ -763,9 +763,8 @@
       const talentBase =
         lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
       const skillGain =
-        (lvl === 1 ? state.config.points.skillLevel1 : state.config.points.skillPerLevel) +
-        (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel) +
-        (lvl === 1 ? 0 : classRule.skillPointsMultiplier * lvl);
+        (lvl === 1 ? state.config.points.skillLevel1 : classRule.skillPointsMultiplier * lvl) +
+        (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel);
       levels.push({
         level: lvl,
         talentCapacity:
