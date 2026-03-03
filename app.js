@@ -17,8 +17,6 @@
     PROF_6: { starterSkills: ["Cteni a psani", "Teologie", "Vule"], skillPointsMultiplier: 3 }
   };
 
-  const START_SKILL_POINTS_BASE = 3;
-
   const state = {
     professions: [],
     races: [],
@@ -78,7 +76,11 @@
       ]);
 
     state.professions = professionsPayload.items || [];
-    state.races = racesPayload.items || [];
+    state.races = (racesPayload.items || []).map((r) => ({
+      ...r,
+      name: fixMojibake(r.name),
+      ability: fixMojibake(r.ability)
+    }));
     state.talents = (talentsPayload.items || []).map((x) => ({ ...x, type: "talent" }));
     state.skills = (skillsPayload.items || []).map((x) => ({ ...x, type: "skill" }));
 
@@ -388,9 +390,9 @@
       const talentBase =
         lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
       const skillGain =
-        lvl === 1
-          ? START_SKILL_POINTS_BASE + racePointBonus.skillLevel1
-          : classRule.skillPointsMultiplier * lvl;
+        (lvl === 1 ? state.config.points.skillLevel1 : state.config.points.skillPerLevel) +
+        (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel) +
+        (lvl === 1 ? 0 : classRule.skillPointsMultiplier * lvl);
       levels.push({
         level: lvl,
         talentCapacity:
@@ -676,8 +678,15 @@
 
   function getRaceBonusTalent() {
     const race = getRaceById(state.selectedRaceId);
-    if (!race || !race.ability) return null;
-    return state.talents.find((t) => normalize(t.name) === normalize(race.ability)) || null;
+    if (!race) return null;
+    if (race.ability) {
+      const byName = state.talents.find((t) => normalize(t.name) === normalize(race.ability));
+      if (byName) return byName;
+    }
+    const fallbackMap = window.APP_CONFIG.raceBonusTalentIdByRaceId || {};
+    const fallbackId = fallbackMap[race.id];
+    if (!fallbackId) return null;
+    return state.talents.find((t) => t.id === fallbackId) || null;
   }
 
   function getRacePointBonus(raceTalent) {
@@ -723,6 +732,20 @@
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim();
+  }
+
+  function fixMojibake(value) {
+    const noisePattern = /[\u00C3\u00C5\u00C4\u00C2]/;
+    if (typeof value !== "string" || !noisePattern.test(value)) return value;
+    try {
+      const bytes = Uint8Array.from(value, (ch) => ch.charCodeAt(0) & 0xff);
+      const decoded = new TextDecoder("utf-8").decode(bytes);
+      const originalNoise = (value.match(/[\u00C3\u00C5\u00C4\u00C2]/g) || []).length;
+      const decodedNoise = (decoded.match(/[\u00C3\u00C5\u00C4\u00C2]/g) || []).length;
+      return decodedNoise < originalNoise ? decoded : value;
+    } catch (_err) {
+      return value;
+    }
   }
 
   function byName(a, b) {
