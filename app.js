@@ -444,6 +444,7 @@
   function renderSkills() {
     const profId = state.selectedProfessionId;
     const starterIds = new Set(getClassStarterSkillIds());
+    const closeStarterIds = new Set(getClassCloseStarterSkillIds());
     const selectedTalentIds = new Set(state.selectedTalentIds);
     for (const id of getClassStarterTalentIds(profId)) selectedTalentIds.add(id);
     const raceTalent = getRaceBonusTalent();
@@ -451,10 +452,10 @@
     const visibleSkills = state.skills
       .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
       .sort((a, b) => {
-        const aGroup = starterIds.has(a.id)
+        const aGroup = closeStarterIds.has(a.id)
           ? 0
           : (a.prof_id === profId && !isBasicSkill(a) ? 1 : 2);
-        const bGroup = starterIds.has(b.id)
+        const bGroup = closeStarterIds.has(b.id)
           ? 0
           : (b.prof_id === profId && !isBasicSkill(b) ? 1 : 2);
         if (aGroup !== bGroup) return aGroup - bGroup;
@@ -469,7 +470,7 @@
 
       const row = document.createElement("div");
       row.className = "skill-item";
-      if (starterRank > 0) {
+      if (closeStarterIds.has(s.id)) {
         row.classList.add("starter");
       } else if (!isBasicSkill(s) && s.prof_id) {
         row.classList.add(`class-${s.prof_id.toLowerCase()}`);
@@ -484,7 +485,8 @@
 
       const controls = document.createElement("div");
       controls.className = "skill-rank-controls";
-      const hasPrereq = !s.ability_id || selectedTalentIds.has(s.ability_id);
+      const hasPrereq =
+        !s.ability_id || selectedTalentIds.has(s.ability_id) || (profId === "PROF_2" && s.prof_id === "PROF_2");
       const reqTalent = s.ability_id ? state.talents.find((t) => t.id === s.ability_id) : null;
 
       if (!hasPrereq) {
@@ -1035,6 +1037,18 @@
         continue;
       }
       if (s.ability_id && starterTalentIds.has(s.ability_id)) ids.push(s.id);
+    }
+    return ids;
+  }
+
+  function getClassCloseStarterSkillIds() {
+    const profId = state.selectedProfessionId;
+    const classRule = CLASS_RULES[profId];
+    if (!classRule) return [];
+    const wanted = new Set(classRule.starterSkills.map(normalize));
+    const ids = [];
+    for (const s of state.skills) {
+      if (wanted.has(normalize(s.name)) && isSkillAvailableForClass(s, profId)) ids.push(s.id);
     }
     return ids;
   }
