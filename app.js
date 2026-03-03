@@ -49,7 +49,8 @@
     selectedRaceId: "",
     selectedTalentIds: new Set(),
     selectedSkillTargets: {},
-    manualLevel: null,
+    manualLevel: 1,
+    levelMode: "auto",
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
@@ -74,8 +75,9 @@
     talentPerLevel: document.getElementById("talentPerLevel"),
     skillL1: document.getElementById("skillL1"),
     skillPerLevel: document.getElementById("skillPerLevel"),
-    manualLevelToggle: document.getElementById("manualLevelToggle"),
+    manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelInput: document.getElementById("manualLevelInput"),
+    manualLevelPlus: document.getElementById("manualLevelPlus"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -175,16 +177,20 @@
         window.APP_CONFIG.points.skillPerLevel
       );
     });
-    els.manualLevelToggle.addEventListener("change", () => {
-      els.manualLevelInput.disabled = !els.manualLevelToggle.checked;
-      state.manualLevel = els.manualLevelToggle.checked
-        ? clampInt(els.manualLevelInput.value, 1, state.config.maxLevel, 1)
-        : null;
+    els.manualLevelMinus.addEventListener("click", () => {
+      state.levelMode = "manual";
+      state.manualLevel = clampInt(state.manualLevel - 1, 1, state.config.maxLevel, 1);
+      renderPlanOnly();
+      persist();
+    });
+    els.manualLevelPlus.addEventListener("click", () => {
+      state.levelMode = "manual";
+      state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
       renderPlanOnly();
       persist();
     });
     bindNumber(els.manualLevelInput, (v) => {
-      if (!els.manualLevelToggle.checked) return;
+      state.levelMode = "manual";
       state.manualLevel = clampInt(v, 1, state.config.maxLevel, 1);
     });
 
@@ -236,11 +242,9 @@
     els.talentPerLevel.value = state.config.points.talentPerLevel;
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
-    const manual = Number.isFinite(state.manualLevel) ? state.manualLevel : 1;
-    els.manualLevelToggle.checked = Number.isFinite(state.manualLevel);
-    els.manualLevelInput.disabled = !Number.isFinite(state.manualLevel);
+    const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     els.manualLevelInput.max = String(state.config.maxLevel);
-    els.manualLevelInput.value = String(clampInt(manual, 1, state.config.maxLevel, 1));
+    els.manualLevelInput.value = String(manual);
   }
 
   function renderClassPicker() {
@@ -315,7 +319,12 @@
     const starterIds = new Set(getClassStarterSkillIds());
     const visibleSkills = state.skills
       .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
-      .sort(byName);
+      .sort((a, b) => {
+        const aStarter = starterIds.has(a.id) ? 1 : 0;
+        const bStarter = starterIds.has(b.id) ? 1 : 0;
+        if (aStarter !== bStarter) return bStarter - aStarter;
+        return byName(a, b);
+      });
 
     els.skillList.innerHTML = "";
     for (const s of visibleSkills) {
@@ -324,10 +333,15 @@
 
       const row = document.createElement("div");
       row.className = "skill-item";
-      if (starterRank > 0) row.classList.add("starter");
+      if (starterRank > 0) {
+        row.classList.add("starter");
+      } else if (!isBasicSkill(s) && s.prof_id) {
+        row.classList.add(`class-${s.prof_id.toLowerCase()}`);
+      }
 
       const left = document.createElement("div");
       const title = document.createElement("div");
+      title.className = "skill-title";
       title.textContent = s.name;
       const meta = document.createElement("div");
       meta.className = "meta";
@@ -529,6 +543,9 @@
         .map((l) => l.level)
     );
 
+    const autoLevel = Math.max(maxAssignedTalent, maxSkillActionLevel);
+    const effectiveLevel = resolveEffectiveCurrentLevel(autoLevel);
+
     return {
       levels,
       issues,
@@ -539,16 +556,18 @@
         selectedSkills: skillPlans.length,
         assignedTalents: (talents.length - unscheduledTalents.length) + (raceTalent ? 1 : 0),
         assignedSkills: skillPlans.length - unscheduledSkills.length,
-        currentLevel: getEffectiveCurrentLevel(Math.max(maxAssignedTalent, maxSkillActionLevel))
+        currentLevel: effectiveLevel
       }
     };
   }
 
   function renderPlanOnly() {
+    const modeBefore = state.levelMode;
     const plan = buildPlan();
     renderSummary(plan);
     renderIssues(plan);
     renderTimeline(plan);
+    if (modeBefore !== state.levelMode) persist();
   }
 
   function renderSummary(plan) {
@@ -637,6 +656,7 @@
       selectedTalentIds: [...state.selectedTalentIds],
       selectedSkillTargets: state.selectedSkillTargets,
       manualLevel: state.manualLevel,
+      levelMode: state.levelMode,
       config: state.config
     };
   }
@@ -649,7 +669,8 @@
     state.selectedSkillTargets = payload.selectedSkillTargets || {};
     state.manualLevel = Number.isFinite(payload.manualLevel)
       ? clampInt(payload.manualLevel, 1, 30, 1)
-      : null;
+      : 1;
+    state.levelMode = payload.levelMode === "manual" ? "manual" : "auto";
     if (payload.selectedSkillIds && !payload.selectedSkillTargets) {
       // backward compatibility with old binary model
       for (const id of payload.selectedSkillIds) state.selectedSkillTargets[id] = 1;
@@ -787,10 +808,21 @@
       .trim();
   }
 
-  function getEffectiveCurrentLevel(autoLevel) {
+  function resolveEffectiveCurrentLevel(autoLevel) {
     const fallback = clampInt(autoLevel, 1, state.config.maxLevel, 1);
-    if (!Number.isFinite(state.manualLevel)) return fallback;
-    return clampInt(state.manualLevel, 1, state.config.maxLevel, fallback);
+    const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, fallback);
+    if (state.levelMode === "manual") {
+      if (fallback > manual) {
+        state.levelMode = "auto";
+        return fallback;
+      }
+      return manual;
+    }
+    return fallback;
+  }
+
+  function isBasicSkill(skill) {
+    return BASIC_SKILL_NAMES.has(normalize(skill && skill.name));
   }
 
   function fixMojibake(value) {

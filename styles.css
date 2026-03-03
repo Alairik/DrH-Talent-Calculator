@@ -84,20 +84,25 @@ body {
   gap: 0.45rem;
 }
 
+.timeline-tools span {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 .timeline-tools input[type="number"] {
-  width: 64px;
+  width: 58px;
   padding: 0.2rem 0.3rem;
+  text-align: center;
 }
 
-.inline-check {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  white-space: nowrap;
-}
-
-.inline-check input[type="checkbox"] {
-  width: auto;
+.timeline-tools .lvl-btn {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 4px;
+  line-height: 1;
+  font-weight: 700;
 }
 
 h2, h3 {
@@ -243,8 +248,46 @@ button:hover {
 }
 
 .skill-item.starter {
-  border-color: #2e6c44;
-  background: linear-gradient(180deg, rgba(28, 58, 40, 0.7), rgba(19, 42, 29, 0.55));
+  background: transparent;
+}
+
+.skill-item.starter .skill-title {
+  font-weight: 700;
+}
+
+.skill-item.class-prof_1 {
+  border-color: #7c3232;
+  background: rgba(96, 28, 28, 0.45);
+}
+
+.skill-item.class-prof_2 {
+  border-color: #2f6b43;
+  background: rgba(28, 72, 43, 0.45);
+}
+
+.skill-item.class-prof_3 {
+  border-color: #8a5b24;
+  background: rgba(99, 61, 19, 0.45);
+}
+
+.skill-item.class-prof_4 {
+  border-color: #2f5879;
+  background: rgba(25, 48, 75, 0.45);
+}
+
+.skill-item.class-prof_5 {
+  border-color: #111111;
+  background: rgba(7, 7, 7, 0.78);
+}
+
+.skill-item.class-prof_6 {
+  border-color: #d8d8d8;
+  background: rgba(235, 235, 235, 0.9);
+  color: #1a1a1a;
+}
+
+.skill-item.class-prof_6 .meta {
+  color: #555;
 }
 
 .skill-rank-controls {
