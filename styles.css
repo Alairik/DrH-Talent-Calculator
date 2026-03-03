@@ -368,30 +368,33 @@ button:hover {
 
 .skill-rank-controls {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: flex-end;
-  gap: 0.2rem;
-  min-width: 86px;
+  gap: 0.12rem;
+  min-width: 102px;
   max-width: 150px;
   white-space: nowrap;
+  height: 100%;
 }
 
 .skill-rank-controls button {
-  width: 14px;
-  height: 14px;
-  min-width: 14px;
+  width: 24px;
+  height: 100%;
+  min-width: 24px;
   padding: 0;
-  border-radius: 3px;
+  border-radius: 4px;
   line-height: 1;
   font-weight: 700;
-  font-size: 0.64rem;
+  font-size: 0.78rem;
 }
 
 .skill-rank-badge {
-  min-width: 12px;
+  min-width: 18px;
   text-align: center;
   font-size: 0.64rem;
   font-weight: 700;
+  display: grid;
+  place-items: center;
 }
 
 .skill-lock {
