@@ -1,0 +1,445 @@
+﻿{
+    "fetched_at_utc":  "2026-03-03T12:30:02Z",
+    "source_api":  "https://sirael.dracihlidka.cz/api/trpc/skills.getAll",
+    "count":  34,
+    "items":  [
+                  {
+                      "id":  "SKILL_1",
+                      "lite":  true,
+                      "name":  "Pouto s přírodou",
+                      "description":  "Pouto s přírodou umožňuje hraničáři propojit city a emoce s prastarým zdrojem přírodních a tak může pracovat s jeho energií, kterou promění na kouzla.",
+                      "required_level":  1,
+                      "check":  "Pouto s přír. (INT) vs. Obtížnost kouzla",
+                      "is_knowledge_based":  true,
+                      "ability_id":  "ABI_16",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_2",
+                      "lite":  true,
+                      "name":  "Lov",
+                      "description":  "Díky této dovednosti dokáže hraničář uspět v lovu nejrůznějších druhů zvířat (včetně ryb, ptáků a podobně).",
+                      "required_level":  1,
+                      "check":  "Lov (OBR) vs. X",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_15",
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_3",
+                      "lite":  true,
+                      "name":  "Orientace",
+                      "description":  "Díky této dovednosti se hraničář dokáže skvěle orientovat v terénu. Mimo to zvládá znalosti kartografie, lodní navigace a podobných disciplín.",
+                      "required_level":  1,
+                      "check":  "Orientace (INT) vs. X",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_15",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_4",
+                      "lite":  true,
+                      "name":  "Předpovídání počasí",
+                      "description":  "Hraničář dokáže pomocí různých náznaků přírody předpovídat počasí. Předpověď je tím náročnější, čím je předpovídané období vzdálenější.",
+                      "required_level":  1,
+                      "check":  "Předpovídání počasí (INT) vs. X",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_15",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_5",
+                      "lite":  true,
+                      "name":  "Stopování",
+                      "description":  "Hraničář dokáže pomocí této schopnosti najít a sledovat cizí stopy. Z hloubky otisku dokáží vyčíst netypický druh chůze, odhadnout váhu tvora, ale také jakým směrem pronásledovaný zřejmě šel.",
+                      "required_level":  1,
+                      "check":  "Stopování (INT) vs. X",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_15",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_11",
+                      "lite":  true,
+                      "name":  "Vidění many",
+                      "description":  "Alchymisté dokáží rozeznat, zda a kolik many v sobě určitý předmět má. Tyto informace jsou klíčové k jeho dalšímu zpracování.",
+                      "required_level":  1,
+                      "check":  "Vidění many (INT) vs. X (viz níže)",
+                      "is_knowledge_based":  true,
+                      "ability_id":  "ABI_90",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  },
+                  {
+                      "id":  "SKILL_12",
+                      "lite":  true,
+                      "name":  "Destilace many",
+                      "description":  "Pomocí této schopnosti dokáže alchymista separovat manu z různých předmětů, které ji obsahují. Základním předpokladem pro získávání many je, aby předmět vůbec nějakou manu obsahoval.",
+                      "required_level":  1,
+                      "check":  "Efektivita destilace = 1k10 + OBR + Destilace many",
+                      "is_knowledge_based":  true,
+                      "ability_id":  "ABI_90",
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  },
+                  {
+                      "id":  "SKILL_13",
+                      "lite":  true,
+                      "name":  "Lučba",
+                      "description":  "Lučba je věda, která se zabývá vlastnostmi, složením a přípravou různých látek. Zvládnutí této dovednosti je klíčové pro výrobu všech alchymistických předmětů.",
+                      "required_level":  1,
+                      "check":  "Lučba (OBR) vs. Obtížnost výroby předmětu",
+                      "is_knowledge_based":  true,
+                      "ability_id":  "ABI_90",
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  },
+                  {
+                      "id":  "SKILL_16",
+                      "lite":  true,
+                      "name":  "Sesílání kouzel",
+                      "description":  "Sesílání kouzel je dovednost, která v sobě formuje zvládnutí tří technik – slov, gest a myšlenek. Všechny tři se vzájemně doplňují a pomáhají kouzelníkovi zvládnout proměnu many v kouzlo.",
+                      "required_level":  1,
+                      "check":  "Sesílání kouzel (INT) vs. Obtížnost kouzla",
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_4"
+                  },
+                  {
+                      "id":  "SKILL_17",
+                      "lite":  true,
+                      "name":  "Hazardní hry",
+                      "description":  "Hazardní hry patří k oblíbeným činnostem zlodějů, ve kterých zpravidla neprohrávají. Nenechávají totiž nic náhodě. Kromě cinknutých karet a různých triků se jistí i pečlivým výběrem těch, koho oberou.",
+                      "required_level":  1,
+                      "check":  "Hazardní hry (OBR) vs. Postřeh (INT)",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_53",
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_18",
+                      "lite":  true,
+                      "name":  "Odhad ceny",
+                      "description":  "Zloděj dokáže určit, za kolik peněz se dá vybraný předmět na černém trhu prodat. Tento odhad bývá většinou dosti přesný.",
+                      "required_level":  1,
+                      "check":  "Odhad ceny (INT) vs. X",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_53",
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_19",
+                      "lite":  true,
+                      "name":  "Přesvědčování",
+                      "description":  "Zloděj dokáže mnohem snáz přesvědčit ostatní, aby souhlasili s jeho návrhy. Neváhá k tomu použít všemožné formy blafování, podbízení se, klamání i skrytých hrozeb. Díky této dovednosti se může zloděj pokusit změnit něčí názor, vyjednat lepší cenu a podobně.",
+                      "required_level":  1,
+                      "check":  "Přesvědčování (CHAR) vs. Vůle (CHAR)",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_53",
+                      "check_type":  [
+                                         "char"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_20",
+                      "lite":  true,
+                      "name":  "Vybírání kapes",
+                      "description":  "S touto dovedností dokáže zloděj někoho nenápadně prošacovat, ale také ho připravit o majetek.",
+                      "required_level":  1,
+                      "check":  "Vybírání kapes (OBR) vs. Postřeh (INT)",
+                      "is_knowledge_based":  false,
+                      "ability_id":  "ABI_53",
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_39",
+                      "lite":  true,
+                      "name":  "Prosby",
+                      "description":  "Pomocí této dovednosti dokáže klerik bleskově navázat spojení s bohem a vyprosit si na něm okamžitý zásah do naší reality.",
+                      "required_level":  1,
+                      "check":  "Prosby (CHAR) vs. Obtížnost prosby",
+                      "is_knowledge_based":  true,
+                      "ability_id":  "ABI_66",
+                      "check_type":  [
+                                         "char"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_40",
+                      "lite":  true,
+                      "name":  "Akrobacie",
+                      "description":  "S touto dovedností dokáže postava zvládat kotouly, salta, stoj na rukou nebo třeba chůzi po provaze. Zároveň dává prostor pro speciální akce, jako jsou udržení rovnováhy při výbuchu či otřesech nebo zachycení se při pádu z výšky.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_41",
+                      "lite":  true,
+                      "name":  "Atletika",
+                      "description":  "Atletika je umění, které vyžaduje nejen sílu, ale také znalosti toho, jak ji správně využít. S její pomocí není problém zvládat běh na dlouhé vzdálenosti, vrhání předmětů, skoky do výšky i do dálky, vzpírání, veslování, zvedání či nošení těžkých břemen obecně atd.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "str"
+                                     ],
+                      "prof_id":  "PROF_1"
+                  },
+                  {
+                      "id":  "SKILL_42",
+                      "lite":  true,
+                      "name":  "Cizí jazyky",
+                      "description":  "Čím lépe tuto dovednost ovládáš, tím větší počet jazyků znáš a dokážeš je použít.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_43",
+                      "lite":  true,
+                      "name":  "Čtení a psaní",
+                      "description":  "Gramotnost je základem vzdělanosti. Díky ní si poradíš s knihami, dopisy i tajnými zprávami. Na prvních stupních ovládáš pouze abecedu obecného jazyka.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_44",
+                      "lite":  true,
+                      "name":  "Historie",
+                      "description":  "Se znalostí historie si dokážeš vybavit známá místa, jména, příběhy či události. Zároveň znáš i legendy, které se váží ke starým válkám či dávno zapomenutým tvorům.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_45",
+                      "lite":  true,
+                      "name":  "Jízda na zvířeti",
+                      "description":  "K rychlým přesunům na dlouhé vzdálenosti ti pomůže jízda na zvířeti. Tato dovednost tě navíc naučí, jak zvíře uklidnit, osedlat a ovládat jeho pohyb.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_46",
+                      "lite":  true,
+                      "name":  "Mechanika",
+                      "description":  "Všechny stroje, strojky a „hejblata“ mají svůj základ v mechanice. Díky ní chápeš, proč a jak věci fungují. Navíc ti otevírá možnost takové předměty vyrábět a upravovat.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "dex",
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  },
+                  {
+                      "id":  "SKILL_47",
+                      "lite":  true,
+                      "name":  "Plavání",
+                      "description":  "Zkušený plavec dokáže skrz vodu uniknout nepřátelům nebo proniknout tam, kde by ho nikdo nečekal. Síla se uplatní při plavání proti proudu či v rozbouřených vodách a Obratnost při potápění a plavání v běžné situaci.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "str",
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_48",
+                      "lite":  true,
+                      "name":  "Plížení",
+                      "description":  "Při plížení je postava přikrčená nebo se přímo plazí po zemi. Díky tomu může uniknout pozornosti protivníka a proklouznout na místo, kam potřebuje. Cenou za to je však velmi nízká rychlost.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_49",
+                      "lite":  true,
+                      "name":  "Postřeh",
+                      "description":  "Postřeh zahrnuje vše, co se týká vnímavosti postavy. Jeho zvládnutí je klíčovým faktorem pro nalézání tajných dveří, nastražených pastí nebo skrytých stop.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_50",
+                      "lite":  true,
+                      "name":  "První pomoc",
+                      "description":  "První pomoc je rozhoduje o životě a smrti. Díky ní totiž víš, jak rychle zastavit krvácení, vytáhnout zapadlý jazyk, rozdýchat tonoucíhon, nebo ošetřit kritická zranění.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_51",
+                      "lite":  true,
+                      "name":  "Přežití v přírodě",
+                      "description":  "Můžeš být vystaven hladu, žízni či nepřízni počasí. S těmito neduhy se pak můžeš vypořádat právě díky této dovednosti. Naučíš se rozdělat oheň, vařit, chytat drobnou zvěř, vyrobit si úkryt a mnoho dalších užitečných věcí.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_2"
+                  },
+                  {
+                      "id":  "SKILL_52",
+                      "lite":  true,
+                      "name":  "Reflex",
+                      "description":  "Reflexy jsou instinktivní reakcí těla na podněty z okolí. Můžeš díky tomu uhnout, uskočit nebo třeba strnout uprostřed pohybu. To všechno jsou akce, které ti mohou zachránit život.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_53",
+                      "lite":  true,
+                      "name":  "Řemesla",
+                      "description":  "S touto dovedností zvládneš opracovat dřevo, kovy i kameny. Ovládáš základy tesařství, truhlářství, kovářství i kamenictví.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "str",
+                                         "dex"
+                                     ]
+                  },
+                  {
+                      "id":  "SKILL_54",
+                      "lite":  true,
+                      "name":  "Umění",
+                      "description":  "Pokud chceš zaujmout ostatní, musíš jim obvykle předvést něco zajímavého. K tomu ti může pomoci dovednost Umění.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex",
+                                         "char"
+                                     ],
+                      "prof_id":  "PROF_5"
+                  },
+                  {
+                      "id":  "SKILL_55",
+                      "lite":  true,
+                      "name":  "Teologie",
+                      "description":  "Víra v bohy provází lidi odjakživa. Znalost Teologie ti poskytne obecné povědomí o bozích, modlitbách i obřadech, dále pak o posvátných bytostech, svatých symbolech i praktikách či hierarchii kultů.",
+                      "required_level":  1,
+                      "is_knowledge_based":  true,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_56",
+                      "lite":  true,
+                      "name":  "Vůle",
+                      "description":  "Vůle je kombinací sebekázně, disciplíny a vnitřní rovnováhy. Díky ní si dokážeš zachovat vlastní názor, jednat svobodně a dle vlastního uvážení. Čím lépe ji ovládáš, tím snadněji se dokážeš ubránit manipulaci, sugesci či psychickým kouzlům.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "char"
+                                     ],
+                      "prof_id":  "PROF_6"
+                  },
+                  {
+                      "id":  "SKILL_57",
+                      "lite":  true,
+                      "name":  "Výdrž",
+                      "description":  "Výdrž je dovednost, při které je tvé tělo trénováno na přežití v extrémních podmínkách. Dokáže se tak lépe vypořádat s následky hladu, žízně či vyčerpaní. Stejně tak dokážeš vydržet déle bez nádechu pod vodou nebo odolat mrazu či horku.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "con"
+                                     ],
+                      "prof_id":  "PROF_1"
+                  },
+                  {
+                      "id":  "SKILL_58",
+                      "lite":  true,
+                      "name":  "Znalost přírody",
+                      "description":  "S touto dovedností získáš znalosti o zvířatech, rostlinách, ale i o neživé přírodě.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "int"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  },
+                  {
+                      "id":  "SKILL_59",
+                      "lite":  true,
+                      "name":  "Zpracování zvěře",
+                      "description":  "Zpracování zvěře tě naučí, jak správně vykuchat zvíře. Víš, jak z něj získat maso a upravit ho tak, aby se nezkazilo.",
+                      "required_level":  1,
+                      "is_knowledge_based":  false,
+                      "check_type":  [
+                                         "dex"
+                                     ],
+                      "prof_id":  "PROF_3"
+                  }
+              ]
+}

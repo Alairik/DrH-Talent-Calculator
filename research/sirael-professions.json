@@ -1,0 +1,37 @@
+﻿{
+    "fetched_at_utc":  "2026-03-03T12:22:23Z",
+    "source_api":  "https://sirael.dracihlidka.cz/api/trpc/professions.getAll",
+    "count":  6,
+    "items":  [
+                  {
+                      "id":  "PROF_1",
+                      "name":  "Válečník",
+                      "required_level":  1
+                  },
+                  {
+                      "id":  "PROF_2",
+                      "name":  "Hraničář",
+                      "required_level":  1
+                  },
+                  {
+                      "id":  "PROF_3",
+                      "name":  "Alchymista",
+                      "required_level":  1
+                  },
+                  {
+                      "id":  "PROF_4",
+                      "name":  "Kouzelník",
+                      "required_level":  1
+                  },
+                  {
+                      "id":  "PROF_5",
+                      "name":  "Zloděj",
+                      "required_level":  1
+                  },
+                  {
+                      "id":  "PROF_6",
+                      "name":  "Klerik",
+                      "required_level":  1
+                  }
+              ]
+}

@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dračí Hlídka - Talent & Dovednost Calculator</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Talent & Dovednost Calculator</h1>
+    <p>Auto-plán po úrovních z naklikaných voleb (nejkratší logická cesta).</p>
+  </header>
+
+  <main class="layout">
+    <section class="panel controls">
+      <h2>Nastavení</h2>
+      <label>
+        Povolání
+        <select id="professionSelect"></select>
+      </label>
+      <label>
+        Max úroveň plánování
+        <input id="maxLevel" type="number" min="1" max="30" />
+      </label>
+      <label>
+        Talent body na 1. úrovni
+        <input id="talentL1" type="number" min="0" max="20" />
+      </label>
+      <label>
+        Talent body za další úroveň
+        <input id="talentPerLevel" type="number" min="0" max="20" />
+      </label>
+      <label>
+        Dovednost body na 1. úrovni
+        <input id="skillL1" type="number" min="0" max="20" />
+      </label>
+      <label>
+        Dovednost body za další úroveň
+        <input id="skillPerLevel" type="number" min="0" max="20" />
+      </label>
+      <div class="buttons">
+        <button id="resetBtn" type="button">Reset výběru</button>
+        <button id="exportBtn" type="button">Export build</button>
+        <button id="importBtn" type="button">Import build</button>
+      </div>
+      <textarea id="exchangeBox" placeholder="Export / import JSON buildu"></textarea>
+    </section>
+
+    <section class="panel chooser">
+      <div class="split-head">
+        <h2>Talenty</h2>
+        <span id="talentCount"></span>
+      </div>
+      <input id="talentSearch" type="search" placeholder="Filtrovat talenty..." />
+      <div id="talentList" class="list"></div>
+    </section>
+
+    <section class="panel chooser">
+      <div class="split-head">
+        <h2>Dovednosti</h2>
+        <span id="skillCount"></span>
+      </div>
+      <input id="skillSearch" type="search" placeholder="Filtrovat dovednosti..." />
+      <div id="skillList" class="list"></div>
+    </section>
+
+    <section class="panel plan">
+      <h2>Auto-plán po úrovních</h2>
+      <div id="summary" class="summary"></div>
+      <div id="issues" class="issues"></div>
+      <div id="timeline" class="timeline"></div>
+    </section>
+  </main>
+
+  <script src="./config.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
