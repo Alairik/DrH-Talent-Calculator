@@ -564,8 +564,12 @@
   }
 
   function splitClassTalentsForTree(classTalents) {
-    const general = classTalents.slice(0, GENERAL_TALENT_SLOTS);
-    const rest = classTalents.slice(GENERAL_TALENT_SLOTS);
+    const isPdfGeneral = (t) => String(t.id || "").startsWith("PDF_ABI_");
+    const pdfGeneral = classTalents.filter(isPdfGeneral).sort(byRequiredThenName);
+    const nonPdf = classTalents.filter((t) => !isPdfGeneral(t)).sort(byRequiredThenName);
+    const general = [...pdfGeneral, ...nonPdf].slice(0, GENERAL_TALENT_SLOTS);
+    const generalIds = new Set(general.map((t) => t.id));
+    const rest = classTalents.filter((t) => !generalIds.has(t.id));
     const branches = [[], [], []];
     rest.forEach((talent, idx) => {
       const branchIndex = idx % 3;
