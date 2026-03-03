@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const BRANCH_NAMES = {
     PROF_1: ["Berserk", "Strazce", "Veteran"],
     PROF_2: ["Lovec", "Stopar", "Hranicni magie"],
@@ -8,6 +8,17 @@
     PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
   };
 
+  const CLASS_RULES = {
+    PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
+    PROF_2: { starterSkills: ["Prvni pomoc", "Preziti v prirode", "Znalost prirody"], skillPointsMultiplier: 5 },
+    PROF_3: { starterSkills: ["Cteni a psani", "Mechanika", "Znalost prirody"], skillPointsMultiplier: 4 },
+    PROF_4: { starterSkills: ["Cizi jazyky", "Cteni a psani", "Historie"], skillPointsMultiplier: 3 },
+    PROF_5: { starterSkills: ["Akrobacie", "Postreh", "Reflex"], skillPointsMultiplier: 8 },
+    PROF_6: { starterSkills: ["Cteni a psani", "Teologie", "Vule"], skillPointsMultiplier: 3 }
+  };
+
+  const START_SKILL_POINTS_BASE = 3;
+
   const state = {
     professions: [],
     races: [],
@@ -16,7 +27,7 @@
     selectedProfessionId: "",
     selectedRaceId: "",
     selectedTalentIds: new Set(),
-    selectedSkillIds: new Set(),
+    selectedSkillTargets: {},
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
@@ -96,7 +107,7 @@
 
     els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
-      state.selectedSkillIds.clear();
+      state.selectedSkillTargets = {};
       renderAll();
       persist();
     });
@@ -217,7 +228,6 @@
       .sort(byRequiredThenName);
 
     const raceTalent = getRaceBonusTalent();
-
     const branches = [[], [], []];
     classTalents.forEach((talent, idx) => {
       branches[idx % 3].push(talent);
@@ -257,42 +267,78 @@
 
   function renderSkills() {
     const profId = state.selectedProfessionId;
-    const raceSkillIds = getRaceBonusSkillIds();
-    const starterSkillIds = getClassStarterSkillIds();
-    const raceSkillSet = new Set(raceSkillIds);
-    const starterSkillSet = new Set(starterSkillIds);
+    const starterIds = new Set(getClassStarterSkillIds());
     const visibleSkills = state.skills
-      .filter((s) => belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
+      .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
       .sort(byName);
 
     els.skillList.innerHTML = "";
     for (const s of visibleSkills) {
-      const row = document.createElement("label");
+      const starterRank = starterIds.has(s.id) ? 3 : 0;
+      const targetRank = getSkillTargetRank(s.id, starterRank);
+
+      const row = document.createElement("div");
       row.className = "skill-item";
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      const isStarter = starterSkillSet.has(s.id);
-      checkbox.checked = isStarter || state.selectedSkillIds.has(s.id);
-      checkbox.disabled = isStarter;
-      checkbox.addEventListener("change", () => toggleSkill(s.id, checkbox.checked));
-      const box = document.createElement("div");
+
+      const left = document.createElement("div");
       const title = document.createElement("div");
-      const raceMark = raceSkillSet.has(s.id) ? " [RASA]" : "";
-      const startMark = isStarter ? " [START]" : "";
-      title.textContent = s.name + startMark + raceMark;
+      const startMark = starterRank > 0 ? " [START 3]" : "";
+      title.textContent = s.name + startMark;
       const meta = document.createElement("div");
       meta.className = "meta";
       meta.textContent = `${s.id}${s.ability_id ? ` | talent: ${s.ability_id}` : ""}`;
-      box.appendChild(title);
-      box.appendChild(meta);
-      row.appendChild(checkbox);
-      row.appendChild(box);
+      left.appendChild(title);
+      left.appendChild(meta);
+
+      const controls = document.createElement("div");
+      controls.className = "skill-rank-controls";
+
+      const minus = document.createElement("button");
+      minus.type = "button";
+      minus.textContent = "-";
+      minus.disabled = targetRank <= starterRank;
+      minus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank - 1, starterRank));
+
+      const badge = document.createElement("span");
+      badge.className = "skill-rank-badge";
+      badge.textContent = targetRank > 0 ? `Stupen ${targetRank}` : "Nevybrano";
+
+      const plus = document.createElement("button");
+      plus.type = "button";
+      plus.textContent = "+";
+      plus.disabled = targetRank >= 10;
+      plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, starterRank));
+
+      controls.appendChild(minus);
+      controls.appendChild(badge);
+      controls.appendChild(plus);
+
+      row.appendChild(left);
+      row.appendChild(controls);
       els.skillList.appendChild(row);
     }
-    const selectedVisible = visibleSkills.filter(
-      (s) => starterSkillSet.has(s.id) || state.selectedSkillIds.has(s.id)
-    ).length;
+
+    const selectedVisible = visibleSkills.filter((s) => getSkillTargetRank(s.id, starterIds.has(s.id) ? 3 : 0) > 0).length;
     els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
+  }
+
+  function setSkillTargetRank(id, desired, floor) {
+    const next = Math.max(floor, Math.min(10, desired));
+    if (next <= floor && floor === 0) {
+      delete state.selectedSkillTargets[id];
+    } else if (next === floor && floor > 0) {
+      delete state.selectedSkillTargets[id];
+    } else {
+      state.selectedSkillTargets[id] = next;
+    }
+    renderAll();
+    persist();
+  }
+
+  function getSkillTargetRank(id, floor) {
+    const explicit = state.selectedSkillTargets[id];
+    if (typeof explicit === "number") return Math.max(floor, explicit);
+    return floor;
   }
 
   function toggleTalent(id, checked) {
@@ -302,77 +348,66 @@
     persist();
   }
 
-  function toggleSkill(id, checked) {
-    if (checked) state.selectedSkillIds.add(id);
-    else state.selectedSkillIds.delete(id);
-    renderAll();
-    persist();
-  }
-
   function buildPlan() {
     const profId = state.selectedProfessionId;
     const raceTalent = getRaceBonusTalent();
     const racePointBonus = getRacePointBonus(raceTalent);
-    const raceSkillIds = getRaceBonusSkillIds();
-    const starterSkillIds = getClassStarterSkillIds();
-    const raceSkillSet = new Set(raceSkillIds);
-    const starterSkillSet = new Set(starterSkillIds);
-    const selectedSkillIds = new Set([...state.selectedSkillIds, ...starterSkillIds]);
+    const starterIds = new Set(getClassStarterSkillIds());
 
     const talents = state.talents.filter(
       (t) =>
         state.selectedTalentIds.has(t.id) &&
-        belongsToProfession(t.prof_id, profId) &&
+        t.prof_id === profId &&
         (!raceTalent || t.id !== raceTalent.id)
     );
 
-    const skills = state.skills.filter(
-      (s) =>
-        selectedSkillIds.has(s.id) &&
-        (belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
-    );
+    const skillPlans = [];
+    for (const s of state.skills) {
+      if (!isSkillAvailableForClass(s, profId) && !starterIds.has(s.id)) continue;
+      const startRank = starterIds.has(s.id) ? 3 : 0;
+      const targetRank = getSkillTargetRank(s.id, startRank);
+      if (targetRank <= 0) continue;
+      skillPlans.push({ skill: s, startRank, targetRank, currentRank: startRank });
+    }
 
     const selectedTalentMap = new Map(talents.map((t) => [t.id, t]));
     if (raceTalent) selectedTalentMap.set(raceTalent.id, raceTalent);
 
     const issues = [];
     const missingPrereq = [];
-    for (const s of skills) {
-      if (s.ability_id && !selectedTalentMap.has(s.ability_id)) missingPrereq.push(s);
+    for (const p of skillPlans) {
+      if (p.skill.ability_id && !selectedTalentMap.has(p.skill.ability_id)) {
+        missingPrereq.push(p.skill);
+      }
     }
 
     const maxLevel = state.config.maxLevel;
     const levels = [];
+    const classRule = CLASS_RULES[profId] || { skillPointsMultiplier: 3 };
     for (let lvl = 1; lvl <= maxLevel; lvl += 1) {
       const talentBase =
         lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
-      const skillBase =
-        lvl === 1 ? state.config.points.skillLevel1 : state.config.points.skillPerLevel;
+      const skillGain =
+        lvl === 1
+          ? START_SKILL_POINTS_BASE + racePointBonus.skillLevel1
+          : classRule.skillPointsMultiplier * lvl;
       levels.push({
         level: lvl,
         talentCapacity:
           talentBase + (lvl === 1 ? racePointBonus.talentLevel1 : racePointBonus.talentPerLevel),
-        skillGain:
-          skillBase + (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel),
+        skillGain,
         skillSpent: 0,
         skillCarry: 0,
         raceBonuses: lvl === 1 && raceTalent ? [raceTalent] : [],
-        startSkills: [],
+        startSkills: lvl === 1 ? skillPlans.filter((x) => x.startRank >= 3).map((x) => x.skill) : [],
         talents: [],
-        skills: []
+        skillActions: []
       });
     }
 
     const talentQueue = [...talents].sort(byRequiredThenName);
-    const startSkills = skills.filter((s) => starterSkillSet.has(s.id));
-    const remainingSkills = new Map(
-      [...skills.filter((s) => !starterSkillSet.has(s.id))].map((s) => [s.id, s])
-    );
     const assignedTalentLevel = new Map();
-    const assignedSkillLevel = new Map();
     if (raceTalent) assignedTalentLevel.set(raceTalent.id, 1);
-    for (const s of startSkills) assignedSkillLevel.set(s.id, 1);
-    if (levels.length > 0) levels[0].startSkills = startSkills;
 
     let skillPointPool = 0;
 
@@ -386,51 +421,77 @@
       }
 
       skillPointPool += lvlState.skillGain;
-      const assignableSkills = [...remainingSkills.values()]
-        .filter((s) => Number(s.required_level || 1) <= lvlState.level)
-        .filter((s) => {
-          if (!s.ability_id) return true;
-          const reqLvl = assignedTalentLevel.get(s.ability_id);
-          return typeof reqLvl === "number" && reqLvl <= lvlState.level;
-        })
-        .sort(byRequiredThenName);
+      const upgradedThisLevel = new Set();
 
-      while (skillPointPool > 0 && assignableSkills.length > 0) {
-        const s = assignableSkills.shift();
-        if (!remainingSkills.has(s.id)) continue;
-        lvlState.skills.push(s);
-        remainingSkills.delete(s.id);
-        assignedSkillLevel.set(s.id, lvlState.level);
-        lvlState.skillSpent += 1;
-        skillPointPool -= 1;
+      while (true) {
+        const candidates = skillPlans
+          .filter((p) => p.currentRank < p.targetRank)
+          .filter((p) => !upgradedThisLevel.has(p.skill.id))
+          .filter((p) => Number(p.skill.required_level || 1) <= lvlState.level)
+          .filter((p) => {
+            if (!p.skill.ability_id) return true;
+            const reqLvl = assignedTalentLevel.get(p.skill.ability_id);
+            return typeof reqLvl === "number" && reqLvl <= lvlState.level;
+          })
+          .map((p) => ({
+            plan: p,
+            nextRank: p.currentRank + 1,
+            cost: p.currentRank + 1
+          }))
+          .filter((x) => x.cost <= skillPointPool)
+          .sort((a, b) => {
+            if (a.cost !== b.cost) return a.cost - b.cost;
+            return byName(a.plan.skill, b.plan.skill);
+          });
+
+        if (candidates.length === 0) break;
+        const pick = candidates[0];
+        const before = pick.plan.currentRank;
+        pick.plan.currentRank = pick.nextRank;
+        upgradedThisLevel.add(pick.plan.skill.id);
+        skillPointPool -= pick.cost;
+        lvlState.skillSpent += pick.cost;
+        lvlState.skillActions.push({
+          skill: pick.plan.skill,
+          from: before,
+          to: pick.nextRank,
+          cost: pick.cost
+        });
       }
+
       lvlState.skillCarry = skillPointPool;
     }
 
     if (missingPrereq.length > 0) {
       issues.push(`Missing prerequisite talent for ${missingPrereq.length} skills.`);
     }
-    if (talentQueue.length > 0 || remainingSkills.size > 0) {
-      issues.push("Not enough points in current level cap.");
+
+    const unscheduledTalents = talentQueue;
+    const unscheduledSkills = skillPlans.filter((p) => p.currentRank < p.targetRank);
+
+    if (unscheduledTalents.length > 0 || unscheduledSkills.length > 0) {
+      issues.push("Not enough points/levels for all requested targets.");
     }
 
-    const maxAssigned = Math.max(
+    const maxAssignedTalent = Math.max(1, ...assignedTalentLevel.values());
+    const maxSkillActionLevel = Math.max(
       1,
-      ...assignedTalentLevel.values(),
-      ...assignedSkillLevel.values()
+      ...levels
+        .filter((l) => l.skillActions.length > 0)
+        .map((l) => l.level)
     );
 
     return {
       levels,
       issues,
-      unscheduledTalents: talentQueue,
-      unscheduledSkills: [...remainingSkills.values()],
+      unscheduledTalents,
+      unscheduledSkills,
       totals: {
         selectedTalents: talents.length + (raceTalent ? 1 : 0),
-        selectedSkills: skills.length,
-        assignedTalents: assignedTalentLevel.size,
-        assignedSkills: assignedSkillLevel.size,
-        currentLevel: maxAssigned
+        selectedSkills: skillPlans.length,
+        assignedTalents: (talents.length - unscheduledTalents.length) + (raceTalent ? 1 : 0),
+        assignedSkills: skillPlans.length - unscheduledSkills.length,
+        currentLevel: Math.max(maxAssignedTalent, maxSkillActionLevel)
       }
     };
   }
@@ -465,7 +526,11 @@
       lines.push(`- Unscheduled talents: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
     }
     if (plan.unscheduledSkills.length) {
-      lines.push(`- Unscheduled skills: ${plan.unscheduledSkills.map((x) => x.name).join(", ")}`);
+      lines.push(
+        `- Unscheduled skill ranks: ${plan.unscheduledSkills
+          .map((x) => `${x.skill.name} (${x.currentRank}->${x.targetRank})`)
+          .join(", ")}`
+      );
     }
     els.issues.innerHTML = lines.length ? lines.map(escapeHtml).join("<br>") : "";
   }
@@ -477,7 +542,7 @@
         !lvl.raceBonuses.length &&
         !lvl.startSkills.length &&
         !lvl.talents.length &&
-        !lvl.skills.length
+        !lvl.skillActions.length
       ) {
         continue;
       }
@@ -495,7 +560,7 @@
       for (const s of lvl.startSkills) {
         const tag = document.createElement("span");
         tag.className = "tag skill";
-        tag.textContent = `START SKILL: ${s.name}`;
+        tag.textContent = `START SKILL: ${s.name} (3)`;
         tags.appendChild(tag);
       }
       for (const t of lvl.talents) {
@@ -504,10 +569,10 @@
         tag.textContent = `T: ${t.name}`;
         tags.appendChild(tag);
       }
-      for (const s of lvl.skills) {
+      for (const a of lvl.skillActions) {
         const tag = document.createElement("span");
         tag.className = "tag skill";
-        tag.textContent = `D: ${s.name}`;
+        tag.textContent = `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`;
         tags.appendChild(tag);
       }
       card.appendChild(tags);
@@ -517,11 +582,11 @@
 
   function exportBuild() {
     return {
-      version: 3,
+      version: 4,
       professionId: state.selectedProfessionId,
       raceId: state.selectedRaceId,
       selectedTalentIds: [...state.selectedTalentIds],
-      selectedSkillIds: [...state.selectedSkillIds],
+      selectedSkillTargets: state.selectedSkillTargets,
       config: state.config
     };
   }
@@ -531,7 +596,11 @@
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
     if (payload.raceId) state.selectedRaceId = payload.raceId;
     state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
-    state.selectedSkillIds = new Set(payload.selectedSkillIds || []);
+    state.selectedSkillTargets = payload.selectedSkillTargets || {};
+    if (payload.selectedSkillIds && !payload.selectedSkillTargets) {
+      // backward compatibility with old binary model
+      for (const id of payload.selectedSkillIds) state.selectedSkillTargets[id] = 1;
+    }
     if (payload.config && payload.config.points) {
       state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 30, state.config.maxLevel);
       state.config.points.talentLevel1 = clampInt(
@@ -579,25 +648,26 @@
 
   function cleanseInvalidSelections() {
     const profId = state.selectedProfessionId;
-    const raceSkillSet = new Set(getRaceBonusSkillIds());
-    const starterSkillSet = new Set(getClassStarterSkillIds());
+    const starterIds = new Set(getClassStarterSkillIds());
     const raceTalent = getRaceBonusTalent();
+
     for (const id of [...state.selectedTalentIds]) {
       const t = state.talents.find((x) => x.id === id);
       if (!t || t.prof_id !== profId || (raceTalent && t.id === raceTalent.id)) {
         state.selectedTalentIds.delete(id);
       }
     }
-    for (const id of [...state.selectedSkillIds]) {
+
+    const cleaned = {};
+    for (const [id, target] of Object.entries(state.selectedSkillTargets)) {
       const s = state.skills.find((x) => x.id === id);
-      if (
-        !s ||
-        starterSkillSet.has(id) ||
-        (!belongsToProfession(s.prof_id, profId) && !raceSkillSet.has(id))
-      ) {
-        state.selectedSkillIds.delete(id);
-      }
+      if (!s) continue;
+      if (!isSkillAvailableForClass(s, profId) && !starterIds.has(id)) continue;
+      const floor = starterIds.has(id) ? 3 : 0;
+      const t = Math.max(floor, Number(target) || floor);
+      if (t > floor) cleaned[id] = t;
     }
+    state.selectedSkillTargets = cleaned;
   }
 
   function getRaceById(id) {
@@ -624,27 +694,20 @@
     return base;
   }
 
-  function getRaceBonusSkillIds() {
-    const map = window.APP_CONFIG.raceSkillAddsByName || {};
-    const names = map[state.selectedRaceId] || [];
-    const wanted = new Set(names.map(normalize));
-    const result = [];
+  function getClassStarterSkillIds() {
+    const profId = state.selectedProfessionId;
+    const classRule = CLASS_RULES[profId];
+    if (!classRule) return [];
+    const wanted = new Set(classRule.starterSkills.map(normalize));
+    const ids = [];
     for (const s of state.skills) {
-      if (wanted.has(normalize(s.name))) result.push(s.id);
+      if (wanted.has(normalize(s.name)) && isSkillAvailableForClass(s, profId)) ids.push(s.id);
     }
-    return result;
+    return ids;
   }
 
-  function getClassStarterSkillIds() {
-    const count =
-      (window.APP_CONFIG.creationRules &&
-        window.APP_CONFIG.creationRules.classStarterSkills) ||
-      3;
-    return state.skills
-      .filter((s) => s.prof_id === state.selectedProfessionId)
-      .sort(byRequiredThenName)
-      .slice(0, count)
-      .map((s) => s.id);
+  function isSkillAvailableForClass(skill, profId) {
+    return !skill.prof_id || skill.prof_id === profId;
   }
 
   function countSelectedVisibleTalents(classTalents) {
@@ -660,10 +723,6 @@
       .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .trim();
-  }
-
-  function belongsToProfession(itemProfId, selectedProfId) {
-    return !itemProfId || itemProfId === selectedProfId;
   }
 
   function byName(a, b) {
@@ -694,7 +753,7 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
+      .replace(/\"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
 })();

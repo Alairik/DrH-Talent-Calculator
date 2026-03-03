@@ -163,6 +163,13 @@ Nize uvedene uz je zapojeno do kalkulatoru:
 3. Clovek / Vsestrannost:
    - aktualne implementovano jako `+2` dovednostni body na levelu 1
    - (per-level +2 bylo odstraneno, dokud nebude definitivne potvrzeno pravidly)
+4. Dovednostni body po levelupu:
+   - pri prechodu na level `L` se pripisuje `L * koeficient_povolani`
+   - koeficienty: Valecnik 3, Hranicar 5, Alchymista 4, Kouzelnik 3, Zlodej 8, Klerik 3
+5. Zlepsovani dovednosti:
+   - cena zlepseni je cilovy stupen (`n+1`)
+   - kazdou dovednost lze na jedne urovni zlepsit max o 1 stupen
+   - planner to respektuje pres `skillActions` per level
 
 ## 10) Dotcene soubory v teto zmene
 
