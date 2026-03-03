@@ -332,9 +332,13 @@
     const visibleSkills = state.skills
       .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
       .sort((a, b) => {
-        const aStarter = starterIds.has(a.id) ? 1 : 0;
-        const bStarter = starterIds.has(b.id) ? 1 : 0;
-        if (aStarter !== bStarter) return bStarter - aStarter;
+        const aGroup = starterIds.has(a.id)
+          ? 0
+          : (a.prof_id === profId && !isBasicSkill(a) ? 1 : 2);
+        const bGroup = starterIds.has(b.id)
+          ? 0
+          : (b.prof_id === profId && !isBasicSkill(b) ? 1 : 2);
+        if (aGroup !== bGroup) return aGroup - bGroup;
         return byName(a, b);
       });
 
