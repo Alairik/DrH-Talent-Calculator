@@ -147,6 +147,23 @@ Poznamka k souladu pravidel:
    - `Postup na dalsi levely`
 4. U lidske rasy aplikovat +2 body v souladu s finalne potvrzenym vykladem pravidel.
 
+## 9.1 Implementovano okamzite (na zaklade RULE_5)
+
+Nize uvedene uz je zapojeno do kalkulatoru:
+
+1. Startovni blizke dovednosti povolani:
+   - automaticky se pridaji 3 dovednosti (deterministicky vyber z class skill listu)
+   - v timeline jsou oznacene `START SKILL`
+   - v UI dovednosti jsou videt jako `[START]` a nejdou odkliknout
+2. Dovednostni body jako pool:
+   - body se generuji per-level
+   - planner je utraci na vybrane dovednosti
+   - nevyuzite body se prenasi (`carry`) do dalsiho levelu
+   - timeline zobrazuje `gain / spent / carry`
+3. Clovek / Vsestrannost:
+   - aktualne implementovano jako `+2` dovednostni body na levelu 1
+   - (per-level +2 bylo odstraneno, dokud nebude definitivne potvrzeno pravidly)
+
 ## 10) Dotcene soubory v teto zmene
 
 - `index.html`

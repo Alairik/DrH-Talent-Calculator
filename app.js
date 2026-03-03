@@ -258,7 +258,9 @@
   function renderSkills() {
     const profId = state.selectedProfessionId;
     const raceSkillIds = getRaceBonusSkillIds();
+    const starterSkillIds = getClassStarterSkillIds();
     const raceSkillSet = new Set(raceSkillIds);
+    const starterSkillSet = new Set(starterSkillIds);
     const visibleSkills = state.skills
       .filter((s) => belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
       .sort(byName);
@@ -269,12 +271,15 @@
       row.className = "skill-item";
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
-      checkbox.checked = state.selectedSkillIds.has(s.id);
+      const isStarter = starterSkillSet.has(s.id);
+      checkbox.checked = isStarter || state.selectedSkillIds.has(s.id);
+      checkbox.disabled = isStarter;
       checkbox.addEventListener("change", () => toggleSkill(s.id, checkbox.checked));
       const box = document.createElement("div");
       const title = document.createElement("div");
       const raceMark = raceSkillSet.has(s.id) ? " [RASA]" : "";
-      title.textContent = s.name + raceMark;
+      const startMark = isStarter ? " [START]" : "";
+      title.textContent = s.name + startMark + raceMark;
       const meta = document.createElement("div");
       meta.className = "meta";
       meta.textContent = `${s.id}${s.ability_id ? ` | talent: ${s.ability_id}` : ""}`;
@@ -284,7 +289,9 @@
       row.appendChild(box);
       els.skillList.appendChild(row);
     }
-    const selectedVisible = visibleSkills.filter((s) => state.selectedSkillIds.has(s.id)).length;
+    const selectedVisible = visibleSkills.filter(
+      (s) => starterSkillSet.has(s.id) || state.selectedSkillIds.has(s.id)
+    ).length;
     els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
   }
 
@@ -307,7 +314,10 @@
     const raceTalent = getRaceBonusTalent();
     const racePointBonus = getRacePointBonus(raceTalent);
     const raceSkillIds = getRaceBonusSkillIds();
+    const starterSkillIds = getClassStarterSkillIds();
     const raceSkillSet = new Set(raceSkillIds);
+    const starterSkillSet = new Set(starterSkillIds);
+    const selectedSkillIds = new Set([...state.selectedSkillIds, ...starterSkillIds]);
 
     const talents = state.talents.filter(
       (t) =>
@@ -318,7 +328,7 @@
 
     const skills = state.skills.filter(
       (s) =>
-        state.selectedSkillIds.has(s.id) &&
+        selectedSkillIds.has(s.id) &&
         (belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
     );
 
@@ -342,19 +352,29 @@
         level: lvl,
         talentCapacity:
           talentBase + (lvl === 1 ? racePointBonus.talentLevel1 : racePointBonus.talentPerLevel),
-        skillCapacity:
+        skillGain:
           skillBase + (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel),
+        skillSpent: 0,
+        skillCarry: 0,
         raceBonuses: lvl === 1 && raceTalent ? [raceTalent] : [],
+        startSkills: [],
         talents: [],
         skills: []
       });
     }
 
     const talentQueue = [...talents].sort(byRequiredThenName);
-    const remainingSkills = new Map([...skills].map((s) => [s.id, s]));
+    const startSkills = skills.filter((s) => starterSkillSet.has(s.id));
+    const remainingSkills = new Map(
+      [...skills.filter((s) => !starterSkillSet.has(s.id))].map((s) => [s.id, s])
+    );
     const assignedTalentLevel = new Map();
     const assignedSkillLevel = new Map();
     if (raceTalent) assignedTalentLevel.set(raceTalent.id, 1);
+    for (const s of startSkills) assignedSkillLevel.set(s.id, 1);
+    if (levels.length > 0) levels[0].startSkills = startSkills;
+
+    let skillPointPool = 0;
 
     for (const lvlState of levels) {
       while (lvlState.talents.length < lvlState.talentCapacity && talentQueue.length > 0) {
@@ -365,6 +385,7 @@
         assignedTalentLevel.set(t.id, lvlState.level);
       }
 
+      skillPointPool += lvlState.skillGain;
       const assignableSkills = [...remainingSkills.values()]
         .filter((s) => Number(s.required_level || 1) <= lvlState.level)
         .filter((s) => {
@@ -374,13 +395,16 @@
         })
         .sort(byRequiredThenName);
 
-      while (lvlState.skills.length < lvlState.skillCapacity && assignableSkills.length > 0) {
+      while (skillPointPool > 0 && assignableSkills.length > 0) {
         const s = assignableSkills.shift();
         if (!remainingSkills.has(s.id)) continue;
         lvlState.skills.push(s);
         remainingSkills.delete(s.id);
         assignedSkillLevel.set(s.id, lvlState.level);
+        lvlState.skillSpent += 1;
+        skillPointPool -= 1;
       }
+      lvlState.skillCarry = skillPointPool;
     }
 
     if (missingPrereq.length > 0) {
@@ -449,16 +473,29 @@
   function renderTimeline(plan) {
     els.timeline.innerHTML = "";
     for (const lvl of plan.levels) {
-      if (!lvl.raceBonuses.length && !lvl.talents.length && !lvl.skills.length) continue;
+      if (
+        !lvl.raceBonuses.length &&
+        !lvl.startSkills.length &&
+        !lvl.talents.length &&
+        !lvl.skills.length
+      ) {
+        continue;
+      }
       const card = document.createElement("div");
       card.className = "level-card";
-      card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D ${lvl.skills.length}/${lvl.skillCapacity}</span></div>`;
+      card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D +${lvl.skillGain}, spent ${lvl.skillSpent}, carry ${lvl.skillCarry}</span></div>`;
       const tags = document.createElement("div");
       tags.className = "tags";
       for (const r of lvl.raceBonuses) {
         const tag = document.createElement("span");
         tag.className = "tag";
         tag.textContent = `RACE BONUS: ${r.name}`;
+        tags.appendChild(tag);
+      }
+      for (const s of lvl.startSkills) {
+        const tag = document.createElement("span");
+        tag.className = "tag skill";
+        tag.textContent = `START SKILL: ${s.name}`;
         tags.appendChild(tag);
       }
       for (const t of lvl.talents) {
@@ -543,6 +580,7 @@
   function cleanseInvalidSelections() {
     const profId = state.selectedProfessionId;
     const raceSkillSet = new Set(getRaceBonusSkillIds());
+    const starterSkillSet = new Set(getClassStarterSkillIds());
     const raceTalent = getRaceBonusTalent();
     for (const id of [...state.selectedTalentIds]) {
       const t = state.talents.find((x) => x.id === id);
@@ -552,7 +590,11 @@
     }
     for (const id of [...state.selectedSkillIds]) {
       const s = state.skills.find((x) => x.id === id);
-      if (!s || (!belongsToProfession(s.prof_id, profId) && !raceSkillSet.has(id))) {
+      if (
+        !s ||
+        starterSkillSet.has(id) ||
+        (!belongsToProfession(s.prof_id, profId) && !raceSkillSet.has(id))
+      ) {
         state.selectedSkillIds.delete(id);
       }
     }
@@ -591,6 +633,18 @@
       if (wanted.has(normalize(s.name))) result.push(s.id);
     }
     return result;
+  }
+
+  function getClassStarterSkillIds() {
+    const count =
+      (window.APP_CONFIG.creationRules &&
+        window.APP_CONFIG.creationRules.classStarterSkills) ||
+      3;
+    return state.skills
+      .filter((s) => s.prof_id === state.selectedProfessionId)
+      .sort(byRequiredThenName)
+      .slice(0, count)
+      .map((s) => s.id);
   }
 
   function countSelectedVisibleTalents(classTalents) {

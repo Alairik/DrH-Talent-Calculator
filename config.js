@@ -18,8 +18,10 @@ window.APP_CONFIG = {
   },
   racePointBonusesByTalentId: {
     ABI_81: {
-      skillLevel1: 2,
-      skillPerLevel: 2
+      skillLevel1: 2
     }
+  },
+  creationRules: {
+    classStarterSkills: 3
   }
 };
