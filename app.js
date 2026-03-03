@@ -514,11 +514,8 @@
 
       const row = document.createElement("div");
       row.className = "skill-item";
-      if (closeStarterIds.has(s.id) || floorRank >= 3) {
-        row.classList.add("starter");
-      } else if (!isBasicSkill(s) && s.prof_id) {
-        row.classList.add(`class-${s.prof_id.toLowerCase()}`);
-      }
+      if (closeStarterIds.has(s.id)) row.classList.add("starter");
+      if (!isBasicSkill(s) && s.prof_id) row.classList.add(`class-${s.prof_id.toLowerCase()}`);
       if (isPdfCovered) row.classList.add("pdf-covered");
 
       const left = document.createElement("div");
