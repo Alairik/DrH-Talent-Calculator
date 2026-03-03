@@ -33,7 +33,6 @@
     branch1: document.getElementById("branch1"),
     branch2: document.getElementById("branch2"),
     branch3: document.getElementById("branch3"),
-    generalTalents: document.getElementById("generalTalents"),
     talentCount: document.getElementById("talentCount"),
     skillList: document.getElementById("skillList"),
     skillCount: document.getElementById("skillCount"),
@@ -218,9 +217,6 @@
       .sort(byRequiredThenName);
 
     const raceTalent = getRaceBonusTalent();
-    const generalTalents = state.talents
-      .filter((t) => !t.prof_id && (!raceTalent || t.id !== raceTalent.id))
-      .sort(byRequiredThenName);
 
     const branches = [[], [], []];
     classTalents.forEach((talent, idx) => {
@@ -231,25 +227,8 @@
     renderBranch(els.branch2, branches[1]);
     renderBranch(els.branch3, branches[2]);
 
-    els.generalTalents.innerHTML = "";
-    for (const t of generalTalents) {
-      const row = document.createElement("label");
-      row.className = "general-item";
-      const checkbox = document.createElement("input");
-      checkbox.type = "checkbox";
-      checkbox.checked = state.selectedTalentIds.has(t.id);
-      checkbox.addEventListener("change", () => toggleTalent(t.id, checkbox.checked));
-      const text = document.createElement("span");
-      text.textContent = `${t.name} (${t.id})`;
-      row.appendChild(checkbox);
-      row.appendChild(text);
-      els.generalTalents.appendChild(row);
-    }
-
-    const visibleTalentTotal =
-      classTalents.length + generalTalents.length + (raceTalent ? 1 : 0);
-    const selectedVisible =
-      countSelectedVisibleTalents(classTalents, generalTalents) + (raceTalent ? 1 : 0);
+    const visibleTalentTotal = classTalents.length + (raceTalent ? 1 : 0);
+    const selectedVisible = countSelectedVisibleTalents(classTalents) + (raceTalent ? 1 : 0);
     els.talentCount.textContent = `${selectedVisible} / ${visibleTalentTotal}`;
   }
 
@@ -564,9 +543,12 @@
   function cleanseInvalidSelections() {
     const profId = state.selectedProfessionId;
     const raceSkillSet = new Set(getRaceBonusSkillIds());
+    const raceTalent = getRaceBonusTalent();
     for (const id of [...state.selectedTalentIds]) {
       const t = state.talents.find((x) => x.id === id);
-      if (!t || !belongsToProfession(t.prof_id, profId)) state.selectedTalentIds.delete(id);
+      if (!t || t.prof_id !== profId || (raceTalent && t.id === raceTalent.id)) {
+        state.selectedTalentIds.delete(id);
+      }
     }
     for (const id of [...state.selectedSkillIds]) {
       const s = state.skills.find((x) => x.id === id);
@@ -611,8 +593,8 @@
     return result;
   }
 
-  function countSelectedVisibleTalents(classTalents, generalTalents) {
-    const visibleIds = new Set([...classTalents.map((x) => x.id), ...generalTalents.map((x) => x.id)]);
+  function countSelectedVisibleTalents(classTalents) {
+    const visibleIds = new Set(classTalents.map((x) => x.id));
     let count = 0;
     for (const id of state.selectedTalentIds) if (visibleIds.has(id)) count += 1;
     return count;

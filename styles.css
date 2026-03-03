@@ -192,29 +192,6 @@ button:hover {
   cursor: default;
 }
 
-.general-talents {
-  margin-top: 0.65rem;
-}
-
-.general-talents summary {
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 0.82rem;
-}
-
-.general-list {
-  margin-top: 0.55rem;
-  display: grid;
-  gap: 0.35rem;
-}
-
-.general-item {
-  display: flex;
-  gap: 0.45rem;
-  align-items: start;
-  font-size: 0.78rem;
-}
-
 .skills-list {
   display: grid;
   gap: 0.45rem;
