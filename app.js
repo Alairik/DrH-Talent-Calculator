@@ -53,6 +53,41 @@
     ["videni many", "PROF_3"],
     ["destilace many", "PROF_3"]
   ]);
+  const SKILL_NO_PREREQ_NAMES = new Set([
+    "prosby",
+    "hazardni hry",
+    "odhad ceny",
+    "presvedcovani",
+    "vybirani kapes"
+  ]);
+  const D_TALENT_NAMES = new Set([
+    "lecitelstvi",
+    "ochocovani zvirat",
+    "pruzkumnictvi",
+    "pokrocila identifikace",
+    "vyroba svitku",
+    "umeni kociciho pohybu",
+    "umeni promen",
+    "umeni rvacu",
+    "umeni skryvani",
+    "umeni sarmu",
+    "umeni zelezneho klice"
+  ]);
+  const MANUAL_D_SKILLS = [
+    // Alchymista (D)
+    { id: "PDF_SKILL_ALC_01", name: "Pokrocila identifikace", prof_id: "PROF_3", ability_name: "Pokrocila identifikace", check_type: ["int"], is_knowledge_based: true },
+    { id: "PDF_SKILL_ALC_02", name: "Vyroba svitku", prof_id: "PROF_3", ability_name: "Vyroba svitku", check_type: ["dex"], is_knowledge_based: true },
+    // Zlodej (D) - doplnene dovednosti
+    { id: "PDF_SKILL_THF_01", name: "Lezeni", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_02", name: "Ohebnost", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_03", name: "Pad z vysky", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_04", name: "Schovani se ve stinu", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_05", name: "Splynuti s davem", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_06", name: "Maskovani", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["int"] },
+    { id: "PDF_SKILL_THF_07", name: "Odstraneni pasti", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_08", name: "Otevirani zamku", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_09", name: "Padelani", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["int"] }
+  ];
 
   const state = {
     professions: [],
@@ -148,7 +183,7 @@
       ...normalizeSkillRecord(x),
       type: "skill"
     }));
-    state.skills = applyKnownSkillClassOverrides(baseSkills);
+    state.skills = injectManualDSkills(applyKnownSkillClassOverrides(baseSkills));
     if (pdfCoveragePayload && typeof pdfCoveragePayload === "object") {
       state.pdfCoverage.skills = new Set(Array.isArray(pdfCoveragePayload.skills) ? pdfCoveragePayload.skills : []);
       state.pdfCoverage.talents = new Set(Array.isArray(pdfCoveragePayload.talents) ? pdfCoveragePayload.talents : []);
@@ -486,7 +521,9 @@
       const controls = document.createElement("div");
       controls.className = "skill-rank-controls";
       const hasPrereq =
-        !s.ability_id || selectedTalentIds.has(s.ability_id) || (profId === "PROF_2" && s.prof_id === "PROF_2");
+        !requiresPrereqForSkill(s) ||
+        selectedTalentIds.has(s.ability_id) ||
+        (profId === "PROF_2" && s.prof_id === "PROF_2");
       const reqTalent = s.ability_id ? state.talents.find((t) => t.id === s.ability_id) : null;
 
       if (!hasPrereq) {
@@ -672,7 +709,7 @@
     const issues = [];
     const missingPrereq = [];
     for (const p of skillPlans) {
-      if (p.skill.ability_id && !selectedTalentMap.has(p.skill.ability_id)) {
+      if (requiresPrereqForSkill(p.skill) && p.skill.ability_id && !selectedTalentMap.has(p.skill.ability_id)) {
         missingPrereq.push(p.skill);
       }
     }
@@ -728,7 +765,7 @@
           .filter((p) => !upgradedThisLevel.has(p.skill.id))
           .filter((p) => Number(p.skill.required_level || 1) <= lvlState.level)
           .filter((p) => {
-            if (!p.skill.ability_id) return true;
+            if (!requiresPrereqForSkill(p.skill) || !p.skill.ability_id) return true;
             const reqLvl = assignedTalentLevel.get(p.skill.ability_id);
             return typeof reqLvl === "number" && reqLvl <= lvlState.level;
           })
@@ -1146,9 +1183,52 @@
   function applyKnownSkillClassOverrides(skills) {
     return skills.map((skill) => {
       const overrideProf = SKILL_CLASS_OVERRIDES.get(normalize(skill.name));
-      if (!overrideProf) return skill;
-      return { ...skill, prof_id: overrideProf };
+      const next = overrideProf ? { ...skill, prof_id: overrideProf } : skill;
+      if (SKILL_NO_PREREQ_NAMES.has(normalize(next.name))) {
+        return { ...next, ability_id: null };
+      }
+      return next;
     });
+  }
+
+  function injectManualDSkills(skills) {
+    const byId = new Set(skills.map((s) => s.id));
+    const byNameProf = new Set(skills.map((s) => `${normalize(s.name)}|${s.prof_id || ""}`));
+    const out = [...skills];
+    for (const x of MANUAL_D_SKILLS) {
+      const ability = state.talents.find(
+        (t) => t.prof_id === x.prof_id && normalize(t.name) === normalize(x.ability_name)
+      );
+      const rec = {
+        id: x.id,
+        name: x.name,
+        description: "Dovednost odemcena schopnosti (D).",
+        prof_id: x.prof_id,
+        required_level: 1,
+        ability_id: ability ? ability.id : null,
+        check_type: x.check_type || ["int"],
+        is_knowledge_based: !!x.is_knowledge_based,
+        type: "skill"
+      };
+      const key = `${normalize(rec.name)}|${rec.prof_id || ""}`;
+      if (byId.has(rec.id) || byNameProf.has(key)) continue;
+      out.push(rec);
+      byId.add(rec.id);
+      byNameProf.add(key);
+    }
+    return out;
+  }
+
+  function isDTalentId(id) {
+    if (!id) return false;
+    const t = state.talents.find((x) => x.id === id);
+    if (!t) return false;
+    return D_TALENT_NAMES.has(normalize(t.name));
+  }
+
+  function requiresPrereqForSkill(skill) {
+    if (!skill || !skill.ability_id) return false;
+    return isDTalentId(skill.ability_id);
   }
 
   function fixMojibake(value) {
