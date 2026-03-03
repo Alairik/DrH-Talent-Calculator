@@ -1,0 +1,120 @@
+{
+  "talents": [
+    {
+      "id": "ABI_15",
+      "name": "Hraničářské umění",
+      "patterns": [
+        "schopnosti hranicare",
+        "zoceleni",
+        "schopnost bojova",
+        "obratne osti",
+        "boj se zveri"
+      ]
+    },
+    {
+      "id": "ABI_16",
+      "name": "Hraničářská magie",
+      "patterns": [
+        "znalost magie prirody",
+        "znalost magie zvirat",
+        "znalost magie pocestnych",
+        "magie pocestnych",
+        "magie zvirat",
+        "magie prirody"
+      ]
+    },
+    {
+      "id": "ABI_38",
+      "name": "Kouzelnické triky",
+      "patterns": [
+        "tabulka volitelnych schopnosti kouzelnika",
+        "koncentrace many",
+        "kouzleni z knih",
+        "pamet na kouzla",
+        "rychle kouzleni"
+      ]
+    },
+    {
+      "id": "ABI_39",
+      "name": "Obecná magie",
+      "patterns": [
+        "obor divoka magie",
+        "obor ochranna magie",
+        "obor magie promen",
+        "obor mentalni magie",
+        "obor vitalni magie",
+        "obor vysoka magie"
+      ]
+    },
+    {
+      "id": "ABI_53",
+      "name": "Základy zlodějského umění",
+      "patterns": [
+        "tabulka volitelnych schopnosti zlodeje",
+        "vrhani dyk",
+        "odezirani ze rti",
+        "zlodejska hantyrka",
+        "zakerna kuse",
+        "vrazedne ostri",
+        "improvizace",
+        "umeni kociciho pohybu",
+        "umeni promen",
+        "umeni skryvani",
+        "umeni sarmu",
+        "umenirvaci",
+        "umenizeleznehoklice"
+      ]
+    },
+    {
+      "id": "ABI_66",
+      "name": "Spojení s bohem",
+      "patterns": [
+        "nauka bozich patroni",
+        "nauka demonologie",
+        "nauka milosrdenstvi",
+        "nauka svate pravdy",
+        "nauka zehnani aurami",
+        "osviceni",
+        "bozibojovnik"
+      ]
+    },
+    {
+      "id": "ABI_67",
+      "name": "Svěcení",
+      "patterns": [
+        "posvatny symbol",
+        "ritualya obrady",
+        "pozehnane zdravi",
+        "dar slitovani"
+      ]
+    },
+    {
+      "id": "ABI_90",
+      "name": "Podstata alchymistické profese",
+      "patterns": [
+        "tabulka volitelnych schopnosti alchymisty",
+        "efektivni vyroba",
+        "precizni vyroba",
+        "substituce",
+        "vyroba svitki",
+        "obor alchymisticka",
+        "obor lektvary",
+        "obor nestabilni",
+        "obor magicke",
+        "obor krystaly",
+        "obor hvezdne",
+        "identifikace"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "SKILL_39",
+      "name": "Prosby",
+      "patterns": [
+        "prosby",
+        "ovladnes tyto dalsi prosby"
+      ]
+    }
+  ]
+}

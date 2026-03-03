@@ -3,10 +3,8 @@
 Zdroj OCR: `dovednosti_1.pdf` + `dovednosti2.pdf`
 
 - Skills pokryto: **4/34**
-- Talenty pokryto: **1/18**
-- Konsolidovan? OCR kandid?ty: **101**
-
-Pozn?mka: PDF obsahuj? hlavn? voliteln? schopnosti a tabulky; OCR kvalita je st?edn?, proto je coverage konzervativn?.
+- Talenty pokryto: **9/18**
+- Manual alias zásahy: **8**
 
 ## Matched Skills
 - Lov (SKILL_2)
@@ -16,6 +14,14 @@ Pozn?mka: PDF obsahuj? hlavn? voliteln? schopnosti a tabulky; OCR kvalita je st?
 
 ## Matched Talents
 - Bojové triky (ABI_2)
+- Hraničářské umění (ABI_15)
+- Hraničářská magie (ABI_16)
+- Kouzelnické triky (ABI_38)
+- Obecná magie (ABI_39)
+- Základy zlodějského umění (ABI_53)
+- Spojení s bohem (ABI_66)
+- Svěcení (ABI_67)
+- Podstata alchymistické profese (ABI_90)
 
 ## Missing Skills
 - Pouto s přírodou (SKILL_1)
@@ -51,14 +57,7 @@ Pozn?mka: PDF obsahuj? hlavn? voliteln? schopnosti a tabulky; OCR kvalita je st?
 
 ## Missing Talents
 - Léčba vlastních zranění (ABI_1)
-- Hraničářské umění (ABI_15)
-- Hraničářská magie (ABI_16)
-- Kouzelnické triky (ABI_38)
-- Obecná magie (ABI_39)
 - Boj beze zbraně (ABI_52)
-- Základy zlodějského umění (ABI_53)
-- Spojení s bohem (ABI_66)
-- Svěcení (ABI_67)
 - Houževnatost (ABI_80)
 - Všestrannost (ABI_81)
 - Orlí zrak (ABI_82)
@@ -66,4 +65,13 @@ Pozn?mka: PDF obsahuj? hlavn? voliteln? schopnosti a tabulky; OCR kvalita je st?
 - Hroší kůže (ABI_84)
 - Tichošlápek (ABI_85)
 - Vidění ve tmě (ABI_86)
-- Podstata alchymistické profese (ABI_90)
+
+## Manual Alias Hits
+- Hraničářské umění (ABI_15) <- schopnosti hranicare
+- Hraničářská magie (ABI_16) <- znalost magie prirody
+- Kouzelnické triky (ABI_38) <- tabulka volitelnych schopnosti kouzelnika
+- Obecná magie (ABI_39) <- obor divoka magie
+- Základy zlodějského umění (ABI_53) <- tabulka volitelnych schopnosti zlodeje
+- Spojení s bohem (ABI_66) <- nauka bozich patroni
+- Svěcení (ABI_67) <- posvatny symbol
+- Podstata alchymistické profese (ABI_90) <- tabulka volitelnych schopnosti alchymisty

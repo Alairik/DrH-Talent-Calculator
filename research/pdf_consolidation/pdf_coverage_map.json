@@ -6,10 +6,76 @@
     "SKILL_54"
   ],
   "talents": [
-    "ABI_2"
+    "ABI_15",
+    "ABI_16",
+    "ABI_2",
+    "ABI_38",
+    "ABI_39",
+    "ABI_53",
+    "ABI_66",
+    "ABI_67",
+    "ABI_90"
   ],
   "generated_from": [
     "dovednosti_1_ocr.txt",
     "dovednosti2_ocr.txt"
+  ],
+  "alias_hits": [
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_15",
+      "name": "Hraničářské umění",
+      "pattern": "schopnosti hranicare"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_16",
+      "name": "Hraničářská magie",
+      "pattern": "znalost magie prirody"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_38",
+      "name": "Kouzelnické triky",
+      "pattern": "tabulka volitelnych schopnosti kouzelnika"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_39",
+      "name": "Obecná magie",
+      "pattern": "obor divoka magie"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_53",
+      "name": "Základy zlodějského umění",
+      "pattern": "tabulka volitelnych schopnosti zlodeje"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_66",
+      "name": "Spojení s bohem",
+      "pattern": "nauka bozich patroni"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_67",
+      "name": "Svěcení",
+      "pattern": "posvatny symbol"
+    },
+    {
+      "source": "manual_alias",
+      "type": "talent",
+      "id": "ABI_90",
+      "name": "Podstata alchymistické profese",
+      "pattern": "tabulka volitelnych schopnosti alchymisty"
+    }
   ]
 }
