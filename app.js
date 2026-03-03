@@ -13,7 +13,12 @@
 
   const CLASS_RULES = {
     PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
-    PROF_2: { starterSkills: ["Prvni pomoc", "Preziti v prirode", "Znalost prirody"], skillPointsMultiplier: 5 },
+    PROF_2: {
+      starterSkills: ["Prvni pomoc", "Preziti v prirode", "Znalost prirody"],
+      starterTalents: ["Hranicarske umeni", "Pouto s prirodou"],
+      starterSkillsByTalent: ["Hranicarske umeni", "Pouto s prirodou"],
+      skillPointsMultiplier: 5
+    },
     PROF_3: { starterSkills: ["Cteni a psani", "Mechanika", "Znalost prirody"], skillPointsMultiplier: 4 },
     PROF_4: { starterSkills: ["Cizi jazyky", "Cteni a psani", "Historie"], skillPointsMultiplier: 3 },
     PROF_5: { starterSkills: ["Akrobacie", "Postreh", "Reflex"], skillPointsMultiplier: 8 },
@@ -318,6 +323,7 @@
     const classTalents = state.talents
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
+    const starterTalentIds = new Set(getClassStarterTalentIds(profId));
     const split = splitClassTalentsForTree(classTalents);
     const currentLevel = getCurrentCharacterLevel();
     const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
@@ -332,6 +338,7 @@
     renderBranch(els.generalNodes, split.general, {
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
+      starterTalentIds,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
 
@@ -355,6 +362,7 @@
       renderBranch(container, branchTalents, {
         maxNodes: BRANCH_TALENT_SLOTS,
         disabled: !branchEnabled,
+        starterTalentIds,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
     }
@@ -367,6 +375,7 @@
   function renderBranch(container, talents, opts = {}) {
     const maxNodes = Number.isFinite(opts.maxNodes) ? opts.maxNodes : Math.max(9, talents.length);
     const isDisabled = !!opts.disabled;
+    const starterTalentIds = opts.starterTalentIds instanceof Set ? opts.starterTalentIds : new Set();
     const onToggle = typeof opts.onToggle === "function" ? opts.onToggle : null;
     container.innerHTML = "";
     for (let i = 0; i < maxNodes; i += 1) {
@@ -379,16 +388,19 @@
         node.disabled = true;
         node.textContent = " ";
       } else {
-        const isSelected = state.selectedTalentIds.has(talent.id);
+        const isStarterTalent = starterTalentIds.has(talent.id);
+        const isSelected = isStarterTalent || state.selectedTalentIds.has(talent.id);
         const isPdfCovered = state.pdfCoverage.talents.has(talent.id);
         if (isSelected) node.classList.add("selected");
+        if (isStarterTalent) node.classList.add("locked");
         if (isDisabled) node.classList.add("locked");
         if (isPdfCovered) node.classList.add("pdf-covered");
         node.title = `${talent.name}\n${talent.description || ""}`;
+        if (isStarterTalent) node.title += "\n[ZAKLAD OD LVL 1]";
         if (isPdfCovered) node.title += "\n[PDF]";
         node.textContent = talent.name;
-        node.disabled = isDisabled;
-        if (onToggle) node.addEventListener("click", () => onToggle(talent, !isSelected));
+        node.disabled = isDisabled || isStarterTalent;
+        if (onToggle && !isStarterTalent) node.addEventListener("click", () => onToggle(talent, !isSelected));
       }
       container.appendChild(node);
     }
@@ -433,6 +445,7 @@
     const profId = state.selectedProfessionId;
     const starterIds = new Set(getClassStarterSkillIds());
     const selectedTalentIds = new Set(state.selectedTalentIds);
+    for (const id of getClassStarterTalentIds(profId)) selectedTalentIds.add(id);
     const raceTalent = getRaceBonusTalent();
     if (raceTalent) selectedTalentIds.add(raceTalent.id);
     const visibleSkills = state.skills
@@ -624,6 +637,8 @@
   function buildPlan() {
     const profId = state.selectedProfessionId;
     const raceTalent = getRaceBonusTalent();
+    const classStarterTalentIds = new Set(getClassStarterTalentIds(profId));
+    const classStarterTalents = state.talents.filter((t) => classStarterTalentIds.has(t.id));
     const racePointBonus = getRacePointBonus(raceTalent);
     const starterIds = new Set(getClassStarterSkillIds());
 
@@ -631,7 +646,8 @@
       (t) =>
         state.selectedTalentIds.has(t.id) &&
         t.prof_id === profId &&
-        (!raceTalent || t.id !== raceTalent.id)
+        (!raceTalent || t.id !== raceTalent.id) &&
+        !classStarterTalentIds.has(t.id)
     );
 
     const skillPlans = [];
@@ -645,6 +661,7 @@
 
     const selectedTalentMap = new Map(talents.map((t) => [t.id, t]));
     if (raceTalent) selectedTalentMap.set(raceTalent.id, raceTalent);
+    for (const t of classStarterTalents) selectedTalentMap.set(t.id, t);
 
     const issues = [];
     const missingPrereq = [];
@@ -683,6 +700,7 @@
     const talentQueue = [...talents].sort(byRequiredThenName);
     const assignedTalentLevel = new Map();
     if (raceTalent) assignedTalentLevel.set(raceTalent.id, 1);
+    for (const t of classStarterTalents) assignedTalentLevel.set(t.id, 1);
 
     let skillPointPool = 0;
 
@@ -765,9 +783,10 @@
       unscheduledTalents,
       unscheduledSkills,
       totals: {
-        selectedTalents: talents.length + (raceTalent ? 1 : 0),
+        selectedTalents: talents.length + classStarterTalents.length + (raceTalent ? 1 : 0),
         selectedSkills: skillPlans.length,
-        assignedTalents: (talents.length - unscheduledTalents.length) + (raceTalent ? 1 : 0),
+        assignedTalents:
+          (talents.length - unscheduledTalents.length) + classStarterTalents.length + (raceTalent ? 1 : 0),
         assignedSkills: skillPlans.length - unscheduledSkills.length,
         currentLevel: effectiveLevel
       }
@@ -1007,11 +1026,26 @@
     const classRule = CLASS_RULES[profId];
     if (!classRule) return [];
     const wanted = new Set(classRule.starterSkills.map(normalize));
+    const starterTalentIds = new Set(getClassStarterTalentIds(profId));
     const ids = [];
     for (const s of state.skills) {
-      if (wanted.has(normalize(s.name)) && isSkillAvailableForClass(s, profId)) ids.push(s.id);
+      if (!isSkillAvailableForClass(s, profId)) continue;
+      if (wanted.has(normalize(s.name))) {
+        ids.push(s.id);
+        continue;
+      }
+      if (s.ability_id && starterTalentIds.has(s.ability_id)) ids.push(s.id);
     }
     return ids;
+  }
+
+  function getClassStarterTalentIds(profId) {
+    const classRule = CLASS_RULES[profId];
+    if (!classRule || !Array.isArray(classRule.starterTalents)) return [];
+    const wanted = new Set(classRule.starterTalents.map(normalize));
+    return state.talents
+      .filter((t) => t.prof_id === profId && wanted.has(normalize(t.name)))
+      .map((t) => t.id);
   }
 
   function isSkillAvailableForClass(skill, profId) {
