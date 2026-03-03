@@ -7,6 +7,9 @@
     PROF_5: ["Vrah", "Akrobat", "Stin"],
     PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
   };
+  const GENERAL_TALENT_SLOTS = 12;
+  const BRANCH_TALENT_SLOTS = 12;
+  const SPECIALIZATION_UNLOCK_LEVEL = 6;
 
   const CLASS_RULES = {
     PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
@@ -54,6 +57,7 @@
     selectedProfessionId: "",
     selectedRaceId: "",
     selectedTalentIds: new Set(),
+    selectedSpecializationByClass: {},
     selectedSkillTargets: {},
     pdfCoverage: {
       skills: new Set(),
@@ -71,6 +75,8 @@
     raceSelect: document.getElementById("raceSelect"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
+    generalNodes: document.getElementById("generalNodes"),
+    specPicker: document.getElementById("specPicker"),
     branchTitle1: document.getElementById("branchTitle1"),
     branchTitle2: document.getElementById("branchTitle2"),
     branchTitle3: document.getElementById("branchTitle3"),
@@ -168,6 +174,7 @@
 
     els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
+      state.selectedSpecializationByClass = {};
       state.selectedSkillTargets = {};
       renderAll();
       persist();
@@ -211,18 +218,20 @@
     els.manualLevelMinus.addEventListener("click", () => {
       state.levelMode = "manual";
       state.manualLevel = clampInt(state.manualLevel - 1, 1, state.config.maxLevel, 1);
-      renderPlanOnly();
+      renderAll();
       persist();
     });
     els.manualLevelPlus.addEventListener("click", () => {
       state.levelMode = "manual";
       state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
-      renderPlanOnly();
+      renderAll();
       persist();
     });
-    bindNumber(els.manualLevelInput, (v) => {
+    els.manualLevelInput.addEventListener("change", () => {
       state.levelMode = "manual";
-      state.manualLevel = clampInt(v, 1, state.config.maxLevel, 1);
+      state.manualLevel = clampInt(els.manualLevelInput.value, 1, state.config.maxLevel, 1);
+      renderAll();
+      persist();
     });
 
     els.exportBtn.addEventListener("click", () => {
@@ -309,25 +318,57 @@
     const classTalents = state.talents
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
+    const split = splitClassTalentsForTree(classTalents);
+    const currentLevel = getCurrentCharacterLevel();
+    const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
+    if (!specializationUnlocked) {
+      for (const branch of split.branches) {
+        for (const talent of branch) state.selectedTalentIds.delete(talent.id);
+      }
+      delete state.selectedSpecializationByClass[profId];
+    }
+    const lockedSpecIndex = getLockedSpecializationIndex(profId, split.branches);
 
-    const raceTalent = getRaceBonusTalent();
-    const branches = [[], [], []];
-    classTalents.forEach((talent, idx) => {
-      branches[idx % 3].push(talent);
+    renderBranch(els.generalNodes, split.general, {
+      maxNodes: GENERAL_TALENT_SLOTS,
+      disabled: false,
+      onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
 
-    renderBranch(els.branch1, branches[0]);
-    renderBranch(els.branch2, branches[1]);
-    renderBranch(els.branch3, branches[2]);
+    renderSpecializationPicker(
+      profId,
+      branchNames,
+      split.branches,
+      specializationUnlocked,
+      lockedSpecIndex,
+      currentLevel
+    );
 
+    const branchContainers = [els.branch1, els.branch2, els.branch3];
+    for (let i = 0; i < branchContainers.length; i += 1) {
+      const container = branchContainers[i];
+      const card = container.parentElement;
+      const branchTalents = split.branches[i] || [];
+      const branchEnabled = specializationUnlocked && lockedSpecIndex === i;
+      card.classList.toggle("branch-active", branchEnabled);
+      card.classList.toggle("branch-hidden", !branchEnabled);
+      renderBranch(container, branchTalents, {
+        maxNodes: BRANCH_TALENT_SLOTS,
+        disabled: !branchEnabled,
+        onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
+      });
+    }
+    const raceTalent = getRaceBonusTalent();
     const visibleTalentTotal = classTalents.length + (raceTalent ? 1 : 0);
     const selectedVisible = countSelectedVisibleTalents(classTalents) + (raceTalent ? 1 : 0);
     els.talentCount.textContent = `${selectedVisible} / ${visibleTalentTotal}`;
   }
 
-  function renderBranch(container, talents) {
+  function renderBranch(container, talents, opts = {}) {
+    const maxNodes = Number.isFinite(opts.maxNodes) ? opts.maxNodes : Math.max(9, talents.length);
+    const isDisabled = !!opts.disabled;
+    const onToggle = typeof opts.onToggle === "function" ? opts.onToggle : null;
     container.innerHTML = "";
-    const maxNodes = Math.max(9, talents.length);
     for (let i = 0; i < maxNodes; i += 1) {
       const talent = talents[i];
       const node = document.createElement("button");
@@ -341,13 +382,50 @@
         const isSelected = state.selectedTalentIds.has(talent.id);
         const isPdfCovered = state.pdfCoverage.talents.has(talent.id);
         if (isSelected) node.classList.add("selected");
+        if (isDisabled) node.classList.add("locked");
         if (isPdfCovered) node.classList.add("pdf-covered");
         node.title = `${talent.name}\n${talent.description || ""}`;
         if (isPdfCovered) node.title += "\n[PDF]";
         node.textContent = talent.name;
-        node.addEventListener("click", () => toggleTalent(talent.id, !isSelected));
+        node.disabled = isDisabled;
+        if (onToggle) node.addEventListener("click", () => onToggle(talent, !isSelected));
       }
       container.appendChild(node);
+    }
+  }
+
+  function renderSpecializationPicker(profId, branchNames, branches, unlocked, activeIndex, currentLevel) {
+    els.specPicker.innerHTML = "";
+    for (let i = 0; i < 3; i += 1) {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "spec-node";
+      if (activeIndex === i) btn.classList.add("active");
+      if (!unlocked) btn.classList.add("locked");
+      const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
+      const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
+      btn.textContent = `${branchNames[i]}${suffix}`;
+      if (!unlocked) {
+        btn.title = `Odemkne se od levelu ${SPECIALIZATION_UNLOCK_LEVEL}. Aktuálně ${currentLevel}.`;
+        btn.disabled = true;
+      } else {
+        const blockedByLock = activeIndex !== null && activeIndex !== i;
+        if (blockedByLock) btn.classList.add("locked");
+        btn.title =
+          activeIndex === i
+            ? "Klikni pro vyčištění celé větve a odemknutí ostatních specializací."
+            : blockedByLock
+              ? "Ostatní specializace jsou zamčené, dokud neodznačíš aktivní větev."
+              : "Vybrat specializaci";
+        btn.disabled = blockedByLock;
+        btn.addEventListener("click", () => {
+          if (activeIndex === i) clearSpecializationBranch(profId, i);
+          else if (activeIndex === null || activeIndex === i) setSpecialization(profId, i);
+          renderAll();
+          persist();
+        });
+      }
+      els.specPicker.appendChild(btn);
     }
   }
 
@@ -438,9 +516,9 @@
     if (!els.skillList || rowCount <= 0) return;
     const listHeight = els.skillList.clientHeight;
     if (!listHeight || !Number.isFinite(listHeight)) return;
-    const gapPx = 4;
+    const gapPx = 2;
     const raw = (listHeight - Math.max(0, rowCount - 1) * gapPx) / rowCount;
-    const rowPx = Math.max(22, Math.min(42, Math.floor(raw)));
+    const rowPx = Math.max(18, Math.min(30, Math.floor(raw)));
     els.skillList.style.gridAutoRows = `${rowPx}px`;
   }
 
@@ -466,6 +544,79 @@
   function toggleTalent(id, checked) {
     if (checked) state.selectedTalentIds.add(id);
     else state.selectedTalentIds.delete(id);
+    renderAll();
+    persist();
+  }
+
+  function splitClassTalentsForTree(classTalents) {
+    const general = classTalents.slice(0, GENERAL_TALENT_SLOTS);
+    const rest = classTalents.slice(GENERAL_TALENT_SLOTS);
+    const branches = [[], [], []];
+    rest.forEach((talent, idx) => {
+      const branchIndex = idx % 3;
+      if (branches[branchIndex].length < BRANCH_TALENT_SLOTS) branches[branchIndex].push(talent);
+    });
+    return { general, branches };
+  }
+
+  function getCurrentCharacterLevel() {
+    const plan = buildPlan();
+    return clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
+  }
+
+  function getLockedSpecializationIndex(profId, branches) {
+    const selectedByTalent = [];
+    for (let i = 0; i < branches.length; i += 1) {
+      const hasSelected = branches[i].some((t) => state.selectedTalentIds.has(t.id));
+      if (hasSelected) selectedByTalent.push(i);
+    }
+    const forced = Number.isInteger(state.selectedSpecializationByClass[profId])
+      ? state.selectedSpecializationByClass[profId]
+      : null;
+    if (selectedByTalent.length > 0) {
+      const locked = selectedByTalent.includes(forced) ? forced : selectedByTalent[0];
+      for (let i = 0; i < branches.length; i += 1) {
+        if (i === locked) continue;
+        for (const t of branches[i]) state.selectedTalentIds.delete(t.id);
+      }
+      state.selectedSpecializationByClass[profId] = locked;
+      return locked;
+    }
+    if (forced === 0 || forced === 1 || forced === 2) return forced;
+    return null;
+  }
+
+  function setSpecialization(profId, branchIndex) {
+    state.selectedSpecializationByClass[profId] = branchIndex;
+  }
+
+  function clearSpecializationBranch(profId, branchIndex) {
+    const classTalents = state.talents
+      .filter((t) => t.prof_id === profId)
+      .sort(byRequiredThenName);
+    const { branches } = splitClassTalentsForTree(classTalents);
+    for (const t of branches[branchIndex] || []) state.selectedTalentIds.delete(t.id);
+    delete state.selectedSpecializationByClass[profId];
+  }
+
+  function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
+    const currentLevel = getCurrentCharacterLevel();
+    if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
+    const lockedIndex = getLockedSpecializationIndex(profId, splitClassTalentsForTree(
+      state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName)
+    ).branches);
+    if (lockedIndex !== null && lockedIndex !== branchIndex) return;
+    state.selectedSpecializationByClass[profId] = branchIndex;
+    if (checked) state.selectedTalentIds.add(talentId);
+    else {
+      state.selectedTalentIds.delete(talentId);
+      const classTalents = state.talents
+        .filter((t) => t.prof_id === profId)
+        .sort(byRequiredThenName);
+      const { branches } = splitClassTalentsForTree(classTalents);
+      const stillSelected = (branches[branchIndex] || []).some((t) => state.selectedTalentIds.has(t.id));
+      if (!stillSelected) delete state.selectedSpecializationByClass[profId];
+    }
     renderAll();
     persist();
   }
@@ -719,6 +870,7 @@
       professionId: state.selectedProfessionId,
       raceId: state.selectedRaceId,
       selectedTalentIds: [...state.selectedTalentIds],
+      selectedSpecializationByClass: state.selectedSpecializationByClass,
       selectedSkillTargets: state.selectedSkillTargets,
       manualLevel: state.manualLevel,
       levelMode: state.levelMode,
@@ -731,6 +883,10 @@
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
     if (payload.raceId) state.selectedRaceId = payload.raceId;
     state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
+    state.selectedSpecializationByClass =
+      payload.selectedSpecializationByClass && typeof payload.selectedSpecializationByClass === "object"
+        ? payload.selectedSpecializationByClass
+        : {};
     state.selectedSkillTargets = payload.selectedSkillTargets || {};
     state.manualLevel = Number.isFinite(payload.manualLevel)
       ? clampInt(payload.manualLevel, 1, 30, 1)
@@ -807,6 +963,12 @@
       if (t > floor) cleaned[id] = t;
     }
     state.selectedSkillTargets = cleaned;
+
+    const classTalents = state.talents
+      .filter((t) => t.prof_id === profId)
+      .sort(byRequiredThenName);
+    const { branches } = splitClassTalentsForTree(classTalents);
+    getLockedSpecializationIndex(profId, branches);
   }
 
   function getRaceById(id) {
