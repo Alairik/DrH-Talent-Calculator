@@ -17,6 +17,29 @@
     PROF_6: { starterSkills: ["Cteni a psani", "Teologie", "Vule"], skillPointsMultiplier: 3 }
   };
 
+  const BASIC_SKILL_NAMES = new Set([
+    "akrobacie",
+    "atletika",
+    "cizi jazyky",
+    "cteni a psani",
+    "historie",
+    "jizda na zvireti",
+    "mechanika",
+    "plavani",
+    "plizeni",
+    "postreh",
+    "prvni pomoc",
+    "preziti v prirode",
+    "reflex",
+    "remesla",
+    "teologie",
+    "umeni",
+    "vule",
+    "vydrz",
+    "znalost prirody",
+    "zpracovani zvere"
+  ]);
+
   const state = {
     professions: [],
     races: [],
@@ -716,7 +739,9 @@
   }
 
   function isSkillAvailableForClass(skill, profId) {
-    return !skill.prof_id || skill.prof_id === profId;
+    if (!skill) return false;
+    if (!skill.prof_id || skill.prof_id === profId) return true;
+    return BASIC_SKILL_NAMES.has(normalize(skill.name));
   }
 
   function countSelectedVisibleTalents(classTalents) {
