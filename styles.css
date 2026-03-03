@@ -215,6 +215,11 @@ button:hover {
   font-size: 0.66rem;
 }
 
+.skill-item.starter {
+  border-color: #2e6c44;
+  background: linear-gradient(180deg, rgba(28, 58, 40, 0.7), rgba(19, 42, 29, 0.55));
+}
+
 .skill-rank-controls {
   display: flex;
   align-items: center;

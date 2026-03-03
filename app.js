@@ -304,11 +304,11 @@
 
       const row = document.createElement("div");
       row.className = "skill-item";
+      if (starterRank > 0) row.classList.add("starter");
 
       const left = document.createElement("div");
       const title = document.createElement("div");
-      const startMark = starterRank > 0 ? " [START 3]" : "";
-      title.textContent = s.name + startMark;
+      title.textContent = s.name;
       const meta = document.createElement("div");
       meta.className = "meta";
       if (s.ability_id) {
@@ -588,7 +588,7 @@
       for (const s of lvl.startSkills) {
         const tag = document.createElement("span");
         tag.className = "tag skill";
-        tag.textContent = `START SKILL: ${s.name} (3)`;
+        tag.textContent = `D: ${s.name} (3)`;
         tags.appendChild(tag);
       }
       for (const t of lvl.talents) {
