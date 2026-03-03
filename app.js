@@ -1,18 +1,20 @@
 (function () {
   const BRANCH_NAMES = {
-    PROF_1: ["Berserk", "Strážce", "Veterán"],
-    PROF_2: ["Lovec", "Stopař", "Hraniční magie"],
-    PROF_3: ["Mastičkář", "Mistr směsí", "Runotvůrce"],
+    PROF_1: ["Berserk", "Strazce", "Veteran"],
+    PROF_2: ["Lovec", "Stopar", "Hranicni magie"],
+    PROF_3: ["Mastickar", "Mistr smesi", "Runotvurce"],
     PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
-    PROF_5: ["Vrah", "Akrobat", "Stín"],
-    PROF_6: ["Inkvizitor", "Ochránce víry", "Mystik"]
+    PROF_5: ["Vrah", "Akrobat", "Stin"],
+    PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
   };
 
   const state = {
     professions: [],
+    races: [],
     talents: [],
     skills: [],
     selectedProfessionId: "",
+    selectedRaceId: "",
     selectedTalentIds: new Set(),
     selectedSkillIds: new Set(),
     config: {
@@ -22,12 +24,12 @@
   };
 
   const els = {
-    professionSelect: document.getElementById("professionSelect"),
+    raceSelect: document.getElementById("raceSelect"),
     resetBtn: document.getElementById("resetBtn"),
+    classPicker: document.getElementById("classPicker"),
     branchTitle1: document.getElementById("branchTitle1"),
     branchTitle2: document.getElementById("branchTitle2"),
     branchTitle3: document.getElementById("branchTitle3"),
-    classPicker: document.getElementById("classPicker"),
     branch1: document.getElementById("branch1"),
     branch2: document.getElementById("branch2"),
     branch3: document.getElementById("branch3"),
@@ -50,28 +52,44 @@
 
   init().catch((err) => {
     console.error(err);
-    document.body.innerHTML = "<pre>Chyba při načítání dat. Spusť přes lokální server (ne file://).\n" + String(err) + "</pre>";
+    document.body.innerHTML =
+      "<pre>Error loading data. Use local server (not file://).\n" +
+      String(err) +
+      "</pre>";
   });
 
   async function init() {
-    const [professionsPayload, talentsPayload, skillsPayload] = await Promise.all([
-      fetchJson("./research/sirael-professions.json"),
-      fetchJson("./research/sirael-player-talents.json"),
-      fetchJson("./research/sirael-skills-all.json")
-    ]);
+    const [professionsPayload, racesPayload, talentsPayload, skillsPayload] =
+      await Promise.all([
+        fetchJson("./research/sirael-professions.json"),
+        fetchJson("./research/sirael-races.json"),
+        fetchJson("./research/sirael-player-talents.json"),
+        fetchJson("./research/sirael-skills-all.json")
+      ]);
 
     state.professions = professionsPayload.items || [];
+    state.races = racesPayload.items || [];
     state.talents = (talentsPayload.items || []).map((x) => ({ ...x, type: "talent" }));
     state.skills = (skillsPayload.items || []).map((x) => ({ ...x, type: "skill" }));
 
     hydrateFromStorage();
+    ensureDefaults();
     wireEvents();
     renderAll();
   }
 
+  function ensureDefaults() {
+    if (!state.selectedProfessionId && state.professions.length > 0) {
+      state.selectedProfessionId = state.professions[0].id;
+    }
+    if (!state.selectedRaceId && state.races.length > 0) {
+      state.selectedRaceId = state.races[0].id;
+    }
+  }
+
   function wireEvents() {
-    els.professionSelect.addEventListener("change", () => {
-      state.selectedProfessionId = els.professionSelect.value;
+    els.raceSelect.addEventListener("change", () => {
+      state.selectedRaceId = els.raceSelect.value;
       cleanseInvalidSelections();
       renderAll();
       persist();
@@ -88,16 +106,36 @@
       state.config.maxLevel = clampInt(v, 1, 30, window.APP_CONFIG.maxLevel);
     });
     bindNumber(els.talentL1, (v) => {
-      state.config.points.talentLevel1 = clampInt(v, 0, 50, window.APP_CONFIG.points.talentLevel1);
+      state.config.points.talentLevel1 = clampInt(
+        v,
+        0,
+        50,
+        window.APP_CONFIG.points.talentLevel1
+      );
     });
     bindNumber(els.talentPerLevel, (v) => {
-      state.config.points.talentPerLevel = clampInt(v, 0, 50, window.APP_CONFIG.points.talentPerLevel);
+      state.config.points.talentPerLevel = clampInt(
+        v,
+        0,
+        50,
+        window.APP_CONFIG.points.talentPerLevel
+      );
     });
     bindNumber(els.skillL1, (v) => {
-      state.config.points.skillLevel1 = clampInt(v, 0, 50, window.APP_CONFIG.points.skillLevel1);
+      state.config.points.skillLevel1 = clampInt(
+        v,
+        0,
+        50,
+        window.APP_CONFIG.points.skillLevel1
+      );
     });
     bindNumber(els.skillPerLevel, (v) => {
-      state.config.points.skillPerLevel = clampInt(v, 0, 50, window.APP_CONFIG.points.skillPerLevel);
+      state.config.points.skillPerLevel = clampInt(
+        v,
+        0,
+        50,
+        window.APP_CONFIG.points.skillPerLevel
+      );
     });
 
     els.exportBtn.addEventListener("click", () => {
@@ -106,12 +144,11 @@
 
     els.importBtn.addEventListener("click", () => {
       try {
-        const payload = JSON.parse(els.exchangeBox.value);
-        importBuild(payload);
+        importBuild(JSON.parse(els.exchangeBox.value));
         renderAll();
         persist();
       } catch (_err) {
-        alert("Import selhal: neplatný JSON.");
+        alert("Import failed: invalid JSON.");
       }
     });
   }
@@ -132,18 +169,15 @@
   }
 
   function renderControls() {
-    els.professionSelect.innerHTML = "";
-    for (const p of state.professions) {
+    els.raceSelect.innerHTML = "";
+    for (const r of state.races) {
       const opt = document.createElement("option");
-      opt.value = p.id;
-      opt.textContent = p.name;
-      if (p.id === state.selectedProfessionId) opt.selected = true;
-      els.professionSelect.appendChild(opt);
+      opt.value = r.id;
+      opt.textContent = r.name;
+      if (r.id === state.selectedRaceId) opt.selected = true;
+      els.raceSelect.appendChild(opt);
     }
-    if (!state.selectedProfessionId && state.professions.length > 0) {
-      state.selectedProfessionId = state.professions[0].id;
-      els.professionSelect.value = state.selectedProfessionId;
-    }
+    els.raceSelect.value = state.selectedRaceId;
 
     renderClassPicker();
 
@@ -164,7 +198,6 @@
       btn.textContent = p.name;
       btn.addEventListener("click", () => {
         state.selectedProfessionId = p.id;
-        els.professionSelect.value = p.id;
         cleanseInvalidSelections();
         renderAll();
         persist();
@@ -175,7 +208,7 @@
 
   function renderTalentTree() {
     const profId = state.selectedProfessionId;
-    const branchNames = BRANCH_NAMES[profId] || ["Větev I", "Větev II", "Větev III"];
+    const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
     els.branchTitle2.textContent = branchNames[1];
     els.branchTitle3.textContent = branchNames[2];
@@ -184,8 +217,9 @@
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
 
+    const raceTalent = getRaceBonusTalent();
     const generalTalents = state.talents
-      .filter((t) => !t.prof_id)
+      .filter((t) => !t.prof_id && (!raceTalent || t.id !== raceTalent.id))
       .sort(byRequiredThenName);
 
     const branches = [[], [], []];
@@ -212,8 +246,11 @@
       els.generalTalents.appendChild(row);
     }
 
-    const visibleTalentTotal = classTalents.length + generalTalents.length;
-    els.talentCount.textContent = `${countSelectedVisibleTalents(classTalents, generalTalents)} / ${visibleTalentTotal}`;
+    const visibleTalentTotal =
+      classTalents.length + generalTalents.length + (raceTalent ? 1 : 0);
+    const selectedVisible =
+      countSelectedVisibleTalents(classTalents, generalTalents) + (raceTalent ? 1 : 0);
+    els.talentCount.textContent = `${selectedVisible} / ${visibleTalentTotal}`;
   }
 
   function renderBranch(container, talents) {
@@ -224,7 +261,6 @@
       const node = document.createElement("button");
       node.type = "button";
       node.className = "node";
-
       if (!talent) {
         node.classList.add("empty");
         node.disabled = true;
@@ -242,23 +278,24 @@
 
   function renderSkills() {
     const profId = state.selectedProfessionId;
+    const raceSkillIds = getRaceBonusSkillIds();
+    const raceSkillSet = new Set(raceSkillIds);
     const visibleSkills = state.skills
-      .filter((s) => belongsToProfession(s.prof_id, profId))
+      .filter((s) => belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
       .sort(byName);
 
     els.skillList.innerHTML = "";
     for (const s of visibleSkills) {
       const row = document.createElement("label");
       row.className = "skill-item";
-
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.checked = state.selectedSkillIds.has(s.id);
       checkbox.addEventListener("change", () => toggleSkill(s.id, checkbox.checked));
-
       const box = document.createElement("div");
       const title = document.createElement("div");
-      title.textContent = s.name;
+      const raceMark = raceSkillSet.has(s.id) ? " [RASA]" : "";
+      title.textContent = s.name + raceMark;
       const meta = document.createElement("div");
       meta.className = "meta";
       meta.textContent = `${s.id}${s.ability_id ? ` | talent: ${s.ability_id}` : ""}`;
@@ -268,7 +305,6 @@
       row.appendChild(box);
       els.skillList.appendChild(row);
     }
-
     const selectedVisible = visibleSkills.filter((s) => state.selectedSkillIds.has(s.id)).length;
     els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
   }
@@ -283,24 +319,33 @@
   function toggleSkill(id, checked) {
     if (checked) state.selectedSkillIds.add(id);
     else state.selectedSkillIds.delete(id);
-    renderPlanOnly();
-    renderSkills();
+    renderAll();
     persist();
-  }
-
-  function renderPlanOnly() {
-    const plan = buildPlan();
-    renderSummary(plan);
-    renderIssues(plan);
-    renderTimeline(plan);
   }
 
   function buildPlan() {
     const profId = state.selectedProfessionId;
-    const talents = state.talents.filter((t) => state.selectedTalentIds.has(t.id) && belongsToProfession(t.prof_id, profId));
-    const skills = state.skills.filter((s) => state.selectedSkillIds.has(s.id) && belongsToProfession(s.prof_id, profId));
+    const raceTalent = getRaceBonusTalent();
+    const racePointBonus = getRacePointBonus(raceTalent);
+    const raceSkillIds = getRaceBonusSkillIds();
+    const raceSkillSet = new Set(raceSkillIds);
+
+    const talents = state.talents.filter(
+      (t) =>
+        state.selectedTalentIds.has(t.id) &&
+        belongsToProfession(t.prof_id, profId) &&
+        (!raceTalent || t.id !== raceTalent.id)
+    );
+
+    const skills = state.skills.filter(
+      (s) =>
+        state.selectedSkillIds.has(s.id) &&
+        (belongsToProfession(s.prof_id, profId) || raceSkillSet.has(s.id))
+    );
 
     const selectedTalentMap = new Map(talents.map((t) => [t.id, t]));
+    if (raceTalent) selectedTalentMap.set(raceTalent.id, raceTalent);
+
     const issues = [];
     const missingPrereq = [];
     for (const s of skills) {
@@ -310,10 +355,17 @@
     const maxLevel = state.config.maxLevel;
     const levels = [];
     for (let lvl = 1; lvl <= maxLevel; lvl += 1) {
+      const talentBase =
+        lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
+      const skillBase =
+        lvl === 1 ? state.config.points.skillLevel1 : state.config.points.skillPerLevel;
       levels.push({
         level: lvl,
-        talentCapacity: lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel,
-        skillCapacity: lvl === 1 ? state.config.points.skillLevel1 : state.config.points.skillPerLevel,
+        talentCapacity:
+          talentBase + (lvl === 1 ? racePointBonus.talentLevel1 : racePointBonus.talentPerLevel),
+        skillCapacity:
+          skillBase + (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel),
+        raceBonuses: lvl === 1 && raceTalent ? [raceTalent] : [],
         talents: [],
         skills: []
       });
@@ -323,6 +375,7 @@
     const remainingSkills = new Map([...skills].map((s) => [s.id, s]));
     const assignedTalentLevel = new Map();
     const assignedSkillLevel = new Map();
+    if (raceTalent) assignedTalentLevel.set(raceTalent.id, 1);
 
     for (const lvlState of levels) {
       while (lvlState.talents.length < lvlState.talentCapacity && talentQueue.length > 0) {
@@ -352,11 +405,10 @@
     }
 
     if (missingPrereq.length > 0) {
-      issues.push(`Chybí prerequisite talent pro ${missingPrereq.length} dovedností.`);
+      issues.push(`Missing prerequisite talent for ${missingPrereq.length} skills.`);
     }
-
     if (talentQueue.length > 0 || remainingSkills.size > 0) {
-      issues.push("Nedostatek bodů v aktuálním level capu.");
+      issues.push("Not enough points in current level cap.");
     }
 
     const maxAssigned = Math.max(
@@ -371,7 +423,7 @@
       unscheduledTalents: talentQueue,
       unscheduledSkills: [...remainingSkills.values()],
       totals: {
-        selectedTalents: talents.length,
+        selectedTalents: talents.length + (raceTalent ? 1 : 0),
         selectedSkills: skills.length,
         assignedTalents: assignedTalentLevel.size,
         assignedSkills: assignedSkillLevel.size,
@@ -380,12 +432,19 @@
     };
   }
 
+  function renderPlanOnly() {
+    const plan = buildPlan();
+    renderSummary(plan);
+    renderIssues(plan);
+    renderTimeline(plan);
+  }
+
   function renderSummary(plan) {
     const kpis = [
-      ["Aktuální level", String(plan.totals.currentLevel)],
-      ["Talenty", `${plan.totals.assignedTalents}/${plan.totals.selectedTalents}`],
-      ["Dovednosti", `${plan.totals.assignedSkills}/${plan.totals.selectedSkills}`],
-      ["Nezařazeno", `${plan.unscheduledTalents.length + plan.unscheduledSkills.length}`]
+      ["Current level", String(plan.totals.currentLevel)],
+      ["Talents", `${plan.totals.assignedTalents}/${plan.totals.selectedTalents}`],
+      ["Skills", `${plan.totals.assignedSkills}/${plan.totals.selectedSkills}`],
+      ["Unscheduled", `${plan.unscheduledTalents.length + plan.unscheduledSkills.length}`]
     ];
     els.summary.innerHTML = "";
     for (const [label, value] of kpis) {
@@ -399,20 +458,30 @@
   function renderIssues(plan) {
     const lines = [];
     for (const issue of plan.issues) lines.push(`- ${issue}`);
-    if (plan.unscheduledTalents.length) lines.push(`- Talenty bez místa: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
-    if (plan.unscheduledSkills.length) lines.push(`- Dovednosti bez místa: ${plan.unscheduledSkills.map((x) => x.name).join(", ")}`);
-    els.issues.innerHTML = lines.length ? lines.map((x) => escapeHtml(x)).join("<br>") : "";
+    if (plan.unscheduledTalents.length) {
+      lines.push(`- Unscheduled talents: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
+    }
+    if (plan.unscheduledSkills.length) {
+      lines.push(`- Unscheduled skills: ${plan.unscheduledSkills.map((x) => x.name).join(", ")}`);
+    }
+    els.issues.innerHTML = lines.length ? lines.map(escapeHtml).join("<br>") : "";
   }
 
   function renderTimeline(plan) {
     els.timeline.innerHTML = "";
     for (const lvl of plan.levels) {
-      if (!lvl.talents.length && !lvl.skills.length) continue;
+      if (!lvl.raceBonuses.length && !lvl.talents.length && !lvl.skills.length) continue;
       const card = document.createElement("div");
       card.className = "level-card";
       card.innerHTML = `<div class="level-head"><strong>Level ${lvl.level}</strong><span>T ${lvl.talents.length}/${lvl.talentCapacity} | D ${lvl.skills.length}/${lvl.skillCapacity}</span></div>`;
       const tags = document.createElement("div");
       tags.className = "tags";
+      for (const r of lvl.raceBonuses) {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = `RACE BONUS: ${r.name}`;
+        tags.appendChild(tag);
+      }
       for (const t of lvl.talents) {
         const tag = document.createElement("span");
         tag.className = "tag";
@@ -432,8 +501,9 @@
 
   function exportBuild() {
     return {
-      version: 2,
+      version: 3,
       professionId: state.selectedProfessionId,
+      raceId: state.selectedRaceId,
       selectedTalentIds: [...state.selectedTalentIds],
       selectedSkillIds: [...state.selectedSkillIds],
       config: state.config
@@ -443,17 +513,37 @@
   function importBuild(payload) {
     if (!payload || typeof payload !== "object") throw new Error("Invalid payload");
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
-    state.selectedTalentIds = new Set(Array.isArray(payload.selectedTalentIds) ? payload.selectedTalentIds : []);
-    state.selectedSkillIds = new Set(Array.isArray(payload.selectedSkillIds) ? payload.selectedSkillIds : []);
-    if (payload.config) {
+    if (payload.raceId) state.selectedRaceId = payload.raceId;
+    state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
+    state.selectedSkillIds = new Set(payload.selectedSkillIds || []);
+    if (payload.config && payload.config.points) {
       state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 30, state.config.maxLevel);
-      if (payload.config.points) {
-        state.config.points.talentLevel1 = clampInt(payload.config.points.talentLevel1, 0, 50, state.config.points.talentLevel1);
-        state.config.points.talentPerLevel = clampInt(payload.config.points.talentPerLevel, 0, 50, state.config.points.talentPerLevel);
-        state.config.points.skillLevel1 = clampInt(payload.config.points.skillLevel1, 0, 50, state.config.points.skillLevel1);
-        state.config.points.skillPerLevel = clampInt(payload.config.points.skillPerLevel, 0, 50, state.config.points.skillPerLevel);
-      }
+      state.config.points.talentLevel1 = clampInt(
+        payload.config.points.talentLevel1,
+        0,
+        50,
+        state.config.points.talentLevel1
+      );
+      state.config.points.talentPerLevel = clampInt(
+        payload.config.points.talentPerLevel,
+        0,
+        50,
+        state.config.points.talentPerLevel
+      );
+      state.config.points.skillLevel1 = clampInt(
+        payload.config.points.skillLevel1,
+        0,
+        50,
+        state.config.points.skillLevel1
+      );
+      state.config.points.skillPerLevel = clampInt(
+        payload.config.points.skillPerLevel,
+        0,
+        50,
+        state.config.points.skillPerLevel
+      );
     }
+    ensureDefaults();
     cleanseInvalidSelections();
   }
 
@@ -463,7 +553,7 @@
     try {
       importBuild(JSON.parse(raw));
     } catch (_e) {
-      // ignore corrupted data
+      // ignore
     }
   }
 
@@ -473,14 +563,52 @@
 
   function cleanseInvalidSelections() {
     const profId = state.selectedProfessionId;
+    const raceSkillSet = new Set(getRaceBonusSkillIds());
     for (const id of [...state.selectedTalentIds]) {
       const t = state.talents.find((x) => x.id === id);
       if (!t || !belongsToProfession(t.prof_id, profId)) state.selectedTalentIds.delete(id);
     }
     for (const id of [...state.selectedSkillIds]) {
       const s = state.skills.find((x) => x.id === id);
-      if (!s || !belongsToProfession(s.prof_id, profId)) state.selectedSkillIds.delete(id);
+      if (!s || (!belongsToProfession(s.prof_id, profId) && !raceSkillSet.has(id))) {
+        state.selectedSkillIds.delete(id);
+      }
     }
+  }
+
+  function getRaceById(id) {
+    return state.races.find((r) => r.id === id);
+  }
+
+  function getRaceBonusTalent() {
+    const race = getRaceById(state.selectedRaceId);
+    if (!race || !race.ability) return null;
+    return state.talents.find((t) => normalize(t.name) === normalize(race.ability)) || null;
+  }
+
+  function getRacePointBonus(raceTalent) {
+    const base = {
+      talentLevel1: 0,
+      talentPerLevel: 0,
+      skillLevel1: 0,
+      skillPerLevel: 0
+    };
+    if (!raceTalent) return base;
+    const fromConfig = window.APP_CONFIG.racePointBonusesByTalentId || {};
+    const cfg = fromConfig[raceTalent.id];
+    if (cfg) return { ...base, ...cfg };
+    return base;
+  }
+
+  function getRaceBonusSkillIds() {
+    const map = window.APP_CONFIG.raceSkillAddsByName || {};
+    const names = map[state.selectedRaceId] || [];
+    const wanted = new Set(names.map(normalize));
+    const result = [];
+    for (const s of state.skills) {
+      if (wanted.has(normalize(s.name))) result.push(s.id);
+    }
+    return result;
   }
 
   function countSelectedVisibleTalents(classTalents, generalTalents) {
@@ -488,6 +616,14 @@
     let count = 0;
     for (const id of state.selectedTalentIds) if (visibleIds.has(id)) count += 1;
     return count;
+  }
+
+  function normalize(value) {
+    return String(value || "")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .trim();
   }
 
   function belongsToProfession(itemProfId, selectedProfId) {
@@ -513,7 +649,7 @@
 
   async function fetchJson(path) {
     const res = await fetch(path);
-    if (!res.ok) throw new Error(`Nepodarilo se nacist ${path}: ${res.status}`);
+    if (!res.ok) throw new Error(`Cannot load ${path}: ${res.status}`);
     return await res.json();
   }
 

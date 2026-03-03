@@ -1,0 +1,91 @@
+﻿{
+    "fetched_at_utc":  "2026-03-03T13:12:41Z",
+    "source_api":  "https://sirael.dracihlidka.cz/api/trpc/rulesRouter.getRaces",
+    "count":  7,
+    "items":  [
+                  {
+                      "id":  "RACE_1",
+                      "name":  "Barbar",
+                      "size":  "SIZE_4",
+                      "min_weight":  2.2,
+                      "max_weight":  155,
+                      "min_height":  1.8,
+                      "max_height":  2.2,
+                      "speed":  30,
+                      "ability":  "HouÅ¾evnatost",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eBarbaÅi bÃ½vajÃ­ obdaÅeni nejen velkou Silou, ale takÃ© OdolnostÃ­ a ObratnostÃ­. Proto se z nich Äasto rekrutujÃ­ skvÄlÃ­ vÃ¡leÄnÃ­ci nebo hraniÄÃ¡Åi. Mnoho z nich se vÅ¡ak vÄnuje i ostatnÃ­m hrdinskÃ½m profesÃ­m. VÃ½jimkou bÃ½vajÃ­ ty, kterÃ© vyÅ¾adujÃ­ vyÅ¡Å¡Ã­ Inteligenci nebo Charisma.\u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eV tÄch se podaÅÃ­ vyniknout pouze malÃ© hrstce barbarÅ¯. BarbaÅi jsou vzdÃ¡lenÃ½mi pÅÃ­buznÃ½mi lidÃ­. KrevnÃ­ linie obou rodÅ¯ se vÅ¡ak definitivnÄ rozdÄlily uÅ¾ pÅed dÃ¡vnÃ½mi Äasy. RozdÃ­l mezi nimi je proto znÃ¡t uÅ¾ na prvnÃ­ pohled. BarbaÅi jsou o nÄco vyÅ¡Å¡Ã­ neÅ¾ lidÃ© a majÃ­ takÃ© mnohem vypracovanÄjÅ¡Ã­ tÄlo. MÃ­vajÃ­ mohutnÃ© svaly, klenutÃ½ hrudnÃ­k a ostÅe ÅezanÃ© rysy obliÄeje. Do jejich ÄernÃ½ch nebo jasnÄ modrÃ½ch oÄÃ­ jim padajÃ­ dlouhÃ© havranÃ­ vlasy. TÄla majÃ­ zdobena klanovÃ½m tetovÃ¡nÃ­m, nÃ¡uÅ¡nicemi nebo kÅ¯stkami propÃ­chnutÃ½mi skrze kÅ¯Å¾i. Snad proto jim mnozÃ­ neÅeknou jinak neÅ¾ âdivocÃ­â. Jizvy a Å¡patnÄ zahojenÃ¡ zranÄnÃ­ jen dokreslujÃ­ jejich celkovou vizÃ¡Å¾. BarbaÅi majÃ­ ve zvyku jednat s ostatnÃ­mi na rovinu. BÃ½vajÃ­ upÅÃ­mnÃ­, hrdÃ­ a nelÃ­tostnÃ­ nejen k sobÄ, ale i k ostatnÃ­m. Domovem barbarÅ¯ bÃ½vajÃ­ vzdÃ¡lenÃ© osady na ÃºpatÃ­ch hor a divokÃ½ch hvozdÅ¯. Äasto jsou budovÃ¡ny na nepÅÃ­stupnÃ½ch mÃ­stech, kterÃ¡ navÃ­c chrÃ¡nÃ­ ostrÃ© dÅevÄnÃ© kÅ¯ly. Mezi barbarskÃ½mi kmeny totiÅ¾ probÃ­hajÃ­ nekoneÄnÃ© krevnÃ­ msty. Tyto roztrÅ¾ky navÃ­c posilujÃ­ i tradiÄnÃ­ Ãºnosy mladÃ½ch dÃ­vek cizÃ­ho klanu. DÅ¯leÅ¾itou souÄÃ¡stÃ­ tradic je pro barbary zÃ­skÃ¡nÃ­ jejich klanovÃ©ho jmÃ©na. To zÃ­skajÃ­ na zÃ¡kladÄ svÃ½ch ÄinÅ¯ nebo nÄjakÃ© udÃ¡losti a zÅ¯stane jim aÅ¾ do smrti. BarbaÅi vÄÅÃ­ v pÅÃ­rodnÃ­ magii, duchy a starÃ© bohy. Proto se kolem jejich vesnic vyskytujÃ­ runovÃ© kameny, totemy a dalÅ¡Ã­ symboly Ãºcty k nim. Å½ivot v divoÄinÄ z nich uÄinil vynikajÃ­cÃ­ lovce a stopaÅe. SkvÄle takÃ© rozumÃ­ rostlinÃ¡m, zvÃ­ÅatÅ¯m a pÅÃ­rodÄ obecnÄ. DÃ­ky svÃ½m znalostem bÃ½vajÃ­ vyhledÃ¡vanÃ½mi prÅ¯vodci, a na cestÃ¡ch je tak potkÃ¡Å¡ pomÄrnÄ Äasto.\u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_2",
+                      "name":  "ÄlovÄk",
+                      "size":  "SIZE_4",
+                      "min_weight":  2.1,
+                      "max_weight":  110,
+                      "min_height":  1.5,
+                      "max_height":  2.1,
+                      "speed":  30,
+                      "ability":  "VÅ¡estrannost",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eLidÃ© jsou zvlÃ¡Å¡tnÃ­ rasou, kterÃ¡ vynikÃ¡ svou univerzÃ¡lnostÃ­. NebÃ½vajÃ­ ani nejchytÅejÅ¡Ã­, ani nejsilnÄjÅ¡Ã­, avÅ¡ak v niÄem nejsou ani vyloÅ¾enÄ slabÃ­. PrÃ¡vÄ v tom je jejich skrytÃ¡ sÃ­la. DokÃ¡Å¾Ã­ se totiÅ¾ vÄnovat naprosto stejnÄ dobÅe jakÃ©koliv hrdinskÃ© profesi.\u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eLidÃ© jsou nejrozÅ¡Ã­ÅenÄjÅ¡Ã­ ze vÅ¡ech ras. Jejich vesnice a usedlosti tak najdeÅ¡ po celÃ©m svÄtÄ. KromÄ ÃºrodnÃ½ch plÃ¡nÃ­ na jihu se usadili takÃ© v horÃ¡ch severu a ve stepÃ­ch dÃ¡lnÃ©ho vÃ½chodu. Jejich pÅ¯vod lze Äasto urÄit podle vzhledu. SeveÅanÃ© bÃ½vajÃ­ bledÃ­, modroocÃ­ a svÄtlovlasÃ­. JiÅ¾anÃ© pak vÄtÅ¡inou opÃ¡lenÃ­, tmavovlasÃ­ a ÄernoocÃ­. StejnÃ½m zpÅ¯sobem se v nich zrcadlÃ­ i jejich vÃ½chova a zvyky. SeveÅanÃ© bÃ½vajÃ­ mlÄenlivÃ­, jiÅ¾anÃ© temperamentnÃ­ a podobnÄ. RozdÃ­lnÃ½ zpÅ¯sob Å¾ivota v podhÅ¯ÅÃ­, pouÅ¡tÃ­ch Äi lesÃ­ch pÅinutil lidi zvlÃ¡dnout mnoho rozliÄnÃ½ch dovednostÃ­. ZÃ­skali tak univerzÃ¡lnÃ­ talent uÄit se novÃ½m vÄcem a vykonÃ¡vat jakoukoliv Äinnost. DÃ­ky tomu se stali dobrÃ½mi farmÃ¡Åi, umÄlci, ÅemeslnÃ­ky i vÃ¡leÄnÃ­ky. SpoleÄnÃ½mi silami tak dokÃ¡zali vybudovat mÄsta, vesnice i mohutnÃ© pevnosti. V nich pak vystavÄli kostely, kaple a dalÅ¡Ã­ svatÃ¡ mÃ­sta. LidÃ© totiÅ¾ obvykle vÄÅÃ­ v rÅ¯znÃ© bohy a bÅ¯Å¾ky. NÄkteÅÃ­ vÅ¡ak radÄji berou osud do svÃ½ch rukou. Mnohdy je navÃ­c Å¾ene touha po bohatstvÃ­, moci a slÃ¡vÄ. Proto se z nich obÄas stÃ¡vajÃ­ Å¾oldÃ¡ci, tulÃ¡ci nebo dobrodruzi.Â \u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_3",
+                      "name":  "Elf",
+                      "size":  "SIZE_4",
+                      "min_weight":  1.8,
+                      "max_weight":  70,
+                      "min_height":  1.6,
+                      "max_height":  1.8,
+                      "speed":  30,
+                      "ability":  "OrlÃ­ zrak",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eElfovÃ© nejsou vÄtÅ¡inou ani pÅÃ­liÅ¡ silnÃ­, ani odolnÃ­. MÃ­vajÃ­ vÅ¡ak vysokÃ© Charisma a Inteligenci. Obvykle se z nich proto rekrutujÃ­ skvÄlÃ­ kouzelnÃ­ci, klerici i hraniÄÃ¡Åi. Mezi elfy vÅ¡ak najdeÅ¡ i dobrodruhy ostatnÃ­ch profesÃ­. Je jich ale mnohem mÃ©nÄ. O to vÄtÅ¡Ã­ vÅ¡ak zÃ­skajÃ­ slÃ¡vu, pokud ve svÃ©m oboru uspÄjÃ­. \u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eDarem i prokletÃ­m elfÅ¯ je jejich dlouhovÄkost. Na jejich tÄlech ani tvÃ¡ÅÃ­ch ji sice nepoznÃ¡Å¡, ale v jejich oÄÃ­ch mÅ¯Å¾eÅ¡ vidÄt odlesky dÃ¡vnÃ½ch ÄasÅ¯. ElfovÃ© jsou obvykle o trochu menÅ¡Ã­ neÅ¾ lidÃ© a bÃ½vajÃ­ takÃ© Å¡tÃ­hlejÅ¡Ã­ a Å¡lachovitÃ­. MajÃ­ jemnÃ© a sliÄnÃ© rysy tvÃ¡Åe, kterÃ© nÄkdy mohou vypadat aÅ¾ dÄtsky. Tento dojem jeÅ¡tÄ podtrhujÃ­ krÃ¡snÃ© dlouhÃ© vlasy, kterÃ© jim splÃ½vajÃ­ kolem Å¡piÄatÃ½ch uÅ¡Ã­. ElfovÃ© bÃ½vajÃ­ spÃ­Å¡e zasmuÅ¡ilÃ­ samotÃ¡Åi, kteÅÃ­ si nehledajÃ­ pÅÃ¡tele mezi jinÃ½mi nÃ¡rody. Mnoho jich uÅ¾ totiÅ¾ pÅeÅ¾ili a nechtÄjÃ­ oplakÃ¡vat dalÅ¡Ã­. VÄtÅ¡ina lidÃ­ si elfy spojuje s divokÃ½mi lesy, kde tento nÃ¡rod Å¾ije v pÅÃ­bytcÃ­ch spjatÃ½ch s pÅÃ­rodou. Vysoko v korunÃ¡ch stromÅ¯ spojujÃ­ jejich obydlÃ­ dÅevÄnÃ© lÃ¡vky, osvÄtlenÃ© vÄÄnÃ½mi svÄtly. Odsud vzhlÃ­Å¾ejÃ­ ke hvÄzdÃ¡m, kterÃ© nadevÅ¡e milujÃ­. Na svÃ½ch cestÃ¡ch vÅ¡ak mÅ¯Å¾eÅ¡ narazit i na jinÃ© elfy. Ty, kteÅÃ­ zÅ¯stali vÄrni svÃ© pÅ¯vodnÃ­ tradici moÅeplavcÅ¯. Je jich vÅ¡ak mnohem mÃ©nÄ a obvykle je potkÃ¡Å¡ v zapadlÃ½ch pÅÃ­stavnÃ­ch mÄstech. Bez ohledu na rozdÃ­ly v elfÃ­ch rodech jsou vÅ¡ichni mistry v prÃ¡ci se dÅevem. UmÄjÃ­ takÃ© vyrÃ¡bÄt ÃºÅ¾asnÃ© Å¡perky ze stÅÃ­bra nebo kÅiÅ¡Å¥Ã¡lu. V neposlednÃ­ ÅadÄ prosluli svÃ½mi zbranÄmi a zbrojemi z elfÃ­ho stÅÃ­bra â mithrilu. VÅ¡echny elfy pak spojuje lÃ¡ska k pÅÃ­rodÄ, krÃ¡snÃ½m vÄcem a vÄdÄnÃ­. Proto se takÃ© obvykle stÃ¡vajÃ­ dobrodruhy. NÄkterÃ© Å¾ene touha po poznÃ¡nÃ­, jinÃ© snaha svÄt chrÃ¡nit a udrÅ¾et takovÃ½, jakÃ½m kdysi bÃ½val.Â \u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_4",
+                      "name":  "GnÃ³m",
+                      "size":  "SIZE_3",
+                      "min_weight":  0.75,
+                      "max_weight":  30,
+                      "min_height":  0.55,
+                      "max_height":  0.75,
+                      "speed":  20,
+                      "ability":  "ZruÄnost",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eGnÃ³movÃ© bÃ½vajÃ­ vÄtÅ¡inou velmi obratnÃ­ a takÃ© inteligentnÃ­. Z jejich Åad vzeÅ¡lo mnoho slavnÃ½ch kouzelnÃ­kÅ¯ a alchymistÅ¯. DÃ­ky svÃ½m vlastnostem vÅ¡ak dokÃ¡Å¾Ã­ zvlÃ¡dnout i ostatnÃ­ hrdinskÃ© profese. Jedinou vÃ½jimkou je vÃ¡leÄnictvÃ­, ve kterÃ©m vyniklo opravdu jen velmi mÃ¡lo z nich. GnÃ³movÃ© totiÅ¾ bÃ½vajÃ­ od pÅÃ­rody slabÃ­. \u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eGnÃ³movÃ© jsou velmi malÃ­ a hubenÃ­. Jejich tvÃ¡ÅÃ­m dominuje zalomenÃ½ nos. Na nÄm mÃ­vajÃ­ obvykle kostÄnÃ© obrouÄky brÃ½lÃ­. OÄnÃ­ vady jsou totiÅ¾ v jejich rodu velmi ÄastÃ©. NÄkteÅÃ­ z nich si pÄstujÃ­ vous nebo knÃ­r. VÅ¡ichni bez vÃ½jimky pak majÃ­ hustÃ©, divoce rozcuchanÃ© vlasy, z nichÅ¾ jim vyÄuhujÃ­ protÃ¡hlÃ© uÅ¡nÃ­ lalÅ¯Äky. KromÄ podivÃ­nskÃ©ho vzhledu majÃ­ gnÃ³movÃ© i velmi zvlÃ¡Å¡tnÃ­ povahu. Äasto totiÅ¾ pÅÃ­liÅ¡ nevnÃ­majÃ­ druhÃ©, utÃ­kajÃ­ do vlastnÃ­ho svÄta a dÄlajÃ­ dalÅ¡Ã­ pro ostatnÃ­ jen tÄÅ¾ko pochopitelnÃ© vÄci. BÃ½vajÃ­ paranoidnÃ­, sbÃ­rajÃ­ vÅ¡emoÅ¾nÃ© cetky a majÃ­ Å¡kodolibÃ½ smysl pro humor. Ten je pro nÄ tak dÅ¯leÅ¾itÃ½m zdrojem potÄÅ¡enÃ­, Å¾e ani poÅÃ¡dnÃ½ vÃ½prask je obvykle na dlouho neudrÅ¾Ã­ v klidu. Domovem gnÃ³mÅ¯ bÃ½vajÃ­ opuÅ¡tÄnÃ© skÃ¡ly daleko od civilizace, ve kterÃ½ch si budujÃ­ svÃ© pÅÃ­bytky. Oproti trpaslÃ­kÅ¯m si je vÅ¡ak hloubÃ­ nad zemÃ­. MilujÃ­ totiÅ¾ pohledy do kraje, zvlÃ¡Å¡tÄ pak v Äase pÅed bouÅkou. PodobnÄ jako trpaslÃ­ci se vÄnujÃ­ tÄÅ¾bÄ kovovÃ© rudy a jejÃ­mu zpracovÃ¡nÃ­. Zbytek Äasu pak trÃ¡vÃ­ ve svÃ½ch dÃ­lnÃ¡ch a laboratoÅÃ­ch. NenÃ­ divu, bÃ½vajÃ­ totiÅ¾ nejlepÅ¡Ã­mi mechaniky, kreslÃ­Åi Äi konstruktÃ©ry. DÃ­ky svÃ© zvÃ­davosti dokÃ¡zali vyvinout takovÃ© zÃ¡zraky jako dalekohled, trezorovÃ½ zÃ¡mek Äi horkovzduÅ¡nÃ½ balÃ³n. Tyto vynÃ¡lezy jsou ostatnÄ jejich oblÃ­benÃ½m zdrojem obÅ¾ivy. GnÃ³movÃ© se za dobrodruÅ¾stvÃ­m obvykle pÅÃ­liÅ¡ nehrnou. KdyÅ¾ k tomu pÅeci jen dojde, je za tÃ­m vÄtÅ¡inou nÄjakÃ½ vrtoch jejich prazvlÃ¡Å¡tnÃ­ povahy.\u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_5",
+                      "name":  "Obr",
+                      "size":  "SIZE_5",
+                      "min_weight":  2.7,
+                      "max_weight":  200,
+                      "min_height":  2,
+                      "max_height":  2.7,
+                      "speed":  40,
+                      "ability":  "HroÅ¡Ã­ kÅ¯Å¾e",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eObÅi bÃ½vajÃ­ nejsilnÄjÅ¡Ã­ a nejodolnÄjÅ¡Ã­ ze vÅ¡ech ras. Za tento dar vÅ¡ak zaplatili zakrnÄnÃ­m ostatnÃ­ch vlastnostÃ­. NenÃ­ proto divu, Å¾e se z jejich Åad rekrutujÃ­ tÃ©mÄÅ samÃ­ vÃ¡leÄnÃ­ci. Pokud si zvolÃ­ jinÃ© povolÃ¡nÃ­, mÃ­vajÃ­ to obvykle nesmÃ­rnÄ obtÃ­Å¾nÃ©. Äasto se tak pÅi ÅeÅ¡enÃ­ problÃ©mÅ¯ vracÃ­ ke koÅenÅ¯m a pouÅ¾ijÃ­ radÄji pÄsti. \u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eObÅi nezÃ­skali svÃ© jmÃ©no nadarmo. AÄkoliv nedosahujÃ­ ani desetiny velikosti svÃ½ch jmenovcÅ¯ (horskÃ½ch Äi skalnÃ­ch obrÅ¯) a jejich rasa s tÄmito tvory ani nijak nesouvisÃ­, stÃ¡le svÃ½m zjevem vÃ½raznÄ pÅevyÅ¡ujÃ­ ostatnÃ­. Jejich Å¾eny jsou pak dokonce jeÅ¡tÄ o trochu vyÅ¡Å¡Ã­, neÅ¾li muÅ¾i. VÅ¡ichni bez vÃ½jimky majÃ­ statnÃ© tÄlo pokrytÃ© tvrdou zrohovatÄlou kÅ¯Å¾Ã­. Ta je chrÃ¡nÃ­ pÅed chladem, a dokonce i ranami. Jejich zachmuÅenÃ© obliÄeje bÃ½vajÃ­ drsnÃ© a nÄkdy vyloÅ¾enÄ oÅ¡klivÃ©. MajÃ­ Å¡irokou bradu a odstÃ¡vajÃ­cÃ­ uÅ¡i, kterÃ© jsou Äasto nÃ¡sledkem bojÅ¯ potrhanÃ©. ObÅi nemÃ­vajÃ­ pÅÃ­liÅ¡ sloÅ¾itou povahu. UmÃ­ se radovat, tesknit, mÃ­t zlost a nÄkdy i strach. VelkÃ© myÅ¡lenky vÅ¡ak jejich jednoduchÃ© Å¾ivoty obvykle netÃ­Å¾Ã­. Domovem obrÅ¯ bÃ½vajÃ­ opuÅ¡tÄnÃ© jeskynÄ, skalnÃ­ pÅevisy a Ãºkryty z vÄtvÃ­ a stromÅ¯ na okrajÃ­ch hvozdÅ¯. ObÅi se obvykle stranÃ­ ostatnÃ­ch a Å¾ijÃ­ radÄji o samotÄ. VÃ½jimkou bÃ½vajÃ­ chvÃ­le, kdy zatouÅ¾Ã­ po zaloÅ¾enÃ­ rodiny. Ani to vÅ¡ak nemusÃ­ bÃ½t pravidlem. Nejsou to velcÃ­ myslitelÃ© a vÃ­ra Äi filozofe bÃ½vajÃ­ nad jejich chÃ¡pÃ¡nÃ­. Pokud nÄco uznÃ¡vajÃ­, pak zÃ¡kony pÅÃ­rody a kolobÄh Å¾ivota a smrti. ObÅi jsou nezdolnÃ¡ stvoÅenÃ­, kterÃ¡ pÅeÅ¾ijÃ­ tÃ©mÄÅ cokoliv. NecÃ­tÃ­ chlad, je tÄÅ¾kÃ© jim zpÅ¯sobit bolest a jejich sÃ­la je zniÄujÃ­cÃ­. VÄtÅ¡inou jsou primitivnÃ­ a ÅÃ­dÃ­ se spÃ­Å¡e svÃ½mi pudy. Jejich Å¾ivot je prostÃ½, a pokud nÄco nevyÅeÅ¡Ã­ silou, zkusÃ­ pouÅ¾Ã­t sÃ­lu vÄtÅ¡Ã­. Na cestÃ¡ch jsou nezastavitelnÃ­, neÃºstupnÃ­ a buÄto vÃ­tÄzÃ­, nebo umÃ­rajÃ­.\u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_6",
+                      "name":  "PÅ¯lÄÃ­k",
+                      "size":  "SIZE_3",
+                      "min_weight":  1.2,
+                      "max_weight":  50,
+                      "min_height":  0.8,
+                      "max_height":  1.2,
+                      "speed":  20,
+                      "ability":  "TichoÅ¡lÃ¡pek",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003ePÅ¯lÄÃ­ci bÃ½vajÃ­ velmi obratnÃ­ a charismatiÄtÃ­, avÅ¡ak pomÄrnÄ slabÃ­. DÃ­ky svÃ©mu dobrÃ¡ckÃ©mu zjevu se snadno dokÃ¡Å¾Ã­ vloudit na zakÃ¡zanÃ¡ mÃ­sta a pak z nich zase nepozorovanÄ zmizet. NenÃ­ tak divu, Å¾e bÃ½vajÃ­ tÄmi nejlepÅ¡Ã­mi zlodÄji. Äasto vÅ¡ak vyniknou i v ostatnÃ­ch povolÃ¡nÃ­ch, hlavnÄ v alchymii.\u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eÂ PÅ¯lÄÃ­ci bÃ½vajÃ­ pomÄrnÄ malÃ­ a vÄtÅ¡inou tak trochu dobrÃ¡cky âzakulacenÃ­â. MÅ¯Å¾e za to jejich lÃ¡ska k dobrÃ©mu jÃ­dlu a pitÃ­. MÃ­vajÃ­ veselÃ©, dobromyslnÃ© oÄi, Å¡piÄatÃ© uÅ¡i a kudrnatÃ© vlasy obvykle kaÅ¡tanovÃ© barvy. To, co tÄ na nich upoutÃ¡ nejvÃ­ce, jsou jejich chlupatÃ© nohy a chodidla. DÃ­ky nim se dokÃ¡Å¾Ã­ pohybovat tÃ©mÄÅ neslyÅ¡nÄ v jakÃ©mkoliv terÃ©nu. Chlupy je zÃ¡roveÅ chrÃ¡nÃ­ pÅed chladem, a proto vÄtÅ¡inou nenosÃ­ boty. PÅ¯lÄÃ­ci bÃ½vajÃ­ veselÃ­, dobrosrdeÄnÃ­ a pohostinnÃ­. VidÃ­ na vÅ¡em tu lepÅ¡Ã­ strÃ¡nku vÄci a do niÄeho se zbyteÄnÄ nehrnou. Pro svÅ¯j domov vyhledÃ¡vajÃ­ sluncem zalitÃ© kopcovitÃ© kraje. Do jejich svahÅ¯ si pak hloubÃ­ nory, kterÃ½m ÅÃ­kajÃ­ pelouchy. JednÃ¡ se o pÅekrÃ¡snÃ© dÅevem vyklÃ¡danÃ© domky, kterÃ© jim poskytujÃ­ dostatek pohodlÃ­. UvnitÅ majÃ­ spousty jÃ­dla a pitÃ­, coÅ¾ je naplÅuje Å¡tÄstÃ­m. SvÅ¯j volnÃ½ Äas vÄnujÃ­ zvelebovÃ¡nÃ­ zahrÃ¡dky, pÅÃ­pravÄ jÃ­dla nebo pÄstovÃ¡nÃ­ vÅ¡eho moÅ¾nÃ©ho. BÃ½vajÃ­ proto nejlepÅ¡Ã­mi rolnÃ­ky, zahradnÃ­ky i kuchaÅi. VÅ¡em pÅ¯lÄÃ­kÅ¯m je spoleÄnÃ¡ lÃ¡ska k domovu, Ãºcta k tradicÃ­m a radost z malÃ½ch vÄcÃ­. VÄtÅ¡inou se proto dÄsÃ­ velkÃ½ch zmÄn a jakÃ½chkoliv myÅ¡lenek na cestovÃ¡nÃ­. Pokud se pÅeci jen na cestu vypravÃ­, je jasnÃ©, Å¾e na onom pÅ¯lÄÃ­kovi bude nÄco zvlÃ¡Å¡tnÃ­ho. TakovÃ­ pÅ¯lÄÃ­ci Äasto pÅekvapÃ­ i sami sebe â svou odvahou, charakterem a odhodlÃ¡nÃ­m.\u003c/p\u003e"
+                  },
+                  {
+                      "id":  "RACE_7",
+                      "name":  "TrpaslÃ­k",
+                      "size":  "SIZE_3",
+                      "min_weight":  1.4,
+                      "max_weight":  80,
+                      "min_height":  1.1,
+                      "max_height":  1.4,
+                      "speed":  20,
+                      "ability":  "VidÄnÃ­ ve tmÄ",
+                      "text_formatted":  "\u003cp\u003e\u003ci\u003eTrpaslÃ­ci vynikajÃ­ svou Silou a OdolnostÃ­. Proto mezi nimi najdeÅ¡ hlavnÄ mnoho skvÄlÃ½ch vÃ¡leÄnÃ­kÅ¯. Jejich dalÅ¡Ã­ vlastnosti jsou vÅ¡ak spÃ­Å¡e zakrnÄlÃ©. OstatnÃ­m profesÃ­m se tak obvykle vÄnujÃ­ mÃ©nÄ Äasto. I mezi nimi vÅ¡ak existujÃ­ vÃ½jimky. A to ti, kteÅÃ­ navzdory poÄÃ¡teÄnÃ­ nevÃ½hodÄ v jinÃ©m oboru nakonec uspÄli. \u003c/i\u003e\u003c/p\u003e\n\u003cp\u003eTrpaslÃ­ci jsou pradÃ¡vnÃ¡ rasa. Jsou malÃ­, jen o trochu vyÅ¡Å¡Ã­ neÅ¾ pÅ¯lÄÃ­ci. BÃ½vajÃ­ vÅ¡ak mnohem mohutnÄjÅ¡Ã­ a majÃ­ statnÃ¡ ramena i hruÄ. Jejich obliÄeje zdobÃ­ hustÃ© oboÄÃ­, rozplÃ¡clÃ½ nos a hlubokÃ© vrÃ¡sky, znak jejich dlouhovÄkosti. VelkÃ½ vÃ½znam pÅiklÃ¡dajÃ­ svÃ½m vousÅ¯m. Ty splÃ©tajÃ­ do rÅ¯znÃ½ch copÅ¯ a udrÅ¾ujÃ­ je dlouhÃ©. Jejich ztrÃ¡ta je pro nÄ velkou hanbou. TrpaslÃ­ci pÅ¯sobÃ­ na prvnÃ­ pohled nabruÄenÄ. Mezi svÃ½mi si vÅ¡ak rÃ¡di dopÅejÃ­ dobrou zÃ¡bavu, jÃ­dlo i pitÃ­. Je vÅ¡ak pravdou, Å¾e jsou vznÄtlivÃ­ a pro rÃ¡nu nikdy nechodÃ­ daleko. TrpaslÃ­ci jsou milovnÃ­ci zlata, drahokamÅ¯ a vzÃ¡cnÃ½ch kovÅ¯. Å½ijÃ­ obvykle v horÃ¡ch, kde se tyto poklady nachÃ¡zÃ­. Jsou to vÃ½bornÃ­ hornÃ­ci a stavitelÃ©. BudujÃ­ si mohutnÃ¡ podzemnÃ­ mÄsta a skalnÃ­ pevnosti, kterÃ© je chrÃ¡nÃ­ pÅed okolnÃ­m svÄtem. SvÃ© bohatstvÃ­ pak dolujÃ­ v hlubokÃ½ch Å¡tolÃ¡ch sahajÃ­cÃ­ch aÅ¾ k samÃ©mu srdci hory. BÃ½vajÃ­ takÃ© vynikajÃ­cÃ­mi kovÃ¡Åi a zlatnÃ­ky. Jejich Å¡perky a zbranÄ je proslavily po celÃ©m svÄtÄ. VÅ¡echny trpaslÃ­ky spojuje lÃ¡ska k pokladÅ¯m a jejich rodovÃ¡ sounÃ¡leÅ¾itost. Dobrodruhy se obvykle stÃ¡vajÃ­ v okamÅ¾iku, kdy se rozhodnou odÄinit rodovou hanbu, pomstÃ­t se nebo zÃ­skat nÄco velmi cennÃ©ho.Â \u003c/p\u003e"
+                  }
+              ]
+}
