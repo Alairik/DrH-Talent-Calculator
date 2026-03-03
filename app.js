@@ -487,13 +487,22 @@
     const visibleSkills = state.skills
       .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
       .sort((a, b) => {
-        const aGroup = closeStarterIds.has(a.id)
-          ? 0
-          : (a.prof_id === profId && !isBasicSkill(a) ? 1 : 2);
-        const bGroup = closeStarterIds.has(b.id)
-          ? 0
-          : (b.prof_id === profId && !isBasicSkill(b) ? 1 : 2);
+        const aGroup = getSkillSortBucket(a, profId, closeStarterIds);
+        const bGroup = getSkillSortBucket(b, profId, closeStarterIds);
         if (aGroup !== bGroup) return aGroup - bGroup;
+        const aReq = requiresPrereqForSkill(a);
+        const bReq = requiresPrereqForSkill(b);
+        if (aReq && bReq) {
+          const aReqTalent = state.talents.find((t) => t.id === a.ability_id);
+          const bReqTalent = state.talents.find((t) => t.id === b.ability_id);
+          const aReqName = aReqTalent ? aReqTalent.name : String(a.ability_id || "");
+          const bReqName = bReqTalent ? bReqTalent.name : String(b.ability_id || "");
+          const reqCmp = String(aReqName).localeCompare(String(bReqName), "cs");
+          if (reqCmp !== 0) return reqCmp;
+          const aOrder = Number.isFinite(a.manual_order) ? a.manual_order : Number.MAX_SAFE_INTEGER;
+          const bOrder = Number.isFinite(b.manual_order) ? b.manual_order : Number.MAX_SAFE_INTEGER;
+          if (aOrder !== bOrder) return aOrder - bOrder;
+        }
         return byName(a, b);
       });
 
@@ -572,6 +581,14 @@
     const raw = (listHeight - Math.max(0, rowCount - 1) * gapPx) / rowCount;
     const rowPx = Math.max(18, Math.min(30, Math.floor(raw)));
     els.skillList.style.gridAutoRows = `${rowPx}px`;
+  }
+
+  function getSkillSortBucket(skill, profId, closeStarterIds) {
+    if (closeStarterIds.has(skill.id)) return 0;
+    const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
+    const hasReq = requiresPrereqForSkill(skill);
+    if (!hasReq) return isClassSkill ? 1 : 2;
+    return isClassSkill ? 3 : 4;
   }
 
   function setSkillTargetRank(id, desired, floor) {
@@ -1208,6 +1225,7 @@
         ability_id: ability ? ability.id : null,
         check_type: x.check_type || ["int"],
         is_knowledge_based: !!x.is_knowledge_based,
+        manual_order: Number(out.length),
         type: "skill"
       };
       const key = `${normalize(rec.name)}|${rec.prof_id || ""}`;
