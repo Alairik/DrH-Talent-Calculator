@@ -408,9 +408,7 @@
       });
     }
     const raceTalent = getRaceBonusTalent();
-    const visibleTalentTotal = classTalents.length + (raceTalent ? 1 : 0);
-    const selectedVisible = countSelectedVisibleTalents(classTalents) + (raceTalent ? 1 : 0);
-    els.talentCount.textContent = `${selectedVisible} / ${visibleTalentTotal}`;
+    els.talentCount.textContent = "";
   }
 
   function renderBranch(container, talents, opts = {}) {
@@ -577,8 +575,7 @@
 
     fitSkillRowsToViewport(visibleSkills.length);
 
-    const selectedVisible = visibleSkills.filter((s) => getSkillTargetRank(s.id, getSkillFloor(s, starterIds, profId)) > 0).length;
-    els.skillCount.textContent = `${selectedVisible} / ${visibleSkills.length}`;
+    els.skillCount.textContent = "";
   }
 
   function fitSkillRowsToViewport(rowCount) {
@@ -862,6 +859,8 @@
 
     const autoLevel = Math.max(maxAssignedTalent, maxSkillActionLevel);
     const effectiveLevel = resolveEffectiveCurrentLevel(autoLevel);
+    const currentLevelState = levels.find((l) => l.level === effectiveLevel) || levels[levels.length - 1];
+    const freeSkillPoints = currentLevelState ? currentLevelState.skillCarry : 0;
 
     return {
       levels,
@@ -874,7 +873,8 @@
         assignedTalents:
           (talents.length - unscheduledTalents.length) + classStarterTalents.length + (raceTalent ? 1 : 0),
         assignedSkills: skillPlans.length - unscheduledSkills.length,
-        currentLevel: effectiveLevel
+        currentLevel: effectiveLevel,
+        freeSkillPoints
       }
     };
   }
@@ -891,6 +891,7 @@
   function renderSummary(plan) {
     const kpis = [
       ["Current level", String(plan.totals.currentLevel)],
+      ["Volne body dovednosti", String(plan.totals.freeSkillPoints)],
       ["Talents", `${plan.totals.assignedTalents}/${plan.totals.selectedTalents}`],
       ["Skills", `${plan.totals.assignedSkills}/${plan.totals.selectedSkills}`],
       ["Unscheduled", `${plan.unscheduledTalents.length + plan.unscheduledSkills.length}`]
