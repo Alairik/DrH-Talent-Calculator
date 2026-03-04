@@ -539,7 +539,7 @@
       if (!hasPrereq) {
         const lock = document.createElement("span");
         lock.className = "skill-lock";
-        lock.textContent = `Vyžaduje ${reqTalent ? reqTalent.name : s.ability_id}`;
+        lock.textContent = `⛔ ${reqTalent ? reqTalent.name : s.ability_id}`;
         controls.appendChild(lock);
       } else {
         const minus = document.createElement("button");
@@ -937,34 +937,34 @@
       const levelBadge = document.createElement("div");
       levelBadge.className = "level-badge";
       levelBadge.textContent = `Lv ${lvl.level}`;
-      const tags = document.createElement("div");
-      tags.className = "tags";
+      const cell = document.createElement("div");
+      cell.className = "timeline-cell";
       for (const r of lvl.raceBonuses) {
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = `RACE BONUS: ${r.name}`;
-        tags.appendChild(tag);
+        const line = document.createElement("div");
+        line.className = "timeline-line";
+        line.textContent = `RACE BONUS: ${r.name}`;
+        cell.appendChild(line);
       }
       for (const s of lvl.startSkills) {
-        const tag = document.createElement("span");
-        tag.className = "tag skill";
-        tag.textContent = `D: ${s.name} (3)`;
-        tags.appendChild(tag);
+        const line = document.createElement("div");
+        line.className = "timeline-line skill";
+        line.textContent = `D: ${s.name} (3)`;
+        cell.appendChild(line);
       }
       for (const t of lvl.talents) {
-        const tag = document.createElement("span");
-        tag.className = "tag";
-        tag.textContent = `T: ${t.name}`;
-        tags.appendChild(tag);
+        const line = document.createElement("div");
+        line.className = "timeline-line";
+        line.textContent = `T: ${t.name}`;
+        cell.appendChild(line);
       }
       for (const a of lvl.skillActions) {
-        const tag = document.createElement("span");
-        tag.className = "tag skill";
-        tag.textContent = `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`;
-        tags.appendChild(tag);
+        const line = document.createElement("div");
+        line.className = "timeline-line skill";
+        line.textContent = `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`;
+        cell.appendChild(line);
       }
       card.appendChild(levelBadge);
-      card.appendChild(tags);
+      card.appendChild(cell);
       els.timeline.appendChild(card);
     }
   }

@@ -19,6 +19,7 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   font-family: "Segoe UI", Tahoma, sans-serif;
   color: var(--text);
   background: radial-gradient(circle at 15% 0%, #2b2017 0%, var(--bg) 40%);
@@ -62,6 +63,7 @@ body {
   padding: 0.9rem;
   flex: 1;
   min-height: 0;
+  overflow: hidden;
 }
 
 .panel {
@@ -398,10 +400,11 @@ button:hover {
 }
 
 .skill-lock {
-  font-size: 0.58rem;
+  font-size: 0.62rem;
   color: var(--muted);
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .points-config {
@@ -490,6 +493,28 @@ button:hover {
   gap: 0.3rem;
 }
 
+.timeline-cell {
+  display: grid;
+  gap: 0.22rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.32rem 0.4rem;
+  background: #1c1611;
+}
+
+.timeline-line {
+  font-size: 0.72rem;
+  line-height: 1.22;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-line.skill {
+  color: #d0e7f8;
+}
+
 .tag {
   border: 1px solid #6e5633;
   border-radius: 20px;
@@ -509,6 +534,37 @@ button:hover {
   padding-top: 0.55rem;
   display: grid;
   gap: 0.4rem;
+}
+
+/* Shared in-column scrollbar skin */
+.skills-list,
+.timeline {
+  scrollbar-width: thin;
+  scrollbar-color: #7d6539 #16120e;
+}
+
+.skills-list::-webkit-scrollbar,
+.timeline::-webkit-scrollbar {
+  width: 10px;
+}
+
+.skills-list::-webkit-scrollbar-track,
+.timeline::-webkit-scrollbar-track {
+  background: #16120e;
+  border: 1px solid #3d3125;
+  border-radius: 10px;
+}
+
+.skills-list::-webkit-scrollbar-thumb,
+.timeline::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9f7b43, #6f552f);
+  border-radius: 10px;
+  border: 1px solid #3f2f1b;
+}
+
+.skills-list::-webkit-scrollbar-thumb:hover,
+.timeline::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ba9150, #856234);
 }
 
 textarea {
