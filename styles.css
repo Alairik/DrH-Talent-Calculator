@@ -440,18 +440,18 @@ button:hover {
 }
 
 .spec-node.spec-0 {
-  border-color: #a72727;
-  background: linear-gradient(180deg, rgba(145, 28, 28, 0.62), rgba(34, 14, 14, 0.95));
+  border-color: #b02b2b;
+  background: linear-gradient(180deg, rgba(153, 32, 32, 0.66), rgba(41, 14, 14, 0.96));
 }
 
 .spec-node.spec-1 {
-  border-color: #a1862c;
-  background: linear-gradient(180deg, rgba(131, 104, 25, 0.58), rgba(33, 26, 12, 0.95));
+  border-color: #b16a2d;
+  background: linear-gradient(180deg, rgba(154, 58, 34, 0.64), rgba(44, 19, 13, 0.96));
 }
 
 .spec-node.spec-2 {
-  border-color: #306b5d;
-  background: linear-gradient(180deg, rgba(33, 85, 73, 0.58), rgba(16, 33, 29, 0.95));
+  border-color: #8b4f46;
+  background: linear-gradient(180deg, rgba(131, 45, 45, 0.62), rgba(23, 26, 30, 0.96));
 }
 
 .spec-node.locked {
@@ -519,18 +519,18 @@ button:hover {
 }
 
 .general-nodes .node.spec-0 {
-  border-color: #9d2a2a;
-  background: rgba(110, 24, 24, 0.46);
+  border-color: #a83030;
+  background: rgba(121, 28, 28, 0.5);
 }
 
 .general-nodes .node.spec-1 {
-  border-color: #a88a2e;
-  background: rgba(118, 89, 22, 0.44);
+  border-color: #b76a31;
+  background: rgba(125, 45, 27, 0.48);
 }
 
 .general-nodes .node.spec-2 {
-  border-color: #2f6f62;
-  background: rgba(23, 72, 61, 0.42);
+  border-color: #8f4f4f;
+  background: rgba(102, 35, 44, 0.46);
 }
 
 .branch-hidden {
