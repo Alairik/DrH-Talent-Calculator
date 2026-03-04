@@ -454,6 +454,21 @@ button:hover {
   background: linear-gradient(180deg, rgba(131, 45, 45, 0.62), rgba(23, 26, 30, 0.96));
 }
 
+.talents-panel[data-prof-id="PROF_2"] .spec-node.spec-0 {
+  border-color: #3b7a8f;
+  background: linear-gradient(180deg, rgba(37, 102, 82, 0.72), rgba(28, 68, 92, 0.95));
+}
+
+.talents-panel[data-prof-id="PROF_2"] .spec-node.spec-1 {
+  border-color: #7e4c49;
+  background: linear-gradient(180deg, rgba(44, 106, 72, 0.72), rgba(96, 41, 41, 0.95));
+}
+
+.talents-panel[data-prof-id="PROF_2"] .spec-node.spec-2 {
+  border-color: #9b6d3d;
+  background: linear-gradient(180deg, rgba(49, 109, 69, 0.72), rgba(113, 70, 31, 0.95));
+}
+
 .spec-node.locked {
   opacity: 0.48;
 }
@@ -570,6 +585,21 @@ button:hover {
 .general-nodes .node.spec-2 {
   border-color: #8f4f4f;
   background: rgba(102, 35, 44, 0.46);
+}
+
+.talents-panel[data-prof-id="PROF_2"] .general-nodes .node.spec-0 {
+  border-color: #3d7794;
+  background: rgba(34, 83, 93, 0.5);
+}
+
+.talents-panel[data-prof-id="PROF_2"] .general-nodes .node.spec-1 {
+  border-color: #7b4b4b;
+  background: rgba(62, 71, 50, 0.5);
+}
+
+.talents-panel[data-prof-id="PROF_2"] .general-nodes .node.spec-2 {
+  border-color: #997040;
+  background: rgba(70, 81, 40, 0.52);
 }
 
 .branch-hidden {

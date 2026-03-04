@@ -791,6 +791,294 @@
       "required_level": 6,
       "description": "Rusi vybrane postihy boje se zbrane.",
       "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_01",
+      "name": "Bdely spanek",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Lepse vnimani nebezpeci i behem spanku, rychlejsi regenerace.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_02",
+      "name": "Hranicarsky luk",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Zvlastni luk a navazujici strelecka kouzla.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_03",
+      "name": "Hranicarsky kun",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Zvlastni jezdecke zvire a navazujici kouzla.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_04",
+      "name": "Lovcova korist",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Vyber druhu tvora, proti nemu bonus +3 k UC i OC.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_05",
+      "name": "Mluveni se zviraty",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Porozumeni a komunikace se zviraty.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_06",
+      "name": "Moudrost",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Do ZO lze pocitat INT misto OBR.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_07",
+      "name": "Ostrazitost",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Trvaly bonus +3 k iniciative, reflexu a postrehu.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_08",
+      "name": "Spriznenost se zviraty",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Zvirata neutoci bez duvodu, lze je uklidnit.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_09",
+      "name": "Strelba na kratkou vzdalenost",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Bez postihu na kratkou vzdalenost, +2 k UC a zraneni.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_10",
+      "name": "Svetobeznik",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Pri prestupu na level vice dovednostnich bodu.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_11",
+      "name": "Urputna strelba",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Opakovana strelba na stejny cil dava kumulacni bonus.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGX_12",
+      "name": "Totem",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Vyroba totemu s vybranou zvireci schopnosti.",
+      "rng_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_RNGD_01",
+      "name": "Dary prirody",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Vyroba lecitelskych masti a druidskych odvaru.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_02",
+      "name": "Druidova hul",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Vzacna hul se zvlastnimi schopnostmi.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_03",
+      "name": "Druidske ritualy",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Pristup k pokrocilym druidskym ritualum.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_04",
+      "name": "Magie lesa",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Kouzla lesni vetve.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_05",
+      "name": "Magie hvozdu",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Kouzla hvozdu a jeho moci.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_06",
+      "name": "Prostoupeni",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Propojeni se stromem a jeho ovladani.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_07",
+      "name": "Sila prirody",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Meditace ve hvozdu zdvojnasobuje dusevni silu.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGD_08",
+      "name": "Vladni prirozenym vecem",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Prosby prirozenym vecem o uposlechnuti prikazu.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_RNGC_01",
+      "name": "Chodcuv mec",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Specialni magicky mec a jeho posilovani kouzly.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_02",
+      "name": "Chodecka magie",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Specialni cestovatelska kouzla.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_03",
+      "name": "Instinkt lovce",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Lepsi odhad nejslabsich a nejsilnejsich protivniku.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_04",
+      "name": "Jista ruka",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Pri hodu 1 v boji druhy pokus; plati druhy vysledek.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_05",
+      "name": "Magicke pasti",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Vyroba a pouziti pasti posilenych prirodni magii.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_06",
+      "name": "Magie lovcu monster",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Kouzla pro dominanci v boji.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_07",
+      "name": "Pozirac",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Pozrenim organu lze docasne prevzit cast schopnosti.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGC_08",
+      "name": "Soustredeni dusevni sily",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Koncentrace dusevni sily pro posileni tela i mysli.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_RNGP_01",
+      "name": "Bestie",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Promena v bestii zvysuje bojove parametry.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_02",
+      "name": "Boj ve smecce",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Bonusy v boji za kazde zvire ve smecce.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_03",
+      "name": "Divoke pokriky",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Pokriky odemykaji bojova ovlivnovaci kouzla.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_04",
+      "name": "Magie smecky",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Sesilani kouzel prostrednictvim smecky.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_05",
+      "name": "Pokrocila magie zvirat",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Dalsi uzitecna kouzla magie zvirat.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_06",
+      "name": "Samanismus",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Spojeni s duchy mrtvych zvirat a jejich oziveni.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_07",
+      "name": "Tvaromenic",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Prenos mysli do zvirete sve smecky a jeho ovladani.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_RNGP_08",
+      "name": "Zvireci sampion",
+      "prof_id": "PROF_2",
+      "required_level": 6,
+      "description": "Promeni vybrane zvire smecky na mocneho sampiona.",
+      "branch_index": 2
     }
   ]
 }

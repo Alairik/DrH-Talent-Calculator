@@ -1,7 +1,7 @@
 ﻿(function () {
   const BRANCH_NAMES = {
     PROF_1: ["Berserkr", "Rytir", "Sermir"],
-    PROF_2: ["Lovec", "Stopar", "Hranicni magie"],
+    PROF_2: ["Druid", "Chodec", "Pan selem"],
     PROF_3: ["Mastickar", "Mistr smesi", "Runotvurce"],
     PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
     PROF_5: ["Vrah", "Akrobat", "Stin"],
@@ -16,6 +16,11 @@
       0: ["Skola boje s obourucni zbrani", "Skola boje drtice kosti", "Urputnost"],
       1: ["Skola boje se stitem", "Skola boje s jednorucni zbrani", "Veleni"],
       2: ["Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi", "Rozvaznost"]
+    },
+    PROF_2: {
+      0: ["Bojova hul", "Lecitelstvi", "Magie prirody"],
+      1: ["Obranne ostri", "Pruzkumnictvi", "Magie pocestnych"],
+      2: ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
     }
   };
   const WARRIOR_BASE_COLUMNS = {
@@ -188,7 +193,8 @@
     exportBtn: document.getElementById("exportBtn"),
     importBtn: document.getElementById("importBtn"),
     exchangeBox: document.getElementById("exchangeBox"),
-    infoTooltip: document.getElementById("infoTooltip")
+    infoTooltip: document.getElementById("infoTooltip"),
+    talentsPanel: document.querySelector(".talents-panel")
   };
   els.mobileSectionButtons = Array.from(document.querySelectorAll(".mobile-section-btn"));
   const tooltipState = {
@@ -570,6 +576,8 @@
     const talentLevelById = new Map(Object.entries(plan.talentLevelsById || {}));
     const profId = state.selectedProfessionId;
     const isWarrior = profId === "PROF_1";
+    const hasSpecColor = profId === "PROF_1" || profId === "PROF_2";
+    if (els.talentsPanel) els.talentsPanel.dataset.profId = profId;
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
     els.branchTitle2.textContent = branchNames[1];
@@ -601,21 +609,20 @@
       state.selectedSpecializationByClass[profId] <= 2
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
-    const showWarriorL6General =
-      isWarrior && currentLevel >= SPECIALIZATION_UNLOCK_LEVEL && split.generalL6.length > 0;
+    const showL6General = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
       starterTalentIds,
-      enableSpecColor: isWarrior,
+      enableSpecColor: hasSpecColor,
       requiredByTalentId,
       talentLevelById,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
     if (els.generalBranchL6 && els.generalNodesL6) {
-      els.generalBranchL6.classList.toggle("branch-hidden", !showWarriorL6General);
-      if (showWarriorL6General) {
+      els.generalBranchL6.classList.toggle("branch-hidden", !showL6General);
+      if (showL6General) {
         renderBranch(els.generalNodesL6, split.generalL6, {
           maxNodes: GENERAL_TALENT_SLOTS,
           disabled: false,
@@ -628,7 +635,7 @@
       } else {
         els.generalNodesL6.innerHTML = "";
       }
-      state.ui.l6Visible = showWarriorL6General;
+      state.ui.l6Visible = showL6General;
     }
 
     renderSpecializationPicker(
@@ -638,7 +645,7 @@
       specializationChoiceUnlocked,
       activeSpec,
       currentLevel,
-      isWarrior
+      hasSpecColor
     );
 
     const branchContainers = [els.branch1, els.branch2, els.branch3];
@@ -654,7 +661,7 @@
         maxNodes: BRANCH_TALENT_SLOTS,
         disabled: !branchEnabled,
         starterTalentIds,
-        enableSpecColor: isWarrior,
+        enableSpecColor: hasSpecColor,
         talentLevelById,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
@@ -969,14 +976,13 @@
     let generalBase = [];
     let generalL6 = [];
     let rest = [];
-    if (profId === "PROF_1") {
-      const baseRaw = classTalents
-        .filter((t) => /^PDF_ABI_WAR_\d+$/i.test(String(t.id || "")))
-        .sort(byRequiredThenName)
-        .slice(0, GENERAL_TALENT_SLOTS);
-      generalBase = orderWarriorBaseTalents(baseRaw);
+    if (profId === "PROF_1" || profId === "PROF_2") {
+      const basePattern = profId === "PROF_1" ? /^PDF_ABI_WAR_\d+$/i : /^PDF_ABI_RNG_\d+$/i;
+      const l6Pattern = profId === "PROF_1" ? /^PDF_ABI_WARX_\d+$/i : /^PDF_ABI_RNGX_\d+$/i;
+      const baseRaw = classTalents.filter((t) => basePattern.test(String(t.id || ""))).sort(byRequiredThenName).slice(0, GENERAL_TALENT_SLOTS);
+      generalBase = profId === "PROF_1" ? orderWarriorBaseTalents(baseRaw) : baseRaw;
       generalL6 = classTalents
-        .filter((t) => /^PDF_ABI_WARX_\d+$/i.test(String(t.id || "")))
+        .filter((t) => l6Pattern.test(String(t.id || "")))
         .sort(byRequiredThenName)
         .slice(0, GENERAL_TALENT_SLOTS);
       const taken = new Set([...generalBase, ...generalL6].map((t) => t.id));
