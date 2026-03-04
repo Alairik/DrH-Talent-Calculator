@@ -330,8 +330,16 @@
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     els.manualLevelDisplay.textContent = String(manual);
+    const selectedRace = getRaceById(state.selectedRaceId);
+    const isHumanRace = normalize(selectedRace && selectedRace.name) === "clovek";
     const raceTalent = getRaceBonusTalent();
-    els.raceBonusInfo.textContent = raceTalent ? `Bonus rasy: ${raceTalent.name}` : "Bonus rasy: -";
+    if (isHumanRace && raceTalent) {
+      els.raceBonusInfo.style.display = "";
+      els.raceBonusInfo.textContent = `Bonus rasy: ${raceTalent.name}`;
+    } else {
+      els.raceBonusInfo.textContent = "";
+      els.raceBonusInfo.style.display = "none";
+    }
   }
 
   function renderClassPicker() {
