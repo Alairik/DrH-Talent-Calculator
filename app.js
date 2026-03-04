@@ -484,6 +484,7 @@
     const plan = buildPlan();
     const talentLevelById = new Map(Object.entries(plan.talentLevelsById || {}));
     const profId = state.selectedProfessionId;
+    const isWarrior = profId === "PROF_1";
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
     els.branchTitle2.textContent = branchNames[1];
@@ -513,6 +514,7 @@
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
       starterTalentIds,
+      enableSpecColor: isWarrior,
       requiredByTalentId,
       talentLevelById,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
@@ -524,7 +526,8 @@
       split.branches,
       specializationUnlocked,
       lockedSpecIndexAfterReq,
-      currentLevel
+      currentLevel,
+      isWarrior
     );
 
     const branchContainers = [els.branch1, els.branch2, els.branch3];
@@ -539,6 +542,7 @@
         maxNodes: BRANCH_TALENT_SLOTS,
         disabled: !branchEnabled,
         starterTalentIds,
+        enableSpecColor: isWarrior,
         talentLevelById,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
@@ -572,7 +576,7 @@
         if (isSelected) node.classList.add("selected");
         if (isStarterTalent) node.classList.add("locked");
         if (isDisabled) node.classList.add("locked");
-        if (Number.isInteger(reqBranchIndex)) node.classList.add(`spec-${reqBranchIndex}`);
+        if (enableSpecColor && Number.isInteger(reqBranchIndex)) node.classList.add(`spec-${reqBranchIndex}`);
         if (isPdfCovered) node.classList.add("pdf-covered");
         node.title = `${talent.name}\n${talent.description || ""}`;
         if (isStarterTalent) node.title += "\n[ZAKLAD OD LVL 1]";
@@ -592,13 +596,13 @@
     }
   }
 
-  function renderSpecializationPicker(profId, branchNames, branches, unlocked, activeIndex, currentLevel) {
+  function renderSpecializationPicker(profId, branchNames, branches, unlocked, activeIndex, currentLevel, enableSpecColor = false) {
     els.specPicker.innerHTML = "";
     for (let i = 0; i < 3; i += 1) {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "spec-node";
-      btn.classList.add(`spec-${i}`);
+      if (enableSpecColor) btn.classList.add(`spec-${i}`);
       if (activeIndex === i) btn.classList.add("active");
       if (!unlocked) btn.classList.add("locked");
       const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
@@ -1593,3 +1597,4 @@
       .replace(/'/g, "&#039;");
   }
 })();
+    const enableSpecColor = !!opts.enableSpecColor;
