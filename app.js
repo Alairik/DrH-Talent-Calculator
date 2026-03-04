@@ -17,6 +17,12 @@
       2: ["Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi", "Rozvaznost"]
     }
   };
+  const WARRIOR_BASE_COLUMNS = {
+    general: ["Mistrovstvi ve zbrani", "Skvela kondice", "Vicenasobny utok"],
+    berserkr: ["Urputnost", "Skola boje drtice kosti", "Skola boje s obourucni zbrani"],
+    rytir: ["Veleni", "Skola boje s jednorucni zbrani", "Skola boje se stitem"],
+    sermir: ["Rozvaznost", "Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi"]
+  };
 
   const CLASS_RULES = {
     PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
@@ -868,10 +874,11 @@
     let generalL6 = [];
     let rest = [];
     if (profId === "PROF_1") {
-      generalBase = classTalents
+      const baseRaw = classTalents
         .filter((t) => /^PDF_ABI_WAR_\d+$/i.test(String(t.id || "")))
         .sort(byRequiredThenName)
         .slice(0, GENERAL_TALENT_SLOTS);
+      generalBase = orderWarriorBaseTalents(baseRaw);
       generalL6 = classTalents
         .filter((t) => /^PDF_ABI_WARX_\d+$/i.test(String(t.id || "")))
         .sort(byRequiredThenName)
@@ -898,6 +905,31 @@
       if (branches[branchIndex].length < BRANCH_TALENT_SLOTS) branches[branchIndex].push(talent);
     });
     return { generalBase, generalL6, branches };
+  }
+
+  function orderWarriorBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      WARRIOR_BASE_COLUMNS.general,
+      WARRIOR_BASE_COLUMNS.berserkr,
+      WARRIOR_BASE_COLUMNS.rytir,
+      WARRIOR_BASE_COLUMNS.sermir
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
   }
 
   function getCurrentCharacterLevel() {
