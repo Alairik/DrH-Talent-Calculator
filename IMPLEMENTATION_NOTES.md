@@ -179,3 +179,37 @@ Nize uvedene uz je zapojeno do kalkulatoru:
 - `config.js`
 - `research/sirael-races.json`
 
+## 11) Checkpoint - Faze 1 (UI + zakladni logika)
+
+Stav k tomuto checkpointu:
+
+- Faze 1 je funkcni:
+  - 3sloupcovy kalkulator
+  - vyber class/rasy
+  - timeline s automatickym prepocetem
+  - dovednosti + body + level planner
+  - interni pravidla pro specializace od lvl 6 (lock jedne vetve)
+
+### 11.1 Mapovani class -> rozsirena povolani (specializace)
+
+- Valecnik -> Berserk, Strazce, Veteran
+- Hranicar -> Lovec, Stopar, Hranicni magie
+- Alchymista -> Mastickar, Mistr smesi, Runotvurce
+- Kouzelnik -> Elementalista, Iluzionista, Arkanista
+- Zlodej -> Vrah, Akrobat, Stin
+- Klerik -> Inkvizitor, Ochrance viry, Mystik
+
+### 11.2 Otevreny bod pro FazI 2
+
+- Potvrdit presne podminky pro vstup do rozsireneho povolani pri prechodu na lvl 6:
+  - ktere 3 konkretni schopnosti musi byt vybrane pro kazdou specializaci.
+- Tyto vazby zatim nejsou 1:1 potvrzene ve finalni datove mape (OCR scan je nekompletni).
+
+## 12) Plan dalsiho kroku (Faze 2)
+
+- Doplnit mapu `specializace -> 3 povinne schopnosti`.
+- Napojit validaci do planneru/timeline:
+  - bez splneni podminek neodemknout specializaci na lvl 6.
+- Dopsat finalni schopnosti pro rozsirena povolani.
+- Az pote finalni graficke ladeni.
+
