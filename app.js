@@ -554,6 +554,7 @@
   function renderBranch(container, talents, opts = {}) {
     const maxNodes = Number.isFinite(opts.maxNodes) ? opts.maxNodes : Math.max(9, talents.length);
     const isDisabled = !!opts.disabled;
+    const enableSpecColor = !!opts.enableSpecColor;
     const starterTalentIds = opts.starterTalentIds instanceof Set ? opts.starterTalentIds : new Set();
     const requiredByTalentId = opts.requiredByTalentId instanceof Map ? opts.requiredByTalentId : new Map();
     const talentLevelById = opts.talentLevelById instanceof Map ? opts.talentLevelById : new Map();
@@ -1597,4 +1598,3 @@
       .replace(/'/g, "&#039;");
   }
 })();
-    const enableSpecColor = !!opts.enableSpecColor;
