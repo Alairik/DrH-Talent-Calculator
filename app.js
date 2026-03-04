@@ -779,7 +779,11 @@
     document.addEventListener("pointerdown", (ev) => {
       if (!els.infoTooltip || els.infoTooltip.hidden) return;
       const target = ev.target;
-      if (target && target.closest && (target.closest(".node-info-btn") || target.closest(".timeline-help-btn"))) return;
+      if (
+        target &&
+        target.closest &&
+        (target.closest(".node-info-btn") || target.closest(".timeline-help-btn") || target.closest(".spec-info-btn"))
+      ) return;
       hideInfoTooltip();
     });
     document.addEventListener("scroll", () => hideInfoTooltip(), { passive: true, capture: true });
@@ -1159,6 +1163,8 @@
   function renderSpecializationPicker(profId, branchNames, branches, unlocked, activeIndex, currentLevel, enableSpecColor = false) {
     els.specPicker.innerHTML = "";
     for (let i = 0; i < 3; i += 1) {
+      const wrap = document.createElement("div");
+      wrap.className = "spec-node-wrap";
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "spec-node";
@@ -1169,6 +1175,12 @@
       const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
       btn.textContent = `${branchNames[i]}${suffix}`;
       const req = getSpecializationRequirements(profId, i);
+      const infoText = buildSpecializationInfoText(branchNames[i], req, branches[i] || []);
+      btn.setAttribute("aria-label", infoText);
+      btn.addEventListener("mouseenter", () => showInfoTooltip(infoText, btn, false));
+      btn.addEventListener("mouseleave", () => {
+        if (!tooltipState.pinned) hideInfoTooltip();
+      });
       const missingReq = req.filter((r) => !state.selectedTalentIds.has(r.id));
       if (!unlocked) {
         btn.title = `Odemkne se při přestupu na level ${SPECIALIZATION_UNLOCK_LEVEL} (od ${SPECIALIZATION_TRANSITION_LEVEL}. úrovně). Aktuálně ${currentLevel}.`;
@@ -1194,8 +1206,45 @@
           persist();
         });
       }
-      els.specPicker.appendChild(btn);
+      const infoBtn = document.createElement("button");
+      infoBtn.type = "button";
+      infoBtn.className = "spec-info-btn";
+      infoBtn.textContent = "i";
+      infoBtn.setAttribute("aria-label", `Info: ${branchNames[i]}`);
+      infoBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const sameOpen = !els.infoTooltip.hidden && tooltipState.anchorEl === btn && tooltipState.pinned;
+        if (sameOpen) hideInfoTooltip();
+        else showInfoTooltip(infoText, btn, true);
+      });
+
+      wrap.appendChild(btn);
+      wrap.appendChild(infoBtn);
+      els.specPicker.appendChild(wrap);
     }
+  }
+
+  function buildSpecializationInfoText(branchName, requirements, branchTalents) {
+    const lines = [String(branchName || "Specializace")];
+    const reqNames = (requirements || []).map((x) => x && x.name).filter(Boolean);
+    if (reqNames.length > 0) {
+      lines.push(`Podmínky: ${reqNames.join(", ")}`);
+    }
+    if (Array.isArray(branchTalents) && branchTalents.length > 0) {
+      lines.push("Rozšířené schopnosti:");
+      for (const t of branchTalents) {
+        const desc = summarizeTooltipText(t && t.description);
+        lines.push(desc ? `- ${t.name}: ${desc}` : `- ${t.name}`);
+      }
+    }
+    return lines.join("\n");
+  }
+
+  function summarizeTooltipText(value, maxLen = 90) {
+    const text = String(value || "").replace(/\s+/g, " ").trim();
+    if (!text) return "";
+    return text.length > maxLen ? `${text.slice(0, maxLen - 1).trimEnd()}...` : text;
   }
 
   function renderSkills() {
