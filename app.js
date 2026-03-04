@@ -2,7 +2,7 @@
   const BRANCH_NAMES = {
     PROF_1: ["Berserkr", "Rytir", "Sermir"],
     PROF_2: ["Druid", "Chodec", "Pan selem"],
-    PROF_3: ["Mastickar", "Mistr smesi", "Runotvurce"],
+    PROF_3: ["Medikus", "Pyromant", "Theurg"],
     PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
     PROF_5: ["Vrah", "Akrobat", "Stin"],
     PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
@@ -21,6 +21,11 @@
       0: ["Bojova hul", "Lecitelstvi", "Magie prirody"],
       1: ["Obranne ostri", "Pruzkumnictvi", "Magie pocestnych"],
       2: ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
+    },
+    PROF_3: {
+      0: ["Nauka anatomie", "Nauka elixiry", "Substituce"],
+      1: ["Nauka predmety", "Nauka substance", "Vyroba svitku"],
+      2: ["Nauka sestavy", "Nauka energie", "Precizni vyroba"]
     }
   };
   const WARRIOR_BASE_COLUMNS = {
@@ -34,6 +39,12 @@
     druid: ["Bojova hul", "Lecitelstvi", "Magie prirody"],
     chodec: ["Obranne ostri", "Pruzkumnictvi", "Magie pocestnych"],
     panSelem: ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
+  };
+  const ALCHEMIST_BASE_COLUMNS = {
+    general: ["Efektivni vyroba", "Odolnost vuci jedum", "Pokrocila identifikace"],
+    medikus: ["Substituce", "Nauka anatomie", "Nauka elixiry"],
+    pyromant: ["Vyroba svitku", "Nauka predmety", "Nauka substance"],
+    theurg: ["Precizni vyroba", "Nauka sestavy", "Nauka energie"]
   };
 
   const CLASS_RULES = {
@@ -582,7 +593,7 @@
     const talentLevelById = new Map(Object.entries(plan.talentLevelsById || {}));
     const profId = state.selectedProfessionId;
     const isWarrior = profId === "PROF_1";
-    const hasSpecColor = profId === "PROF_1" || profId === "PROF_2";
+    const hasSpecColor = profId === "PROF_1" || profId === "PROF_2" || profId === "PROF_3";
     if (els.talentsPanel) els.talentsPanel.dataset.profId = profId;
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
@@ -982,12 +993,23 @@
     let generalBase = [];
     let generalL6 = [];
     let rest = [];
-    if (profId === "PROF_1" || profId === "PROF_2") {
-      const basePattern = profId === "PROF_1" ? /^PDF_ABI_WAR_\d+$/i : /^PDF_ABI_RNG_\d+$/i;
-      const l6Pattern = profId === "PROF_1" ? /^PDF_ABI_WARX_\d+$/i : /^PDF_ABI_RNGX_\d+$/i;
+    if (profId === "PROF_1" || profId === "PROF_2" || profId === "PROF_3") {
+      const basePattern =
+        profId === "PROF_1"
+          ? /^PDF_ABI_WAR_\d+$/i
+          : profId === "PROF_2"
+            ? /^PDF_ABI_RNG_\d+$/i
+            : /^PDF_ABI_ALC_\d+$/i;
+      const l6Pattern =
+        profId === "PROF_1"
+          ? /^PDF_ABI_WARX_\d+$/i
+          : profId === "PROF_2"
+            ? /^PDF_ABI_RNGX_\d+$/i
+            : /^PDF_ABI_ALCX_\d+$/i;
       const baseRaw = classTalents.filter((t) => basePattern.test(String(t.id || ""))).sort(byRequiredThenName).slice(0, GENERAL_TALENT_SLOTS);
       if (profId === "PROF_1") generalBase = orderWarriorBaseTalents(baseRaw);
       else if (profId === "PROF_2") generalBase = orderRangerBaseTalents(baseRaw);
+      else if (profId === "PROF_3") generalBase = orderAlchemistBaseTalents(baseRaw);
       else generalBase = baseRaw;
       generalL6 = classTalents
         .filter((t) => l6Pattern.test(String(t.id || "")))
@@ -1049,6 +1071,31 @@
       RANGER_BASE_COLUMNS.druid,
       RANGER_BASE_COLUMNS.chodec,
       RANGER_BASE_COLUMNS.panSelem
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
+  }
+
+  function orderAlchemistBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      ALCHEMIST_BASE_COLUMNS.general,
+      ALCHEMIST_BASE_COLUMNS.medikus,
+      ALCHEMIST_BASE_COLUMNS.pyromant,
+      ALCHEMIST_BASE_COLUMNS.theurg
     ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
 
     const ordered = [];

@@ -1079,6 +1079,230 @@
       "required_level": 6,
       "description": "Promeni vybrane zvire smecky na mocneho sampiona.",
       "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCX_01",
+      "name": "Artefakty",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vytvori unikatni predmet nesouci cast alchymistovy podstaty.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_02",
+      "name": "Bojova konzumace",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba a pouziti alchymistickych pripravku skrze poziti surovin.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_03",
+      "name": "Cestovni alchymie",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyssi sance na zdroje many a vyroba uzitecnych cestovnich predmetu.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_04",
+      "name": "Forenzika",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vysetrovaci metody a specialni forenzni predmety.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_05",
+      "name": "Herbalista",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Pestovani rostlin bohatych na manu a suroviny.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_06",
+      "name": "Hromadna vyroba",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba vice kusu stejneho alchymistickeho predmetu najednou.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_07",
+      "name": "Koncentrovane substance",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Posilovani ucinku, nebezpecnosti a delky trvani vyrobku.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_08",
+      "name": "Laboratorni specialista",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vice dovednostnich bodu a pristup ke specialnim laboratornim nastrojum.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_09",
+      "name": "Magicke hulky",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba magickych hulek a jejich variant.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_10",
+      "name": "Recyklator",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Oprava nebo rozebrani magickych predmetu se ziskem surovin zpet.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_11",
+      "name": "Saboter",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Uprava vyrobku tak, aby za danych podminek selhaly nebo se chovaly jinak.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCX_12",
+      "name": "Travicstvi",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Znalost vzacnych jedu a jejich receptur.",
+      "alc_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_ALCM_01",
+      "name": "Biologicka augmentace",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Biologicka vylepseni tela a souvisejici alchymisticke postupy.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_02",
+      "name": "Bojova anatomie",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vysetreni tela a vyuziti anatomickych znalosti v boji.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_03",
+      "name": "Infuze a inhalace",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Aplikace lektvaru a jedu injekcne i inhalaci.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_04",
+      "name": "Mechanicka augmentace",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vpraveni mechanickych prvku do tela.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_05",
+      "name": "Plasticka chirurgie",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Zasahy meni vzhled a rekonstrukci tkani.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_06",
+      "name": "Resuscitace",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Obnova zivotnich funkci cerstve zemreleho tvora.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_07",
+      "name": "Sesivanci",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Sestavovani tvoru z tel a organu ruznych bytos ti.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCM_08",
+      "name": "Tetovani",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Specialni tetovani a aktivacni inkousty posilujici organismus.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_ALCP_01",
+      "name": "Kapsularni gemy",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Uzamykani many do runovych kamenu jako specialnich baterii.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_02",
+      "name": "Konstrukty",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba mechanickych pomocniku do boje i na cesty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_03",
+      "name": "Mistr nestabilnich substanci",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyssi odolnost a vyroba extremne nebezpecnych substanci.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_04",
+      "name": "Palne zbrane",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba specialnich palnych zbrani a munice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_05",
+      "name": "Prace s energii",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Dobijeni magickych predmetu a vyroba dalsich energetickych pomucek.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_06",
+      "name": "Sapersky vycvik",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyhoda na hledani, zneskodnovani a nastrazeni pasti.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_07",
+      "name": "Strely a rachejtle",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Vyroba a obsluha specialnich typu munice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_ALCP_08",
+      "name": "Transmutace kovu",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Zmena struktury kovu a premena jednoho kovu na jiny.",
+      "branch_index": 1
     }
   ]
 }
