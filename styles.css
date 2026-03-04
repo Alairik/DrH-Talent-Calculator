@@ -286,7 +286,9 @@ button:hover {
   gap: 0.16rem;
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-gutter: stable both-edges;
   padding-right: 0.2rem;
   align-content: stretch;
 }
@@ -458,7 +460,9 @@ button:hover {
   gap: 0.45rem;
   flex: 1;
   min-height: 0;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-gutter: stable both-edges;
   padding-right: 0.2rem;
 }
 
@@ -539,13 +543,13 @@ button:hover {
 /* Shared in-column scrollbar skin */
 .skills-list,
 .timeline {
-  scrollbar-width: thin;
+  scrollbar-width: auto;
   scrollbar-color: #7d6539 #16120e;
 }
 
 .skills-list::-webkit-scrollbar,
 .timeline::-webkit-scrollbar {
-  width: 10px;
+  width: 12px;
 }
 
 .skills-list::-webkit-scrollbar-track,
