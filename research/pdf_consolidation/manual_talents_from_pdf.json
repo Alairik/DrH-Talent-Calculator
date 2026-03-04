@@ -422,99 +422,87 @@
     },
     {
       "id": "PDF_ABI_WAR_01",
-      "name": "Bijec",
+      "name": "Mistrovstvi ve zbrani",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "V boji beze zbrane ziskava bonus +5 k OC i UC a jeden utok navic.",
-      "branch_index": null
+      "description": "Bonus +2 k UC a OC pro zvoleny typ zbrane."
     },
     {
       "id": "PDF_ABI_WAR_02",
-      "name": "Drtivy dopad",
+      "name": "Rozvaznost",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "K vrhacim utokum muze pricist misto OBR svou opravu za SIL.",
-      "branch_index": null
+      "description": "Volba stylu boje: ofenzivni nebo defenzivni."
     },
     {
       "id": "PDF_ABI_WAR_03",
-      "name": "Drsak",
+      "name": "Skvela kondice",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Redukuje utrzene zraneni o 2 a dava bonus +3 k vydrzi.",
-      "branch_index": null
+      "description": "Bonus +3 zivoty za kazdou uroven valecnika."
     },
     {
       "id": "PDF_ABI_WAR_04",
-      "name": "Klidna ruka",
+      "name": "Urputnost",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Ziskava bonus +3 do utoku strelnymi zbranemi.",
-      "branch_index": null
+      "description": "Na valecnika se nevztahuje efekt meze vyrazeni."
     },
     {
       "id": "PDF_ABI_WAR_05",
-      "name": "Naval adrenalinu",
+      "name": "Veleni",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Umoznuje cerpat adrenalin uz na zacatku daneho kola.",
-      "branch_index": null
+      "description": "Posilovani druziny rozkazy."
     },
     {
       "id": "PDF_ABI_WAR_06",
-      "name": "Odhad protivnika",
+      "name": "Vicenasobny utok",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Dokaze odhadnout sance v boji s protivnikem.",
-      "branch_index": null
+      "description": "Valecnik muze utocit 3x za 2 kola."
     },
     {
       "id": "PDF_ABI_WAR_07",
-      "name": "Otloukanek",
+      "name": "Skola boje drtice kosti",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "U hodu na reflex muze pouzit misto OBR svou opravu za ODO.",
-      "branch_index": null
+      "description": "Bojovy styl drtice kosti."
     },
     {
       "id": "PDF_ABI_WAR_08",
-      "name": "Prace s tezistem",
+      "name": "Skola boje s bodnou zbrani",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Ziskava bonusy proti mensim i vetsim protivnikum.",
-      "branch_index": null
+      "description": "Bojovy styl s bodnou zbrani."
     },
     {
       "id": "PDF_ABI_WAR_09",
-      "name": "Promenlivy uchop",
+      "name": "Skola boje s jednorucni zbrani",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "V kazdem kole voli bonus +1 UC +2 OC nebo +3 ke zraneni.",
-      "branch_index": null
+      "description": "Bojovy styl s jednorucni zbrani."
     },
     {
       "id": "PDF_ABI_WAR_10",
-      "name": "Skola boje na koni",
+      "name": "Skola boje s obourucni zbrani",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Pristup k trik?m skoly a bonus +1 k UC i OC pri boji na jezdeckem zvireti.",
-      "branch_index": null
+      "description": "Bojovy styl s obourucni zbrani."
     },
     {
       "id": "PDF_ABI_WAR_11",
-      "name": "Zastraseni",
+      "name": "Skola boje se dvema zbranemi",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Natlacem umi prinutit ostatni jednat podle jeho vule.",
-      "branch_index": null
+      "description": "Bojovy styl se dvema zbranemi."
     },
     {
       "id": "PDF_ABI_WAR_12",
-      "name": "Zrucnost se zbrani",
+      "name": "Skola boje se stitem",
       "prof_id": "PROF_1",
       "required_level": 2,
-      "description": "Rusi postihy za dlouhe drevce na kratkou vzdalenost a umoznuje prezbrojeni v nulovem case.",
-      "branch_index": null
+      "description": "Bojovy styl se stitem."
     },
     {
       "id": "PDF_ABI_WARB_01",
