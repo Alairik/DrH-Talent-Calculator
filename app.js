@@ -10,6 +10,7 @@
   const GENERAL_TALENT_SLOTS = 12;
   const BRANCH_TALENT_SLOTS = 8;
   const SPECIALIZATION_UNLOCK_LEVEL = 6;
+  const SPECIALIZATION_TRANSITION_LEVEL = SPECIALIZATION_UNLOCK_LEVEL - 1;
   const SPECIALIZATION_REQUIREMENTS = {
     PROF_1: {
       0: ["Skola boje s obourucni zbrani", "Skola boje drtice kosti", "Urputnost"],
@@ -560,7 +561,7 @@
     const starterTalentIds = new Set(getClassStarterTalentIds(profId));
     const split = splitClassTalentsForTree(classTalents, profId);
     const currentLevel = clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
-    const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
+    const specializationUnlocked = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL;
     if (!specializationUnlocked) {
       for (const branch of split.branches) {
         for (const talent of branch) removeTalentSelection(talent.id);
@@ -580,7 +581,7 @@
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
     const showWarriorL6General =
-      isWarrior && specializationUnlocked && split.generalL6.length > 0;
+      isWarrior && currentLevel >= SPECIALIZATION_UNLOCK_LEVEL && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
@@ -723,7 +724,7 @@
       const req = getSpecializationRequirements(profId, i);
       const missingReq = req.filter((r) => !state.selectedTalentIds.has(r.id));
       if (!unlocked) {
-        btn.title = `Odemkne se od levelu ${SPECIALIZATION_UNLOCK_LEVEL}. Aktuálně ${currentLevel}.`;
+        btn.title = `Odemkne se při přestupu na level ${SPECIALIZATION_UNLOCK_LEVEL} (od ${SPECIALIZATION_TRANSITION_LEVEL}. úrovně). Aktuálně ${currentLevel}.`;
         btn.disabled = true;
       } else {
         const blockedByLock = activeIndex !== null && activeIndex !== i;
@@ -1077,7 +1078,7 @@
 
   function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
     const currentLevel = getCurrentCharacterLevel();
-    if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
+    if (currentLevel < SPECIALIZATION_TRANSITION_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
     if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
