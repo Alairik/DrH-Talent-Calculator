@@ -119,6 +119,15 @@
   };
 
   const els = {
+    layout: document.querySelector(".layout"),
+    controlSlotClass: document.getElementById("controlSlotClass"),
+    controlSlotSkills: document.getElementById("controlSlotSkills"),
+    controlSlotPlan: document.getElementById("controlSlotPlan"),
+    panelClassControls: document.getElementById("panelClassControls"),
+    panelSkillsControls: document.getElementById("panelSkillsControls"),
+    panelPlanControls: document.getElementById("panelPlanControls"),
+    planTopControls: document.getElementById("planTopControls"),
+    mobileSectionNav: document.getElementById("mobileSectionNav"),
     raceSelect: document.getElementById("raceSelect"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
@@ -150,6 +159,7 @@
     importBtn: document.getElementById("importBtn"),
     exchangeBox: document.getElementById("exchangeBox")
   };
+  els.mobileSectionButtons = Array.from(document.querySelectorAll(".mobile-section-btn"));
 
   init().catch((err) => {
     console.error(err);
@@ -292,7 +302,15 @@
     });
     window.addEventListener("resize", () => {
       renderSkills();
+      handleResponsiveLayout();
     });
+    els.layout.addEventListener("scroll", onLayoutScroll, { passive: true });
+    for (const btn of els.mobileSectionButtons) {
+      btn.addEventListener("click", () => {
+        const idx = clampInt(btn.dataset.sectionIndex, 0, 2, 0);
+        scrollToMobileSection(idx);
+      });
+    }
   }
 
   function bindNumber(input, onChange) {
@@ -304,6 +322,7 @@
   }
 
   function renderAll() {
+    handleResponsiveLayout();
     renderControls();
     renderTalentTree();
     renderSkills();
@@ -339,6 +358,68 @@
     } else {
       els.raceBonusInfo.textContent = "";
       els.raceBonusInfo.style.visibility = "hidden";
+    }
+  }
+
+  function isMobileSectionLayout() {
+    return window.matchMedia("(max-width: 1200px)").matches;
+  }
+
+  function handleResponsiveLayout() {
+    relocateColumnControls();
+    updateMobileSectionNav();
+  }
+
+  function relocateColumnControls() {
+    if (!els.classPicker || !els.summary || !els.planTopControls) return;
+    const isMobile = isMobileSectionLayout();
+    if (isMobile) {
+      if (els.classPicker.parentElement !== els.panelClassControls) {
+        els.panelClassControls.appendChild(els.classPicker);
+      }
+      if (els.summary.parentElement !== els.panelSkillsControls) {
+        els.panelSkillsControls.appendChild(els.summary);
+      }
+      if (els.planTopControls.parentElement !== els.panelPlanControls) {
+        els.panelPlanControls.appendChild(els.planTopControls);
+      }
+      if (els.mobileSectionNav) els.mobileSectionNav.style.display = "";
+    } else {
+      if (els.classPicker.parentElement !== els.controlSlotClass) {
+        els.controlSlotClass.appendChild(els.classPicker);
+      }
+      if (els.summary.parentElement !== els.controlSlotSkills) {
+        els.controlSlotSkills.appendChild(els.summary);
+      }
+      if (els.planTopControls.parentElement !== els.controlSlotPlan) {
+        els.controlSlotPlan.appendChild(els.planTopControls);
+      }
+      if (els.mobileSectionNav) els.mobileSectionNav.style.display = "";
+    }
+  }
+
+  function scrollToMobileSection(index) {
+    if (!isMobileSectionLayout()) return;
+    const width = Math.max(1, els.layout.clientWidth);
+    els.layout.scrollTo({ left: index * width, behavior: "smooth" });
+  }
+
+  function onLayoutScroll() {
+    if (!isMobileSectionLayout()) return;
+    updateMobileSectionNav();
+  }
+
+  function updateMobileSectionNav() {
+    if (!els.mobileSectionButtons || els.mobileSectionButtons.length === 0) return;
+    if (!isMobileSectionLayout()) {
+      for (const btn of els.mobileSectionButtons) btn.classList.remove("active");
+      els.mobileSectionButtons[0].classList.add("active");
+      return;
+    }
+    const width = Math.max(1, els.layout.clientWidth);
+    const index = clampInt(Math.round(els.layout.scrollLeft / width), 0, els.mobileSectionButtons.length - 1, 0);
+    for (let i = 0; i < els.mobileSectionButtons.length; i += 1) {
+      els.mobileSectionButtons[i].classList.toggle("active", i === index);
     }
   }
 
