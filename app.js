@@ -522,7 +522,7 @@
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
     const showWarriorL6General =
-      isWarrior && specializationUnlocked && activeSpec === null && split.generalL6.length > 0;
+      isWarrior && specializationUnlocked && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
