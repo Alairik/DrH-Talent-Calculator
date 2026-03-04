@@ -561,8 +561,9 @@
     const starterTalentIds = new Set(getClassStarterTalentIds(profId));
     const split = splitClassTalentsForTree(classTalents, profId);
     const currentLevel = clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
-    const specializationUnlocked = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL;
-    if (!specializationUnlocked) {
+    const specializationChoiceUnlocked = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL;
+    const specializationTalentsUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
+    if (!specializationChoiceUnlocked) {
       for (const branch of split.branches) {
         for (const talent of branch) removeTalentSelection(talent.id);
       }
@@ -612,7 +613,7 @@
       profId,
       branchNames,
       split.branches,
-      specializationUnlocked,
+      specializationChoiceUnlocked,
       activeSpec,
       currentLevel,
       isWarrior
@@ -623,8 +624,8 @@
       const container = branchContainers[i];
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
-      const branchEnabled = specializationUnlocked && activeSpec === i;
-      const branchVisible = specializationUnlocked && activeSpec === i;
+      const branchEnabled = specializationTalentsUnlocked && activeSpec === i;
+      const branchVisible = specializationTalentsUnlocked && activeSpec === i;
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
@@ -1078,7 +1079,7 @@
 
   function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
     const currentLevel = getCurrentCharacterLevel();
-    if (currentLevel < SPECIALIZATION_TRANSITION_LEVEL) return;
+    if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
     if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
@@ -1237,7 +1238,7 @@
         .map((l) => l.level)
     );
 
-    const autoLevel = Math.max(maxAssignedTalent, maxSkillActionLevel);
+    const autoLevel = Math.max(maxAssignedTalent, maxSkillActionLevel, getSpecializationLevelFloor(profId));
     const effectiveLevel = resolveEffectiveCurrentLevel(autoLevel);
     const currentLevelState = levels.find((l) => l.level === effectiveLevel) || levels[levels.length - 1];
     const freeSkillPoints = currentLevelState ? currentLevelState.skillCarry : 0;
@@ -1258,6 +1259,11 @@
         freeSkillPoints
       }
     };
+  }
+
+  function getSpecializationLevelFloor(profId) {
+    const idx = state.selectedSpecializationByClass[profId];
+    return Number.isInteger(idx) && idx >= 0 && idx <= 2 ? SPECIALIZATION_UNLOCK_LEVEL : 1;
   }
 
   function renderPlanOnly() {
