@@ -578,12 +578,12 @@ button:hover {
 .level-card {
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 0.45rem;
+  padding: 0.5rem 0.6rem;
   background: #17130f;
   display: grid;
   grid-template-columns: auto 1fr;
-  align-items: start;
-  gap: 0.45rem;
+  align-items: center;
+  gap: 0.55rem;
 }
 
 .level-card.future {
@@ -596,8 +596,9 @@ button:hover {
   color: var(--muted);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 0.08rem 0.42rem;
+  padding: 0.14rem 0.5rem;
   background: #1f1914;
+  align-self: center;
 }
 
 .tags {
@@ -608,20 +609,17 @@ button:hover {
 
 .timeline-cell {
   display: grid;
-  gap: 0.22rem;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0.32rem 0.4rem;
-  background: #1c1611;
+  gap: 0.3rem;
+  min-width: 0;
 }
 
 .timeline-line {
-  font-size: 0.72rem;
-  line-height: 1.22;
+  font-size: 0.74rem;
+  line-height: 1.26;
   color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
 }
 
 .timeline-line.skill {
@@ -647,6 +645,10 @@ button:hover {
   padding-top: 0.55rem;
   display: grid;
   gap: 0.4rem;
+}
+
+.exchange[hidden] {
+  display: none !important;
 }
 
 /* Shared in-column scrollbar skin */
