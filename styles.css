@@ -184,30 +184,48 @@ button:hover {
 }
 
 .class-box {
+  --class-rgb: 110, 86, 51;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: linear-gradient(180deg, rgba(48, 38, 28, 0.9), rgba(27, 21, 16, 0.95));
-  color: var(--muted);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--class-rgb), 0.42),
+    rgba(22, 17, 13, 0.96)
+  );
+  border-color: rgba(var(--class-rgb), 0.72);
+  color: #f0e3ce;
   padding: 0.28rem 0.2rem;
   font-size: 0.68rem;
   text-align: center;
   cursor: pointer;
-  opacity: 0.72;
+  opacity: 0.66;
   transition: opacity 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease, background 120ms ease;
 }
 
 .class-box:hover {
-  border-color: #7b6240;
-  opacity: 0.86;
+  border-color: rgba(var(--class-rgb), 0.9);
+  opacity: 0.84;
 }
 
 .class-box.active {
   border-color: var(--gold);
   color: #fff0d4;
-  background: linear-gradient(180deg, rgba(86, 61, 31, 0.95), rgba(42, 31, 20, 0.98));
+  background: linear-gradient(
+    180deg,
+    rgba(var(--class-rgb), 0.72),
+    rgba(42, 31, 20, 0.98)
+  );
   box-shadow: 0 0 0 1px var(--gold-soft), 0 0 14px rgba(212, 173, 102, 0.2);
   opacity: 1;
 }
+
+.class-box.class-prof_1 { --class-rgb: 124, 50, 50; }
+.class-box.class-prof_2 { --class-rgb: 47, 107, 67; }
+.class-box.class-prof_3 { --class-rgb: 138, 91, 36; }
+.class-box.class-prof_4 { --class-rgb: 47, 88, 121; }
+.class-box.class-prof_5 { --class-rgb: 48, 48, 48; }
+.class-box.class-prof_6 { --class-rgb: 214, 214, 214; color: #221c16; }
+.class-box.class-prof_6.active { color: #221c16; }
 
 .branch {
   border: 1px solid var(--line);

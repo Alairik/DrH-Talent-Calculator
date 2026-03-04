@@ -343,6 +343,7 @@
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "class-box";
+      btn.classList.add(`class-${String(p.id || "").toLowerCase()}`);
       if (p.id === state.selectedProfessionId) btn.classList.add("active");
       btn.textContent = p.name;
       btn.addEventListener("click", () => {
