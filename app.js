@@ -274,7 +274,7 @@
     });
 
     bindNumber(els.maxLevel, (v) => {
-      state.config.maxLevel = clampInt(v, 1, 30, window.APP_CONFIG.maxLevel);
+      state.config.maxLevel = clampInt(v, 1, 36, window.APP_CONFIG.maxLevel);
     });
     bindNumber(els.talentL1, (v) => {
       state.config.points.talentLevel1 = clampInt(
@@ -1283,7 +1283,7 @@
         : {};
     state.selectedSkillTargets = payload.selectedSkillTargets || {};
     state.manualLevel = Number.isFinite(payload.manualLevel)
-      ? clampInt(payload.manualLevel, 1, 30, 1)
+      ? clampInt(payload.manualLevel, 1, 36, 1)
       : 1;
     state.levelMode = payload.levelMode === "manual" ? "manual" : "auto";
     if (payload.selectedSkillIds && !payload.selectedSkillTargets) {
@@ -1291,7 +1291,7 @@
       for (const id of payload.selectedSkillIds) state.selectedSkillTargets[id] = 1;
     }
     if (payload.config && payload.config.points) {
-      state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 30, state.config.maxLevel);
+      state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 36, state.config.maxLevel);
       state.config.points.talentLevel1 = clampInt(
         payload.config.points.talentLevel1,
         0,
