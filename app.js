@@ -120,15 +120,17 @@
 
   const els = {
     layout: document.querySelector(".layout"),
+    classTopControls: document.getElementById("classTopControls"),
     controlSlotClass: document.getElementById("controlSlotClass"),
     controlSlotSkills: document.getElementById("controlSlotSkills"),
     controlSlotPlan: document.getElementById("controlSlotPlan"),
+    skillsTopControls: document.getElementById("skillsTopControls"),
     panelClassControls: document.getElementById("panelClassControls"),
     panelSkillsControls: document.getElementById("panelSkillsControls"),
     panelPlanControls: document.getElementById("panelPlanControls"),
     planTopControls: document.getElementById("planTopControls"),
     mobileSectionNav: document.getElementById("mobileSectionNav"),
-    raceSelect: document.getElementById("raceSelect"),
+    humanToggle: document.getElementById("humanToggle"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
     generalNodes: document.getElementById("generalNodes"),
@@ -151,7 +153,6 @@
     manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
-    raceBonusInfo: document.getElementById("raceBonusInfo"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -224,8 +225,14 @@
   }
 
   function wireEvents() {
-    els.raceSelect.addEventListener("change", () => {
-      state.selectedRaceId = els.raceSelect.value;
+    els.humanToggle.addEventListener("change", () => {
+      const humanId = getHumanRaceId();
+      if (els.humanToggle.checked && humanId) {
+        state.selectedRaceId = humanId;
+      } else if (!els.humanToggle.checked && normalize((getRaceById(state.selectedRaceId) || {}).name) === "clovek") {
+        const fallback = getFirstNonHumanRaceId();
+        if (fallback) state.selectedRaceId = fallback;
+      }
       cleanseInvalidSelections();
       renderAll();
       persist();
@@ -330,17 +337,9 @@
   }
 
   function renderControls() {
-    els.raceSelect.innerHTML = "";
-    for (const r of state.races) {
-      const opt = document.createElement("option");
-      opt.value = r.id;
-      opt.textContent = r.name;
-      if (r.id === state.selectedRaceId) opt.selected = true;
-      els.raceSelect.appendChild(opt);
-    }
-    els.raceSelect.value = state.selectedRaceId;
-
     renderClassPicker();
+    const selectedRace = getRaceById(state.selectedRaceId);
+    els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
 
     els.maxLevel.value = state.config.maxLevel;
     els.talentL1.value = state.config.points.talentLevel1;
@@ -349,16 +348,6 @@
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     els.manualLevelDisplay.textContent = String(manual);
-    const selectedRace = getRaceById(state.selectedRaceId);
-    const isHumanRace = normalize(selectedRace && selectedRace.name) === "clovek";
-    const raceTalent = getRaceBonusTalent();
-    if (isHumanRace && raceTalent) {
-      els.raceBonusInfo.style.visibility = "visible";
-      els.raceBonusInfo.textContent = "+ Všestranost";
-    } else {
-      els.raceBonusInfo.textContent = "";
-      els.raceBonusInfo.style.visibility = "hidden";
-    }
   }
 
   function isMobileSectionLayout() {
@@ -371,25 +360,25 @@
   }
 
   function relocateColumnControls() {
-    if (!els.classPicker || !els.summary || !els.planTopControls) return;
+    if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls) return;
     const isMobile = isMobileSectionLayout();
     if (isMobile) {
-      if (els.classPicker.parentElement !== els.panelClassControls) {
-        els.panelClassControls.appendChild(els.classPicker);
+      if (els.classTopControls.parentElement !== els.panelClassControls) {
+        els.panelClassControls.appendChild(els.classTopControls);
       }
-      if (els.summary.parentElement !== els.panelSkillsControls) {
-        els.panelSkillsControls.appendChild(els.summary);
+      if (els.skillsTopControls.parentElement !== els.panelSkillsControls) {
+        els.panelSkillsControls.appendChild(els.skillsTopControls);
       }
       if (els.planTopControls.parentElement !== els.panelPlanControls) {
         els.panelPlanControls.appendChild(els.planTopControls);
       }
       if (els.mobileSectionNav) els.mobileSectionNav.style.display = "";
     } else {
-      if (els.classPicker.parentElement !== els.controlSlotClass) {
-        els.controlSlotClass.appendChild(els.classPicker);
+      if (els.classTopControls.parentElement !== els.controlSlotClass) {
+        els.controlSlotClass.appendChild(els.classTopControls);
       }
-      if (els.summary.parentElement !== els.controlSlotSkills) {
-        els.controlSlotSkills.appendChild(els.summary);
+      if (els.skillsTopControls.parentElement !== els.controlSlotSkills) {
+        els.controlSlotSkills.appendChild(els.skillsTopControls);
       }
       if (els.planTopControls.parentElement !== els.controlSlotPlan) {
         els.controlSlotPlan.appendChild(els.planTopControls);
@@ -1171,6 +1160,16 @@
 
   function getRaceById(id) {
     return state.races.find((r) => r.id === id);
+  }
+
+  function getHumanRaceId() {
+    const human = state.races.find((r) => normalize(r.name) === "clovek");
+    return human ? human.id : null;
+  }
+
+  function getFirstNonHumanRaceId() {
+    const nonHuman = state.races.find((r) => normalize(r.name) !== "clovek");
+    return nonHuman ? nonHuman.id : null;
   }
 
   function getRaceBonusTalent() {
