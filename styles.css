@@ -480,6 +480,29 @@ button:hover {
   cursor: pointer;
 }
 
+.node-info-btn {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 14px;
+  height: 14px;
+  min-width: 14px;
+  border-radius: 999px;
+  border: 1px solid #8b6a3d;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-size: 0.55rem;
+  line-height: 1;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+}
+
+.node-info-btn:hover {
+  border-color: #d4ad66;
+}
+
 .node-level-indicator {
   position: absolute;
   top: 3px;
@@ -492,6 +515,22 @@ button:hover {
   background: rgba(32, 24, 17, 0.92);
   color: #f7e8cc;
   pointer-events: none;
+}
+
+.info-tooltip {
+  position: fixed;
+  z-index: 1200;
+  max-width: min(360px, calc(100vw - 20px));
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #7f6035;
+  background: rgba(20, 16, 12, 0.97);
+  color: #f4ecda;
+  font-size: 0.72rem;
+  line-height: 1.25;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  white-space: pre-wrap;
 }
 
 .node:hover {

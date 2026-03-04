@@ -182,9 +182,14 @@
     timeline: document.getElementById("timeline"),
     exportBtn: document.getElementById("exportBtn"),
     importBtn: document.getElementById("importBtn"),
-    exchangeBox: document.getElementById("exchangeBox")
+    exchangeBox: document.getElementById("exchangeBox"),
+    infoTooltip: document.getElementById("infoTooltip")
   };
   els.mobileSectionButtons = Array.from(document.querySelectorAll(".mobile-section-btn"));
+  const tooltipState = {
+    pinned: false,
+    anchorEl: null
+  };
 
   init().catch((err) => {
     console.error(err);
@@ -346,10 +351,18 @@
       }
     });
     window.addEventListener("resize", () => {
+      hideInfoTooltip();
       renderSkills();
       handleResponsiveLayout();
     });
     if (els.layout) els.layout.addEventListener("scroll", onLayoutScroll, { passive: true });
+    document.addEventListener("pointerdown", (ev) => {
+      if (!els.infoTooltip || els.infoTooltip.hidden) return;
+      const target = ev.target;
+      if (target && target.closest && target.closest(".node-info-btn")) return;
+      hideInfoTooltip();
+    });
+    document.addEventListener("scroll", () => hideInfoTooltip(), { passive: true, capture: true });
     for (const btn of els.mobileSectionButtons) {
       btn.addEventListener("click", () => {
         const idx = clampInt(btn.dataset.sectionIndex, 0, 2, 0);
@@ -370,6 +383,7 @@
   }
 
   function renderAll() {
+    hideInfoTooltip();
     handleResponsiveLayout();
     renderControls();
     renderTalentTree();
@@ -459,8 +473,41 @@
   }
 
   function onLayoutScroll() {
+    hideInfoTooltip();
     if (!isMobileSectionLayout()) return;
     updateMobileSectionNav();
+  }
+
+  function showInfoTooltip(text, anchorEl, pinned = false) {
+    if (!els.infoTooltip || !anchorEl || !text) return;
+    tooltipState.pinned = !!pinned;
+    tooltipState.anchorEl = anchorEl;
+    els.infoTooltip.textContent = text;
+    els.infoTooltip.hidden = false;
+    positionInfoTooltip(anchorEl);
+  }
+
+  function hideInfoTooltip() {
+    if (!els.infoTooltip) return;
+    els.infoTooltip.hidden = true;
+    tooltipState.pinned = false;
+    tooltipState.anchorEl = null;
+  }
+
+  function positionInfoTooltip(anchorEl) {
+    if (!els.infoTooltip || !anchorEl || els.infoTooltip.hidden) return;
+    const rect = anchorEl.getBoundingClientRect();
+    const tipRect = els.infoTooltip.getBoundingClientRect();
+    const pad = 8;
+    const viewWidth = window.innerWidth;
+    const viewHeight = window.innerHeight;
+    let left = rect.left + rect.width / 2 - tipRect.width / 2;
+    left = Math.max(pad, Math.min(left, viewWidth - tipRect.width - pad));
+    let top = rect.top - tipRect.height - pad;
+    if (top < pad) top = rect.bottom + pad;
+    top = Math.max(pad, Math.min(top, viewHeight - tipRect.height - pad));
+    els.infoTooltip.style.left = `${Math.round(left)}px`;
+    els.infoTooltip.style.top = `${Math.round(top)}px`;
   }
 
   function updateMobileSectionNav() {
@@ -620,10 +667,31 @@
         if (isDisabled) node.classList.add("locked");
         if (enableSpecColor && Number.isInteger(reqBranchIndex)) node.classList.add(`spec-${reqBranchIndex}`);
         if (isPdfCovered) node.classList.add("pdf-covered");
-        node.title = `${talent.name}\n${talent.description || ""}`;
-        if (isStarterTalent) node.title += "\n[ZAKLAD OD LVL 1]";
-        if (isPdfCovered) node.title += "\n[PDF]";
+        const tooltipLines = [talent.name];
+        if (talent.description) tooltipLines.push(talent.description);
+        if (isStarterTalent) tooltipLines.push("[ZAKLAD OD LVL 1]");
+        if (isPdfCovered) tooltipLines.push("[PDF]");
+        const tooltipText = tooltipLines.join("\n");
         node.textContent = talent.name;
+        node.setAttribute("aria-label", tooltipText);
+        node.addEventListener("mouseenter", () => showInfoTooltip(tooltipText, node, false));
+        node.addEventListener("mouseleave", () => {
+          if (!tooltipState.pinned) hideInfoTooltip();
+        });
+        const infoBtn = document.createElement("button");
+        infoBtn.type = "button";
+        infoBtn.className = "node-info-btn";
+        infoBtn.textContent = "i";
+        infoBtn.setAttribute("aria-label", `Info: ${talent.name}`);
+        infoBtn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          const sameNodeOpen =
+            !els.infoTooltip.hidden && tooltipState.anchorEl === node && tooltipState.pinned;
+          if (sameNodeOpen) hideInfoTooltip();
+          else showInfoTooltip(tooltipText, node, true);
+        });
+        node.appendChild(infoBtn);
         const selectedAtLevel = Number(talentLevelById.get(talent.id));
         if (isSelected && Number.isFinite(selectedAtLevel) && selectedAtLevel > 0) {
           const lvl = document.createElement("span");
@@ -631,8 +699,10 @@
           lvl.textContent = `Lv ${selectedAtLevel}`;
           node.appendChild(lvl);
         }
-        node.disabled = isDisabled || isStarterTalent;
-        if (onToggle && !isStarterTalent) node.addEventListener("click", () => onToggle(talent, !isSelected));
+        if (isDisabled || isStarterTalent) node.setAttribute("aria-disabled", "true");
+        if (onToggle && !isStarterTalent && !isDisabled) {
+          node.addEventListener("click", () => onToggle(talent, !isSelected));
+        }
       }
       container.appendChild(node);
     }
