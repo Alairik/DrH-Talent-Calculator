@@ -303,21 +303,6 @@ body {
   letter-spacing: 0.01em;
 }
 
-#themeToggleBtn {
-  width: 86px;
-  min-width: 86px;
-  font-size: 0.54rem;
-  letter-spacing: 0.01em;
-}
-
-@media (max-width: 1280px) {
-  #themeToggleBtn {
-    width: 74px;
-    min-width: 74px;
-    font-size: 0.5rem;
-  }
-}
-
 .url-load-status {
   display: inline-flex;
   align-items: center;
