@@ -240,6 +240,11 @@
     if (!state.selectedRaceId && state.races.length > 0) {
       state.selectedRaceId = state.races[0].id;
     }
+    // Prevent stale localStorage from keeping old low cap (e.g., 12).
+    state.config.maxLevel = Math.max(
+      clampInt(state.config.maxLevel, 1, 36, window.APP_CONFIG.maxLevel),
+      window.APP_CONFIG.maxLevel
+    );
   }
 
   function wireEvents() {
@@ -1121,10 +1126,6 @@
     const unscheduledTalents = talentQueue;
     const unscheduledSkills = skillPlans.filter((p) => p.currentRank < p.targetRank);
 
-    if (unscheduledTalents.length > 0 || unscheduledSkills.length > 0) {
-      issues.push("Not enough points/levels for all requested targets.");
-    }
-
     const maxAssignedTalent = Math.max(1, ...assignedTalentLevel.values());
     const maxSkillActionLevel = Math.max(
       1,
@@ -1189,16 +1190,6 @@
   function renderIssues(plan) {
     const lines = [];
     for (const issue of plan.issues) lines.push(`- ${issue}`);
-    if (plan.unscheduledTalents.length) {
-      lines.push(`- Unscheduled talents: ${plan.unscheduledTalents.map((x) => x.name).join(", ")}`);
-    }
-    if (plan.unscheduledSkills.length) {
-      lines.push(
-        `- Unscheduled skill ranks: ${plan.unscheduledSkills
-          .map((x) => `${x.skill.name} (${x.currentRank}->${x.targetRank})`)
-          .join(", ")}`
-      );
-    }
     els.issues.innerHTML = lines.length ? lines.map(escapeHtml).join("<br>") : "";
   }
 
