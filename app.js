@@ -334,11 +334,11 @@
     const isHumanRace = normalize(selectedRace && selectedRace.name) === "clovek";
     const raceTalent = getRaceBonusTalent();
     if (isHumanRace && raceTalent) {
-      els.raceBonusInfo.style.display = "";
-      els.raceBonusInfo.textContent = `Bonus rasy: ${raceTalent.name}`;
+      els.raceBonusInfo.style.visibility = "visible";
+      els.raceBonusInfo.textContent = "+ Všestranost";
     } else {
       els.raceBonusInfo.textContent = "";
-      els.raceBonusInfo.style.display = "none";
+      els.raceBonusInfo.style.visibility = "hidden";
     }
   }
 

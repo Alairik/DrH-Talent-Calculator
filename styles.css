@@ -130,6 +130,7 @@ body {
 .plan-top-controls {
   gap: 0.26rem;
   width: 100%;
+  justify-content: flex-end;
 }
 
 .plan-top-controls label {
@@ -138,8 +139,11 @@ body {
 }
 
 .plan-top-controls .race-bonus-info {
+  width: 104px;
+  min-width: 104px;
   max-width: 104px;
   font-size: 0.66rem;
+  text-align: right;
 }
 
 .plan-top-controls .timeline-tools .lvl-label {
