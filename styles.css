@@ -293,7 +293,8 @@ button:hover {
 }
 
 .skills-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.16rem;
   flex: 1 1 auto;
   min-height: 0;
@@ -301,7 +302,7 @@ button:hover {
   overflow-x: hidden;
   scrollbar-gutter: stable both-edges;
   padding-right: 0.2rem;
-  align-content: stretch;
+  align-content: normal;
 }
 
 .skill-item {
