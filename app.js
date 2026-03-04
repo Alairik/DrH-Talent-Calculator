@@ -232,7 +232,7 @@
   }
 
   function wireEvents() {
-    els.humanToggle.addEventListener("change", () => {
+    if (els.humanToggle) els.humanToggle.addEventListener("change", () => {
       const humanId = getHumanRaceId();
       if (els.humanToggle.checked && humanId) {
         state.selectedRaceId = humanId;
@@ -245,14 +245,14 @@
       persist();
     });
 
-    els.mobileClassSelect.addEventListener("change", () => {
+    if (els.mobileClassSelect) els.mobileClassSelect.addEventListener("change", () => {
       state.selectedProfessionId = els.mobileClassSelect.value;
       cleanseInvalidSelections();
       renderAll();
       persist();
     });
 
-    els.resetBtn.addEventListener("click", () => {
+    if (els.resetBtn) els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
       state.selectedSpecializationByClass = {};
       state.selectedSkillTargets = {};
@@ -295,24 +295,24 @@
         window.APP_CONFIG.points.skillPerLevel
       );
     });
-    els.manualLevelMinus.addEventListener("click", () => {
+    if (els.manualLevelMinus) els.manualLevelMinus.addEventListener("click", () => {
       state.levelMode = "manual";
       state.manualLevel = clampInt(state.manualLevel - 1, 1, state.config.maxLevel, 1);
       renderAll();
       persist();
     });
-    els.manualLevelPlus.addEventListener("click", () => {
+    if (els.manualLevelPlus) els.manualLevelPlus.addEventListener("click", () => {
       state.levelMode = "manual";
       state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
       renderAll();
       persist();
     });
 
-    els.exportBtn.addEventListener("click", () => {
+    if (els.exportBtn) els.exportBtn.addEventListener("click", () => {
       els.exchangeBox.value = JSON.stringify(exportBuild(), null, 2);
     });
 
-    els.importBtn.addEventListener("click", () => {
+    if (els.importBtn) els.importBtn.addEventListener("click", () => {
       try {
         importBuild(JSON.parse(els.exchangeBox.value));
         renderAll();
@@ -325,14 +325,14 @@
       renderSkills();
       handleResponsiveLayout();
     });
-    els.layout.addEventListener("scroll", onLayoutScroll, { passive: true });
+    if (els.layout) els.layout.addEventListener("scroll", onLayoutScroll, { passive: true });
     for (const btn of els.mobileSectionButtons) {
       btn.addEventListener("click", () => {
         const idx = clampInt(btn.dataset.sectionIndex, 0, 2, 0);
         scrollToMobileSection(idx);
       });
     }
-    els.mobileLevelPill.addEventListener("click", () => {
+    if (els.mobileLevelPill) els.mobileLevelPill.addEventListener("click", () => {
       scrollToMobileSection(2);
     });
   }
@@ -357,7 +357,7 @@
     renderClassPicker();
     renderMobileClassSelect();
     const selectedRace = getRaceById(state.selectedRaceId);
-    els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
+    if (els.humanToggle) els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
 
     els.maxLevel.value = state.config.maxLevel;
     els.talentL1.value = state.config.points.talentLevel1;
@@ -365,10 +365,11 @@
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
-    els.manualLevelDisplay.textContent = String(manual);
+    if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = String(manual);
   }
 
   function renderMobileClassSelect() {
+    if (!els.mobileClassSelect) return;
     els.mobileClassSelect.innerHTML = "";
     for (const p of state.professions) {
       const opt = document.createElement("option");
@@ -393,34 +394,34 @@
     if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls || !els.humanToggleWrap) return;
     const isMobile = isMobileSectionLayout();
     if (isMobile) {
-      if (els.humanToggleWrap.parentElement !== els.humanToggleSlotClass) {
+      if (els.humanToggleSlotClass && els.humanToggleWrap.parentElement !== els.humanToggleSlotClass) {
         els.humanToggleSlotClass.appendChild(els.humanToggleWrap);
       }
-      if (els.resetBtn.parentElement !== els.resetSlotClass) {
+      if (els.resetBtn && els.resetSlotClass && els.resetBtn.parentElement !== els.resetSlotClass) {
         els.resetSlotClass.appendChild(els.resetBtn);
       }
       // Class selection is handled by the global mobile sticky dropdown.
-      if (els.skillsTopControls.parentElement !== els.panelSkillsControls) {
+      if (els.panelSkillsControls && els.skillsTopControls.parentElement !== els.panelSkillsControls) {
         els.panelSkillsControls.appendChild(els.skillsTopControls);
       }
-      if (els.planTopControls.parentElement !== els.panelPlanControls) {
+      if (els.panelPlanControls && els.planTopControls.parentElement !== els.panelPlanControls) {
         els.panelPlanControls.appendChild(els.planTopControls);
       }
       if (els.mobileSectionNav) els.mobileSectionNav.style.display = "";
     } else {
-      if (els.classTopControls.parentElement !== els.controlSlotClass) {
+      if (els.controlSlotClass && els.classTopControls.parentElement !== els.controlSlotClass) {
         els.controlSlotClass.appendChild(els.classTopControls);
       }
-      if (els.humanToggleWrap.parentElement !== els.humanToggleSlotSkills) {
+      if (els.humanToggleSlotSkills && els.humanToggleWrap.parentElement !== els.humanToggleSlotSkills) {
         els.humanToggleSlotSkills.appendChild(els.humanToggleWrap);
       }
-      if (els.resetBtn.parentElement !== els.resetSlotPlan) {
+      if (els.resetBtn && els.resetSlotPlan && els.resetBtn.parentElement !== els.resetSlotPlan) {
         els.resetSlotPlan.appendChild(els.resetBtn);
       }
-      if (els.skillsTopControls.parentElement !== els.controlSlotSkills) {
+      if (els.controlSlotSkills && els.skillsTopControls.parentElement !== els.controlSlotSkills) {
         els.controlSlotSkills.appendChild(els.skillsTopControls);
       }
-      if (els.planTopControls.parentElement !== els.controlSlotPlan) {
+      if (els.controlSlotPlan && els.planTopControls.parentElement !== els.controlSlotPlan) {
         els.controlSlotPlan.appendChild(els.planTopControls);
       }
       if (els.mobileSectionNav) els.mobileSectionNav.style.display = "";
@@ -428,7 +429,7 @@
   }
 
   function scrollToMobileSection(index) {
-    if (!isMobileSectionLayout()) return;
+    if (!isMobileSectionLayout() || !els.layout) return;
     const width = Math.max(1, els.layout.clientWidth);
     els.layout.scrollTo({ left: index * width, behavior: "smooth" });
   }
@@ -445,6 +446,7 @@
       els.mobileSectionButtons[0].classList.add("active");
       return;
     }
+    if (!els.layout) return;
     const width = Math.max(1, els.layout.clientWidth);
     const index = clampInt(Math.round(els.layout.scrollLeft / width), 0, els.mobileSectionButtons.length - 1, 0);
     for (let i = 0; i < els.mobileSectionButtons.length; i += 1) {
@@ -1030,7 +1032,7 @@
     renderTimeline(plan);
     const currentLevel = String(clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1));
     els.manualLevelDisplay.textContent = currentLevel;
-    els.mobileLevelPill.textContent = currentLevel;
+    if (els.mobileLevelPill) els.mobileLevelPill.textContent = currentLevel;
     if (modeBefore !== state.levelMode) persist();
   }
 
