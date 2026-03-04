@@ -935,15 +935,15 @@ textarea {
   }
 
   .skill-item {
-    min-height: 38px;
-    font-size: 0.76rem;
-    padding: 0.24rem 0.36rem;
+    min-height: 76px;
+    font-size: 0.92rem;
+    padding: 0.48rem 0.56rem;
   }
 
   .skill-rank-controls button {
-    width: 32px;
-    min-width: 32px;
-    font-size: 0.9rem;
+    width: 40px;
+    min-width: 40px;
+    font-size: 1.05rem;
   }
 
   .mobile-section-nav {
