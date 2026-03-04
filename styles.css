@@ -732,6 +732,12 @@ button:hover {
   scrollbar-width: none;
 }
 
+.skill-level-divider {
+  height: 0;
+  border-top: 1px solid rgba(186, 144, 79, 0.72);
+  margin: 0.24rem 0 0.18rem;
+}
+
 .skills-split {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -130,6 +130,18 @@
     { id: "PDF_SKILL_THF_14", name: "Odvedeni pozornosti", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] },
     { id: "PDF_SKILL_THF_15", name: "Ziskani duvery", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] }
   ];
+  const MANUAL_SPECIALIZATION_SKILLS = [
+    // Chodec: specializacni dovednost od 6. urovne s automatickym startem na 5.
+    {
+      id: "PDF_SPEC_SKILL_RNGC_01",
+      name: "Znalost mistnich pomeru",
+      prof_id: "PROF_2",
+      required_level: 6,
+      check_type: ["int"],
+      spec_branch_index: 1,
+      auto_floor_on_spec: 5
+    }
+  ];
 
   const state = {
     professions: [],
@@ -260,7 +272,9 @@
       ...normalizeSkillRecord(x),
       type: "skill"
     }));
-    state.skills = injectManualDSkills(applyKnownSkillClassOverrides(baseSkills));
+    state.skills = injectManualSpecializationSkills(
+      injectManualDSkills(applyKnownSkillClassOverrides(baseSkills))
+    );
     if (pdfCoveragePayload && typeof pdfCoveragePayload === "object") {
       state.pdfCoverage.skills = new Set(Array.isArray(pdfCoveragePayload.skills) ? pdfCoveragePayload.skills : []);
       state.pdfCoverage.talents = new Set(Array.isArray(pdfCoveragePayload.talents) ? pdfCoveragePayload.talents : []);
@@ -809,7 +823,7 @@
     const raceTalent = getRaceBonusTalent();
     if (raceTalent) selectedTalentIds.add(raceTalent.id);
     const visibleSkills = state.skills
-      .filter((s) => isSkillAvailableForClass(s, profId) || starterIds.has(s.id))
+      .filter((s) => (isSkillAvailableForClass(s, profId) || starterIds.has(s.id)) && isSkillVisibleForCurrentSpec(s, profId))
       .sort((a, b) => {
         const aGroup = getSkillSortBucket(a, profId, closeStarterIds);
         const bGroup = getSkillSortBucket(b, profId, closeStarterIds);
@@ -843,7 +857,8 @@
       starterIds,
       closeStarterIds,
       selectedTalentIds,
-      profId
+      profId,
+      showLevelDivider: true
     });
 
     els.skillCount.textContent = "";
@@ -851,7 +866,15 @@
 
   function renderSkillColumn(container, skills, ctx) {
     container.innerHTML = "";
+    let levelDividerAdded = false;
     for (const s of skills) {
+      const reqLevel = Number(s.required_level || 1);
+      if (ctx.showLevelDivider && !levelDividerAdded && reqLevel >= SPECIALIZATION_UNLOCK_LEVEL) {
+        const divider = document.createElement("div");
+        divider.className = "skill-level-divider";
+        container.appendChild(divider);
+        levelDividerAdded = true;
+      }
       const floorRank = getSkillFloor(s, ctx.starterIds, ctx.profId);
       const targetRank = getSkillTargetRank(s.id, floorRank);
       const isPdfCovered = state.pdfCoverage.skills.has(s.id);
@@ -931,7 +954,18 @@
     const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
     const reqLevel = Number(skill.required_level || 1);
     if (isClassSkill && reqLevel <= 1 && !requiresPrereqForSkill(skill)) floor = Math.max(floor, 3);
+    floor = Math.max(floor, getSpecializationSkillFloor(skill, profId));
     return floor;
+  }
+
+  function getSpecializationSkillFloor(skill, profId = state.selectedProfessionId) {
+    if (!skill || skill.prof_id !== profId) return 0;
+    const branch = Number(skill.spec_branch_index);
+    if (!Number.isInteger(branch) || branch < 0 || branch > 2) return 0;
+    const selectedBranch = Number(state.selectedSpecializationByClass[profId]);
+    if (!Number.isInteger(selectedBranch) || selectedBranch !== branch) return 0;
+    if (Number(skill.required_level || 1) > SPECIALIZATION_UNLOCK_LEVEL) return 0;
+    return clampInt(skill.auto_floor_on_spec, 0, 10, 0);
   }
 
   function setSkillTargetRank(id, desired, floor) {
@@ -1231,7 +1265,7 @@
 
     const skillPlans = [];
     for (const s of state.skills) {
-      if (!isSkillAvailableForClass(s, profId) && !starterIds.has(s.id)) continue;
+      if ((!isSkillAvailableForClass(s, profId) && !starterIds.has(s.id)) || !isSkillVisibleForCurrentSpec(s, profId)) continue;
       const startRank = getSkillFloor(s, starterIds, profId);
       const targetRank = getSkillTargetRank(s.id, startRank);
       if (targetRank <= 0) continue;
@@ -1571,7 +1605,7 @@
     for (const [id, target] of Object.entries(state.selectedSkillTargets)) {
       const s = state.skills.find((x) => x.id === id);
       if (!s) continue;
-      if (!isSkillAvailableForClass(s, profId) && !starterIds.has(id)) continue;
+      if ((!isSkillAvailableForClass(s, profId) && !starterIds.has(id)) || !isSkillVisibleForCurrentSpec(s, profId)) continue;
       const floor = getSkillFloor(s, starterIds, profId);
       const t = Math.max(floor, Number(target) || floor);
       if (t > floor) cleaned[id] = t;
@@ -1669,6 +1703,15 @@
     if (!skill) return false;
     if (!skill.prof_id || skill.prof_id === profId) return true;
     return BASIC_SKILL_NAMES.has(normalize(skill.name));
+  }
+
+  function isSkillVisibleForCurrentSpec(skill, profId = state.selectedProfessionId) {
+    if (!skill) return false;
+    const branch = Number(skill.spec_branch_index);
+    if (!Number.isInteger(branch) || branch < 0 || branch > 2) return true;
+    if (skill.prof_id !== profId) return false;
+    const selectedBranch = Number(state.selectedSpecializationByClass[profId]);
+    return Number.isInteger(selectedBranch) && selectedBranch === branch;
   }
 
   function countSelectedVisibleTalents(classTalents) {
@@ -1794,6 +1837,34 @@
         ability_id: ability ? ability.id : null,
         check_type: x.check_type || ["int"],
         is_knowledge_based: !!x.is_knowledge_based,
+        manual_order: Number(out.length),
+        type: "skill"
+      };
+      const key = `${normalize(rec.name)}|${rec.prof_id || ""}`;
+      if (byId.has(rec.id) || byNameProf.has(key)) continue;
+      out.push(rec);
+      byId.add(rec.id);
+      byNameProf.add(key);
+    }
+    return out;
+  }
+
+  function injectManualSpecializationSkills(skills) {
+    const byId = new Set(skills.map((s) => s.id));
+    const byNameProf = new Set(skills.map((s) => `${normalize(s.name)}|${s.prof_id || ""}`));
+    const out = [...skills];
+    for (const x of MANUAL_SPECIALIZATION_SKILLS) {
+      const rec = {
+        id: x.id,
+        name: x.name,
+        description: "Dovednost ziskana specializaci povolani.",
+        prof_id: x.prof_id,
+        required_level: x.required_level || SPECIALIZATION_UNLOCK_LEVEL,
+        ability_id: null,
+        check_type: x.check_type || ["int"],
+        is_knowledge_based: !!x.is_knowledge_based,
+        spec_branch_index: x.spec_branch_index,
+        auto_floor_on_spec: x.auto_floor_on_spec,
         manual_order: Number(out.length),
         type: "skill"
       };
