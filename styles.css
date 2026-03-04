@@ -82,7 +82,7 @@ body {
 
 .class-top-controls {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 0.34rem;
   align-items: center;
 }

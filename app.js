@@ -121,6 +121,9 @@
   const els = {
     layout: document.querySelector(".layout"),
     classTopControls: document.getElementById("classTopControls"),
+    humanToggleWrap: document.getElementById("humanToggleWrap"),
+    humanToggleSlotClass: document.getElementById("humanToggleSlotClass"),
+    humanToggleSlotSkills: document.getElementById("humanToggleSlotSkills"),
     controlSlotClass: document.getElementById("controlSlotClass"),
     controlSlotSkills: document.getElementById("controlSlotSkills"),
     controlSlotPlan: document.getElementById("controlSlotPlan"),
@@ -385,9 +388,12 @@
   }
 
   function relocateColumnControls() {
-    if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls) return;
+    if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls || !els.humanToggleWrap) return;
     const isMobile = isMobileSectionLayout();
     if (isMobile) {
+      if (els.humanToggleWrap.parentElement !== els.humanToggleSlotClass) {
+        els.humanToggleSlotClass.appendChild(els.humanToggleWrap);
+      }
       // Class selection is handled by the global mobile sticky dropdown.
       if (els.skillsTopControls.parentElement !== els.panelSkillsControls) {
         els.panelSkillsControls.appendChild(els.skillsTopControls);
@@ -399,6 +405,9 @@
     } else {
       if (els.classTopControls.parentElement !== els.controlSlotClass) {
         els.controlSlotClass.appendChild(els.classTopControls);
+      }
+      if (els.humanToggleWrap.parentElement !== els.humanToggleSlotSkills) {
+        els.humanToggleSlotSkills.appendChild(els.humanToggleWrap);
       }
       if (els.skillsTopControls.parentElement !== els.controlSlotSkills) {
         els.controlSlotSkills.appendChild(els.skillsTopControls);
