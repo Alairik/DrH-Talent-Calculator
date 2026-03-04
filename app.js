@@ -129,6 +129,8 @@
     panelSkillsControls: document.getElementById("panelSkillsControls"),
     panelPlanControls: document.getElementById("panelPlanControls"),
     planTopControls: document.getElementById("planTopControls"),
+    mobileClassSelect: document.getElementById("mobileClassSelect"),
+    mobileLevelPill: document.getElementById("mobileLevelPill"),
     mobileSectionNav: document.getElementById("mobileSectionNav"),
     humanToggle: document.getElementById("humanToggle"),
     resetBtn: document.getElementById("resetBtn"),
@@ -238,6 +240,13 @@
       persist();
     });
 
+    els.mobileClassSelect.addEventListener("change", () => {
+      state.selectedProfessionId = els.mobileClassSelect.value;
+      cleanseInvalidSelections();
+      renderAll();
+      persist();
+    });
+
     els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
       state.selectedSpecializationByClass = {};
@@ -318,6 +327,9 @@
         scrollToMobileSection(idx);
       });
     }
+    els.mobileLevelPill.addEventListener("click", () => {
+      scrollToMobileSection(2);
+    });
   }
 
   function bindNumber(input, onChange) {
@@ -338,6 +350,7 @@
 
   function renderControls() {
     renderClassPicker();
+    renderMobileClassSelect();
     const selectedRace = getRaceById(state.selectedRaceId);
     els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
 
@@ -348,6 +361,18 @@
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     els.manualLevelDisplay.textContent = String(manual);
+  }
+
+  function renderMobileClassSelect() {
+    els.mobileClassSelect.innerHTML = "";
+    for (const p of state.professions) {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.name;
+      if (p.id === state.selectedProfessionId) opt.selected = true;
+      els.mobileClassSelect.appendChild(opt);
+    }
+    els.mobileClassSelect.value = state.selectedProfessionId;
   }
 
   function isMobileSectionLayout() {
@@ -363,9 +388,7 @@
     if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls) return;
     const isMobile = isMobileSectionLayout();
     if (isMobile) {
-      if (els.classTopControls.parentElement !== els.panelClassControls) {
-        els.panelClassControls.appendChild(els.classTopControls);
-      }
+      // Class selection is handled by the global mobile sticky dropdown.
       if (els.skillsTopControls.parentElement !== els.panelSkillsControls) {
         els.panelSkillsControls.appendChild(els.skillsTopControls);
       }
@@ -975,7 +998,9 @@
     renderSummary(plan);
     renderIssues(plan);
     renderTimeline(plan);
-    els.manualLevelDisplay.textContent = String(clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1));
+    const currentLevel = String(clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1));
+    els.manualLevelDisplay.textContent = currentLevel;
+    els.mobileLevelPill.textContent = currentLevel;
     if (modeBefore !== state.levelMode) persist();
   }
 
