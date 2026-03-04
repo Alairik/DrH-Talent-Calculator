@@ -18,7 +18,7 @@ body {
   margin: 0;
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
   overflow: hidden;
   font-family: "Segoe UI", Tahoma, sans-serif;
   color: var(--text);
@@ -95,12 +95,17 @@ body {
 
 .skills-panel {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .plan-panel {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto auto;
+}
+
+.col-toolbar {
+  margin-bottom: 0.24rem;
+  min-height: 0;
 }
 
 .panel-head {
@@ -123,6 +128,40 @@ body {
 
 .top-level-tools {
   margin-right: 0.15rem;
+}
+
+.plan-toolbar .top-controls {
+  gap: 0.26rem;
+  width: 100%;
+}
+
+.plan-toolbar .top-controls label {
+  min-width: 96px;
+  width: 96px;
+}
+
+.plan-toolbar .race-bonus-info {
+  max-width: 104px;
+  font-size: 0.66rem;
+}
+
+.plan-toolbar .timeline-tools .lvl-label {
+  font-size: 0.66rem;
+}
+
+.plan-toolbar .timeline-tools .level-display {
+  width: 34px;
+  min-width: 34px;
+  height: 26px;
+  font-size: 0.86rem;
+}
+
+.plan-toolbar .timeline-tools .lvl-btn,
+.plan-toolbar #resetBtn {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  font-size: 0.86rem;
 }
 
 .timeline-tools .lvl-label {
@@ -213,14 +252,14 @@ button:hover {
 }
 
 .top-class-picker {
-  max-width: 620px;
-  gap: 0.34rem;
+  max-width: 100%;
+  gap: 0.24rem;
 }
 
 .top-class-picker .class-box {
-  min-height: 32px;
-  font-size: 0.64rem;
-  padding: 0.2rem 0.14rem;
+  min-height: 30px;
+  font-size: 0.58rem;
+  padding: 0.13rem 0.08rem;
 }
 
 .class-box {

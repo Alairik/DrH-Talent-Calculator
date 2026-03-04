@@ -7,26 +7,12 @@
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <header class="topbar">
-    <div id="classPicker" class="class-picker top-class-picker"></div>
-    <div class="top-controls">
-      <div id="topLevelControls" class="timeline-tools top-level-tools">
-        <span class="lvl-label">Lv</span>
-        <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
-        <div id="manualLevelDisplay" class="level-display">1</div>
-        <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
-      </div>
-      <div id="raceBonusInfo" class="race-bonus-info"></div>
-      <label>
-        <select id="raceSelect"></select>
-      </label>
-      <button id="resetBtn" type="button" title="Reset výběru" aria-label="Reset výběru">↺</button>
-    </div>
-  </header>
-
   <main class="layout">
     <section class="panel talents-panel">
       <span id="talentCount" hidden></span>
+      <div class="col-toolbar class-toolbar">
+        <div id="classPicker" class="class-picker top-class-picker"></div>
+      </div>
       <div class="general-branch">
         <div id="generalNodes" class="branch-nodes general-nodes"></div>
       </div>
@@ -49,6 +35,7 @@
 
     <section class="panel skills-panel">
       <span id="skillCount" hidden></span>
+      <div id="summary" class="summary"></div>
       <div class="skills-split">
         <div id="skillListBasic" class="skills-list"></div>
         <div id="skillListClass" class="skills-list"></div>
@@ -67,7 +54,21 @@
     </section>
 
     <section class="panel plan-panel">
-      <div id="summary" class="summary"></div>
+      <div class="col-toolbar plan-toolbar">
+        <div class="top-controls">
+          <div id="raceBonusInfo" class="race-bonus-info"></div>
+          <label>
+            <select id="raceSelect"></select>
+          </label>
+          <div id="topLevelControls" class="timeline-tools top-level-tools">
+            <span class="lvl-label">Lv</span>
+            <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
+            <div id="manualLevelDisplay" class="level-display">1</div>
+            <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
+          </div>
+          <button id="resetBtn" type="button" title="Reset výběru" aria-label="Reset výběru">↺</button>
+        </div>
+      </div>
       <div id="timeline" class="timeline"></div>
       <div id="issues" class="issues"></div>
       <div class="exchange" hidden>
