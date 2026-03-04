@@ -572,18 +572,19 @@ button:hover {
   overflow-y: scroll;
   overflow-x: hidden;
   scrollbar-gutter: stable both-edges;
-  padding-right: 0.2rem;
+  padding-right: 0.12rem;
 }
 
 .level-card {
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 0.5rem 0.6rem;
+  padding: 0.52rem 0.62rem;
   background: #17130f;
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 58px minmax(0, 1fr);
   align-items: center;
   gap: 0.55rem;
+  width: 100%;
 }
 
 .level-card.future {
@@ -609,7 +610,8 @@ button:hover {
 
 .timeline-cell {
   display: grid;
-  gap: 0.3rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.3rem 0.65rem;
   min-width: 0;
 }
 
@@ -622,8 +624,19 @@ button:hover {
   text-overflow: clip;
 }
 
+.timeline-line.race,
+.timeline-line.talent {
+  grid-column: 1 / -1;
+}
+
 .timeline-line.skill {
   color: #d0e7f8;
+}
+
+@media (max-width: 1400px) {
+  .timeline-cell {
+    grid-template-columns: 1fr;
+  }
 }
 
 .tag {

@@ -951,7 +951,7 @@
       cell.className = "timeline-cell";
       for (const r of lvl.raceBonuses) {
         const line = document.createElement("div");
-        line.className = "timeline-line";
+        line.className = "timeline-line race";
         line.textContent = `RACE BONUS: ${r.name}`;
         cell.appendChild(line);
       }
@@ -963,7 +963,7 @@
       }
       for (const t of lvl.talents) {
         const line = document.createElement("div");
-        line.className = "timeline-line";
+        line.className = "timeline-line talent";
         line.textContent = `T: ${t.name}`;
         cell.appendChild(line);
       }
