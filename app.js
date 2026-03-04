@@ -131,6 +131,10 @@
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
+    },
+    ui: {
+      l6Visible: false,
+      branchVisible: [false, false, false]
     }
   };
 
@@ -511,6 +515,22 @@
     els.infoTooltip.style.top = `${Math.round(top)}px`;
   }
 
+  function triggerUnlockAnimation(container) {
+    if (!container) return;
+    const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
+    for (let i = 0; i < nodes.length; i += 1) {
+      nodes[i].style.setProperty("--unlock-i", String(i));
+    }
+    container.classList.remove("unlock-reveal");
+    // Force restart so repeated unlocks play reliably.
+    void container.offsetWidth; // eslint-disable-line no-unused-expressions
+    container.classList.add("unlock-reveal");
+    window.setTimeout(() => {
+      container.classList.remove("unlock-reveal");
+      for (const n of nodes) n.style.removeProperty("--unlock-i");
+    }, 1000);
+  }
+
   function updateMobileSectionNav() {
     if (!els.mobileSectionButtons || els.mobileSectionButtons.length === 0) return;
     if (!isMobileSectionLayout()) {
@@ -604,9 +624,11 @@
           talentLevelById,
           onToggle: (talent, checked) => toggleTalent(talent.id, checked)
         });
+        if (!state.ui.l6Visible) triggerUnlockAnimation(els.generalBranchL6);
       } else {
         els.generalNodesL6.innerHTML = "";
       }
+      state.ui.l6Visible = showWarriorL6General;
     }
 
     renderSpecializationPicker(
@@ -636,6 +658,8 @@
         talentLevelById,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
+      if (branchVisible && !state.ui.branchVisible[i]) triggerUnlockAnimation(card);
+      state.ui.branchVisible[i] = branchVisible;
     }
     const raceTalent = getRaceBonusTalent();
     els.talentCount.textContent = "";
