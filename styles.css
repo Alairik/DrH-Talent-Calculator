@@ -583,6 +583,9 @@ button:hover {
 .timeline {
   display: grid;
   gap: 0.35rem;
+  grid-auto-rows: max-content;
+  align-content: start;
+  align-items: start;
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: scroll;
@@ -601,6 +604,8 @@ button:hover {
   align-items: center;
   gap: 0.55rem;
   width: 100%;
+  height: auto;
+  align-self: start;
 }
 
 .level-card.future {
@@ -637,6 +642,8 @@ button:hover {
   justify-self: stretch;
   padding: 0.16rem 0.2rem;
   min-width: 0;
+  height: auto;
+  align-self: start;
 }
 
 .timeline-line {
