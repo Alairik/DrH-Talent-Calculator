@@ -547,19 +547,22 @@ button:hover {
 .talents-panel[data-prof-id="PROF_6"] .spec-node.spec-0 {
   border-color: #ce8f8f;
   background: linear-gradient(180deg, rgba(223, 223, 223, 0.88), rgba(126, 65, 65, 0.93));
-  color: #221c16;
+  color: #f7f3e8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
 }
 
 .talents-panel[data-prof-id="PROF_6"] .spec-node.spec-1 {
   border-color: #9778c8;
   background: linear-gradient(180deg, rgba(223, 223, 223, 0.88), rgba(90, 63, 128, 0.94));
-  color: #221c16;
+  color: #f7f3e8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
 }
 
 .talents-panel[data-prof-id="PROF_6"] .spec-node.spec-2 {
   border-color: #f0f0f0;
-  background: linear-gradient(180deg, rgba(247, 247, 247, 0.95), rgba(199, 199, 199, 0.94));
-  color: #221c16;
+  background: linear-gradient(180deg, rgba(238, 238, 238, 0.92), rgba(150, 150, 150, 0.96));
+  color: #f7f3e8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
 }
 
 .spec-node.locked {
@@ -752,8 +755,9 @@ button:hover {
 
 .talents-panel[data-prof-id="PROF_6"] .general-nodes .node.spec-2 {
   border-color: #f0f0f0;
-  background: rgba(214, 214, 214, 0.84);
-  color: #221c16;
+  background: rgba(144, 144, 144, 0.76);
+  color: #f7f3e8;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
 }
 
 /* Stronger selected highlight for color-coded prerequisite talents in base 12. */
