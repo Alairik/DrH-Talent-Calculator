@@ -240,6 +240,7 @@
     manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
+    timelineHelpBtn: document.getElementById("timelineHelpBtn"),
     shareLinkBtn: document.getElementById("shareLinkBtn"),
     urlLoadStatus: document.getElementById("urlLoadStatus"),
     summary: document.getElementById("summary"),
@@ -261,6 +262,7 @@
   const MAX_BUILD_JSON_LENGTH = 30000;
   const MAX_BUILD_COLLECTION_SIZE = 512;
   const SAFE_ID_RE = /^[A-Za-z0-9_:-]{1,80}$/;
+  const TIMELINE_HELP_TEXT = "S = schopnost.\nD = dovednost.\nTimeline ukazuje, kdy byla která schopnost nebo dovednost přidána.";
   const CZECH_DIACRITIC_MAP = Object.freeze({
     "andel": "anděl",
     "asketismus": "asketismus",
@@ -740,6 +742,20 @@
         }
       }
     });
+    if (els.timelineHelpBtn) {
+      els.timelineHelpBtn.addEventListener("mouseenter", () => {
+        showInfoTooltip(TIMELINE_HELP_TEXT, els.timelineHelpBtn, false);
+      });
+      els.timelineHelpBtn.addEventListener("mouseleave", () => {
+        if (!tooltipState.pinned) hideInfoTooltip();
+      });
+      els.timelineHelpBtn.addEventListener("click", () => {
+        const isOpen =
+          !els.infoTooltip.hidden && tooltipState.anchorEl === els.timelineHelpBtn && tooltipState.pinned;
+        if (isOpen) hideInfoTooltip();
+        else showInfoTooltip(TIMELINE_HELP_TEXT, els.timelineHelpBtn, true);
+      });
+    }
 
     if (els.exportBtn) els.exportBtn.addEventListener("click", () => {
       els.exchangeBox.value = JSON.stringify(exportBuild(), null, 2);
@@ -763,7 +779,7 @@
     document.addEventListener("pointerdown", (ev) => {
       if (!els.infoTooltip || els.infoTooltip.hidden) return;
       const target = ev.target;
-      if (target && target.closest && target.closest(".node-info-btn")) return;
+      if (target && target.closest && (target.closest(".node-info-btn") || target.closest(".timeline-help-btn"))) return;
       hideInfoTooltip();
     });
     document.addEventListener("scroll", () => hideInfoTooltip(), { passive: true, capture: true });

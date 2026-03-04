@@ -269,6 +269,33 @@ body {
   font-weight: 700;
 }
 
+.timeline-help-btn {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid #8b6a3d;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1;
+  display: inline-grid;
+  place-items: center;
+}
+
+.plan-top-controls .timeline-tools .timeline-help-btn {
+  width: 26px;
+  min-width: 26px;
+  height: 26px;
+  font-size: 0.78rem;
+}
+
+.timeline-help-btn:hover {
+  border-color: #d4ad66;
+}
+
 #shareLinkBtn {
   width: 78px;
   min-width: 78px;
