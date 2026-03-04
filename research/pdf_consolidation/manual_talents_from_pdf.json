@@ -1303,6 +1303,582 @@
       "required_level": 6,
       "description": "Zmena struktury kovu a premena jednoho kovu na jiny.",
       "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZX_01",
+      "name": "Citlivost na vichry many",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_02",
+      "name": "Magistr magickeho oboru",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_03",
+      "name": "Posilovani kouzel",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_04",
+      "name": "Precizni kouzleni",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_05",
+      "name": "Pyrokineze",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_06",
+      "name": "Ritualni kouzleni",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_07",
+      "name": "Rychly odpocinek",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_08",
+      "name": "Telekineze",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_09",
+      "name": "Telepatie",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_10",
+      "name": "Transfer many",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_11",
+      "name": "Utajene kouzleni",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZX_12",
+      "name": "Zamena kouzel",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "wiz_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WIZB_01",
+      "name": "Bitevni trenink",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_02",
+      "name": "Bojove sesilani",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_03",
+      "name": "Energeticka zbran",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_04",
+      "name": "Lamani kouzel",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_05",
+      "name": "Magicka dominance",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_06",
+      "name": "Magicka zranitelnost",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_07",
+      "name": "Posilena ochrana",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZB_08",
+      "name": "Zivlomag",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho maga.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WIZC_01",
+      "name": "Aura moci",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_02",
+      "name": "Hromadne sesilani",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_03",
+      "name": "Magicke obrazce",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_04",
+      "name": "Mentalni souboj",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_05",
+      "name": "Michani kouzel",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_06",
+      "name": "Podrobovani",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_07",
+      "name": "Predkouzleni",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZC_08",
+      "name": "Vladce many",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Carodeje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WIZN_01",
+      "name": "Dar noci",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_02",
+      "name": "Nemrtvy druh",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_03",
+      "name": "Nemrtve spojeni",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_04",
+      "name": "Pouto smrti",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_05",
+      "name": "Ritualni obetovani",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_06",
+      "name": "Sberatel dusi",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_07",
+      "name": "Srazlivost krve",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WIZN_08",
+      "name": "Vitalni drahy",
+      "prof_id": "PROF_4",
+      "required_level": 6,
+      "description": "Volitelna schopnost Nekromanta.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFX_01",
+      "name": "Boj se dvema zbranemi",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_02",
+      "name": "Cileny utok",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_03",
+      "name": "Citliva mista",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_04",
+      "name": "Expertiza",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_05",
+      "name": "Mistrovstvi sily osobnosti",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_06",
+      "name": "Mistrovstvi zlatky",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_07",
+      "name": "Nocni zivel",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_08",
+      "name": "Obratny bojovnik",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_09",
+      "name": "Rychle taseni",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_10",
+      "name": "Svizne ostri",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_11",
+      "name": "Sesty smysl",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFX_12",
+      "name": "Technika nabijeni",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "thf_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_THFA_01",
+      "name": "Assassinace",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_02",
+      "name": "Mistrovstvi rvacu",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_03",
+      "name": "Mistrovstvi skryvani",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_04",
+      "name": "Riskantni utok",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_05",
+      "name": "Umeni prepadu",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_06",
+      "name": "Vejir dyk",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_07",
+      "name": "Vyhodna pozice",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFA_08",
+      "name": "Vyroba jedu",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Assassina.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_THFL_01",
+      "name": "Bojova kreativita",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_02",
+      "name": "Druha sance",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_03",
+      "name": "Lupicska udelatka",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_04",
+      "name": "Lupicuv partak",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_05",
+      "name": "Mistr uteku",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_06",
+      "name": "Mistrovstvi kociciho pohybu",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_07",
+      "name": "Mistrovstvi zelezneho klice",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFL_08",
+      "name": "Umeni neferoveho boje",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Lupice.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_THFS_01",
+      "name": "Alter ego",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_02",
+      "name": "Duvernik",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_03",
+      "name": "Mistrovstvi promen",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_04",
+      "name": "Mistrovstvi sarmu",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_05",
+      "name": "Povesti a drby",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_06",
+      "name": "Sifrovani",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_07",
+      "name": "Umeni boje s plastem",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THFS_08",
+      "name": "Zrcadleni",
+      "prof_id": "PROF_5",
+      "required_level": 6,
+      "description": "Volitelna schopnost Sicca.",
+      "branch_index": 2
     }
   ]
 }

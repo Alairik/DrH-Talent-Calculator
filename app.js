@@ -3,8 +3,8 @@
     PROF_1: ["Berserkr", "Rytir", "Sermir"],
     PROF_2: ["Druid", "Chodec", "Pan selem"],
     PROF_3: ["Medikus", "Pyromant", "Theurg"],
-    PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
-    PROF_5: ["Vrah", "Akrobat", "Stin"],
+    PROF_4: ["Bojovy mag", "Carodej", "Nekromant"],
+    PROF_5: ["Assassin", "Lupic", "Sicco"],
     PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
   };
   const GENERAL_TALENT_SLOTS = 12;
@@ -26,6 +26,16 @@
       0: ["Nauka anatomie", "Nauka elixiry", "Substituce"],
       1: ["Nauka predmety", "Nauka substance", "Vyroba svitku"],
       2: ["Nauka sestavy", "Nauka energie", "Precizni vyroba"]
+    },
+    PROF_4: {
+      0: ["Obor Divoka magie", "Obor Ochranna magie", "Rychle kouzleni"],
+      1: ["Obor Vysoka magie", "Obor Mentalni magie", "Kouzleni z knih"],
+      2: ["Obor Vitalni magie", "Obor Magie promen", "Ritual krve"]
+    },
+    PROF_5: {
+      0: ["Umeni rvacu", "Umeni skryvani", "Vrhani dyk"],
+      1: ["Umeni zelezneho klice", "Umeni kociciho pohybu", "Improvizace"],
+      2: ["Umeni promen", "Umeni sarmu", "Zlodejska hantyrka"]
     }
   };
   const WARRIOR_BASE_COLUMNS = {
@@ -45,6 +55,18 @@
     medikus: ["Substituce", "Nauka anatomie", "Nauka elixiry"],
     pyromant: ["Vyroba svitku", "Nauka predmety", "Nauka substance"],
     theurg: ["Precizni vyroba", "Nauka sestavy", "Nauka energie"]
+  };
+  const WIZARD_BASE_COLUMNS = {
+    general: ["Koncentrace many", "Pamet na kouzla", "Vyvolani pritele"],
+    bojovyMag: ["Rychle kouzleni", "Obor Divoka magie", "Obor Ochranna magie"],
+    carodej: ["Kouzleni z knih", "Obor Mentalni magie", "Obor Vysoka magie"],
+    nekromant: ["Ritual krve", "Obor Magie promen", "Obor Vitalni magie"]
+  };
+  const THIEF_BASE_COLUMNS = {
+    general: ["Odezirani ze rtu", "Vrazedne ostri", "Zakerna kuse"],
+    assassin: ["Vrhani dyk", "Umeni rvacu", "Umeni skryvani"],
+    lupic: ["Improvizace", "Umeni kociciho pohybu", "Umeni zelezneho klice"],
+    sicco: ["Zlodejska hantyrka", "Umeni promen", "Umeni sarmu"]
   };
 
   const CLASS_RULES = {
@@ -607,7 +629,12 @@
     const talentLevelById = new Map(Object.entries(plan.talentLevelsById || {}));
     const profId = state.selectedProfessionId;
     const isWarrior = profId === "PROF_1";
-    const hasSpecColor = profId === "PROF_1" || profId === "PROF_2" || profId === "PROF_3";
+    const hasSpecColor =
+      profId === "PROF_1" ||
+      profId === "PROF_2" ||
+      profId === "PROF_3" ||
+      profId === "PROF_4" ||
+      profId === "PROF_5";
     if (els.talentsPanel) els.talentsPanel.dataset.profId = profId;
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
@@ -1027,23 +1054,39 @@
     let generalBase = [];
     let generalL6 = [];
     let rest = [];
-    if (profId === "PROF_1" || profId === "PROF_2" || profId === "PROF_3") {
+    if (
+      profId === "PROF_1" ||
+      profId === "PROF_2" ||
+      profId === "PROF_3" ||
+      profId === "PROF_4" ||
+      profId === "PROF_5"
+    ) {
       const basePattern =
         profId === "PROF_1"
           ? /^PDF_ABI_WAR_\d+$/i
           : profId === "PROF_2"
             ? /^PDF_ABI_RNG_\d+$/i
-            : /^PDF_ABI_ALC_\d+$/i;
+            : profId === "PROF_3"
+              ? /^PDF_ABI_ALC_\d+$/i
+              : profId === "PROF_4"
+                ? /^PDF_ABI_WIZ_\d+$/i
+                : /^PDF_ABI_THF_\d+$/i;
       const l6Pattern =
         profId === "PROF_1"
           ? /^PDF_ABI_WARX_\d+$/i
           : profId === "PROF_2"
             ? /^PDF_ABI_RNGX_\d+$/i
-            : /^PDF_ABI_ALCX_\d+$/i;
+            : profId === "PROF_3"
+              ? /^PDF_ABI_ALCX_\d+$/i
+              : profId === "PROF_4"
+                ? /^PDF_ABI_WIZX_\d+$/i
+                : /^PDF_ABI_THFX_\d+$/i;
       const baseRaw = classTalents.filter((t) => basePattern.test(String(t.id || ""))).sort(byRequiredThenName).slice(0, GENERAL_TALENT_SLOTS);
       if (profId === "PROF_1") generalBase = orderWarriorBaseTalents(baseRaw);
       else if (profId === "PROF_2") generalBase = orderRangerBaseTalents(baseRaw);
       else if (profId === "PROF_3") generalBase = orderAlchemistBaseTalents(baseRaw);
+      else if (profId === "PROF_4") generalBase = orderWizardBaseTalents(baseRaw);
+      else if (profId === "PROF_5") generalBase = orderThiefBaseTalents(baseRaw);
       else generalBase = baseRaw;
       generalL6 = classTalents
         .filter((t) => l6Pattern.test(String(t.id || "")))
@@ -1130,6 +1173,56 @@
       ALCHEMIST_BASE_COLUMNS.medikus,
       ALCHEMIST_BASE_COLUMNS.pyromant,
       ALCHEMIST_BASE_COLUMNS.theurg
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
+  }
+
+  function orderWizardBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      WIZARD_BASE_COLUMNS.general,
+      WIZARD_BASE_COLUMNS.bojovyMag,
+      WIZARD_BASE_COLUMNS.carodej,
+      WIZARD_BASE_COLUMNS.nekromant
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
+  }
+
+  function orderThiefBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      THIEF_BASE_COLUMNS.general,
+      THIEF_BASE_COLUMNS.assassin,
+      THIEF_BASE_COLUMNS.lupic,
+      THIEF_BASE_COLUMNS.sicco
     ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
 
     const ordered = [];
