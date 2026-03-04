@@ -255,6 +255,11 @@
     pinned: false,
     anchorEl: null
   };
+  const SHARE_BUILD_PARAM = "build";
+  const MAX_SHARE_PARAM_LENGTH = 12000;
+  const MAX_BUILD_JSON_LENGTH = 30000;
+  const MAX_BUILD_COLLECTION_SIZE = 512;
+  const SAFE_ID_RE = /^[A-Za-z0-9_:-]{1,80}$/;
 
   init().catch((err) => {
     console.error(err);
@@ -414,7 +419,7 @@
         }
         els.shareLinkBtn.textContent = "OK";
         window.setTimeout(() => {
-          if (els.shareLinkBtn) els.shareLinkBtn.textContent = "URL";
+          if (els.shareLinkBtn) els.shareLinkBtn.textContent = "Uložit URL";
         }, 1000);
       } catch (_err) {
         if (els.exchangeBox) {
@@ -1664,7 +1669,7 @@
     const json = JSON.stringify(build);
     const encoded = encodeBase64UrlUtf8(json);
     const url = new URL(window.location.href);
-    url.searchParams.set("build", encoded);
+    url.searchParams.set(SHARE_BUILD_PARAM, encoded);
     return url.toString();
   }
 
@@ -1682,58 +1687,53 @@
     const padLen = normalized.length % 4 === 0 ? 0 : 4 - (normalized.length % 4);
     const padded = normalized + "=".repeat(padLen);
     const binary = atob(padded);
+    if (binary.length > MAX_BUILD_JSON_LENGTH) throw new Error("Payload too large");
     const bytes = new Uint8Array(binary.length);
     for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
     return new TextDecoder().decode(bytes);
   }
 
   function importBuild(payload) {
-    if (!payload || typeof payload !== "object") throw new Error("Invalid payload");
-    if (payload.professionId) state.selectedProfessionId = payload.professionId;
-    if (payload.raceId) state.selectedRaceId = payload.raceId;
-    state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
-    state.selectedTalentOrder =
-      payload.selectedTalentOrder && typeof payload.selectedTalentOrder === "object"
-        ? payload.selectedTalentOrder
-        : {};
-    state.talentOrderCounter = Number.isFinite(payload.talentOrderCounter)
-      ? Number(payload.talentOrderCounter)
+    const clean = sanitizeBuildPayload(payload);
+    if (clean.professionId) state.selectedProfessionId = clean.professionId;
+    if (clean.raceId) state.selectedRaceId = clean.raceId;
+    state.selectedTalentIds = new Set(clean.selectedTalentIds);
+    state.selectedTalentOrder = clean.selectedTalentOrder;
+    state.talentOrderCounter = Number.isFinite(clean.talentOrderCounter)
+      ? Number(clean.talentOrderCounter)
       : Object.values(state.selectedTalentOrder).reduce((m, x) => Math.max(m, Number(x) || 0), 0);
-    state.selectedSpecializationByClass =
-      payload.selectedSpecializationByClass && typeof payload.selectedSpecializationByClass === "object"
-        ? payload.selectedSpecializationByClass
-        : {};
-    state.selectedSkillTargets = payload.selectedSkillTargets || {};
-    state.manualLevel = Number.isFinite(payload.manualLevel)
-      ? clampInt(payload.manualLevel, 1, 36, 1)
+    state.selectedSpecializationByClass = clean.selectedSpecializationByClass;
+    state.selectedSkillTargets = clean.selectedSkillTargets;
+    state.manualLevel = Number.isFinite(clean.manualLevel)
+      ? clampInt(clean.manualLevel, 1, 36, 1)
       : 1;
-    state.levelMode = payload.levelMode === "manual" ? "manual" : "auto";
-    if (payload.selectedSkillIds && !payload.selectedSkillTargets) {
+    state.levelMode = clean.levelMode === "manual" ? "manual" : "auto";
+    if (clean.selectedSkillIds.length && !Object.keys(clean.selectedSkillTargets).length) {
       // backward compatibility with old binary model
-      for (const id of payload.selectedSkillIds) state.selectedSkillTargets[id] = 1;
+      for (const id of clean.selectedSkillIds) state.selectedSkillTargets[id] = 1;
     }
-    if (payload.config && payload.config.points) {
-      state.config.maxLevel = clampInt(payload.config.maxLevel, 1, 36, state.config.maxLevel);
+    if (clean.config && clean.config.points) {
+      state.config.maxLevel = clampInt(clean.config.maxLevel, 1, 36, state.config.maxLevel);
       state.config.points.talentLevel1 = clampInt(
-        payload.config.points.talentLevel1,
+        clean.config.points.talentLevel1,
         0,
         50,
         state.config.points.talentLevel1
       );
       state.config.points.talentPerLevel = clampInt(
-        payload.config.points.talentPerLevel,
+        clean.config.points.talentPerLevel,
         0,
         50,
         state.config.points.talentPerLevel
       );
       state.config.points.skillLevel1 = clampInt(
-        payload.config.points.skillLevel1,
+        clean.config.points.skillLevel1,
         0,
         50,
         state.config.points.skillLevel1
       );
       state.config.points.skillPerLevel = clampInt(
-        payload.config.points.skillPerLevel,
+        clean.config.points.skillPerLevel,
         0,
         50,
         state.config.points.skillPerLevel
@@ -1756,13 +1756,74 @@
   function hydrateFromUrl() {
     try {
       const url = new URL(window.location.href);
-      const encoded = url.searchParams.get("build");
+      const encoded = url.searchParams.get(SHARE_BUILD_PARAM);
       if (!encoded) return;
+      if (encoded.length > MAX_SHARE_PARAM_LENGTH) return;
+      if (!/^[A-Za-z0-9\-_]+$/.test(encoded)) return;
       const json = decodeBase64UrlUtf8(encoded);
+      if (json.length > MAX_BUILD_JSON_LENGTH) return;
       importBuild(JSON.parse(json));
     } catch (_e) {
       // ignore
     }
+  }
+
+  function sanitizeBuildPayload(payload) {
+    if (!payload || typeof payload !== "object") throw new Error("Invalid payload");
+    const out = {
+      professionId: sanitizeId(payload.professionId),
+      raceId: sanitizeId(payload.raceId),
+      selectedTalentIds: sanitizeIdList(payload.selectedTalentIds),
+      selectedSkillIds: sanitizeIdList(payload.selectedSkillIds),
+      selectedTalentOrder: sanitizeIntMap(payload.selectedTalentOrder, 1, 9999),
+      selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
+      selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, 10),
+      talentOrderCounter: clampInt(payload.talentOrderCounter, 0, 9999, 0),
+      manualLevel: clampInt(payload.manualLevel, 1, 36, 1),
+      levelMode: payload.levelMode === "manual" ? "manual" : "auto",
+      config: {
+        maxLevel: clampInt(payload && payload.config && payload.config.maxLevel, 1, 36, state.config.maxLevel),
+        points: {
+          talentLevel1: clampInt(payload && payload.config && payload.config.points && payload.config.points.talentLevel1, 0, 50, state.config.points.talentLevel1),
+          talentPerLevel: clampInt(payload && payload.config && payload.config.points && payload.config.points.talentPerLevel, 0, 50, state.config.points.talentPerLevel),
+          skillLevel1: clampInt(payload && payload.config && payload.config.points && payload.config.points.skillLevel1, 0, 50, state.config.points.skillLevel1),
+          skillPerLevel: clampInt(payload && payload.config && payload.config.points && payload.config.points.skillPerLevel, 0, 50, state.config.points.skillPerLevel)
+        }
+      }
+    };
+    return out;
+  }
+
+  function sanitizeId(value) {
+    const v = String(value || "");
+    return SAFE_ID_RE.test(v) ? v : "";
+  }
+
+  function sanitizeIdList(value) {
+    if (!Array.isArray(value)) return [];
+    const out = [];
+    for (const raw of value) {
+      if (out.length >= MAX_BUILD_COLLECTION_SIZE) break;
+      const id = sanitizeId(raw);
+      if (id) out.push(id);
+    }
+    return out;
+  }
+
+  function sanitizeIntMap(value, min, max) {
+    const out = Object.create(null);
+    if (!value || typeof value !== "object") return out;
+    let count = 0;
+    for (const [key, raw] of Object.entries(value)) {
+      if (count >= MAX_BUILD_COLLECTION_SIZE) break;
+      const id = sanitizeId(key);
+      if (!id) continue;
+      const n = Number(raw);
+      if (!Number.isFinite(n)) continue;
+      out[id] = clampInt(n, min, max, min);
+      count += 1;
+    }
+    return out;
   }
 
   function persist() {
