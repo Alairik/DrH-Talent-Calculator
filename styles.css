@@ -778,11 +778,19 @@ textarea {
   body {
     height: auto;
     min-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .layout {
     grid-template-columns: 1fr;
     height: auto;
+    overflow: visible;
+  }
+
+  .panel {
+    overflow: visible;
   }
 
   .column-controls {
