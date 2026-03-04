@@ -8,10 +8,7 @@
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">
-      <h1>DrH Talent Calculator</h1>
-      <p>Talent tree styl podle Wowhead: větve, klikací kostičky, automatický level plán.</p>
-    </div>
+    <div id="classPicker" class="class-picker top-class-picker"></div>
     <div class="top-controls">
       <label>
         Rasa
@@ -24,9 +21,7 @@
   <main class="layout">
     <section class="panel talents-panel">
       <span id="talentCount" hidden></span>
-      <div id="classPicker" class="class-picker"></div>
       <article class="branch general-branch">
-        <h3>Obecné schopnosti</h3>
         <div id="generalNodes" class="branch-nodes general-nodes"></div>
       </article>
       <div id="specPicker" class="spec-picker"></div>

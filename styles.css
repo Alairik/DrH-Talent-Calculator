@@ -26,34 +26,23 @@ body {
 }
 
 .topbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   gap: 1rem;
-  align-items: end;
+  align-items: center;
   padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--line);
   background: linear-gradient(180deg, #2d2218 0%, #1c1611 100%);
 }
 
-.brand h1 {
-  margin: 0;
-  font-size: 1.24rem;
-}
-
-.brand p {
-  margin: 0.3rem 0 0;
-  font-size: 0.86rem;
-  color: var(--muted);
-}
-
 .top-controls {
   display: flex;
   gap: 0.7rem;
-  align-items: end;
+  align-items: center;
 }
 
 .top-controls label {
-  min-width: 220px;
+  min-width: 190px;
 }
 
 .layout {
@@ -178,32 +167,46 @@ button:hover {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.35rem;
-  margin: 0.25rem 0 0.75rem;
+  margin: 0;
   max-width: 420px;
   width: 100%;
-  align-self: center;
+}
+
+.top-class-picker {
+  max-width: 760px;
+  gap: 0.42rem;
+}
+
+.top-class-picker .class-box {
+  min-height: 38px;
+  font-size: 0.72rem;
+  padding: 0.36rem 0.3rem;
 }
 
 .class-box {
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #17130f;
+  background: linear-gradient(180deg, rgba(48, 38, 28, 0.9), rgba(27, 21, 16, 0.95));
   color: var(--muted);
   padding: 0.28rem 0.2rem;
   font-size: 0.68rem;
   text-align: center;
   cursor: pointer;
+  opacity: 0.72;
+  transition: opacity 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease, background 120ms ease;
 }
 
 .class-box:hover {
   border-color: #7b6240;
+  opacity: 0.86;
 }
 
 .class-box.active {
   border-color: var(--gold);
-  color: #f7e8cc;
-  background: #2a1f14;
-  box-shadow: 0 0 0 1px var(--gold-soft), 0 0 12px rgba(212, 173, 102, 0.16);
+  color: #fff0d4;
+  background: linear-gradient(180deg, rgba(86, 61, 31, 0.95), rgba(42, 31, 20, 0.98));
+  box-shadow: 0 0 0 1px var(--gold-soft), 0 0 14px rgba(212, 173, 102, 0.2);
+  opacity: 1;
 }
 
 .branch {
@@ -214,7 +217,7 @@ button:hover {
 }
 
 .general-branch {
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.55rem;
   max-width: 420px;
   width: 100%;
   align-self: center;
@@ -637,7 +640,16 @@ textarea {
   }
 
   .class-picker {
-    grid-template-columns: repeat(3, minmax(90px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .topbar {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .top-class-picker {
+    max-width: none;
   }
 
   .skills-split {
