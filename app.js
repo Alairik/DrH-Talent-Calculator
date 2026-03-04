@@ -1,6 +1,6 @@
 ﻿(function () {
   const BRANCH_NAMES = {
-    PROF_1: ["Berserk", "Strazce", "Veteran"],
+    PROF_1: ["Berserkr", "Rytir", "Sermir"],
     PROF_2: ["Lovec", "Stopar", "Hranicni magie"],
     PROF_3: ["Mastickar", "Mistr smesi", "Runotvurce"],
     PROF_4: ["Elementalista", "Iluzionista", "Arkanista"],
@@ -785,7 +785,13 @@
     const generalIds = new Set(general.map((t) => t.id));
     const rest = classTalents.filter((t) => !generalIds.has(t.id));
     const branches = [[], [], []];
-    rest.forEach((talent, idx) => {
+    const explicit = rest.filter((t) => Number.isInteger(t.branch_index) && t.branch_index >= 0 && t.branch_index <= 2);
+    const nonExplicit = rest.filter((t) => !(Number.isInteger(t.branch_index) && t.branch_index >= 0 && t.branch_index <= 2));
+    for (const t of explicit.sort(byRequiredThenName)) {
+      const bi = t.branch_index;
+      if (branches[bi].length < BRANCH_TALENT_SLOTS) branches[bi].push(t);
+    }
+    nonExplicit.forEach((talent, idx) => {
       const branchIndex = idx % 3;
       if (branches[branchIndex].length < BRANCH_TALENT_SLOTS) branches[branchIndex].push(talent);
     });

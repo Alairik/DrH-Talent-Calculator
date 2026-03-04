@@ -1,90 +1,6 @@
 {
   "items": [
     {
-      "id": "PDF_ABI_WAR_01",
-      "name": "Mistrovstvi ve zbrani",
-      "description": "Bonus +2 k UC a OC pro zvoleny typ zbrane.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_02",
-      "name": "Rozvaznost",
-      "description": "Volba stylu boje: ofenzivni (+3 k UC, -2 body obrany) nebo defenzivni (-3 k UC, +3 k OC).",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_03",
-      "name": "Skvela kondice",
-      "description": "Bonus +3 zivoty za kazdou uroven valecnika.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_04",
-      "name": "Urputnost",
-      "description": "Na valecnika se nevztahuje efekt meze vyrazeni (neupada do bezvedomi).",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_05",
-      "name": "Veleni",
-      "description": "Posilovani druziny rozkazy: utocny a obranny rezim.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_06",
-      "name": "Vicenasobny utok",
-      "description": "Valecnik muze utocit 3x za 2 kola.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_07",
-      "name": "Skola boje drtice kosti",
-      "description": "Bonus v boji beze zbrane; bojove triky stylu drtice kosti.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_08",
-      "name": "Skola boje s bodnou zbrani",
-      "description": "Bonus pri boji bodnymi zbranemi; bojove triky stylu.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_09",
-      "name": "Skola boje s jednorucni zbrani",
-      "description": "Bonus pri boji jednorucnimi zbranemi; bojove triky stylu.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_10",
-      "name": "Skola boje s obourucni zbrani",
-      "description": "Bonus pri boji obourucnimi zbranemi; bojove triky stylu.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_11",
-      "name": "Skola boje se dvema zbranemi",
-      "description": "Umoznuje scitat utocnost, zraneni a obranu obou zbrani; bojove triky stylu.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
-      "id": "PDF_ABI_WAR_12",
-      "name": "Skola boje se stitem",
-      "description": "Bonus pri boji se stitem; bojove triky stylu.",
-      "prof_id": "PROF_1",
-      "required_level": 2
-    },
-    {
       "id": "PDF_ABI_RNG_01",
       "name": "Boj se zviraty",
       "description": "Bonus +2 k UC a OC pri boji se zviraty.",
@@ -503,6 +419,294 @@
       "prof_id": "PROF_6",
       "required_level": 2,
       "description": "Otevre dalsi prosby vetve Zehnani aurami."
+    },
+    {
+      "id": "PDF_ABI_WAR_01",
+      "name": "Bijec",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "V boji beze zbrane ziskava bonus +5 k OC i UC a jeden utok navic.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_02",
+      "name": "Drtivy dopad",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "K vrhacim utokum muze pricist misto OBR svou opravu za SIL.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_03",
+      "name": "Drsak",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Redukuje utrzene zraneni o 2 a dava bonus +3 k vydrzi.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_04",
+      "name": "Klidna ruka",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Ziskava bonus +3 do utoku strelnymi zbranemi.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_05",
+      "name": "Naval adrenalinu",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Umoznuje cerpat adrenalin uz na zacatku daneho kola.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_06",
+      "name": "Odhad protivnika",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Dokaze odhadnout sance v boji s protivnikem.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_07",
+      "name": "Otloukanek",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "U hodu na reflex muze pouzit misto OBR svou opravu za ODO.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_08",
+      "name": "Prace s tezistem",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Ziskava bonusy proti mensim i vetsim protivnikum.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_09",
+      "name": "Promenlivy uchop",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "V kazdem kole voli bonus +1 UC +2 OC nebo +3 ke zraneni.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_10",
+      "name": "Skola boje na koni",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Pristup k trik?m skoly a bonus +1 k UC i OC pri boji na jezdeckem zvireti.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_11",
+      "name": "Zastraseni",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Natlacem umi prinutit ostatni jednat podle jeho vule.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WAR_12",
+      "name": "Zrucnost se zbrani",
+      "prof_id": "PROF_1",
+      "required_level": 2,
+      "description": "Rusi postihy za dlouhe drevce na kratkou vzdalenost a umoznuje prezbrojeni v nulovem case.",
+      "branch_index": null
+    },
+    {
+      "id": "PDF_ABI_WARB_01",
+      "name": "Brutalita",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Navysuje ucinek vybranych bojovych triku berserkra.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_02",
+      "name": "Cesta krve",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Po utrzeni zraneni ziskava dalsi adrenalin.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_03",
+      "name": "Mrstnost",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Bez zbroje ziskava bonus k ZO, OBR a pohyblivosti.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_04",
+      "name": "Pohled zabijaka",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Vzdoruje ovlivnovani pomoci ODO misto vule.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_05",
+      "name": "Smysl bestie",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Trvaly bonus k reflexu a postrehu.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_06",
+      "name": "Tuhy korinek",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Pri prestupu na uroven ziskava vice zivotu.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_07",
+      "name": "Vrazedna zurivost",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Vyhoda ke vsem utokum, ale riziko neovladatelnosti.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARB_08",
+      "name": "Zjizvena kuze",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Zakladni obrana se zvysi o +2.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_WARR_01",
+      "name": "Bojove rozkazy",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Muze pridat dodatecne akce spolubojovnikum.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_02",
+      "name": "Boj stitem",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Dodatecny utok stitem a kryti ostatnich.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_03",
+      "name": "Krupobiti",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Pri tezke zbroji rezistence proti streleckym a vrhacim utokum.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_04",
+      "name": "Majestat",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Ke presvedcovani/zastraseni pricita kvalitu zbroje.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_05",
+      "name": "Mistr zbroje",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Pri noseni stredni/tezke zbroje bonus +3 k ZO.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_06",
+      "name": "Sebeobetovani",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Kdyz nema adrenalin, cerpa za zivoty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_07",
+      "name": "Zakryti",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Stit se pocita do ZO a proti jednomu protivnikovi ma neomezenou obranu.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARR_08",
+      "name": "Zelezny muz",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Bonus +5 k hodum na vydrz.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_WARS_01",
+      "name": "Boj s presilou",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Nema postihy pri boji s vice nepriteli najednou.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_02",
+      "name": "Cteni vzdalenosti",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Bonus +2 do ZO pri boji zblizka.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_03",
+      "name": "Mistr boje dvema zbranemi",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Sekundarni zbrani muze byt i lehka/stredni zbran.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_04",
+      "name": "Rutina",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Vsechny triky stoji o 1 bod adrenalinu mene.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_05",
+      "name": "Rychly hrot",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Pri boji s bodnou zbrani ziska +1 utok za 2 kola.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_06",
+      "name": "Rytmus boje",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Utok i obrana se zvysuji pri delsim souboji 1v1.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_07",
+      "name": "Sermirska obratnost",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Trvaly bonus +3 k atletice, akrobacii a iniciative.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARS_08",
+      "name": "Zamena",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Muze se rozhodnout, zda do OC/UC pocita SIL nebo OBR.",
+      "branch_index": 2
     }
   ]
 }
