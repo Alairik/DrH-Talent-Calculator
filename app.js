@@ -1087,6 +1087,10 @@
       card.appendChild(cell);
       els.timeline.appendChild(card);
     }
+    // Keep timeline anchored at top after each recompute/render.
+    els.timeline.scrollTop = 0;
+    const panel = els.timeline.closest(".panel");
+    if (panel) panel.scrollTop = 0;
   }
 
   function exportBuild() {
