@@ -898,12 +898,25 @@
   }
 
   function renderSummary(plan) {
+    const currentLevel = plan.totals.currentLevel;
+    const unscheduledSkillRanks = plan.unscheduledSkills.reduce(
+      (sum, p) => sum + Math.max(0, Number(p.targetRank || 0) - Number(p.currentRank || 0)),
+      0
+    );
+    const remainingToPlan = plan.unscheduledTalents.length + unscheduledSkillRanks;
+    const nextActionLevel = plan.levels.find(
+      (lvl) => lvl.level > currentLevel && (lvl.talents.length > 0 || lvl.skillActions.length > 0)
+    );
+    const plannedSteps = plan.levels
+      .filter((lvl) => lvl.level <= currentLevel)
+      .reduce((sum, lvl) => sum + lvl.talents.length + lvl.skillActions.length, 0);
+
     const kpis = [
-      ["Current level", String(plan.totals.currentLevel)],
+      ["Aktualni uroven", String(currentLevel)],
       ["Volne body dovednosti", String(plan.totals.freeSkillPoints)],
-      ["Talents", `${plan.totals.assignedTalents}/${plan.totals.selectedTalents}`],
-      ["Skills", `${plan.totals.assignedSkills}/${plan.totals.selectedSkills}`],
-      ["Unscheduled", `${plan.unscheduledTalents.length + plan.unscheduledSkills.length}`]
+      ["Zbyva naplanovat", String(remainingToPlan)],
+      ["Dalsi krok", nextActionLevel ? `Lv ${nextActionLevel.level}` : "-"],
+      ["Kroky do Lv", String(plannedSteps)]
     ];
     els.summary.innerHTML = "";
     for (const [label, value] of kpis) {
