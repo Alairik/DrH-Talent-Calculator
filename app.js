@@ -193,7 +193,8 @@
     ui: {
       l6Visible: false,
       branchVisible: [false, false, false]
-    }
+    },
+    uiTheme: "classic"
   };
 
   const els = {
@@ -240,6 +241,7 @@
     manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
+    themeToggleBtn: document.getElementById("themeToggleBtn"),
     timelineHelpBtn: document.getElementById("timelineHelpBtn"),
     shareLinkBtn: document.getElementById("shareLinkBtn"),
     urlLoadStatus: document.getElementById("urlLoadStatus"),
@@ -262,6 +264,10 @@
   const MAX_BUILD_JSON_LENGTH = 30000;
   const MAX_BUILD_COLLECTION_SIZE = 512;
   const SAFE_ID_RE = /^[A-Za-z0-9_:-]{1,80}$/;
+  const THEME_STORAGE_KEY = `${window.APP_CONFIG.storageKey}:uiTheme`;
+  const THEME_CLASSIC = "classic";
+  const THEME_EPIC = "epic";
+  const EPIC_THEME_CLASS = "theme-epic";
   const TIMELINE_HELP_TEXT = "S = schopnost.\nD = dovednost.\nTimeline ukazuje, kdy byla která schopnost nebo dovednost přidána.";
   const CZECH_DIACRITIC_MAP = Object.freeze({
     "andel": "anděl",
@@ -623,6 +629,8 @@
 
     hydrateFromStorage();
     const urlHydrationStatus = hydrateFromUrl();
+    hydrateThemePreference();
+    applyTheme();
     ensureDefaults();
     wireEvents();
     renderAll();
@@ -720,6 +728,11 @@
       state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
       renderAll();
       persist();
+    });
+    if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
+      state.uiTheme = state.uiTheme === THEME_EPIC ? THEME_CLASSIC : THEME_EPIC;
+      applyTheme();
+      persistThemePreference();
     });
     if (els.shareLinkBtn) els.shareLinkBtn.addEventListener("click", async () => {
       const url = buildShareUrl();
@@ -2224,6 +2237,33 @@
 
   function persist() {
     localStorage.setItem(window.APP_CONFIG.storageKey, JSON.stringify(exportBuild()));
+  }
+
+  function hydrateThemePreference() {
+    try {
+      const raw = localStorage.getItem(THEME_STORAGE_KEY);
+      if (raw === THEME_EPIC || raw === THEME_CLASSIC) state.uiTheme = raw;
+    } catch (_err) {
+      state.uiTheme = THEME_CLASSIC;
+    }
+  }
+
+  function persistThemePreference() {
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, state.uiTheme);
+    } catch (_err) {
+      // ignore storage errors
+    }
+  }
+
+  function applyTheme() {
+    const isEpic = state.uiTheme === THEME_EPIC;
+    if (document.body) document.body.classList.toggle(EPIC_THEME_CLASS, isEpic);
+    if (els.themeToggleBtn) {
+      els.themeToggleBtn.textContent = isEpic ? "Fantasy ON" : "Fantasy OFF";
+      els.themeToggleBtn.setAttribute("aria-pressed", String(isEpic));
+      els.themeToggleBtn.title = isEpic ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
+    }
   }
 
   function cleanseInvalidSelections() {
