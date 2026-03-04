@@ -303,7 +303,7 @@ button:hover {
   font-size: 0.68rem;
   align-items: center;
   min-height: 0;
-  height: 100%;
+  height: auto;
 }
 
 .skill-item > div:first-child {

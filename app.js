@@ -573,19 +573,10 @@
       els.skillList.appendChild(row);
     }
 
-    fitSkillRowsToViewport(visibleSkills.length);
+    // Let rows keep natural height so the in-column scrollbar can work normally.
+    els.skillList.style.gridAutoRows = "";
 
     els.skillCount.textContent = "";
-  }
-
-  function fitSkillRowsToViewport(rowCount) {
-    if (!els.skillList || rowCount <= 0) return;
-    const listHeight = els.skillList.clientHeight;
-    if (!listHeight || !Number.isFinite(listHeight)) return;
-    const gapPx = 2;
-    const raw = (listHeight - Math.max(0, rowCount - 1) * gapPx) / rowCount;
-    const rowPx = Math.max(18, Math.min(30, Math.floor(raw)));
-    els.skillList.style.gridAutoRows = `${rowPx}px`;
   }
 
   function getSkillSortBucket(skill, profId, closeStarterIds) {
