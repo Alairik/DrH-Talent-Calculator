@@ -695,6 +695,102 @@
       "required_level": 6,
       "description": "Muze se rozhodnout, zda do OC/UC pocita SIL nebo OBR.",
       "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_WARX_01",
+      "name": "Bijec",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "V boji beze zbrane ziskava bonus +5 k OC i UC a jeden utok navic.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_02",
+      "name": "Drtivy dopad",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "K vrhacim utokum muze pricist misto OBR svou opravu za SIL.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_03",
+      "name": "Drsak",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Redukuje utrzene zraneni a zvysuje vydrz.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_04",
+      "name": "Klidna ruka",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Bonus do utoku strelnymi zbranemi.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_05",
+      "name": "Naval adrenalinu",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Umoznuje cerpat adrenalin uz na zacatku kola.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_06",
+      "name": "Odhad protivnika",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Dokaze odhadnout sance v boji s protivnikem.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_07",
+      "name": "Otloukanek",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Na reflex muze pouzit opravu za ODO misto OBR.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_08",
+      "name": "Prace s tezistem",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Bonus proti nizsim/vyssim protivnikum.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_09",
+      "name": "Promenlivy uchop",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "V kazdem kole vola bonus obrana/utok nebo zraneni.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_10",
+      "name": "Skola boje na koni",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Pristup k trik?m skoly a bonus pri boji na jezdeckem zvireti.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_11",
+      "name": "Zastraseni",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Natlakem umi prinutit ostatni jednat podle jeho vule.",
+      "war_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_WARX_12",
+      "name": "Zrucnost se zbrani",
+      "prof_id": "PROF_1",
+      "required_level": 6,
+      "description": "Rusi vybrane postihy boje se zbrane.",
+      "war_l6_general": true
     }
   ]
 }

@@ -148,6 +148,8 @@
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
     generalNodes: document.getElementById("generalNodes"),
+    generalBranchL6: document.getElementById("generalBranchL6"),
+    generalNodesL6: document.getElementById("generalNodesL6"),
     specPicker: document.getElementById("specPicker"),
     branchTitle1: document.getElementById("branchTitle1"),
     branchTitle2: document.getElementById("branchTitle2"),
@@ -494,7 +496,7 @@
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
     const starterTalentIds = new Set(getClassStarterTalentIds(profId));
-    const split = splitClassTalentsForTree(classTalents);
+    const split = splitClassTalentsForTree(classTalents, profId);
     const currentLevel = clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
     const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
     if (!specializationUnlocked) {
@@ -503,14 +505,16 @@
       }
       delete state.selectedSpecializationByClass[profId];
     }
-    const requiredByTalentId = buildRequiredTalentBranchMap(profId, split.general);
+    const requiredByTalentId = buildRequiredTalentBranchMap(profId, split.generalBase);
     const lockedSpecIndex = getLockedSpecializationIndex(profId, split.branches);
-    if (lockedSpecIndex !== null && !hasSpecializationRequirements(profId, lockedSpecIndex, split.general)) {
+    if (lockedSpecIndex !== null && !hasSpecializationRequirements(profId, lockedSpecIndex, split.generalBase)) {
       clearSpecializationBranch(profId, lockedSpecIndex);
     }
     const lockedSpecIndexAfterReq = getLockedSpecializationIndex(profId, split.branches);
+    const showWarriorL6General =
+      isWarrior && specializationUnlocked && lockedSpecIndexAfterReq === null && split.generalL6.length > 0;
 
-    renderBranch(els.generalNodes, split.general, {
+    renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
       starterTalentIds,
@@ -519,6 +523,21 @@
       talentLevelById,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
+    if (els.generalBranchL6 && els.generalNodesL6) {
+      els.generalBranchL6.classList.toggle("branch-hidden", !showWarriorL6General);
+      if (showWarriorL6General) {
+        renderBranch(els.generalNodesL6, split.generalL6, {
+          maxNodes: GENERAL_TALENT_SLOTS,
+          disabled: false,
+          starterTalentIds,
+          enableSpecColor: false,
+          talentLevelById,
+          onToggle: (talent, checked) => toggleTalent(talent.id, checked)
+        });
+      } else {
+        els.generalNodesL6.innerHTML = "";
+      }
+    }
 
     renderSpecializationPicker(
       profId,
@@ -536,7 +555,7 @@
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
       const branchEnabled = specializationUnlocked && lockedSpecIndexAfterReq === i;
-      const branchVisible = specializationUnlocked;
+      const branchVisible = specializationUnlocked && lockedSpecIndexAfterReq === i;
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
@@ -806,13 +825,29 @@
     persist();
   }
 
-  function splitClassTalentsForTree(classTalents) {
-    const isPdfGeneral = (t) => String(t.id || "").startsWith("PDF_ABI_");
-    const pdfGeneral = classTalents.filter(isPdfGeneral).sort(byRequiredThenName);
-    const nonPdf = classTalents.filter((t) => !isPdfGeneral(t)).sort(byRequiredThenName);
-    const general = [...pdfGeneral, ...nonPdf].slice(0, GENERAL_TALENT_SLOTS);
-    const generalIds = new Set(general.map((t) => t.id));
-    const rest = classTalents.filter((t) => !generalIds.has(t.id));
+  function splitClassTalentsForTree(classTalents, profId = state.selectedProfessionId) {
+    let generalBase = [];
+    let generalL6 = [];
+    let rest = [];
+    if (profId === "PROF_1") {
+      generalBase = classTalents
+        .filter((t) => /^PDF_ABI_WAR_\d+$/i.test(String(t.id || "")))
+        .sort(byRequiredThenName)
+        .slice(0, GENERAL_TALENT_SLOTS);
+      generalL6 = classTalents
+        .filter((t) => /^PDF_ABI_WARX_\d+$/i.test(String(t.id || "")))
+        .sort(byRequiredThenName)
+        .slice(0, GENERAL_TALENT_SLOTS);
+      const taken = new Set([...generalBase, ...generalL6].map((t) => t.id));
+      rest = classTalents.filter((t) => !taken.has(t.id));
+    } else {
+      const isPdfGeneral = (t) => String(t.id || "").startsWith("PDF_ABI_");
+      const pdfGeneral = classTalents.filter(isPdfGeneral).sort(byRequiredThenName);
+      const nonPdf = classTalents.filter((t) => !isPdfGeneral(t)).sort(byRequiredThenName);
+      generalBase = [...pdfGeneral, ...nonPdf].slice(0, GENERAL_TALENT_SLOTS);
+      const generalIds = new Set(generalBase.map((t) => t.id));
+      rest = classTalents.filter((t) => !generalIds.has(t.id));
+    }
     const branches = [[], [], []];
     const explicit = rest.filter((t) => Number.isInteger(t.branch_index) && t.branch_index >= 0 && t.branch_index <= 2);
     const nonExplicit = rest.filter((t) => !(Number.isInteger(t.branch_index) && t.branch_index >= 0 && t.branch_index <= 2));
@@ -824,7 +859,7 @@
       const branchIndex = idx % 3;
       if (branches[branchIndex].length < BRANCH_TALENT_SLOTS) branches[branchIndex].push(talent);
     });
-    return { general, branches };
+    return { generalBase, generalL6, branches };
   }
 
   function getCurrentCharacterLevel() {
@@ -887,7 +922,7 @@
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
-    if (!hasSpecializationRequirements(profId, branchIndex, split.general)) return;
+    if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
   }
 
@@ -905,7 +940,7 @@
     if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
-    if (!hasSpecializationRequirements(profId, branchIndex, split.general)) return;
+    if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     const lockedIndex = getLockedSpecializationIndex(profId, split.branches);
     if (lockedIndex !== null && lockedIndex !== branchIndex) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
