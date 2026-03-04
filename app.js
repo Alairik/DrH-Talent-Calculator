@@ -29,6 +29,12 @@
     rytir: ["Veleni", "Skola boje s jednorucni zbrani", "Skola boje se stitem"],
     sermir: ["Rozvaznost", "Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi"]
   };
+  const RANGER_BASE_COLUMNS = {
+    general: ["Presna strelba", "Rychla strelba", "Zoceleni"],
+    druid: ["Bojova hul", "Lecitelstvi", "Magie prirody"],
+    chodec: ["Obranne ostri", "Pruzkumnictvi", "Magie pocestnych"],
+    panSelem: ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
+  };
 
   const CLASS_RULES = {
     PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
@@ -980,7 +986,9 @@
       const basePattern = profId === "PROF_1" ? /^PDF_ABI_WAR_\d+$/i : /^PDF_ABI_RNG_\d+$/i;
       const l6Pattern = profId === "PROF_1" ? /^PDF_ABI_WARX_\d+$/i : /^PDF_ABI_RNGX_\d+$/i;
       const baseRaw = classTalents.filter((t) => basePattern.test(String(t.id || ""))).sort(byRequiredThenName).slice(0, GENERAL_TALENT_SLOTS);
-      generalBase = profId === "PROF_1" ? orderWarriorBaseTalents(baseRaw) : baseRaw;
+      if (profId === "PROF_1") generalBase = orderWarriorBaseTalents(baseRaw);
+      else if (profId === "PROF_2") generalBase = orderRangerBaseTalents(baseRaw);
+      else generalBase = baseRaw;
       generalL6 = classTalents
         .filter((t) => l6Pattern.test(String(t.id || "")))
         .sort(byRequiredThenName)
@@ -1016,6 +1024,31 @@
       WARRIOR_BASE_COLUMNS.berserkr,
       WARRIOR_BASE_COLUMNS.rytir,
       WARRIOR_BASE_COLUMNS.sermir
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
+  }
+
+  function orderRangerBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      RANGER_BASE_COLUMNS.general,
+      RANGER_BASE_COLUMNS.druid,
+      RANGER_BASE_COLUMNS.chodec,
+      RANGER_BASE_COLUMNS.panSelem
     ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
 
     const ordered = [];
