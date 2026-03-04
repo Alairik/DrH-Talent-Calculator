@@ -455,6 +455,8 @@
   }
 
   function renderTalentTree() {
+    const plan = buildPlan();
+    const talentLevelById = new Map(Object.entries(plan.talentLevelsById || {}));
     const profId = state.selectedProfessionId;
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
@@ -466,7 +468,7 @@
       .sort(byRequiredThenName);
     const starterTalentIds = new Set(getClassStarterTalentIds(profId));
     const split = splitClassTalentsForTree(classTalents);
-    const currentLevel = getCurrentCharacterLevel();
+    const currentLevel = clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
     const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
     if (!specializationUnlocked) {
       for (const branch of split.branches) {
@@ -480,6 +482,7 @@
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
       starterTalentIds,
+      talentLevelById,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
 
@@ -504,6 +507,7 @@
         maxNodes: BRANCH_TALENT_SLOTS,
         disabled: !branchEnabled,
         starterTalentIds,
+        talentLevelById,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
     }
@@ -515,6 +519,7 @@
     const maxNodes = Number.isFinite(opts.maxNodes) ? opts.maxNodes : Math.max(9, talents.length);
     const isDisabled = !!opts.disabled;
     const starterTalentIds = opts.starterTalentIds instanceof Set ? opts.starterTalentIds : new Set();
+    const talentLevelById = opts.talentLevelById instanceof Map ? opts.talentLevelById : new Map();
     const onToggle = typeof opts.onToggle === "function" ? opts.onToggle : null;
     container.innerHTML = "";
     for (let i = 0; i < maxNodes; i += 1) {
@@ -538,6 +543,13 @@
         if (isStarterTalent) node.title += "\n[ZAKLAD OD LVL 1]";
         if (isPdfCovered) node.title += "\n[PDF]";
         node.textContent = talent.name;
+        const selectedAtLevel = Number(talentLevelById.get(talent.id));
+        if (isSelected && Number.isFinite(selectedAtLevel) && selectedAtLevel > 0) {
+          const lvl = document.createElement("span");
+          lvl.className = "node-level-indicator";
+          lvl.textContent = `Lv ${selectedAtLevel}`;
+          node.appendChild(lvl);
+        }
         node.disabled = isDisabled || isStarterTalent;
         if (onToggle && !isStarterTalent) node.addEventListener("click", () => onToggle(talent, !isSelected));
       }
@@ -975,6 +987,7 @@
       issues,
       unscheduledTalents,
       unscheduledSkills,
+      talentLevelsById: Object.fromEntries(assignedTalentLevel),
       totals: {
         selectedTalents: talents.length + classStarterTalents.length + (raceTalent ? 1 : 0),
         selectedSkills: skillPlans.length,
