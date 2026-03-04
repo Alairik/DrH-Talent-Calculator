@@ -1939,7 +1939,7 @@
       for (const t of lvl.talents) {
         const line = document.createElement("div");
         line.className = "timeline-line talent";
-        line.textContent = `T: ${t.name}`;
+        line.textContent = `S: ${t.name}`;
         cell.appendChild(line);
       }
       for (const a of lvl.skillActions) {
