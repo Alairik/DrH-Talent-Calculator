@@ -241,6 +241,7 @@
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
     shareLinkBtn: document.getElementById("shareLinkBtn"),
+    urlLoadStatus: document.getElementById("urlLoadStatus"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -311,10 +312,11 @@
     }
 
     hydrateFromStorage();
-    hydrateFromUrl();
+    const urlHydrationStatus = hydrateFromUrl();
     ensureDefaults();
     wireEvents();
     renderAll();
+    if (urlHydrationStatus !== "none") setUrlLoadStatus(urlHydrationStatus);
   }
 
   function ensureDefaults() {
@@ -1757,15 +1759,36 @@
     try {
       const url = new URL(window.location.href);
       const encoded = url.searchParams.get(SHARE_BUILD_PARAM);
-      if (!encoded) return;
-      if (encoded.length > MAX_SHARE_PARAM_LENGTH) return;
-      if (!/^[A-Za-z0-9\-_]+$/.test(encoded)) return;
+      if (!encoded) return "none";
+      if (encoded.length > MAX_SHARE_PARAM_LENGTH) return "err";
+      if (!/^[A-Za-z0-9\-_]+$/.test(encoded)) return "err";
       const json = decodeBase64UrlUtf8(encoded);
-      if (json.length > MAX_BUILD_JSON_LENGTH) return;
+      if (json.length > MAX_BUILD_JSON_LENGTH) return "err";
       importBuild(JSON.parse(json));
+      return "ok";
     } catch (_e) {
-      // ignore
+      return "err";
     }
+  }
+
+  function setUrlLoadStatus(kind) {
+    if (!els.urlLoadStatus) return;
+    els.urlLoadStatus.hidden = false;
+    els.urlLoadStatus.classList.remove("ok", "err");
+    if (kind === "ok") {
+      els.urlLoadStatus.classList.add("ok");
+      els.urlLoadStatus.textContent = "URL nactena";
+    } else if (kind === "err") {
+      els.urlLoadStatus.classList.add("err");
+      els.urlLoadStatus.textContent = "URL neplatna";
+    } else {
+      els.urlLoadStatus.hidden = true;
+      els.urlLoadStatus.textContent = "";
+      return;
+    }
+    window.setTimeout(() => {
+      if (els.urlLoadStatus) els.urlLoadStatus.hidden = true;
+    }, 4000);
   }
 
   function sanitizeBuildPayload(payload) {

@@ -276,6 +276,29 @@ body {
   letter-spacing: 0.01em;
 }
 
+.url-load-status {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 0.36rem;
+  border-radius: 999px;
+  border: 1px solid #6d5532;
+  background: rgba(21, 17, 13, 0.94);
+  color: #ecd8b5;
+  font-size: 0.56rem;
+  white-space: nowrap;
+}
+
+.url-load-status.ok {
+  border-color: #2f8f57;
+  color: #9de0b7;
+}
+
+.url-load-status.err {
+  border-color: #ab4a4a;
+  color: #f0b3b3;
+}
+
 h2, h3 {
   margin: 0;
 }
