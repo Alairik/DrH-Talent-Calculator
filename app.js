@@ -110,6 +110,8 @@
     selectedProfessionId: "",
     selectedRaceId: "",
     selectedTalentIds: new Set(),
+    selectedTalentOrder: {},
+    talentOrderCounter: 0,
     selectedSpecializationByClass: {},
     selectedSkillTargets: {},
     pdfCoverage: {
@@ -263,6 +265,8 @@
 
     if (els.resetBtn) els.resetBtn.addEventListener("click", () => {
       state.selectedTalentIds.clear();
+      state.selectedTalentOrder = {};
+      state.talentOrderCounter = 0;
       state.selectedSpecializationByClass = {};
       state.selectedSkillTargets = {};
       renderAll();
@@ -501,7 +505,7 @@
     const specializationUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
     if (!specializationUnlocked) {
       for (const branch of split.branches) {
-        for (const talent of branch) state.selectedTalentIds.delete(talent.id);
+        for (const talent of branch) removeTalentSelection(talent.id);
       }
       delete state.selectedSpecializationByClass[profId];
     }
@@ -824,11 +828,34 @@
 
   function toggleTalent(id, checked) {
     if (checked) {
-      state.selectedTalentIds.add(id);
+      addTalentSelection(id);
       autoGrantSkillsFromSTalent(id);
-    } else state.selectedTalentIds.delete(id);
+    } else removeTalentSelection(id);
     renderAll();
     persist();
+  }
+
+  function addTalentSelection(id) {
+    if (state.selectedTalentIds.has(id)) return;
+    state.selectedTalentIds.add(id);
+    state.talentOrderCounter += 1;
+    state.selectedTalentOrder[id] = state.talentOrderCounter;
+  }
+
+  function removeTalentSelection(id) {
+    state.selectedTalentIds.delete(id);
+    delete state.selectedTalentOrder[id];
+  }
+
+  function compareTalentsBySelectionOrder(a, b) {
+    const ao = Number(state.selectedTalentOrder[a.id]);
+    const bo = Number(state.selectedTalentOrder[b.id]);
+    const aHas = Number.isFinite(ao);
+    const bHas = Number.isFinite(bo);
+    if (aHas && bHas && ao !== bo) return ao - bo;
+    if (aHas && !bHas) return -1;
+    if (!aHas && bHas) return 1;
+    return byRequiredThenName(a, b);
   }
 
   function splitClassTalentsForTree(classTalents, profId = state.selectedProfessionId) {
@@ -904,7 +931,7 @@
   function getLockedSpecializationIndex(profId, branches) {
     const selectedByTalent = [];
     for (let i = 0; i < branches.length; i += 1) {
-      const hasSelected = branches[i].some((t) => state.selectedTalentIds.has(t.id));
+    const hasSelected = branches[i].some((t) => state.selectedTalentIds.has(t.id));
       if (hasSelected) selectedByTalent.push(i);
     }
     const forced = Number.isInteger(state.selectedSpecializationByClass[profId])
@@ -914,7 +941,7 @@
       const locked = selectedByTalent.includes(forced) ? forced : selectedByTalent[0];
       for (let i = 0; i < branches.length; i += 1) {
         if (i === locked) continue;
-        for (const t of branches[i]) state.selectedTalentIds.delete(t.id);
+        for (const t of branches[i]) removeTalentSelection(t.id);
       }
       state.selectedSpecializationByClass[profId] = locked;
       return locked;
@@ -937,7 +964,7 @@
       .filter((t) => t.prof_id === profId)
       .sort(byRequiredThenName);
     const { branches } = splitClassTalentsForTree(classTalents);
-    for (const t of branches[branchIndex] || []) state.selectedTalentIds.delete(t.id);
+    for (const t of branches[branchIndex] || []) removeTalentSelection(t.id);
     delete state.selectedSpecializationByClass[profId];
   }
 
@@ -951,11 +978,11 @@
     if (lockedIndex !== null && lockedIndex !== branchIndex) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
     if (checked) {
-      state.selectedTalentIds.add(talentId);
+      addTalentSelection(talentId);
       autoGrantSkillsFromSTalent(talentId);
     }
     else {
-      state.selectedTalentIds.delete(talentId);
+      removeTalentSelection(talentId);
       const classTalents = state.talents
         .filter((t) => t.prof_id === profId)
         .sort(byRequiredThenName);
@@ -1029,7 +1056,7 @@
       });
     }
 
-    const talentQueue = [...talents].sort(byRequiredThenName);
+    const talentQueue = [...talents].sort((a, b) => compareTalentsBySelectionOrder(a, b));
     const assignedTalentLevel = new Map();
     if (raceTalent) assignedTalentLevel.set(raceTalent.id, 1);
     for (const t of classStarterTalents) assignedTalentLevel.set(t.id, 1);
@@ -1228,6 +1255,8 @@
       professionId: state.selectedProfessionId,
       raceId: state.selectedRaceId,
       selectedTalentIds: [...state.selectedTalentIds],
+      selectedTalentOrder: state.selectedTalentOrder,
+      talentOrderCounter: state.talentOrderCounter,
       selectedSpecializationByClass: state.selectedSpecializationByClass,
       selectedSkillTargets: state.selectedSkillTargets,
       manualLevel: state.manualLevel,
@@ -1241,6 +1270,13 @@
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
     if (payload.raceId) state.selectedRaceId = payload.raceId;
     state.selectedTalentIds = new Set(payload.selectedTalentIds || []);
+    state.selectedTalentOrder =
+      payload.selectedTalentOrder && typeof payload.selectedTalentOrder === "object"
+        ? payload.selectedTalentOrder
+        : {};
+    state.talentOrderCounter = Number.isFinite(payload.talentOrderCounter)
+      ? Number(payload.talentOrderCounter)
+      : Object.values(state.selectedTalentOrder).reduce((m, x) => Math.max(m, Number(x) || 0), 0);
     state.selectedSpecializationByClass =
       payload.selectedSpecializationByClass && typeof payload.selectedSpecializationByClass === "object"
         ? payload.selectedSpecializationByClass
@@ -1307,7 +1343,17 @@
     for (const id of [...state.selectedTalentIds]) {
       const t = state.talents.find((x) => x.id === id);
       if (!t || t.prof_id !== profId || (raceTalent && t.id === raceTalent.id)) {
-        state.selectedTalentIds.delete(id);
+        removeTalentSelection(id);
+      }
+    }
+    // Keep talent order map consistent with current selection.
+    for (const id of Object.keys(state.selectedTalentOrder)) {
+      if (!state.selectedTalentIds.has(id)) delete state.selectedTalentOrder[id];
+    }
+    for (const id of state.selectedTalentIds) {
+      if (!Number.isFinite(Number(state.selectedTalentOrder[id]))) {
+        state.talentOrderCounter += 1;
+        state.selectedTalentOrder[id] = state.talentOrderCounter;
       }
     }
 
