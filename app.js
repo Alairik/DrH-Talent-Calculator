@@ -511,8 +511,14 @@
       clearSpecializationBranch(profId, lockedSpecIndex);
     }
     const lockedSpecIndexAfterReq = getLockedSpecializationIndex(profId, split.branches);
+    const activeSpec =
+      Number.isInteger(state.selectedSpecializationByClass[profId]) &&
+      state.selectedSpecializationByClass[profId] >= 0 &&
+      state.selectedSpecializationByClass[profId] <= 2
+        ? state.selectedSpecializationByClass[profId]
+        : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
     const showWarriorL6General =
-      isWarrior && specializationUnlocked && lockedSpecIndexAfterReq === null && split.generalL6.length > 0;
+      isWarrior && specializationUnlocked && activeSpec === null && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
@@ -544,7 +550,7 @@
       branchNames,
       split.branches,
       specializationUnlocked,
-      lockedSpecIndexAfterReq,
+      activeSpec,
       currentLevel,
       isWarrior
     );
@@ -554,8 +560,8 @@
       const container = branchContainers[i];
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
-      const branchEnabled = specializationUnlocked && lockedSpecIndexAfterReq === i;
-      const branchVisible = specializationUnlocked && lockedSpecIndexAfterReq === i;
+      const branchEnabled = specializationUnlocked && activeSpec === i;
+      const branchVisible = specializationUnlocked && activeSpec === i;
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
