@@ -81,10 +81,27 @@ body {
 }
 
 .class-top-controls {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-direction: row;
   gap: 0.34rem;
   align-items: center;
+  justify-content: flex-start;
+}
+
+.class-top-controls .class-picker {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#humanToggleSlotClass,
+#resetSlotClass {
+  display: none;
+}
+
+#resetSlotPlan {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
 }
 
 .skills-top-controls {
@@ -187,6 +204,7 @@ body {
   gap: 0.2rem;
   width: 100%;
   justify-content: flex-end;
+  flex-wrap: nowrap;
 }
 
 .plan-top-controls label {
@@ -939,7 +957,13 @@ textarea {
   }
 
   .class-top-controls {
+    display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  #humanToggleSlotClass,
+  #resetSlotClass {
+    display: block;
   }
 
   .skills-split {
