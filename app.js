@@ -536,8 +536,9 @@
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
       const branchEnabled = specializationUnlocked && lockedSpecIndexAfterReq === i;
+      const branchVisible = specializationUnlocked;
       card.classList.toggle("branch-active", branchEnabled);
-      card.classList.toggle("branch-hidden", !branchEnabled);
+      card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
         maxNodes: BRANCH_TALENT_SLOTS,
         disabled: !branchEnabled,
