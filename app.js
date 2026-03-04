@@ -2413,7 +2413,7 @@
       const rec = {
         id: x.id,
         name: x.name,
-        description: "Dovednost odemcena schopnosti (D).",
+        description: "Dovednost odemčená schopností (D).",
         prof_id: x.prof_id,
         required_level: 1,
         ability_id: ability ? ability.id : null,
@@ -2439,7 +2439,7 @@
       const rec = {
         id: x.id,
         name: x.name,
-        description: "Dovednost ziskana specializaci povolani.",
+        description: "Dovednost získaná specializací povolání.",
         prof_id: x.prof_id,
         required_level: x.required_level || SPECIALIZATION_UNLOCK_LEVEL,
         ability_id: null,
