@@ -37,7 +37,7 @@ body {
 
 .top-controls {
   display: flex;
-  gap: 0.45rem;
+  gap: 0.38rem;
   align-items: center;
   flex-wrap: nowrap;
   white-space: nowrap;
@@ -50,7 +50,7 @@ body {
 }
 
 .top-controls select {
-  padding: 0.3rem 0.4rem;
+  padding: 0.26rem 0.36rem;
 }
 
 .race-bonus-info {
@@ -100,7 +100,7 @@ body {
 
 .plan-panel {
   display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
 }
 
 .panel-head {
@@ -121,15 +121,19 @@ body {
   gap: 0.45rem;
 }
 
+.top-level-tools {
+  margin-right: 0.15rem;
+}
+
 .timeline-tools .lvl-label {
-  font-size: 0.8rem;
+  font-size: 0.74rem;
   color: var(--muted);
 }
 
 .timeline-tools .level-display {
-  width: 46px;
-  min-width: 46px;
-  height: 32px;
+  width: 40px;
+  min-width: 40px;
+  height: 30px;
   display: grid;
   place-items: center;
   border: 1px solid #7b6240;
@@ -142,9 +146,9 @@ body {
 }
 
 .timeline-tools .lvl-btn {
-  width: 32px;
-  min-width: 32px;
-  height: 32px;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
   padding: 0;
   border-radius: 4px;
   line-height: 1;
@@ -209,14 +213,14 @@ button:hover {
 }
 
 .top-class-picker {
-  max-width: 700px;
-  gap: 0.42rem;
+  max-width: 620px;
+  gap: 0.34rem;
 }
 
 .top-class-picker .class-box {
-  min-height: 38px;
-  font-size: 0.72rem;
-  padding: 0.36rem 0.3rem;
+  min-height: 32px;
+  font-size: 0.64rem;
+  padding: 0.2rem 0.14rem;
 }
 
 .class-box {
@@ -531,8 +535,8 @@ button:hover {
 .summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 0.35rem;
-  margin-bottom: 0.55rem;
+  gap: 0.2rem;
+  margin-bottom: 0.3rem;
 }
 
 #talentCount,
@@ -543,18 +547,25 @@ button:hover {
 .kpi {
   border: 1px solid var(--line);
   border-radius: 8px;
-  padding: 0.3rem 0.35rem;
+  padding: 0.14rem 0.35rem;
   background: #17130f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+  min-height: 28px;
 }
 
 .kpi .label {
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   color: var(--muted);
+  line-height: 1;
 }
 
 .kpi .value {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .issues {

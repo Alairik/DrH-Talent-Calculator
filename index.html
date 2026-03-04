@@ -10,6 +10,12 @@
   <header class="topbar">
     <div id="classPicker" class="class-picker top-class-picker"></div>
     <div class="top-controls">
+      <div id="topLevelControls" class="timeline-tools top-level-tools">
+        <span class="lvl-label">Lv</span>
+        <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
+        <div id="manualLevelDisplay" class="level-display">1</div>
+        <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
+      </div>
       <div id="raceBonusInfo" class="race-bonus-info"></div>
       <label>
         <select id="raceSelect"></select>
@@ -65,15 +71,6 @@
     </section>
 
     <section class="panel plan-panel">
-      <div class="panel-head timeline-head">
-        <h2>Level Timeline</h2>
-        <div class="timeline-tools">
-          <span class="lvl-label">Level</span>
-          <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
-          <div id="manualLevelDisplay" class="level-display">1</div>
-          <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
-        </div>
-      </div>
       <div id="summary" class="summary"></div>
       <div id="issues" class="issues"></div>
       <div id="timeline" class="timeline"></div>
