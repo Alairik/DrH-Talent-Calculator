@@ -270,9 +270,9 @@ body {
 }
 
 #shareLinkBtn {
-  width: 40px;
-  min-width: 40px;
-  font-size: 0.62rem;
+  width: 78px;
+  min-width: 78px;
+  font-size: 0.56rem;
   letter-spacing: 0.01em;
 }
 
@@ -738,6 +738,9 @@ button:hover {
 .general-nodes .node.spec-1.selected,
 .general-nodes .node.spec-2.selected {
   transform: translateY(-1px);
+  filter: saturate(1.15) brightness(1.18);
+  outline: 1px solid rgba(255, 241, 208, 0.55);
+  outline-offset: -2px;
 }
 
 .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-0.selected { box-shadow: 0 0 0 1px #a83030, 0 0 18px rgba(168, 48, 48, 0.46); }
@@ -763,6 +766,17 @@ button:hover {
 .talents-panel[data-prof-id="PROF_6"] .general-nodes .node.spec-0.selected { box-shadow: 0 0 0 1px #ce8f8f, 0 0 22px rgba(206, 143, 143, 0.56); }
 .talents-panel[data-prof-id="PROF_6"] .general-nodes .node.spec-1.selected { box-shadow: 0 0 0 1px #9778c8, 0 0 22px rgba(151, 120, 200, 0.56); }
 .talents-panel[data-prof-id="PROF_6"] .general-nodes .node.spec-2.selected { box-shadow: 0 0 0 1px #f0f0f0, 0 0 22px rgba(240, 240, 240, 0.62); }
+
+.general-nodes .node.spec-0.selected::before,
+.general-nodes .node.spec-1.selected::before,
+.general-nodes .node.spec-2.selected::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 7px;
+  pointer-events: none;
+  background: linear-gradient(140deg, rgba(255, 241, 208, 0.22), rgba(255, 241, 208, 0));
+}
 
 .branch-hidden {
   display: none;
