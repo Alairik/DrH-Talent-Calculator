@@ -10,6 +10,13 @@
   const GENERAL_TALENT_SLOTS = 12;
   const BRANCH_TALENT_SLOTS = 12;
   const SPECIALIZATION_UNLOCK_LEVEL = 6;
+  const SPECIALIZATION_REQUIREMENTS = {
+    PROF_1: {
+      0: ["Skola boje s obourucni zbrani", "Skola boje drtice kosti", "Urputnost"],
+      1: ["Skola boje se stitem", "Skola boje s jednorucni zbrani", "Veleni"],
+      2: ["Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi", "Rozvaznost"]
+    }
+  };
 
   const CLASS_RULES = {
     PROF_1: { starterSkills: ["Atletika", "Prvni pomoc", "Vydrz"], skillPointsMultiplier: 3 },
@@ -495,12 +502,18 @@
       }
       delete state.selectedSpecializationByClass[profId];
     }
+    const requiredByTalentId = buildRequiredTalentBranchMap(profId, split.general);
     const lockedSpecIndex = getLockedSpecializationIndex(profId, split.branches);
+    if (lockedSpecIndex !== null && !hasSpecializationRequirements(profId, lockedSpecIndex, split.general)) {
+      clearSpecializationBranch(profId, lockedSpecIndex);
+    }
+    const lockedSpecIndexAfterReq = getLockedSpecializationIndex(profId, split.branches);
 
     renderBranch(els.generalNodes, split.general, {
       maxNodes: GENERAL_TALENT_SLOTS,
       disabled: false,
       starterTalentIds,
+      requiredByTalentId,
       talentLevelById,
       onToggle: (talent, checked) => toggleTalent(talent.id, checked)
     });
@@ -510,7 +523,7 @@
       branchNames,
       split.branches,
       specializationUnlocked,
-      lockedSpecIndex,
+      lockedSpecIndexAfterReq,
       currentLevel
     );
 
@@ -519,7 +532,7 @@
       const container = branchContainers[i];
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
-      const branchEnabled = specializationUnlocked && lockedSpecIndex === i;
+      const branchEnabled = specializationUnlocked && lockedSpecIndexAfterReq === i;
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchEnabled);
       renderBranch(container, branchTalents, {
@@ -538,6 +551,7 @@
     const maxNodes = Number.isFinite(opts.maxNodes) ? opts.maxNodes : Math.max(9, talents.length);
     const isDisabled = !!opts.disabled;
     const starterTalentIds = opts.starterTalentIds instanceof Set ? opts.starterTalentIds : new Set();
+    const requiredByTalentId = opts.requiredByTalentId instanceof Map ? opts.requiredByTalentId : new Map();
     const talentLevelById = opts.talentLevelById instanceof Map ? opts.talentLevelById : new Map();
     const onToggle = typeof opts.onToggle === "function" ? opts.onToggle : null;
     container.innerHTML = "";
@@ -554,9 +568,11 @@
         const isStarterTalent = starterTalentIds.has(talent.id);
         const isSelected = isStarterTalent || state.selectedTalentIds.has(talent.id);
         const isPdfCovered = state.pdfCoverage.talents.has(talent.id);
+        const reqBranchIndex = requiredByTalentId.get(talent.id);
         if (isSelected) node.classList.add("selected");
         if (isStarterTalent) node.classList.add("locked");
         if (isDisabled) node.classList.add("locked");
+        if (Number.isInteger(reqBranchIndex)) node.classList.add(`spec-${reqBranchIndex}`);
         if (isPdfCovered) node.classList.add("pdf-covered");
         node.title = `${talent.name}\n${talent.description || ""}`;
         if (isStarterTalent) node.title += "\n[ZAKLAD OD LVL 1]";
@@ -582,27 +598,34 @@
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "spec-node";
+      btn.classList.add(`spec-${i}`);
       if (activeIndex === i) btn.classList.add("active");
       if (!unlocked) btn.classList.add("locked");
       const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
       const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
       btn.textContent = `${branchNames[i]}${suffix}`;
+      const req = getSpecializationRequirements(profId, i);
+      const missingReq = req.filter((r) => !state.selectedTalentIds.has(r.id));
       if (!unlocked) {
         btn.title = `Odemkne se od levelu ${SPECIALIZATION_UNLOCK_LEVEL}. Aktuálně ${currentLevel}.`;
         btn.disabled = true;
       } else {
         const blockedByLock = activeIndex !== null && activeIndex !== i;
+        const blockedByReq = missingReq.length > 0 && activeIndex !== i;
         if (blockedByLock) btn.classList.add("locked");
+        if (blockedByReq) btn.classList.add("locked");
         btn.title =
           activeIndex === i
             ? "Klikni pro vyčištění celé větve a odemknutí ostatních specializací."
             : blockedByLock
               ? "Ostatní specializace jsou zamčené, dokud neodznačíš aktivní větev."
-              : "Vybrat specializaci";
-        btn.disabled = blockedByLock;
+              : blockedByReq
+                ? `Chybí základní schopnosti: ${missingReq.map((x) => x.name).join(", ")}`
+                : "Vybrat specializaci";
+        btn.disabled = blockedByLock || blockedByReq;
         btn.addEventListener("click", () => {
           if (activeIndex === i) clearSpecializationBranch(profId, i);
-          else if (activeIndex === null || activeIndex === i) setSpecialization(profId, i);
+          else if ((activeIndex === null || activeIndex === i) && missingReq.length === 0) setSpecialization(profId, i);
           renderAll();
           persist();
         });
@@ -803,6 +826,34 @@
     return clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
   }
 
+  function getSpecializationRequirements(profId, branchIndex) {
+    const reqNames = (SPECIALIZATION_REQUIREMENTS[profId] && SPECIALIZATION_REQUIREMENTS[profId][branchIndex]) || [];
+    if (!reqNames.length) return [];
+    const wanted = new Set(reqNames.map(normalize));
+    return state.talents
+      .filter((t) => t.prof_id === profId && wanted.has(normalize(t.name)))
+      .sort(byRequiredThenName);
+  }
+
+  function hasSpecializationRequirements(profId, branchIndex, generalTalents) {
+    const req = getSpecializationRequirements(profId, branchIndex);
+    if (!req.length) return true;
+    const generalIds = new Set((generalTalents || []).map((t) => t.id));
+    return req.every((t) => generalIds.has(t.id) && state.selectedTalentIds.has(t.id));
+  }
+
+  function buildRequiredTalentBranchMap(profId, generalTalents) {
+    const map = new Map();
+    const generalIds = new Set((generalTalents || []).map((t) => t.id));
+    for (let i = 0; i < 3; i += 1) {
+      const req = getSpecializationRequirements(profId, i);
+      for (const t of req) {
+        if (generalIds.has(t.id)) map.set(t.id, i);
+      }
+    }
+    return map;
+  }
+
   function getLockedSpecializationIndex(profId, branches) {
     const selectedByTalent = [];
     for (let i = 0; i < branches.length; i += 1) {
@@ -826,6 +877,11 @@
   }
 
   function setSpecialization(profId, branchIndex) {
+    const classTalents = state.talents
+      .filter((t) => t.prof_id === profId)
+      .sort(byRequiredThenName);
+    const split = splitClassTalentsForTree(classTalents);
+    if (!hasSpecializationRequirements(profId, branchIndex, split.general)) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
   }
 
@@ -841,9 +897,10 @@
   function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
     const currentLevel = getCurrentCharacterLevel();
     if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
-    const lockedIndex = getLockedSpecializationIndex(profId, splitClassTalentsForTree(
-      state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName)
-    ).branches);
+    const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
+    const split = splitClassTalentsForTree(classTalents);
+    if (!hasSpecializationRequirements(profId, branchIndex, split.general)) return;
+    const lockedIndex = getLockedSpecializationIndex(profId, split.branches);
     if (lockedIndex !== null && lockedIndex !== branchIndex) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
     if (checked) {

@@ -439,6 +439,21 @@ button:hover {
   text-align: center;
 }
 
+.spec-node.spec-0 {
+  border-color: #a72727;
+  background: linear-gradient(180deg, rgba(145, 28, 28, 0.62), rgba(34, 14, 14, 0.95));
+}
+
+.spec-node.spec-1 {
+  border-color: #a1862c;
+  background: linear-gradient(180deg, rgba(131, 104, 25, 0.58), rgba(33, 26, 12, 0.95));
+}
+
+.spec-node.spec-2 {
+  border-color: #306b5d;
+  background: linear-gradient(180deg, rgba(33, 85, 73, 0.58), rgba(16, 33, 29, 0.95));
+}
+
 .spec-node.locked {
   opacity: 0.48;
 }
@@ -501,6 +516,21 @@ button:hover {
 
 .node.locked {
   opacity: 0.55;
+}
+
+.general-nodes .node.spec-0 {
+  border-color: #9d2a2a;
+  background: rgba(110, 24, 24, 0.46);
+}
+
+.general-nodes .node.spec-1 {
+  border-color: #a88a2e;
+  background: rgba(118, 89, 22, 0.44);
+}
+
+.general-nodes .node.spec-2 {
+  border-color: #2f6f62;
+  background: rgba(23, 72, 61, 0.42);
 }
 
 .branch-hidden {
