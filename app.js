@@ -111,6 +111,7 @@
     },
     manualLevel: 1,
     levelMode: "auto",
+    lastPlanSignature: "",
     config: {
       maxLevel: window.APP_CONFIG.maxLevel,
       points: { ...window.APP_CONFIG.points }
@@ -139,8 +140,9 @@
     skillL1: document.getElementById("skillL1"),
     skillPerLevel: document.getElementById("skillPerLevel"),
     manualLevelMinus: document.getElementById("manualLevelMinus"),
-    manualLevelInput: document.getElementById("manualLevelInput"),
+    manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
+    raceBonusInfo: document.getElementById("raceBonusInfo"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -274,12 +276,6 @@
       renderAll();
       persist();
     });
-    els.manualLevelInput.addEventListener("change", () => {
-      state.levelMode = "manual";
-      state.manualLevel = clampInt(els.manualLevelInput.value, 1, state.config.maxLevel, 1);
-      renderAll();
-      persist();
-    });
 
     els.exportBtn.addEventListener("click", () => {
       els.exchangeBox.value = JSON.stringify(exportBuild(), null, 2);
@@ -333,8 +329,9 @@
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
-    els.manualLevelInput.max = String(state.config.maxLevel);
-    els.manualLevelInput.value = String(manual);
+    els.manualLevelDisplay.textContent = String(manual);
+    const raceTalent = getRaceBonusTalent();
+    els.raceBonusInfo.textContent = raceTalent ? `Bonus rasy: ${raceTalent.name}` : "Bonus rasy: -";
   }
 
   function renderClassPicker() {
@@ -891,33 +888,22 @@
 
   function renderPlanOnly() {
     const modeBefore = state.levelMode;
+    const signature = getPlanSignature();
+    if (signature !== state.lastPlanSignature) {
+      state.levelMode = "auto";
+      state.lastPlanSignature = signature;
+    }
     const plan = buildPlan();
     renderSummary(plan);
     renderIssues(plan);
     renderTimeline(plan);
+    els.manualLevelDisplay.textContent = String(clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1));
     if (modeBefore !== state.levelMode) persist();
   }
 
   function renderSummary(plan) {
-    const currentLevel = plan.totals.currentLevel;
-    const unscheduledSkillRanks = plan.unscheduledSkills.reduce(
-      (sum, p) => sum + Math.max(0, Number(p.targetRank || 0) - Number(p.currentRank || 0)),
-      0
-    );
-    const remainingToPlan = plan.unscheduledTalents.length + unscheduledSkillRanks;
-    const nextActionLevel = plan.levels.find(
-      (lvl) => lvl.level > currentLevel && (lvl.talents.length > 0 || lvl.skillActions.length > 0)
-    );
-    const plannedSteps = plan.levels
-      .filter((lvl) => lvl.level <= currentLevel)
-      .reduce((sum, lvl) => sum + lvl.talents.length + lvl.skillActions.length, 0);
-
     const kpis = [
-      ["Aktualni uroven", String(currentLevel)],
-      ["Volne body dovednosti", String(plan.totals.freeSkillPoints)],
-      ["Zbyva naplanovat", String(remainingToPlan)],
-      ["Dalsi krok", nextActionLevel ? `Lv ${nextActionLevel.level}` : "-"],
-      ["Kroky do Lv", String(plannedSteps)]
+      ["Volne body dovednosti", String(plan.totals.freeSkillPoints)]
     ];
     els.summary.innerHTML = "";
     for (const [label, value] of kpis) {
@@ -1194,14 +1180,38 @@
   function resolveEffectiveCurrentLevel(autoLevel) {
     const fallback = clampInt(autoLevel, 1, state.config.maxLevel, 1);
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, fallback);
+    if (state.levelMode !== "manual") {
+      state.manualLevel = fallback;
+      return fallback;
+    }
     if (state.levelMode === "manual") {
       if (fallback > manual) {
         state.levelMode = "auto";
+        state.manualLevel = fallback;
         return fallback;
       }
       return manual;
     }
     return fallback;
+  }
+
+  function getPlanSignature() {
+    const skills = Object.entries(state.selectedSkillTargets)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([id, rank]) => `${id}:${rank}`)
+      .join("|");
+    const talents = [...state.selectedTalentIds].sort().join("|");
+    return [
+      state.selectedProfessionId,
+      state.selectedRaceId,
+      talents,
+      skills,
+      state.config.maxLevel,
+      state.config.points.talentLevel1,
+      state.config.points.talentPerLevel,
+      state.config.points.skillLevel1,
+      state.config.points.skillPerLevel
+    ].join("::");
   }
 
   function isBasicSkill(skill) {

@@ -39,10 +39,17 @@ body {
   display: flex;
   gap: 0.7rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .top-controls label {
   min-width: 190px;
+}
+
+.race-bonus-info {
+  font-size: 0.78rem;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .layout {
@@ -94,21 +101,30 @@ body {
   gap: 0.45rem;
 }
 
-.timeline-tools span {
+.timeline-tools .lvl-label {
   font-size: 0.8rem;
   color: var(--muted);
 }
 
-.timeline-tools input[type="number"] {
-  width: 58px;
-  padding: 0.2rem 0.3rem;
+.timeline-tools .level-display {
+  width: 46px;
+  min-width: 46px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #7b6240;
+  border-radius: 999px;
+  background: #17130f;
+  color: #fff0d4;
+  font-weight: 700;
+  font-size: 1rem;
   text-align: center;
 }
 
 .timeline-tools .lvl-btn {
-  width: 24px;
-  min-width: 24px;
-  height: 24px;
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
   padding: 0;
   border-radius: 4px;
   line-height: 1;
@@ -485,7 +501,7 @@ button:hover {
 
 .summary {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.35rem;
   margin-bottom: 0.55rem;
 }
@@ -683,7 +699,7 @@ textarea {
   }
 
   .summary {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 }
 

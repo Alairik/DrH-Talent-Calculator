@@ -14,6 +14,7 @@
         Rasa
         <select id="raceSelect"></select>
       </label>
+      <div id="raceBonusInfo" class="race-bonus-info"></div>
       <button id="resetBtn" type="button">Reset výběru</button>
     </div>
   </header>
@@ -68,16 +69,16 @@
       <div class="panel-head timeline-head">
         <h2>Level Timeline</h2>
         <div class="timeline-tools">
-          <span>Level</span>
+          <span class="lvl-label">Level</span>
           <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
-          <input id="manualLevelInput" type="number" min="1" max="30" />
+          <div id="manualLevelDisplay" class="level-display">1</div>
           <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
         </div>
       </div>
       <div id="summary" class="summary"></div>
       <div id="issues" class="issues"></div>
       <div id="timeline" class="timeline"></div>
-      <div class="exchange">
+      <div class="exchange" hidden>
         <button id="exportBtn" type="button">Export build</button>
         <button id="importBtn" type="button">Import build</button>
         <textarea id="exchangeBox" placeholder="Export / import JSON buildu"></textarea>
