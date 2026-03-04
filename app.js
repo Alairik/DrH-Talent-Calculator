@@ -949,12 +949,6 @@
       levelBadge.textContent = `Lv ${lvl.level}`;
       const cell = document.createElement("div");
       cell.className = "timeline-cell";
-      for (const r of lvl.raceBonuses) {
-        const line = document.createElement("div");
-        line.className = "timeline-line race";
-        line.textContent = `RACE BONUS: ${r.name}`;
-        cell.appendChild(line);
-      }
       for (const s of lvl.startSkills) {
         const line = document.createElement("div");
         line.className = "timeline-line skill";
