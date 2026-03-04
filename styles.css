@@ -58,7 +58,7 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 1.25fr 1.05fr 0.9fr;
+  grid-template-columns: 0.95fr 1.2fr 0.9fr;
   gap: 0.9rem;
   padding: 0.9rem;
   height: 100%;
@@ -176,10 +176,10 @@ button:hover {
 
 .class-picker {
   display: grid;
-  grid-template-columns: repeat(6, minmax(90px, 1fr));
-  gap: 0.45rem;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.35rem;
   margin: 0.25rem 0 0.75rem;
-  max-width: 560px;
+  max-width: 420px;
   width: 100%;
   align-self: center;
 }
@@ -189,8 +189,8 @@ button:hover {
   border-radius: 10px;
   background: #17130f;
   color: var(--muted);
-  padding: 0.38rem 0.3rem;
-  font-size: 0.74rem;
+  padding: 0.28rem 0.2rem;
+  font-size: 0.68rem;
   text-align: center;
   cursor: pointer;
 }
@@ -215,6 +215,9 @@ button:hover {
 
 .general-branch {
   margin-bottom: 0.45rem;
+  max-width: 420px;
+  width: 100%;
+  align-self: center;
 }
 
 .branch-nodes {
@@ -225,6 +228,7 @@ button:hover {
 
 .general-nodes {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.32rem;
 }
 
 .spec-picker {
@@ -232,9 +236,15 @@ button:hover {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.45rem;
   margin-bottom: 0.55rem;
-  max-width: 560px;
+  max-width: 420px;
   width: 100%;
   align-self: center;
+}
+
+.general-nodes .node {
+  padding: 0.16rem;
+  font-size: 0.54rem;
+  border-radius: 7px;
 }
 
 .spec-node {
