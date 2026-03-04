@@ -381,7 +381,7 @@
   }
 
   function isMobileSectionLayout() {
-    return window.matchMedia("(max-width: 1024px)").matches;
+    return window.matchMedia("(max-width: 1024px) and (pointer: coarse)").matches;
   }
 
   function handleResponsiveLayout() {

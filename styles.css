@@ -790,7 +790,7 @@ button:hover {
   color: #d0e7f8;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1024px) and (pointer: coarse) {
   .timeline-cell {
     grid-template-columns: 1fr;
   }
