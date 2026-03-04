@@ -1,11 +1,11 @@
 ﻿(function () {
   const BRANCH_NAMES = {
-    PROF_1: ["Berserkr", "Rytir", "Sermir"],
-    PROF_2: ["Druid", "Chodec", "Pan selem"],
+    PROF_1: ["Berserkr", "Rytíř", "Šermíř"],
+    PROF_2: ["Druid", "Chodec", "Pán šelem"],
     PROF_3: ["Medikus", "Pyromant", "Theurg"],
-    PROF_4: ["Bojovy mag", "Carodej", "Nekromant"],
-    PROF_5: ["Assassin", "Lupic", "Sicco"],
-    PROF_6: ["Bojovy mnich", "Exorcista", "Knez"]
+    PROF_4: ["Bojový mág", "Čaroděj", "Nekromant"],
+    PROF_5: ["Assassin", "Lupič", "Sicco"],
+    PROF_6: ["Bojový mnich", "Exorcista", "Kněz"]
   };
   const GENERAL_TALENT_SLOTS = 12;
   const BRANCH_TALENT_SLOTS = 8;
@@ -261,6 +261,314 @@
   const MAX_BUILD_JSON_LENGTH = 30000;
   const MAX_BUILD_COLLECTION_SIZE = 512;
   const SAFE_ID_RE = /^[A-Za-z0-9_:-]{1,80}$/;
+  const CZECH_DIACRITIC_MAP = Object.freeze({
+    "andel": "anděl",
+    "asketismus": "asketismus",
+    "assassinace": "assassinace",
+    "atributu": "atributů",
+    "aura": "aura",
+    "aurami": "aurami",
+    "bdely": "bdělý",
+    "bestie": "bestie",
+    "bezvladny": "bezvládný",
+    "bezvedomi": "bezvědomí",
+    "bijec": "bijec",
+    "bily": "bílý",
+    "blizka": "blízká",
+    "blizko": "blízko",
+    "bojovy": "bojový",
+    "bozi": "boží",
+    "bozich": "božích",
+    "bozska": "božská",
+    "bozske": "božské",
+    "carodej": "čaroděj",
+    "carodeje": "čaroděje",
+    "carodejnic": "čarodějnic",
+    "castecne": "částečně",
+    "casti": "části",
+    "cely": "celý",
+    "cerstve": "čerstvě",
+    "cizi": "cizí",
+    "cteni": "čtení",
+    "ctyr": "čtyř",
+    "ctyri": "čtyři",
+    "ctyrihodu": "čtyřhodu",
+    "ctyrk": "čtyřk",
+    "ctyrmi": "čtyřmi",
+    "ctyrmiu": "čtyřmiu",
+    "ctyrmii": "čtyřmii",
+    "ctyrmiy": "čtyřmiy",
+    "ctyrirozsireni": "čtyřirozšíření",
+    "dalsi": "další",
+    "damonologie": "démonologie",
+    "demonologie": "démonologie",
+    "desobijec": "děsobijec",
+    "diky": "díky",
+    "dilka": "dílka",
+    "dovednostnich": "dovednostních",
+    "draci": "dračí",
+    "drak": "drak",
+    "druhe": "druhé",
+    "druhy": "druhý",
+    "duse": "duše",
+    "dusevni": "duševní",
+    "duvery": "důvěry",
+    "dylka": "dýlka",
+    "dyka": "dýka",
+    "efektivnejsi": "efektivnější",
+    "energie": "energie",
+    "exorcista": "exorcista",
+    "falesna": "falešná",
+    "falesne": "falešné",
+    "finta": "finta",
+    "forenzika": "forenzika",
+    "hranicar": "hraničář",
+    "hranicarsky": "hraničářský",
+    "hromadne": "hromadné",
+    "hrv": "hřv",
+    "hul": "hůl",
+    "hure": "hůře",
+    "charodej": "čaroděj",
+    "charismatu": "charismatu",
+    "chran": "chraň",
+    "chranit": "chránit",
+    "klic": "klíč",
+    "klice": "klíče",
+    "klerik": "klerik",
+    "knez": "kněz",
+    "kocici": "kočičí",
+    "koncentrace": "koncentrace",
+    "koncentraci": "koncentraci",
+    "konvertovat": "konvertovat",
+    "kouzleni": "kouzlení",
+    "kouzelnik": "kouzelník",
+    "kouzelniku": "kouzelníků",
+    "kralovstvi": "království",
+    "krevni": "krevní",
+    "ktera": "která",
+    "ktery": "který",
+    "ktory": "který",
+    "lecitelstvi": "léčitelství",
+    "levelu": "levelů",
+    "levnejsi": "levnější",
+    "lupic": "lupič",
+    "lutka": "loutka",
+    "mag": "mág",
+    "magicka": "magická",
+    "magicke": "magické",
+    "magicky": "magický",
+    "magii": "magii",
+    "mantry": "mantry",
+    "many": "many",
+    "mestnich": "místních",
+    "mista": "místa",
+    "mistrovstvi": "mistrovství",
+    "misto": "místo",
+    "mnich": "mnich",
+    "mnohoprosby": "mnohoprosby",
+    "moznost": "možnost",
+    "muzes": "můžeš",
+    "muze": "může",
+    "nadprirozeny": "nadpřirozený",
+    "nahradit": "nahradit",
+    "nastroje": "nástroje",
+    "naucis": "naučíš",
+    "nauka": "nauka",
+    "nebezpeci": "nebezpečí",
+    "neferoveho": "neférového",
+    "nekromant": "nekromant",
+    "nemrtvy": "nemrtvý",
+    "nocni": "noční",
+    "obeti": "oběti",
+    "oblasti": "oblasti",
+    "obraceni": "obrácení",
+    "obranne": "obranné",
+    "obratnost": "obratnost",
+    "obri": "obří",
+    "ocarovani": "očarování",
+    "ochocovani": "ochočování",
+    "odhad": "odhad",
+    "odhalit": "odhalit",
+    "odpocinek": "odpočinek",
+    "odstraneni": "odstranění",
+    "ohebnost": "ohebnost",
+    "ohnive": "ohnivé",
+    "otevirani": "otevírání",
+    "ostrazitost": "ostražitost",
+    "otazka": "otázka",
+    "ovladat": "ovládat",
+    "padelani": "padělání",
+    "pan": "pán",
+    "pani": "páni",
+    "pamet": "paměť",
+    "pasivni": "pasivní",
+    "pecet": "pečeť",
+    "pece": "péče",
+    "pesi": "pěší",
+    "plastem": "pláštěm",
+    "pocty": "počty",
+    "podrobovani": "podrobování",
+    "podstata": "podstata",
+    "pohybu": "pohybu",
+    "pojisteni": "pojištění",
+    "pokrocila": "pokročilá",
+    "pokrocile": "pokročilé",
+    "pokrocily": "pokročilý",
+    "pomery": "poměry",
+    "posvatna": "posvátná",
+    "posvatne": "posvátné",
+    "posvatny": "posvátný",
+    "postreh": "postřeh",
+    "potreba": "potřeba",
+    "povolani": "povolání",
+    "pozehnane": "požehnané",
+    "pozehnani": "požehnání",
+    "pozice": "pozice",
+    "pratele": "přátele",
+    "precizni": "precizní",
+    "predkouzleni": "předkouzlení",
+    "predmet": "předmět",
+    "predmety": "předměty",
+    "predpovidani": "předpovídání",
+    "presvedcovani": "přesvědčování",
+    "preziti": "přežití",
+    "priblizeni": "přiblížení",
+    "prvni": "první",
+    "prizn": "přízn",
+    "priroda": "příroda",
+    "prirody": "přírody",
+    "prirozenym": "přirozeným",
+    "propojeni": "propojení",
+    "prosby": "prosby",
+    "proti": "proti",
+    "pruzkumnictvi": "průzkumnictví",
+    "puvodni": "původní",
+    "radovy": "řádový",
+    "reakce": "reakce",
+    "retez": "řetěz",
+    "ritual": "rituál",
+    "ritualni": "rituální",
+    "rovnou": "rovnou",
+    "rozsirena": "rozšířená",
+    "rozsirene": "rozšířené",
+    "rozsirenych": "rozšířených",
+    "rozsireni": "rozšíření",
+    "rvacu": "rváčů",
+    "rychle": "rychlé",
+    "rychly": "rychlý",
+    "sarmu": "šarmu",
+    "sberatel": "sběratel",
+    "sesilani": "sesílání",
+    "setkani": "setkání",
+    "sifrovani": "šifrování",
+    "sila": "síla",
+    "sily": "síly",
+    "sicco": "sicco",
+    "skryvani": "skrývání",
+    "slib": "slib",
+    "slibem": "slibem",
+    "smesi": "směsi",
+    "souboj": "souboj",
+    "specializace": "specializace",
+    "specializaci": "specializaci",
+    "specializacni": "specializační",
+    "spravne": "správně",
+    "srdce": "srdce",
+    "stin": "stín",
+    "strelba": "střelba",
+    "strilel": "střílel",
+    "strizlivost": "střízlivost",
+    "struny": "struny",
+    "stryc": "strýc",
+    "stupen": "stupeň",
+    "svate": "svaté",
+    "sveceni": "svěcení",
+    "svetla": "světla",
+    "svetobeznik": "světoběžník",
+    "svitku": "svitků",
+    "sytit": "sytit",
+    "sytost": "sytost",
+    "sze": "še",
+    "szy": "šy",
+    "soustredeni": "soustředění",
+    "srazlivost": "srážlivost",
+    "svedeni": "svedení",
+    "taseni": "tažení",
+    "teologie": "teologie",
+    "tezistem": "těžištěm",
+    "theurg": "theurg",
+    "timeline": "timeline",
+    "tichy": "tichý",
+    "totem": "totem",
+    "trid": "tříd",
+    "trik": "trik",
+    "triky": "triky",
+    "trojice": "trojice",
+    "tvoru": "tvorů",
+    "umeni": "umění",
+    "uroven": "úroveň",
+    "urovne": "úrovně",
+    "urputna": "urputná",
+    "utajene": "utajené",
+    "utocnik": "útočník",
+    "uzdraveni": "uzdravení",
+    "uziti": "užití",
+    "vaha": "váha",
+    "valecnik": "válečník",
+    "vedeni": "vedení",
+    "veleni": "velení",
+    "vetve": "větve",
+    "vetsi": "větší",
+    "vice": "více",
+    "vicenasobny": "vícenásobný",
+    "videni": "vidění",
+    "vira": "víra",
+    "viry": "víry",
+    "vlastnosti": "vlastnosti",
+    "vladce": "vládce",
+    "vladni": "vládni",
+    "vnimani": "vnímání",
+    "vrazedne": "vražedné",
+    "vrazedny": "vražedný",
+    "vule": "vůle",
+    "vyber": "výběr",
+    "vydrz": "výdrž",
+    "vyhoda": "výhoda",
+    "vyroba": "výroba",
+    "vyrobu": "výrobu",
+    "vysoka": "vysoká",
+    "vysoke": "vysoké",
+    "vzkriseni": "vzkříšení",
+    "zakerna": "zákeřná",
+    "zamena": "záměna",
+    "zamku": "zámků",
+    "zazehnuti": "zažehnutí",
+    "zazraky": "zázraky",
+    "zbran": "zbraň",
+    "zbrane": "zbraně",
+    "zelezneho": "železného",
+    "ziskat": "získat",
+    "zivlomag": "živlomág",
+    "zlodej": "zloděj",
+    "zlodejska": "zlodějská",
+    "znalost": "znalost",
+    "znalosti": "znalosti",
+    "zoceleni": "zocelení",
+    "zpracovani": "zpracování",
+    "zraneni": "zranění",
+    "zvednuti": "zvednutí",
+    "zvirat": "zvířat",
+    "zviratky": "zvířátky",
+    "zviraty": "zvířaty",
+    "zvire": "zvíře",
+    "zvyseni": "zvýšení",
+    "zvysuje": "zvyšuje",
+    "zvysi": "zvýší",
+    "zvoleny": "zvolený",
+    "zvolit": "zvolit",
+    "zvyknout": "zvyknout",
+    "zvyrazneni": "zvýraznění"
+  });
 
   init().catch((err) => {
     console.error(err);
@@ -291,8 +599,8 @@
     state.professions = professionsPayload.items || [];
     state.races = (racesPayload.items || []).map((r) => ({
       ...r,
-      name: fixMojibake(r.name),
-      ability: fixMojibake(r.ability)
+      name: sanitizeCzechText(r.name),
+      ability: sanitizeCzechText(r.ability)
     }));
     const baseTalents = (talentsPayload.items || []).map((x) => ({
       ...normalizeTalentRecord(x),
@@ -426,7 +734,7 @@
       } catch (_err) {
         if (els.exchangeBox) {
           els.exchangeBox.value = url;
-          alert("URL jsem vlozil do export pole. Zkopiruj ji rucne.");
+          alert("URL jsem vložil do export pole. Zkopíruj ji ručně.");
         } else {
           alert(url);
         }
@@ -443,7 +751,7 @@
         renderAll();
         persist();
       } catch (_err) {
-        alert("Import failed: invalid JSON.");
+        alert("Import selhal: neplatný JSON.");
       }
     });
     window.addEventListener("resize", () => {
@@ -1777,10 +2085,10 @@
     els.urlLoadStatus.classList.remove("ok", "err");
     if (kind === "ok") {
       els.urlLoadStatus.classList.add("ok");
-      els.urlLoadStatus.textContent = "URL nactena";
+      els.urlLoadStatus.textContent = "URL načtena";
     } else if (kind === "err") {
       els.urlLoadStatus.classList.add("err");
-      els.urlLoadStatus.textContent = "URL neplatna";
+      els.urlLoadStatus.textContent = "URL neplatná";
     } else {
       els.urlLoadStatus.hidden = true;
       els.urlLoadStatus.textContent = "";
@@ -2047,19 +2355,19 @@
   function normalizeTalentRecord(talent) {
     return {
       ...talent,
-      name: fixMojibake(talent.name),
-      description: fixMojibake(talent.description),
-      text: fixMojibake(talent.text),
-      text_formatted: fixMojibake(talent.text_formatted)
+      name: sanitizeCzechText(talent.name),
+      description: sanitizeCzechText(talent.description),
+      text: sanitizeCzechText(talent.text),
+      text_formatted: sanitizeCzechText(talent.text_formatted)
     };
   }
 
   function normalizeSkillRecord(skill) {
     return {
       ...skill,
-      name: fixMojibake(skill.name),
-      description: fixMojibake(skill.description),
-      check: fixMojibake(skill.check)
+      name: sanitizeCzechText(skill.name),
+      description: sanitizeCzechText(skill.description),
+      check: sanitizeCzechText(skill.check)
     };
   }
 
@@ -2199,6 +2507,30 @@
     } catch (_err) {
       return value;
     }
+  }
+
+  function sanitizeCzechText(value) {
+    return restoreCzechDiacritics(fixMojibake(value));
+  }
+
+  function restoreCzechDiacritics(value) {
+    if (typeof value !== "string" || !value) return value;
+    return value.replace(/[A-Za-z]{2,}/g, (word) => {
+      const replacement = CZECH_DIACRITIC_MAP[word.toLowerCase()];
+      if (!replacement) return word;
+      return applyWordCase(word, replacement);
+    });
+  }
+
+  function applyWordCase(source, replacement) {
+    if (!source) return replacement;
+    if (source === source.toUpperCase()) return replacement.toUpperCase();
+    const first = source[0];
+    const rest = source.slice(1);
+    if (first === first.toUpperCase() && rest === rest.toLowerCase()) {
+      return replacement.charAt(0).toUpperCase() + replacement.slice(1);
+    }
+    return replacement;
   }
 
   function byName(a, b) {
