@@ -88,8 +88,21 @@ body {
 }
 
 .skills-top-controls {
-  display: grid;
-  gap: 0.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.34rem;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.skills-top-controls .summary {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.skills-top-controls .human-toggle {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
 .human-toggle {
