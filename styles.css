@@ -288,6 +288,7 @@ button:hover {
   max-width: 420px;
   width: 100%;
   align-self: center;
+  padding: 0;
 }
 
 .branch-nodes {
@@ -398,11 +399,7 @@ button:hover {
   min-height: 0;
 }
 
-.skills-col {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.4rem;
-  background: rgba(17, 13, 10, 0.45);
+.skills-split > .skills-list {
   min-height: 0;
 }
 
