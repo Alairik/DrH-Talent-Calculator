@@ -635,10 +635,7 @@ button:hover {
   gap: 0.3rem 0.65rem;
   width: 100%;
   justify-self: stretch;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 0.34rem 0.46rem;
-  background: #1b1510;
+  padding: 0.16rem 0.2rem;
   min-width: 0;
 }
 
@@ -660,7 +657,7 @@ button:hover {
   color: #d0e7f8;
 }
 
-@media (max-width: 1400px) {
+@media (max-width: 1024px) {
   .timeline-cell {
     grid-template-columns: 1fr;
   }
