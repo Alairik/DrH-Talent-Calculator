@@ -1879,6 +1879,294 @@
       "required_level": 6,
       "description": "Volitelna schopnost Sicca.",
       "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRX_01",
+      "name": "Asketismus",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_02",
+      "name": "Bohosluzby",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_03",
+      "name": "Bozska domena",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_04",
+      "name": "Flagelantstvi",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_05",
+      "name": "Nositel slova",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_06",
+      "name": "Mnohoprosby",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_07",
+      "name": "Pozehnani",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_08",
+      "name": "Radovy slib",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_09",
+      "name": "Sakralni predmety",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_10",
+      "name": "Strazce mysteria",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_11",
+      "name": "Sveceni mist",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRX_12",
+      "name": "Vzkriseni",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "clr_l6_general": true
+    },
+    {
+      "id": "PDF_ABI_CLRB_01",
+      "name": "Bozi zbroj",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_02",
+      "name": "Bozske mantry",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_03",
+      "name": "Fanatismus",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_04",
+      "name": "Inkvizitorsky vycvik",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_05",
+      "name": "Lovec carodejnic",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_06",
+      "name": "Paladinsky vycvik",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_07",
+      "name": "Posvatny vliv",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRB_08",
+      "name": "Posvatna zbran",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "branch_index": 0
+    },
+    {
+      "id": "PDF_ABI_CLRE_01",
+      "name": "Astralni poutnik",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_02",
+      "name": "Desobijec",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_03",
+      "name": "Exorcismus",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_04",
+      "name": "Jazyk prastarych",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_05",
+      "name": "Kletby",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_06",
+      "name": "Mystika",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_07",
+      "name": "Nadprirozeny boj",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRE_08",
+      "name": "Svetlonos",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Exorcisty.",
+      "branch_index": 1
+    },
+    {
+      "id": "PDF_ABI_CLRK_01",
+      "name": "Avatar",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_02",
+      "name": "Bozi ochrana",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_03",
+      "name": "Ikony",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_04",
+      "name": "Jasnozrivost",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_05",
+      "name": "Obeti",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_06",
+      "name": "Vycvik lazaretnich lecitelu",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_07",
+      "name": "Zazraky",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_CLRK_08",
+      "name": "Zazehnuti aury",
+      "prof_id": "PROF_6",
+      "required_level": 6,
+      "description": "Volitelna schopnost Kneze.",
+      "branch_index": 2
     }
   ]
 }

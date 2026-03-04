@@ -5,7 +5,7 @@
     PROF_3: ["Medikus", "Pyromant", "Theurg"],
     PROF_4: ["Bojovy mag", "Carodej", "Nekromant"],
     PROF_5: ["Assassin", "Lupic", "Sicco"],
-    PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
+    PROF_6: ["Bojovy mnich", "Exorcista", "Knez"]
   };
   const GENERAL_TALENT_SLOTS = 12;
   const BRANCH_TALENT_SLOTS = 8;
@@ -36,6 +36,11 @@
       0: ["Umeni rvacu", "Umeni skryvani", "Vrhani dyk"],
       1: ["Umeni zelezneho klice", "Umeni kociciho pohybu", "Improvizace"],
       2: ["Umeni promen", "Umeni sarmu", "Zlodejska hantyrka"]
+    },
+    PROF_6: {
+      0: ["Bozi bojovnik", "Nauka Bojovniku viry", "Nauka Svate pravdy"],
+      1: ["Osviceni", "Nauka Bozich patronu", "Nauka Demonologie"],
+      2: ["Pozehnane zdravi", "Nauka Milosrdenstvi", "Nauka Zehnani aurami"]
     }
   };
   const WARRIOR_BASE_COLUMNS = {
@@ -67,6 +72,12 @@
     assassin: ["Vrhani dyk", "Umeni rvacu", "Umeni skryvani"],
     lupic: ["Improvizace", "Umeni kociciho pohybu", "Umeni zelezneho klice"],
     sicco: ["Zlodejska hantyrka", "Umeni promen", "Umeni sarmu"]
+  };
+  const CLERIC_BASE_COLUMNS = {
+    general: ["Dar slitovani", "Posvatny symbol", "Ritualy a obrady"],
+    bojovyMnich: ["Bozi bojovnik", "Nauka Bojovniku viry", "Nauka Svate pravdy"],
+    exorcista: ["Osviceni", "Nauka Bozich patronu", "Nauka Demonologie"],
+    knez: ["Pozehnane zdravi", "Nauka Milosrdenstvi", "Nauka Zehnani aurami"]
   };
 
   const CLASS_RULES = {
@@ -135,22 +146,13 @@
     // Alchymista (D)
     { id: "PDF_SKILL_ALC_01", name: "Pokrocila identifikace", prof_id: "PROF_3", ability_name: "Pokrocila identifikace", check_type: ["int"], is_knowledge_based: true },
     { id: "PDF_SKILL_ALC_02", name: "Vyroba svitku", prof_id: "PROF_3", ability_name: "Vyroba svitku", check_type: ["dex"], is_knowledge_based: true },
-    // Zlodej (D) - doplnene dovednosti
-    { id: "PDF_SKILL_THF_01", name: "Lezeni", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_02", name: "Ohebnost", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_03", name: "Pad z vysky", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_10", name: "Tichy pohyb", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_04", name: "Schovani se ve stinu", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_05", name: "Splynuti s davem", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["cha"] },
-    { id: "PDF_SKILL_THF_06", name: "Imitace", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["cha"] },
-    { id: "PDF_SKILL_THF_11", name: "Mimika", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["cha"] },
-    { id: "PDF_SKILL_THF_12", name: "Prevleky", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["int"] },
-    { id: "PDF_SKILL_THF_07", name: "Odstraneni pasti", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_08", name: "Otevirani zamku", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] },
-    { id: "PDF_SKILL_THF_09", name: "Padelani", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["int"] },
-    { id: "PDF_SKILL_THF_13", name: "Odhad lidi", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["int"] },
-    { id: "PDF_SKILL_THF_14", name: "Odvedeni pozornosti", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] },
-    { id: "PDF_SKILL_THF_15", name: "Ziskani duvery", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] }
+    // Zlodej (D) - novy model: samostatna dovednost je cele Umeni, podakce jsou jen akce uvnitr.
+    { id: "PDF_SKILL_THF_U01", name: "Umeni kociciho pohybu", prof_id: "PROF_5", ability_name: "Umeni kociciho pohybu", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_U02", name: "Umeni promen", prof_id: "PROF_5", ability_name: "Umeni promen", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_U03", name: "Umeni rvacu", prof_id: "PROF_5", ability_name: "Umeni rvacu", check_type: ["sil"] },
+    { id: "PDF_SKILL_THF_U04", name: "Umeni skryvani", prof_id: "PROF_5", ability_name: "Umeni skryvani", check_type: ["dex"] },
+    { id: "PDF_SKILL_THF_U05", name: "Umeni sarmu", prof_id: "PROF_5", ability_name: "Umeni sarmu", check_type: ["cha"] },
+    { id: "PDF_SKILL_THF_U06", name: "Umeni zelezneho klice", prof_id: "PROF_5", ability_name: "Umeni zelezneho klice", check_type: ["dex"] }
   ];
   const MANUAL_SPECIALIZATION_SKILLS = [
     // Chodec: specializacni dovednost od 6. urovne s automatickym startem na 5.
@@ -634,7 +636,8 @@
       profId === "PROF_2" ||
       profId === "PROF_3" ||
       profId === "PROF_4" ||
-      profId === "PROF_5";
+      profId === "PROF_5" ||
+      profId === "PROF_6";
     if (els.talentsPanel) els.talentsPanel.dataset.profId = profId;
     const branchNames = BRANCH_NAMES[profId] || ["Branch I", "Branch II", "Branch III"];
     els.branchTitle1.textContent = branchNames[0];
@@ -1059,7 +1062,8 @@
       profId === "PROF_2" ||
       profId === "PROF_3" ||
       profId === "PROF_4" ||
-      profId === "PROF_5"
+      profId === "PROF_5" ||
+      profId === "PROF_6"
     ) {
       const basePattern =
         profId === "PROF_1"
@@ -1070,7 +1074,9 @@
               ? /^PDF_ABI_ALC_\d+$/i
               : profId === "PROF_4"
                 ? /^PDF_ABI_WIZ_\d+$/i
-                : /^PDF_ABI_THF_\d+$/i;
+                : profId === "PROF_5"
+                  ? /^PDF_ABI_THF_\d+$/i
+                  : /^PDF_ABI_CLR_\d+$/i;
       const l6Pattern =
         profId === "PROF_1"
           ? /^PDF_ABI_WARX_\d+$/i
@@ -1080,13 +1086,16 @@
               ? /^PDF_ABI_ALCX_\d+$/i
               : profId === "PROF_4"
                 ? /^PDF_ABI_WIZX_\d+$/i
-                : /^PDF_ABI_THFX_\d+$/i;
+                : profId === "PROF_5"
+                  ? /^PDF_ABI_THFX_\d+$/i
+                  : /^PDF_ABI_CLRX_\d+$/i;
       const baseRaw = classTalents.filter((t) => basePattern.test(String(t.id || ""))).sort(byRequiredThenName).slice(0, GENERAL_TALENT_SLOTS);
       if (profId === "PROF_1") generalBase = orderWarriorBaseTalents(baseRaw);
       else if (profId === "PROF_2") generalBase = orderRangerBaseTalents(baseRaw);
       else if (profId === "PROF_3") generalBase = orderAlchemistBaseTalents(baseRaw);
       else if (profId === "PROF_4") generalBase = orderWizardBaseTalents(baseRaw);
       else if (profId === "PROF_5") generalBase = orderThiefBaseTalents(baseRaw);
+      else if (profId === "PROF_6") generalBase = orderClericBaseTalents(baseRaw);
       else generalBase = baseRaw;
       generalL6 = classTalents
         .filter((t) => l6Pattern.test(String(t.id || "")))
@@ -1223,6 +1232,31 @@
       THIEF_BASE_COLUMNS.assassin,
       THIEF_BASE_COLUMNS.lupic,
       THIEF_BASE_COLUMNS.sicco
+    ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
+
+    const ordered = [];
+    const rows = 3;
+    for (let r = 0; r < rows; r += 1) {
+      for (let c = 0; c < cols.length; c += 1) {
+        const t = cols[c][r];
+        if (t) ordered.push(t);
+      }
+    }
+
+    const used = new Set(ordered.map((t) => t.id));
+    for (const t of baseTalents) {
+      if (!used.has(t.id)) ordered.push(t);
+    }
+    return ordered.slice(0, GENERAL_TALENT_SLOTS);
+  }
+
+  function orderClericBaseTalents(baseTalents) {
+    const byName = new Map(baseTalents.map((t) => [normalize(t.name), t]));
+    const cols = [
+      CLERIC_BASE_COLUMNS.general,
+      CLERIC_BASE_COLUMNS.bojovyMnich,
+      CLERIC_BASE_COLUMNS.exorcista,
+      CLERIC_BASE_COLUMNS.knez
     ].map((names) => names.map((n) => byName.get(normalize(n))).filter(Boolean));
 
     const ordered = [];
