@@ -130,7 +130,8 @@
     branch2: document.getElementById("branch2"),
     branch3: document.getElementById("branch3"),
     talentCount: document.getElementById("talentCount"),
-    skillList: document.getElementById("skillList"),
+    skillListBasic: document.getElementById("skillListBasic"),
+    skillListClass: document.getElementById("skillListClass"),
     skillCount: document.getElementById("skillCount"),
     maxLevel: document.getElementById("maxLevel"),
     talentL1: document.getElementById("talentL1"),
@@ -510,15 +511,35 @@
         return byName(a, b);
       });
 
-    els.skillList.innerHTML = "";
-    for (const s of visibleSkills) {
-      const floorRank = getSkillFloor(s, starterIds, profId);
+    const basicSkills = visibleSkills.filter((s) => !isCurrentClassSkill(s));
+    const classSkills = visibleSkills.filter((s) => isCurrentClassSkill(s));
+
+    renderSkillColumn(els.skillListBasic, basicSkills, {
+      starterIds,
+      closeStarterIds,
+      selectedTalentIds,
+      profId
+    });
+    renderSkillColumn(els.skillListClass, classSkills, {
+      starterIds,
+      closeStarterIds,
+      selectedTalentIds,
+      profId
+    });
+
+    els.skillCount.textContent = "";
+  }
+
+  function renderSkillColumn(container, skills, ctx) {
+    container.innerHTML = "";
+    for (const s of skills) {
+      const floorRank = getSkillFloor(s, ctx.starterIds, ctx.profId);
       const targetRank = getSkillTargetRank(s.id, floorRank);
       const isPdfCovered = state.pdfCoverage.skills.has(s.id);
 
       const row = document.createElement("div");
       row.className = "skill-item";
-      if (closeStarterIds.has(s.id)) row.classList.add("starter");
+      if (ctx.closeStarterIds.has(s.id)) row.classList.add("starter");
       if (!isBasicSkill(s) && s.prof_id) row.classList.add(`class-${s.prof_id.toLowerCase()}`);
       if (isPdfCovered) row.classList.add("pdf-covered");
 
@@ -532,8 +553,8 @@
       controls.className = "skill-rank-controls";
       const hasPrereq =
         !requiresPrereqForSkill(s) ||
-        selectedTalentIds.has(s.ability_id) ||
-        (profId === "PROF_2" && s.prof_id === "PROF_2");
+        ctx.selectedTalentIds.has(s.ability_id) ||
+        (ctx.profId === "PROF_2" && s.prof_id === "PROF_2");
       const reqTalent = s.ability_id ? state.talents.find((t) => t.id === s.ability_id) : null;
 
       if (!hasPrereq) {
@@ -570,13 +591,11 @@
 
       row.appendChild(left);
       row.appendChild(controls);
-      els.skillList.appendChild(row);
+      container.appendChild(row);
     }
 
     // Let rows keep natural height so the in-column scrollbar can work normally.
-    els.skillList.style.gridAutoRows = "";
-
-    els.skillCount.textContent = "";
+    container.style.gridAutoRows = "";
   }
 
   function getSkillSortBucket(skill, profId, closeStarterIds) {
