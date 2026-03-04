@@ -579,7 +579,7 @@ button:hover {
 .unlock-reveal {
   position: relative;
   overflow: hidden;
-  animation: unlock-panel-rise 420ms ease-out;
+  animation: unlock-panel-rise 378ms ease-out;
 }
 
 .unlock-reveal::after {
@@ -599,12 +599,12 @@ button:hover {
     );
   filter: blur(10px);
   opacity: 0;
-  animation: unlock-rune-sweep 780ms ease-out 1;
+  animation: unlock-rune-sweep 702ms ease-out 1;
 }
 
 .unlock-reveal .node:not(.empty) {
-  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
-  animation-delay: calc(var(--unlock-i, 0) * 28ms);
+  animation: unlock-node-pop 288ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation-delay: calc(var(--unlock-i, 0) * 25ms);
 }
 
 @keyframes unlock-panel-rise {
