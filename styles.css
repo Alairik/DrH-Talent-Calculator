@@ -863,7 +863,7 @@ textarea {
   resize: vertical;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   body {
     height: 100dvh;
     min-height: 100dvh;

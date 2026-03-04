@@ -124,6 +124,8 @@
     humanToggleWrap: document.getElementById("humanToggleWrap"),
     humanToggleSlotClass: document.getElementById("humanToggleSlotClass"),
     humanToggleSlotSkills: document.getElementById("humanToggleSlotSkills"),
+    resetSlotClass: document.getElementById("resetSlotClass"),
+    resetSlotPlan: document.getElementById("resetSlotPlan"),
     controlSlotClass: document.getElementById("controlSlotClass"),
     controlSlotSkills: document.getElementById("controlSlotSkills"),
     controlSlotPlan: document.getElementById("controlSlotPlan"),
@@ -379,7 +381,7 @@
   }
 
   function isMobileSectionLayout() {
-    return window.matchMedia("(max-width: 1200px)").matches;
+    return window.matchMedia("(max-width: 1024px)").matches;
   }
 
   function handleResponsiveLayout() {
@@ -393,6 +395,9 @@
     if (isMobile) {
       if (els.humanToggleWrap.parentElement !== els.humanToggleSlotClass) {
         els.humanToggleSlotClass.appendChild(els.humanToggleWrap);
+      }
+      if (els.resetBtn.parentElement !== els.resetSlotClass) {
+        els.resetSlotClass.appendChild(els.resetBtn);
       }
       // Class selection is handled by the global mobile sticky dropdown.
       if (els.skillsTopControls.parentElement !== els.panelSkillsControls) {
@@ -408,6 +413,9 @@
       }
       if (els.humanToggleWrap.parentElement !== els.humanToggleSlotSkills) {
         els.humanToggleSlotSkills.appendChild(els.humanToggleWrap);
+      }
+      if (els.resetBtn.parentElement !== els.resetSlotPlan) {
+        els.resetSlotPlan.appendChild(els.resetBtn);
       }
       if (els.skillsTopControls.parentElement !== els.controlSlotSkills) {
         els.controlSlotSkills.appendChild(els.skillsTopControls);
