@@ -269,6 +269,13 @@ body {
   font-weight: 700;
 }
 
+#shareLinkBtn {
+  width: 40px;
+  min-width: 40px;
+  font-size: 0.62rem;
+  letter-spacing: 0.01em;
+}
+
 h2, h3 {
   margin: 0;
 }

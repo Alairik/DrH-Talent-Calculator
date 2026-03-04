@@ -240,6 +240,7 @@
     manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
+    shareLinkBtn: document.getElementById("shareLinkBtn"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
@@ -305,6 +306,7 @@
     }
 
     hydrateFromStorage();
+    hydrateFromUrl();
     ensureDefaults();
     wireEvents();
     renderAll();
@@ -401,6 +403,27 @@
       state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
       renderAll();
       persist();
+    });
+    if (els.shareLinkBtn) els.shareLinkBtn.addEventListener("click", async () => {
+      const url = buildShareUrl();
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          throw new Error("Clipboard API unavailable");
+        }
+        els.shareLinkBtn.textContent = "OK";
+        window.setTimeout(() => {
+          if (els.shareLinkBtn) els.shareLinkBtn.textContent = "URL";
+        }, 1000);
+      } catch (_err) {
+        if (els.exchangeBox) {
+          els.exchangeBox.value = url;
+          alert("URL jsem vlozil do export pole. Zkopiruj ji rucne.");
+        } else {
+          alert(url);
+        }
+      }
     });
 
     if (els.exportBtn) els.exportBtn.addEventListener("click", () => {
@@ -1636,6 +1659,34 @@
     };
   }
 
+  function buildShareUrl() {
+    const build = exportBuild();
+    const json = JSON.stringify(build);
+    const encoded = encodeBase64UrlUtf8(json);
+    const url = new URL(window.location.href);
+    url.searchParams.set("build", encoded);
+    return url.toString();
+  }
+
+  function encodeBase64UrlUtf8(text) {
+    const bytes = new TextEncoder().encode(String(text || ""));
+    let binary = "";
+    for (let i = 0; i < bytes.length; i += 1) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+  }
+
+  function decodeBase64UrlUtf8(base64url) {
+    const normalized = String(base64url || "").replace(/-/g, "+").replace(/_/g, "/");
+    const padLen = normalized.length % 4 === 0 ? 0 : 4 - (normalized.length % 4);
+    const padded = normalized + "=".repeat(padLen);
+    const binary = atob(padded);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
   function importBuild(payload) {
     if (!payload || typeof payload !== "object") throw new Error("Invalid payload");
     if (payload.professionId) state.selectedProfessionId = payload.professionId;
@@ -1697,6 +1748,18 @@
     if (!raw) return;
     try {
       importBuild(JSON.parse(raw));
+    } catch (_e) {
+      // ignore
+    }
+  }
+
+  function hydrateFromUrl() {
+    try {
+      const url = new URL(window.location.href);
+      const encoded = url.searchParams.get("build");
+      if (!encoded) return;
+      const json = decodeBase64UrlUtf8(encoded);
+      importBuild(JSON.parse(json));
     } catch (_e) {
       // ignore
     }
