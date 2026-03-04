@@ -28,28 +28,48 @@ body {
 .topbar {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: 1rem;
+  gap: 0.65rem;
   align-items: center;
-  padding: 1rem 1.25rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid var(--line);
   background: linear-gradient(180deg, #2d2218 0%, #1c1611 100%);
 }
 
 .top-controls {
   display: flex;
-  gap: 0.7rem;
+  gap: 0.45rem;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  white-space: nowrap;
 }
 
 .top-controls label {
-  min-width: 190px;
+  min-width: 128px;
+  width: 128px;
+  font-size: 0.74rem;
+}
+
+.top-controls select {
+  padding: 0.3rem 0.4rem;
 }
 
 .race-bonus-info {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   color: var(--muted);
   white-space: nowrap;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#resetBtn {
+  width: 32px;
+  min-width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 999px;
+  font-size: 1rem;
+  line-height: 1;
 }
 
 .layout {
@@ -189,7 +209,7 @@ button:hover {
 }
 
 .top-class-picker {
-  max-width: 760px;
+  max-width: 700px;
   gap: 0.42rem;
 }
 
