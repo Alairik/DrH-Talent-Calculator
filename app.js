@@ -8,7 +8,7 @@
     PROF_6: ["Inkvizitor", "Ochrance viry", "Mystik"]
   };
   const GENERAL_TALENT_SLOTS = 12;
-  const BRANCH_TALENT_SLOTS = 12;
+  const BRANCH_TALENT_SLOTS = 8;
   const SPECIALIZATION_UNLOCK_LEVEL = 6;
   const SPECIALIZATION_REQUIREMENTS = {
     PROF_1: {

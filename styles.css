@@ -407,8 +407,8 @@ button:hover {
 
 .branch-nodes {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.45rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.32rem;
 }
 
 .general-nodes {
@@ -424,12 +424,6 @@ button:hover {
   max-width: 420px;
   width: 100%;
   align-self: center;
-}
-
-.general-nodes .node {
-  padding: 0.16rem;
-  font-size: 0.54rem;
-  border-radius: 7px;
 }
 
 .spec-node {
