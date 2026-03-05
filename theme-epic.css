@@ -13,8 +13,8 @@ body.theme-epic {
   --forest: #3ca16e;
   --drh-bg-menu: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_menu_bg.webp");
   --drh-bg-pergamen: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen.png");
-  --drh-bg-pergamen-top: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen_top-2.png");
-  --drh-bg-pergamen-bottom: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen_bottom_2.png");
+  --drh-bg-pergamen-top: url("./research/drh_assets/raw/custom/pergamen%20top.png");
+  --drh-bg-pergamen-bottom: url("./research/drh_assets/raw/custom/pergamen%20bottom.png");
   --tx-body: 0.2;
   --tx-panel: 0.18;
   --tx-controls: 0.2;
