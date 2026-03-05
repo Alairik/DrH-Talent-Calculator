@@ -201,6 +201,21 @@ h3,
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
   }
+
+  /* Desktop: cap row growth, then spend extra height as spacing. */
+  .skills-panel {
+    --skill-row-height: clamp(29px, 3vh, 40px);
+    --skill-list-gap: clamp(0.22rem, 0.85vh, 0.95rem);
+  }
+
+  .skills-list {
+    gap: var(--skill-list-gap);
+  }
+
+  .skill-item {
+    min-height: var(--skill-row-height);
+    height: var(--skill-row-height);
+  }
 }
 
 .panel {
