@@ -191,13 +191,13 @@ h3,
   }
 
   .column-controls > :nth-child(2) {
-    justify-self: start;
+    justify-self: end;
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
   }
 
   .layout > .skills-panel {
-    justify-self: start;
+    justify-self: end;
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
   }
