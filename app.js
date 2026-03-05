@@ -179,6 +179,7 @@
     talentOrderCounter: 0,
     selectedSpecializationByClass: {},
     previewSpecializationByClass: {},
+    specializationLockLevelByClass: {},
     selectedSkillTargets: {},
     pdfCoverage: {
       skills: new Set(),
@@ -671,6 +672,7 @@
       state.talentOrderCounter = 0;
       state.selectedSpecializationByClass = {};
       state.previewSpecializationByClass = {};
+      state.specializationLockLevelByClass = {};
       state.selectedSkillTargets = {};
       state.levelMode = "manual";
       state.manualLevel = 1;
@@ -1247,8 +1249,13 @@
           lockBtn.addEventListener("click", (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
-            if (locked) delete state.selectedSpecializationByClass[profId];
-            else state.selectedSpecializationByClass[profId] = i;
+            if (locked) {
+              delete state.selectedSpecializationByClass[profId];
+              delete state.specializationLockLevelByClass[profId];
+            } else {
+              state.selectedSpecializationByClass[profId] = i;
+              state.specializationLockLevelByClass[profId] = getCurrentCharacterLevel();
+            }
             state.previewSpecializationByClass[profId] = i;
             renderAll();
             persist();
@@ -1781,6 +1788,7 @@
     const split = splitClassTalentsForTree(classTalents);
     if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
+    state.specializationLockLevelByClass[profId] = getCurrentCharacterLevel();
   }
 
   function clearSpecializationBranch(profId, branchIndex) {
@@ -1790,6 +1798,7 @@
     const { branches } = splitClassTalentsForTree(classTalents);
     for (const t of branches[branchIndex] || []) removeTalentSelection(t.id);
     delete state.selectedSpecializationByClass[profId];
+    delete state.specializationLockLevelByClass[profId];
   }
 
   function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
@@ -2034,6 +2043,12 @@
 
   function renderTimeline(plan) {
     els.timeline.innerHTML = "";
+    const lockLevel = clampInt(
+      Number(state.specializationLockLevelByClass[state.selectedProfessionId]),
+      1,
+      state.config.maxLevel,
+      0
+    );
     for (const lvl of plan.levels) {
       if (
         !lvl.raceBonuses.length &&
@@ -2046,6 +2061,7 @@
       const card = document.createElement("div");
       card.className = "level-card";
       if (lvl.level > plan.totals.currentLevel) card.classList.add("future");
+      if (lockLevel > 0 && lvl.level === lockLevel) card.classList.add("locked-spec-level");
       const levelBadge = document.createElement("div");
       levelBadge.className = "level-badge";
       levelBadge.textContent = `Lv ${lvl.level}`;
@@ -2061,6 +2077,12 @@
         const line = document.createElement("div");
         line.className = "timeline-line talent";
         line.textContent = `S: ${t.name}`;
+        cell.appendChild(line);
+      }
+      if (lockLevel > 0 && lvl.level === lockLevel) {
+        const line = document.createElement("div");
+        line.className = "timeline-line talent";
+        line.textContent = "S: Zamknutí specializace";
         cell.appendChild(line);
       }
       for (const a of lvl.skillActions) {
@@ -2088,6 +2110,7 @@
       selectedTalentOrder: state.selectedTalentOrder,
       talentOrderCounter: state.talentOrderCounter,
       selectedSpecializationByClass: state.selectedSpecializationByClass,
+      specializationLockLevelByClass: state.specializationLockLevelByClass,
       selectedSkillTargets: state.selectedSkillTargets,
       manualLevel: state.manualLevel,
       levelMode: state.levelMode,
@@ -2134,6 +2157,7 @@
       ? Number(clean.talentOrderCounter)
       : Object.values(state.selectedTalentOrder).reduce((m, x) => Math.max(m, Number(x) || 0), 0);
     state.selectedSpecializationByClass = clean.selectedSpecializationByClass;
+    state.specializationLockLevelByClass = clean.specializationLockLevelByClass;
     state.selectedSkillTargets = clean.selectedSkillTargets;
     state.manualLevel = Number.isFinite(clean.manualLevel)
       ? clampInt(clean.manualLevel, 1, 36, 1)
@@ -2229,6 +2253,7 @@
       selectedSkillIds: sanitizeIdList(payload.selectedSkillIds),
       selectedTalentOrder: sanitizeIntMap(payload.selectedTalentOrder, 1, 9999),
       selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
+      specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
       selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, 10),
       talentOrderCounter: clampInt(payload.talentOrderCounter, 0, 9999, 0),
       manualLevel: clampInt(payload.manualLevel, 1, 36, 1),
