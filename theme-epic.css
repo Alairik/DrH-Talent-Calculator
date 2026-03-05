@@ -163,6 +163,19 @@ body.theme-epic .panel > * {
   z-index: 1;
 }
 
+body.theme-epic .gap-icons-panel {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+}
+
+body.theme-epic .gap-icons-panel::before,
+body.theme-epic .gap-icons-panel::after {
+  content: none;
+}
+
 /* Local enclosure for first-column base 12 + extended 12 blocks. */
 body.theme-epic .talents-panel .general-branch {
   --inner-node-radius: 12px;

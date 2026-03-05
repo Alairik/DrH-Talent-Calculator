@@ -42,7 +42,7 @@ h3,
 
 .column-controls {
   display: grid;
-  grid-template-columns: 0.95fr 1.2fr 0.9fr;
+  grid-template-columns: 0.95fr 96px 1.2fr 0.9fr;
   gap: 0.9rem;
   padding: 0.5rem 0.9rem 0;
   min-height: 0;
@@ -164,7 +164,7 @@ h3,
 
 .layout {
   display: grid;
-  grid-template-columns: 0.95fr 1.2fr 0.9fr;
+  grid-template-columns: 0.95fr 96px 1.2fr 0.9fr;
   gap: 0.9rem;
   padding: 0.9rem;
   height: 100%;
@@ -174,12 +174,10 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-col-reserved-gap: clamp(0px, 4.8vw, 160px);
     --left-panel-target-width: clamp(380px, 29vw, 468px);
+    --gap-panel-target-width: clamp(84px, 6.2vw, 132px);
     --middle-panel-target-width: clamp(500px, 40vw, 760px);
     --right-panel-target-width: clamp(360px, 27vw, 620px);
-    --middle-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.32), 110px);
-    --right-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.16), 52px);
   }
 
   .column-controls,
@@ -189,15 +187,22 @@ h3,
 
   .column-controls > :first-child {
     justify-self: start;
-    width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
-    max-width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
+    width: min(var(--left-panel-target-width), 100%);
+    max-width: min(var(--left-panel-target-width), 100%);
   }
 
   .layout > .talents-panel {
     justify-self: start;
-    width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
-    max-width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
+    width: min(var(--left-panel-target-width), 100%);
+    max-width: min(var(--left-panel-target-width), 100%);
     height: 100%;
+  }
+
+  .column-controls > :nth-child(2),
+  .layout > .gap-icons-panel {
+    justify-self: center;
+    width: min(var(--gap-panel-target-width), 100%);
+    max-width: min(var(--gap-panel-target-width), 100%);
   }
 
   /* First-column controls fill the global shell width. */
@@ -209,32 +214,28 @@ h3,
     max-width: 100%;
   }
 
-  .column-controls > :nth-child(2) {
+  .column-controls > :nth-child(3) {
     justify-self: end;
     width: min(var(--middle-panel-target-width), 100%);
     max-width: min(var(--middle-panel-target-width), 100%);
-    transform: translateX(calc(-1 * var(--middle-col-shift-left)));
   }
 
   .layout > .skills-panel {
     justify-self: end;
     width: min(var(--middle-panel-target-width), 100%);
     max-width: min(var(--middle-panel-target-width), 100%);
-    transform: translateX(calc(-1 * var(--middle-col-shift-left)));
   }
 
-  .column-controls > :nth-child(3) {
+  .column-controls > :nth-child(4) {
     justify-self: end;
     width: min(var(--right-panel-target-width), 100%);
     max-width: min(var(--right-panel-target-width), 100%);
-    transform: translateX(calc(-1 * var(--right-col-shift-left)));
   }
 
   .layout > .plan-panel {
     justify-self: end;
     width: min(var(--right-panel-target-width), 100%);
     max-width: min(var(--right-panel-target-width), 100%);
-    transform: translateX(calc(-1 * var(--right-col-shift-left)));
   }
 
   .layout > .talents-panel > .branch-grid {
@@ -249,13 +250,9 @@ h3,
     min-height: 0;
   }
 
-  .layout > .talents-panel .class-gap-icons {
+  .layout > .gap-icons-panel .class-gap-icons {
     --gap-icon-size: clamp(78px, 4.9vw, 112px);
-    --gap-icon-center-nudge: clamp(56px, 4.1vw, 108px);
-    position: absolute;
-    top: 0.7rem;
-    right: calc((((var(--middle-col-shift-left) - var(--left-col-reserved-gap)) * 0.5) - (var(--gap-icon-size) * 0.5)) - var(--gap-icon-center-nudge));
-    bottom: 0.7rem;
+    height: 100%;
     width: var(--gap-icon-size);
     display: grid;
     grid-template-rows: repeat(6, 1fr);
@@ -266,7 +263,7 @@ h3,
     z-index: 8;
   }
 
-  .layout > .talents-panel .class-gap-icon {
+  .layout > .gap-icons-panel .class-gap-icon {
     width: var(--gap-icon-size);
     min-width: var(--gap-icon-size);
     height: var(--gap-icon-size);
@@ -286,7 +283,7 @@ h3,
     overflow: hidden;
   }
 
-  .layout > .talents-panel .class-gap-icon::before {
+  .layout > .gap-icons-panel .class-gap-icon::before {
     content: "";
     position: absolute;
     inset: 5px;
@@ -298,7 +295,7 @@ h3,
     box-shadow: none;
   }
 
-  .layout > .talents-panel .class-gap-icon::after {
+  .layout > .gap-icons-panel .class-gap-icon::after {
     content: "";
     position: absolute;
     inset: 5px;
@@ -308,14 +305,14 @@ h3,
     pointer-events: none;
   }
 
-  .layout > .talents-panel .class-gap-icon.class-prof_1 { --gap-class-flat: #8f3232; }
-  .layout > .talents-panel .class-gap-icon.class-prof_2 { --gap-class-flat: #2f6b43; }
-  .layout > .talents-panel .class-gap-icon.class-prof_3 { --gap-class-flat: #8a5b24; }
-  .layout > .talents-panel .class-gap-icon.class-prof_4 { --gap-class-flat: #2f5879; }
-  .layout > .talents-panel .class-gap-icon.class-prof_5 { --gap-class-flat: #2e2e2e; }
-  .layout > .talents-panel .class-gap-icon.class-prof_6 { --gap-class-flat: #bfbfbf; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_1 { --gap-class-flat: #8f3232; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_2 { --gap-class-flat: #2f6b43; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_3 { --gap-class-flat: #8a5b24; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_4 { --gap-class-flat: #2f5879; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_5 { --gap-class-flat: #2e2e2e; }
+  .layout > .gap-icons-panel .class-gap-icon.class-prof_6 { --gap-class-flat: #bfbfbf; }
 
-  .layout > .talents-panel .class-gap-icon.active {
+  .layout > .gap-icons-panel .class-gap-icon.active {
     border-color: #ffdd92;
     box-shadow:
       0 0 0 2px rgba(255, 221, 146, 0.62),
@@ -345,7 +342,7 @@ h3,
 }
 
 @media (min-width: 1025px) and (max-width: 1180px) {
-  .layout > .talents-panel .class-gap-icons {
+  .layout > .gap-icons-panel .class-gap-icons {
     display: none;
   }
 }
@@ -374,6 +371,14 @@ h3,
 
 .class-gap-icons {
   display: none;
+}
+
+.gap-icons-panel {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  padding: 0.8rem 0;
+  overflow: visible;
 }
 
 .skills-panel {
@@ -1842,6 +1847,10 @@ textarea {
     border-right: 0;
     scroll-snap-align: start;
     padding: 0.75rem 0.75rem 4rem;
+  }
+
+  .gap-icons-panel {
+    display: none;
   }
 
   .skills-panel {
