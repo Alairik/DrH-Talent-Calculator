@@ -285,6 +285,10 @@ body.theme-epic .spec-node {
     0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
+body.theme-epic .spec-node-wrap {
+  border-radius: 12px;
+}
+
 body.theme-epic .node.selected {
   border-color: #ffd388;
   background:

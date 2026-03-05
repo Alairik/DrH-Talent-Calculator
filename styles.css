@@ -559,6 +559,8 @@ button:hover {
 
 .spec-node-wrap {
   position: relative;
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .spec-node {
