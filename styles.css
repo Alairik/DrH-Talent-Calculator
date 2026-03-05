@@ -497,8 +497,13 @@ button:hover {
 .class-box.class-prof_3 { --class-rgb: 138, 91, 36; --class-glow: rgba(138, 91, 36, 0.62); }
 .class-box.class-prof_4 { --class-rgb: 47, 88, 121; --class-glow: rgba(47, 88, 121, 0.62); }
 .class-box.class-prof_5 { --class-rgb: 48, 48, 48; --class-glow: rgba(170, 170, 170, 0.42); }
-.class-box.class-prof_6 { --class-rgb: 214, 214, 214; color: #221c16; }
-.class-box.class-prof_6.active { color: #221c16; }
+.class-box.class-prof_6,
+.class-box.class-prof_6:hover,
+.class-box.class-prof_6.active {
+  --class-rgb: 214, 214, 214;
+  color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.55);
+}
 
 .branch {
   border: 1px solid var(--line);
