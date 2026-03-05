@@ -489,6 +489,16 @@ body.theme-epic #themeToggleBtn[aria-pressed="true"] {
   }
 }
 
+@media (min-width: 1025px) {
+  body.theme-epic .layout > .talents-panel .class-picker,
+  body.theme-epic .layout > .talents-panel .general-branch,
+  body.theme-epic .layout > .talents-panel .spec-picker,
+  body.theme-epic .layout > .talents-panel .branch {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body.theme-epic::before,
   body.theme-epic::after {
