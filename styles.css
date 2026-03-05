@@ -665,7 +665,10 @@ button:hover {
 }
 
 .spec-node.locked-spec {
-  box-shadow: 0 0 0 1px rgba(212, 173, 102, 0.92), 0 0 16px rgba(212, 173, 102, 0.28);
+  border-color: var(--gold);
+  background: #2a1f14;
+  box-shadow: 0 0 0 1px var(--gold-soft), 0 0 16px rgba(212, 173, 102, 0.2);
+  color: #fff0d4;
 }
 
 .node {
