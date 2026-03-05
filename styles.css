@@ -174,9 +174,9 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-col-reserved-gap: 160px;
+    --left-col-reserved-gap: clamp(20px, 6vw, 160px);
     --middle-col-width-factor: 0.75;
-    --left-panel-target-width: 468px;
+    --left-panel-target-width: clamp(380px, 29vw, 468px);
   }
 
   .column-controls > :first-child {
