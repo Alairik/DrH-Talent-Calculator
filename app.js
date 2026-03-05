@@ -950,6 +950,16 @@
 
   function triggerUnlockAnimation(container) {
     if (!container) return;
+    const isSmoothPanel = container.id === "generalBranchL6";
+    if (isSmoothPanel) {
+      container.classList.remove("unlock-reveal-soft");
+      void container.offsetWidth; // eslint-disable-line no-unused-expressions
+      container.classList.add("unlock-reveal-soft");
+      window.setTimeout(() => {
+        container.classList.remove("unlock-reveal-soft");
+      }, 520);
+      return;
+    }
     const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
     for (let i = 0; i < nodes.length; i += 1) {
       nodes[i].style.setProperty("--unlock-i", String(i));

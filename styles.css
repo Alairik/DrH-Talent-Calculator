@@ -942,6 +942,10 @@ button:hover {
   animation-delay: calc(var(--unlock-i, 0) * 25ms);
 }
 
+.unlock-reveal-soft {
+  animation: unlock-soft-fade 420ms ease-out;
+}
+
 @keyframes unlock-panel-rise {
   0% {
     transform: translateY(6px) scale(0.992);
@@ -967,6 +971,19 @@ button:hover {
   }
 }
 
+@keyframes unlock-soft-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(3px);
+    filter: saturate(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: saturate(1);
+  }
+}
+
 @keyframes unlock-node-pop {
   0% {
     opacity: 0;
@@ -987,6 +1004,7 @@ button:hover {
 
 @media (prefers-reduced-motion: reduce) {
   .unlock-reveal,
+  .unlock-reveal-soft,
   .unlock-reveal::after,
   .unlock-reveal .node:not(.empty) {
     animation: none !important;
