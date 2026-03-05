@@ -1080,10 +1080,8 @@
       const container = branchContainers[i];
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
-      const reqReady = hasSpecializationRequirements(profId, i, split.generalBase);
       const branchEnabled =
         specializationTalentsUnlocked &&
-        reqReady &&
         (forcedSpec === null || forcedSpec === i) &&
         previewSpec === i;
       const branchVisible =
@@ -1806,10 +1804,10 @@
     if (currentLevel < SPECIALIZATION_TRANSITION_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
-    if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     const forcedSpec = Number.isInteger(state.selectedSpecializationByClass[profId])
       ? state.selectedSpecializationByClass[profId]
       : null;
+    if (forcedSpec !== null && !hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     const selectedBranchTalentCount = split.branches
       .flat()
       .filter((t) => state.selectedTalentIds.has(t.id))
