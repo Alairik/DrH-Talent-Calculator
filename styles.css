@@ -551,6 +551,8 @@ button:hover {
 }
 
 .talents-panel .branch {
+  max-width: 420px;
+  align-self: center;
   padding: 0;
   border: none;
   background: transparent;

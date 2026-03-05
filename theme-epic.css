@@ -175,8 +175,10 @@ body.theme-epic .talents-panel .branch {
   align-self: stretch;
 }
 
-/* Expanded-profession talent tiles: use full column width like other controls. */
+/* Expanded-profession talent tiles: keep same tile size as base/l6 talent grids. */
 body.theme-epic .talents-panel .branch {
+  max-width: 420px;
+  align-self: center;
   padding: 0;
   border: none;
   background: transparent;
