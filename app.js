@@ -172,6 +172,24 @@
       check_type: ["int"],
       spec_branch_index: 1,
       auto_floor_on_spec: 5
+    },
+    // Theurg: specializacni dovednosti od 6. urovne.
+    {
+      id: "PDF_SPEC_SKILL_ALCT_01",
+      name: "Theurgie",
+      prof_id: "PROF_3",
+      required_level: 6,
+      check_type: ["int"],
+      is_knowledge_based: true,
+      spec_branch_index: 2
+    },
+    {
+      id: "PDF_SPEC_SKILL_ALCT_02",
+      name: "Theurgova hul",
+      prof_id: "PROF_3",
+      required_level: 6,
+      check_type: ["int"],
+      spec_branch_index: 2
     }
   ];
 
