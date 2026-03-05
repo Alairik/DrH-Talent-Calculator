@@ -1308,26 +1308,24 @@ button:hover {
 }
 
 .kpi.kpi-skill-points {
-  --kpi-frame: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_sidebar_title_mobile.png");
-  --kpi-cap: 50px;
-  --kpi-top-bottom: 7px;
+  --kpi-cap: 43px;
+  --kpi-left: url("./research/drh_assets/raw/custom/text border - left.png");
+  --kpi-mid: url("./research/drh_assets/raw/custom/text border - mid.png");
+  --kpi-right: url("./research/drh_assets/raw/custom/text border - right.png");
   width: fit-content;
-  min-width: 164px;
-  min-height: 41px;
-  border-style: solid;
-  border-width: var(--kpi-top-bottom) var(--kpi-cap);
-  border-color: transparent;
-  border-image-source: var(--kpi-frame);
-  border-image-slice: var(--kpi-top-bottom) var(--kpi-cap) fill;
-  border-image-width: var(--kpi-top-bottom) var(--kpi-cap);
-  border-image-repeat: stretch;
+  min-width: 168px;
+  min-height: 36px;
+  border: none;
   border-radius: 0;
-  background: transparent;
+  background-image: var(--kpi-left), var(--kpi-right), var(--kpi-mid);
+  background-position: left center, right center, left center;
+  background-size: auto 100%, auto 100%, auto 100%;
+  background-repeat: no-repeat, no-repeat, repeat-x;
   color: #2a1f12;
   text-shadow: 0 1px 0 rgba(255, 250, 238, 0.35);
   box-shadow: none;
   gap: 0.32rem;
-  padding: 0.12rem 0.45rem;
+  padding: 0.1rem calc(var(--kpi-cap) + 0.42rem);
 }
 
 .kpi.kpi-skill-points .label {
