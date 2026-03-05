@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;700&display=swap");
+
 :root {
   --bg: #15120f;
   --bg2: #1f1914;
@@ -8,6 +10,8 @@
   --gold: #d4ad66;
   --gold-soft: #7d6539;
   --blue: #5ea4d6;
+  --font-body: "Lora", Georgia, "Times New Roman", serif;
+  --font-display: "Seagram", "Lora", Georgia, "Times New Roman", serif;
 }
 
 * {
@@ -20,9 +24,20 @@ body {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   overflow: hidden;
-  font-family: "Segoe UI", Tahoma, sans-serif;
+  font-family: var(--font-body);
   color: var(--text);
   background: radial-gradient(circle at 15% 0%, #2b2017 0%, var(--bg) 40%);
+}
+
+h2,
+h3,
+.class-box,
+.spec-node,
+.level-badge,
+.lvl-label,
+.mobile-section-btn {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
 }
 
 .column-controls {
