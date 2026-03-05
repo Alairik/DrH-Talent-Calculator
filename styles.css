@@ -254,9 +254,6 @@ h3,
 
   .layout > .gap-icons-panel .class-gap-icons {
     --gap-icon-size: clamp(86px, 5.3vw, 122px);
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     height: 100%;
     width: var(--gap-icon-size);
     margin: 0 auto;
