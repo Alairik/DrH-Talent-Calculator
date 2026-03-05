@@ -290,13 +290,21 @@ h3,
     position: absolute;
     inset: 5px;
     border-radius: 999px;
-    background:
-      linear-gradient(180deg, var(--gap-class-flat, #6a4f2f), var(--gap-class-flat, #6a4f2f)),
-      var(--class-gap-icon);
+    background-image: var(--class-gap-icon);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     box-shadow: none;
+  }
+
+  .layout > .talents-panel .class-gap-icon::after {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border-radius: 999px;
+    background: var(--gap-class-flat, #6a4f2f);
+    opacity: 0.18;
+    pointer-events: none;
   }
 
   .layout > .talents-panel .class-gap-icon.class-prof_1 { --gap-class-flat: #8f3232; }
