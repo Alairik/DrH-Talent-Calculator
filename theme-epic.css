@@ -259,13 +259,12 @@ body.theme-epic .timeline {
 }
 
 body.theme-epic .level-card {
-  border: 1px solid rgba(175, 136, 70, 0.78);
+  border: 1px solid rgba(126, 89, 44, 0.72);
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(255, 231, 187, 0.09), rgba(255, 231, 187, 0)),
-    linear-gradient(180deg, rgba(35, 31, 45, 0.95), rgba(20, 19, 31, 1)),
-    radial-gradient(circle at 100% 0, rgba(255, 219, 149, 0.1), transparent 38%);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+    linear-gradient(180deg, rgba(184, 129, 66, 0.22), rgba(184, 129, 66, 0.02)),
+    linear-gradient(180deg, rgba(64, 41, 20, 0.54), rgba(44, 28, 14, 0.42));
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.16);
 }
 
 body.theme-epic .level-card.future {
