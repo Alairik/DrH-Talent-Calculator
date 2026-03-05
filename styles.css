@@ -174,20 +174,32 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-panel-target-width: clamp(380px, 29vw, 468px);
-    --gap-panel-target-width: clamp(84px, 6.2vw, 132px);
-    --middle-panel-target-width: clamp(500px, 40vw, 760px);
-    --right-panel-target-width: clamp(360px, 27vw, 620px);
+    --left-panel-target-width: clamp(360px, 28vw, 468px);
+    --gap-panel-target-width: clamp(72px, 5.8vw, 132px);
+    --middle-panel-target-width: clamp(460px, 38vw, 760px);
+    --right-panel-target-width: clamp(320px, 25vw, 620px);
   }
 
   .column-controls,
   .layout {
+    --desktop-main-gap: clamp(0.24rem, 0.7vw, 0.9rem);
+    --desktop-main-width:
+      calc(
+        var(--left-panel-target-width) +
+        var(--gap-panel-target-width) +
+        var(--middle-panel-target-width) +
+        var(--right-panel-target-width) +
+        (3 * var(--desktop-main-gap))
+      );
     grid-template-columns:
       minmax(0, var(--left-panel-target-width))
       minmax(0, var(--gap-panel-target-width))
-      minmax(0, 1fr)
-      minmax(0, 1fr);
-    gap: clamp(0.24rem, 0.7vw, 0.9rem);
+      minmax(0, var(--middle-panel-target-width))
+      minmax(0, var(--right-panel-target-width));
+    gap: var(--desktop-main-gap);
+    width: min(calc(100vw - 1.4rem), var(--desktop-main-width));
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .column-controls > :first-child {
@@ -350,6 +362,13 @@ h3,
 }
 
 @media (min-width: 1025px) and (max-width: 1180px) {
+  :root {
+    --left-panel-target-width: clamp(320px, 30vw, 410px);
+    --gap-panel-target-width: clamp(22px, 2vw, 34px);
+    --middle-panel-target-width: clamp(410px, 41vw, 560px);
+    --right-panel-target-width: clamp(280px, 26vw, 430px);
+  }
+
   .layout > .gap-icons-panel .class-gap-icons {
     display: none;
   }
