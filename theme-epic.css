@@ -263,11 +263,10 @@ body.theme-epic .timeline {
 }
 
 body.theme-epic .level-card {
-  border-color: rgba(175, 136, 70, 0.78);
-  background:
-    linear-gradient(180deg, rgba(255, 231, 187, 0.09), rgba(255, 231, 187, 0)),
-    linear-gradient(180deg, rgba(35, 31, 45, 0.95), rgba(20, 19, 31, 1)),
-    radial-gradient(circle at 100% 0, rgba(255, 219, 149, 0.1), transparent 38%);
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  border-radius: 0;
 }
 
 body.theme-epic .level-card.future {
