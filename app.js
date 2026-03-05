@@ -7,6 +7,47 @@
     PROF_5: ["Assassin", "Lupič", "Sicco"],
     PROF_6: ["Bojový mnich", "Exorcista", "Kněz"]
   };
+  const ICON_BASE_PATH = "./research/Classy - ikony/";
+  const CLASS_ICON_FILE_BY_PROF = {
+    PROF_1: "profession_válečník.png",
+    PROF_2: "profession_hraničář.png",
+    PROF_3: "profession_alchymista.png",
+    PROF_4: "profession_kouzelník.png",
+    PROF_5: "profession_zloděj.png",
+    PROF_6: "profession_klerik.png"
+  };
+  const SPEC_ICON_FILE_BY_PROF = {
+    PROF_1: [
+      "profession_válečník_berserker.png",
+      "profession_válečník_rytíř.png",
+      "profession_válečník_šermíř.png"
+    ],
+    PROF_2: [
+      "profession_hraničář_druid.png",
+      "profession_hraničář_chodec.png",
+      "profession_hraničář_pán_zvířat.png"
+    ],
+    PROF_3: [
+      "profession_alchymista_medicus.png",
+      "profession_alchymista_pyromant.png",
+      "profession_alchymista_theurg.png"
+    ],
+    PROF_4: [
+      "profession_kouzelník_bojový-mág.png",
+      "profession_kouzelník_čaroděj.png",
+      "profession_kouzelník_nekromant.png"
+    ],
+    PROF_5: [
+      "profession_zloděj_assassin.png",
+      "profession_zloděj_lupič.png",
+      "profession_zloděj_sicco.png"
+    ],
+    PROF_6: [
+      "profession_klerik_bojový_mnich.png",
+      "profession_klerik_exorcista.png",
+      "profession_klerik_kněz.png"
+    ]
+  };
   const TIMELINE_SPEC_COLORS = {
     PROF_1: ["#f1a8a8", "#f2c08a", "#e4b0b0"],
     PROF_2: ["#8edec3", "#c9a29b", "#e4be8f"],
@@ -1020,6 +1061,11 @@
       btn.className = "class-box";
       btn.classList.add(`class-${String(p.id || "").toLowerCase()}`);
       if (p.id === state.selectedProfessionId) btn.classList.add("active");
+      const classIcon = getClassIconUrl(p.id);
+      if (classIcon) {
+        btn.style.setProperty("--icon-image", `url("${classIcon}")`);
+        btn.classList.add("has-icon");
+      }
       btn.textContent = p.name;
       btn.addEventListener("click", () => {
         state.selectedProfessionId = p.id;
@@ -1239,6 +1285,11 @@
       btn.type = "button";
       btn.className = "spec-node";
       if (enableSpecColor) btn.classList.add(`spec-${i}`);
+      const specIcon = getSpecIconUrl(profId, i);
+      if (specIcon) {
+        btn.style.setProperty("--icon-image", `url("${specIcon}")`);
+        btn.classList.add("has-icon");
+      }
       if (previewIndex === i) btn.classList.add("active");
       if (forcedIndex === i) btn.classList.add("locked-spec");
       if (!unlocked) btn.classList.add("locked");
@@ -2267,6 +2318,20 @@
     }
     const fallback = ["#f1a8a8", "#f2c08a", "#d2b7f5"];
     return fallback[specIndex] || "";
+  }
+
+  function getClassIconUrl(profId) {
+    const file = CLASS_ICON_FILE_BY_PROF[profId];
+    if (!file) return "";
+    return encodeURI(`${ICON_BASE_PATH}${file}`);
+  }
+
+  function getSpecIconUrl(profId, specIndex) {
+    const list = SPEC_ICON_FILE_BY_PROF[profId];
+    if (!Array.isArray(list) || !Number.isInteger(specIndex) || specIndex < 0 || specIndex > 2) return "";
+    const file = list[specIndex];
+    if (!file) return "";
+    return encodeURI(`${ICON_BASE_PATH}${file}`);
   }
 
   function removeTimelineLevelSteps(levelState, profId, lockLevel) {

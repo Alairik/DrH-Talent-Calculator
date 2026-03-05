@@ -440,6 +440,9 @@ button:hover {
   filter: saturate(0.72) brightness(0.86);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   transition: opacity 120ms ease, border-color 120ms ease, box-shadow 120ms ease, color 120ms ease, background 120ms ease, filter 120ms ease;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 }
 
 .class-box:hover {
@@ -463,6 +466,20 @@ button:hover {
     inset 0 0 0 1px rgba(255, 255, 255, 0.14);
   opacity: 1;
   filter: saturate(1.25) brightness(1.18);
+}
+
+.class-box.has-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--icon-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.34;
+  filter: saturate(1.05) contrast(1.02);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .class-box.class-prof_1 { --class-rgb: 124, 50, 50; --class-glow: rgba(124, 50, 50, 0.62); }
@@ -521,6 +538,23 @@ button:hover {
   font-size: 0.7rem;
   padding: 0.35rem;
   text-align: center;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.spec-node.has-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--icon-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  filter: saturate(1.05) contrast(1.02);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .spec-info-btn {
