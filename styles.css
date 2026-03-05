@@ -1112,6 +1112,8 @@ button:hover {
 }
 
 .skill-title {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
