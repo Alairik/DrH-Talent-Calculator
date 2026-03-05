@@ -473,10 +473,11 @@ button:hover {
   position: absolute;
   inset: 0;
   background-image: var(--icon-image);
-  background-size: cover;
+  background-size: 140% 100%;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: 0.34;
-  filter: saturate(1.05) contrast(1.02);
+  filter: saturate(1.05) contrast(1.02) blur(0.3px);
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
@@ -548,10 +549,11 @@ button:hover {
   position: absolute;
   inset: 0;
   background-image: var(--icon-image);
-  background-size: cover;
+  background-size: 145% 100%;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: 0.3;
-  filter: saturate(1.05) contrast(1.02);
+  filter: saturate(1.05) contrast(1.02) blur(0.3px);
   mix-blend-mode: screen;
   pointer-events: none;
   z-index: 0;
