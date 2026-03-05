@@ -248,6 +248,15 @@ body.theme-epic .spec-info-btn:hover {
     inset 0 -10px 16px rgba(0, 0, 0, 0.28);
 }
 
+/* Keep info overlays inside tiles (do not participate in normal layout flow). */
+body.theme-epic .node-info-btn,
+body.theme-epic .spec-info-btn {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  z-index: 3;
+}
+
 body.theme-epic .class-box.active {
   border-color: var(--gold-strong);
   background:
