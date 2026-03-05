@@ -1005,8 +1005,8 @@ button:hover {
 }
 
 .unlock-reveal .node:not(.empty) {
-  animation: unlock-node-pop 288ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
-  animation-delay: calc(var(--unlock-i, 0) * 25ms);
+  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation-delay: calc(var(--unlock-row, 0) * 92ms + var(--unlock-col, 0) * 16ms);
 }
 
 .unlock-reveal-soft {
@@ -1040,8 +1040,8 @@ button:hover {
 .unlock-reveal-soft .node:not(.empty) {
   position: relative;
   z-index: 2;
-  animation: unlock-node-pop 240ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
-  animation-delay: calc(var(--unlock-i, 0) * 12ms);
+  animation: unlock-node-pop 260ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation-delay: calc(var(--unlock-row, 0) * 74ms + var(--unlock-col, 0) * 14ms);
 }
 
 @keyframes unlock-panel-rise {

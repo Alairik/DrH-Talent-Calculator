@@ -1016,32 +1016,56 @@
 
   function triggerUnlockAnimation(container) {
     if (!container) return;
+    const setUnlockOrderVars = (nodes) => {
+      if (!Array.isArray(nodes) || nodes.length === 0) return;
+      const rowTops = [];
+      const rowCounts = [];
+      const rowEpsilon = 3;
+      for (let i = 0; i < nodes.length; i += 1) {
+        const node = nodes[i];
+        const top = Math.round(node.getBoundingClientRect().top);
+        let rowIndex = rowTops.findIndex((t) => Math.abs(t - top) <= rowEpsilon);
+        if (rowIndex < 0) {
+          rowIndex = rowTops.length;
+          rowTops.push(top);
+          rowCounts.push(0);
+        }
+        const colIndex = rowCounts[rowIndex];
+        rowCounts[rowIndex] += 1;
+        node.style.setProperty("--unlock-i", String(i));
+        node.style.setProperty("--unlock-row", String(rowIndex));
+        node.style.setProperty("--unlock-col", String(colIndex));
+      }
+    };
+    const clearUnlockOrderVars = (nodes) => {
+      for (const n of nodes) {
+        n.style.removeProperty("--unlock-i");
+        n.style.removeProperty("--unlock-row");
+        n.style.removeProperty("--unlock-col");
+      }
+    };
     const isSmoothPanel = container.id === "generalBranchL6";
     if (isSmoothPanel) {
       const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
-      for (let i = 0; i < nodes.length; i += 1) {
-        nodes[i].style.setProperty("--unlock-i", String(i));
-      }
+      setUnlockOrderVars(nodes);
       container.classList.remove("unlock-reveal-soft");
       void container.offsetWidth; // eslint-disable-line no-unused-expressions
       container.classList.add("unlock-reveal-soft");
       window.setTimeout(() => {
         container.classList.remove("unlock-reveal-soft");
-        for (const n of nodes) n.style.removeProperty("--unlock-i");
+        clearUnlockOrderVars(nodes);
       }, 860);
       return;
     }
     const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
-    for (let i = 0; i < nodes.length; i += 1) {
-      nodes[i].style.setProperty("--unlock-i", String(i));
-    }
+    setUnlockOrderVars(nodes);
     container.classList.remove("unlock-reveal");
     // Force restart so repeated unlocks play reliably.
     void container.offsetWidth; // eslint-disable-line no-unused-expressions
     container.classList.add("unlock-reveal");
     window.setTimeout(() => {
       container.classList.remove("unlock-reveal");
-      for (const n of nodes) n.style.removeProperty("--unlock-i");
+      clearUnlockOrderVars(nodes);
     }, 1000);
   }
 
