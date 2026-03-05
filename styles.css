@@ -184,6 +184,9 @@ h3,
 }
 
 .talents-panel {
+  --talent-grid-width: 404px;
+  --talent-grid-gap: 0.32rem;
+  --talent-node-size-max: calc((var(--talent-grid-width) - (3 * var(--talent-grid-gap))) / 4);
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-gutter: auto;
@@ -514,9 +517,11 @@ button:hover {
 
 .general-branch {
   margin-bottom: 0.55rem;
-  max-width: 420px;
+  max-width: var(--talent-grid-width);
   width: 100%;
-  align-self: center;
+  align-self: flex-start;
+  margin-left: 0;
+  margin-right: auto;
   padding: 0;
   border-bottom: 1px solid rgba(116, 87, 49, 0.7);
   padding-bottom: 0.55rem;
@@ -549,16 +554,16 @@ button:hover {
 }
 
 .talents-panel .spec-picker {
-  max-width: 420px;
-  align-self: center;
-  margin-left: auto;
+  max-width: var(--talent-grid-width);
+  align-self: flex-start;
+  margin-left: 0;
   margin-right: auto;
 }
 
 .talents-panel .branch {
-  max-width: 420px;
-  align-self: center;
-  margin-left: auto;
+  max-width: var(--talent-grid-width);
+  align-self: flex-start;
+  margin-left: 0;
   margin-right: auto;
   padding: 0;
   border: none;
@@ -573,7 +578,7 @@ button:hover {
 
 .spec-node {
   width: 100%;
-  min-height: 78px;
+  min-height: clamp(74px, 11vh, var(--talent-node-size-max));
   font-size: 0.74rem;
   padding: 0.35rem;
   text-align: center;

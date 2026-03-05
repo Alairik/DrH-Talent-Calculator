@@ -175,17 +175,17 @@ body.theme-epic .talents-panel .branch {
 }
 
 body.theme-epic .talents-panel .spec-picker {
-  max-width: 420px;
-  align-self: center;
-  margin-left: auto;
+  max-width: var(--talent-grid-width);
+  align-self: flex-start;
+  margin-left: 0;
   margin-right: auto;
 }
 
 /* Expanded-profession talent tiles: keep same tile size as base/l6 talent grids. */
 body.theme-epic .talents-panel .branch {
-  max-width: 420px;
-  align-self: center;
-  margin-left: auto;
+  max-width: var(--talent-grid-width);
+  align-self: flex-start;
+  margin-left: 0;
   margin-right: auto;
   padding: 0;
   border: none;
@@ -194,7 +194,7 @@ body.theme-epic .talents-panel .branch {
 
 /* Use saved vertical space for bigger advanced-profession buttons. */
 body.theme-epic .talents-panel .spec-node {
-  min-height: 78px;
+  min-height: clamp(74px, 11vh, var(--talent-node-size-max));
   font-size: 0.74rem;
 }
 
