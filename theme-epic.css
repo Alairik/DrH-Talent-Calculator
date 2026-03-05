@@ -170,15 +170,22 @@ body.theme-epic .talents-panel .general-branch {
 
 body.theme-epic .talents-panel .spec-picker,
 body.theme-epic .talents-panel .branch {
-  max-width: 100%;
   width: 100%;
-  align-self: stretch;
+}
+
+body.theme-epic .talents-panel .spec-picker {
+  max-width: 420px;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Expanded-profession talent tiles: keep same tile size as base/l6 talent grids. */
 body.theme-epic .talents-panel .branch {
   max-width: 420px;
   align-self: center;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0;
   border: none;
   background: transparent;

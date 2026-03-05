@@ -545,14 +545,21 @@ button:hover {
 
 .talents-panel .spec-picker,
 .talents-panel .branch {
-  max-width: 100%;
   width: 100%;
-  align-self: stretch;
+}
+
+.talents-panel .spec-picker {
+  max-width: 420px;
+  align-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .talents-panel .branch {
   max-width: 420px;
   align-self: center;
+  margin-left: auto;
+  margin-right: auto;
   padding: 0;
   border: none;
   background: transparent;
