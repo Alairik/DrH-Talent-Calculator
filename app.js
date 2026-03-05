@@ -1195,6 +1195,10 @@
       if (forcedIndex === i) btn.classList.add("locked-spec");
       if (!unlocked) btn.classList.add("locked");
       const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
+      const hasSelectedInBranch = selectedCount > 0;
+      if (unlocked && forcedIndex !== null && forcedIndex !== i && !hasSelectedInBranch) {
+        btn.classList.add("muted");
+      }
       const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
       btn.textContent = `${branchNames[i]}${suffix}`;
       const req = getSpecializationRequirements(profId, i);
@@ -1209,7 +1213,10 @@
         btn.title = `Odemkne se při přestupu na level ${SPECIALIZATION_UNLOCK_LEVEL} (od ${SPECIALIZATION_TRANSITION_LEVEL}. úrovně). Aktuálně ${currentLevel}.`;
         btn.disabled = true;
       } else {
-        btn.title = "Zobrazit nabídku větve";
+        btn.title =
+          forcedIndex !== null && forcedIndex !== i && !hasSelectedInBranch
+            ? "Neaktivní při zamčené specializaci (pouze náhled)"
+            : "Zobrazit nabídku větve";
         btn.disabled = false;
         btn.addEventListener("click", () => {
           state.previewSpecializationByClass[profId] = i;

@@ -671,6 +671,11 @@ button:hover {
   color: #fff0d4;
 }
 
+.spec-node.muted {
+  filter: saturate(0.35) brightness(0.72);
+  opacity: 0.58;
+}
+
 .node {
   display: grid;
   place-items: center;
