@@ -344,8 +344,8 @@ body.theme-epic .spec-node {
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
-body.theme-epic .node:not(.spec-0):not(.spec-1):not(.spec-2),
-body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2) {
+body.theme-epic .node:not(.spec-0):not(.spec-1):not(.spec-2):not(.selected):not(.active),
+body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2):not(.selected):not(.active) {
   border-color: rgba(108, 74, 33, 0.82);
   background:
     linear-gradient(180deg, rgba(152, 103, 46, 0.16), rgba(152, 103, 46, 0.01)),
