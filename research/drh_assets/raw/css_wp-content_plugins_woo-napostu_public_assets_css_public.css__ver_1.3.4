@@ -1,0 +1,315 @@
+#vyhledane_pobocky-sk {
+    overflow-y: scroll;
+    height: 240px;
+}
+
+.table-napostu tr td {
+    font-size: 12px;
+    padding: 5px;
+}
+
+.table-napostu tr td a.vybrat-button-sk {
+    padding: 3px 6px;
+    color: white !important;
+    text-align: center;
+    border: none;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: inherit;
+    cursor: pointer;
+    overflow: visible;
+    width: auto;
+    line-height: 12px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    white-space: nowrap;
+    background: #428bca;
+    font-weight: 200;
+}
+
+.popup-napostu-cz {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    background: #fff;
+    border-bottom: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    max-height: calc(100% - 100px);
+    overflow: hidden;
+}
+
+
+@media only screen and (min-width: 981px) {
+    .popup-napostu-cz {
+        width: 80%;
+    }
+    .napostu-cz-body-left {
+        width: 50%;
+        float: left;
+    }
+    .napostu-cz-body-right {
+        float: right;
+        width: 50%;
+        padding: 0 20px 20px 20px;
+    }
+    .data-pobocky-left {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        font-size: 14px;
+    }
+    .data-pobocky-right {
+        float: left;
+        width: 50%;
+        padding: 10px;
+        border-left: solid 1px #eeeeee;
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 1500px) {
+    .data-pobocky-right {
+        display: none;
+    }
+
+    .data-pobocky-left {
+        width: 100%;
+    }
+
+    .branch-list {
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 980px) {
+    .popup-napostu-cz {
+        width: 80%;
+    }
+    .napostu-cz-body-left {
+        width: 100%;
+        float: left;
+        max-height: calc(65vh - 50px);
+        overflow: hidden;
+        overflow-y: scroll;
+        margin-bottom: 50px;
+    }
+    .napostu-cz-body-right {
+        float: none;
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+    }
+    .data-pobocky-left {
+        float: left;
+        width: 100%;
+        padding: 10px;
+        display: none!important;
+    }
+    .data-pobocky-right {
+        float: left;
+        width: 100%;
+        padding: 10px;
+    }
+    .branch-list {
+        border: none;
+        margin-bottom: 20px;
+    }
+
+    #m, .data-pobocky {
+        display: none!important;
+    }
+
+    .napostu-cz-body-right footer .popup-napostu-cz-submit {
+        float: none;
+        width: 100%;
+    }
+}
+
+.popup-napostu-cz a.close {
+    line-height: 1;
+    font-size: 1.5em;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    text-decoration: none;
+    color: #aab2bd;
+    font-weight: 700;
+}
+
+.popup-napostu-cz-overlay {
+    position: absolute;
+    display: none;
+    left: 0;
+    top: 0;
+    background: rgba( 255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+    /*display: flex;*/
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.popup-napostu-cz header {
+    padding: 12px 20px;
+    border-bottom: 1px solid #e1e3e4;
+}
+
+.popup-napostu-cz header h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.popup-napostu-cz .popup-napostu-cz-body {
+    padding: 20px 20px 20px 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+.advanced-autocomplete-wrap {
+    width: 100%;
+    float: left;
+    margin-bottom: 16px;
+}
+
+#advanced-autocomplete {
+    padding: 11px;
+    border: 1px solid #eeeeee;
+    position: relative;
+}
+
+.autocomplete-suggestions {
+    text-align: left;
+    cursor: default;
+    border: 1px solid #eeeeee;
+    border-top: 0;
+    background: #fff;
+    box-shadow: -1px 1px 3px rgba(0, 0, 0, .1);
+    /* core styles should not be changed */
+    position: absolute;
+    display: none;
+    z-index: 100002;
+    max-height: 254px;
+    overflow: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.autocomplete-suggestion {
+    position: relative;
+    padding: 5px 20px;
+    line-height: 23px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.02em;
+    color: #333;
+    border: solid 1px #eeeeee;
+}
+
+.autocomplete-suggestion b {
+    font-weight: normal;
+    color: #1f8dd6;
+}
+
+.autocomplete-suggestion.selected {
+    background: #f0f0f0;
+}
+
+.branch-list {
+    float: left;
+    width: 100%;
+    overflow: hidden;
+    overflow-y: scroll;
+    border-left: solid 1px #eeeeee;
+}
+
+.branch-list-item {
+    width: 100%;
+    padding: 5px 20px;
+    border-bottom: 1px solid #eeeeee;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.branch-list-item.selected-item,
+.branch-list-item:hover {
+    background: #f0f0f0;
+}
+
+.branch-boxlist-item {
+    width: 100%;
+    padding: 5px 20px;
+    border-bottom: 1px solid #eeeeee;
+    cursor: pointer;
+}
+
+.branch-boxlist-item.selected-item,
+.branch-boxlist-item:hover {
+    background: #f0f0f0;
+}
+
+.branch-pickuplist-item {
+    width: 100%;
+    padding: 5px 20px;
+    border-bottom: 1px solid #eeeeee;
+    cursor: pointer;
+}
+
+.branch-pickuplist-item.selected-item,
+.branch-pickuplist-item:hover {
+    background: #f0f0f0;
+}
+
+.data-pobocky {
+    float: left;
+    width: 100%;
+    padding: 10px;
+    border-bottom: solid 1px #eeeeee;
+}
+
+.data-pobocky-right p {
+    padding: 0;
+    margin-bottom: 0;
+}
+
+.napostu-cz-body-right footer {
+ position: relative;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+}
+
+.napostu-cz-body-right footer .popup-napostu-cz-submit {
+    float: right;
+    padding: 11px;
+    margin-top: 20px;
+    background: #333333;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+.napostu-cz-body-right footer .popup-napostu-cz-submit:hover {
+    opacity: 0.7;
+}
+
+#m {
+    width: 100%;
+    height: 30vh;
+}
+
+#m>div {
+    width: 100%!important;
+    height: 380px!important;
+}
+
+#m img,
+.smap img {
+    max-width: none!important;
+}

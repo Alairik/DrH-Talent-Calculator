@@ -1,0 +1,677 @@
+[
+  {
+    "type": "page",
+    "source": "https://www.dracihlidka.cz/",
+    "file": "research\\drh_assets\\raw\\page_index.html"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/favicon.ico",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_favicon.ico"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2016/12/cropped-icon_512_512_2-32x32.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-32x32.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2016/12/cropped-icon_512_512_2-192x192.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-192x192.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2016/12/cropped-icon_512_512_2-180x180.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-180x180.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/promo_1.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_promo_1.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/logo_mobilni.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_logo_mobilni.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2016/10/symbol-1.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_10_symbol-1.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://dracihlidka.cz/wp-content/uploads/2016/11/web_picture_intro3_V6-300x282.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_11_web_picture_intro3_V6-300x282.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://dracihlidka.cz/wp-content/uploads/2016/11/divider3-1024x90.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_11_divider3-1024x90.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://dracihlidka.cz/wp-content/uploads/2016/10/web_picture_historie2-300x282.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_10_web_picture_historie2-300x282.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://dracihlidka.cz/wp-content/uploads/2016/10/web_picture_autori2-300x282.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2016_10_web_picture_autori2-300x282.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://dracihlidka.cz/wp-content/uploads/2017/02/partneri_v3-768x722.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2017_02_partneri_v3-768x722.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/content/partners/strangers.jpg",
+    "file": "research\\drh_assets\\raw\\asset_content_partners_strangers.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/content/partners/HnH.gif",
+    "file": "research\\drh_assets\\raw\\asset_content_partners_HnH.gif"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/content/partners/fyft.gif",
+    "file": "research\\drh_assets\\raw\\asset_content_partners_fyft.gif"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2021/06/druzina_selem1.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2021_06_druzina_selem1.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2021/06/druzina_selem2.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2021_06_druzina_selem2.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2024/07/image-6.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2024_07_image-6.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/content/partners/if.gif",
+    "file": "research\\drh_assets\\raw\\asset_content_partners_if.gif"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ikony.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ikony.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2022/03/BTE-MINI.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2022_03_BTE-MINI.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/lb.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_lb.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/gopay_bannery-barevne.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_gopay_bannery-barevne.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/gopay_bannery-bile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_gopay_bannery-bile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/img.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_img.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/img-2.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_img-2.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/img-3.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_img-3.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/mc_securecode_156px_width.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_mc_securecode_156px_width.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/mc_vrt_opt_pos_73_2x.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_mc_vrt_opt_pos_73_2x.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/gopay/ms_vrt_opt_pos_73_2x.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_gopay_ms_vrt_opt_pos_73_2x.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/apps/mobile_app_android.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_apps_mobile_app_android.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/apps/mobile_app_ios.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_apps_mobile_app_ios.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/fonts/Inter-VariableFont_slnt,wght.woff2",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_fonts_Inter-VariableFont_slnt,wght.woff2"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/fonts/cardo_normal_400.woff2",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_fonts_cardo_normal_400.woff2"
+  },
+  {
+    "type": "page",
+    "source": "https://www.dracihlidka.cz/pravidla",
+    "file": "research\\drh_assets\\raw\\page_pravidla.html"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2026/01/E-Shop_Produktove_fotky_mockupy_produkty.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2026_01_E-Shop_Produktove_fotky_mockupy_produkty.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2026/01/E-Shop_Produktove_fotky_mockupy_produkty-300x266.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2026_01_E-Shop_Produktove_fotky_mockupy_produkty-300x266.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2024/09/pytlik_1-423x375.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2024_09_pytlik_1-423x375.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2024/10/hex_1-423x375.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2024_10_hex_1-423x375.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2024/10/alch_1-423x375.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2024_10_alch_1-423x375.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2025/05/TD_produkt-423x375.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2025_05_TD_produkt-423x375.png"
+  },
+  {
+    "type": "page",
+    "source": "https://www.dracihlidka.cz/o-projektu",
+    "file": "research\\drh_assets\\raw\\page_o-projektu.html"
+  },
+  {
+    "type": "page",
+    "source": "https://www.dracihlidka.cz/ke-stazeni",
+    "file": "research\\drh_assets\\raw\\page_ke-stazeni.html"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/css/bootstrap.min.css",
+    "file": "research\\drh_assets\\raw\\css_wp-content_themes_hlidka_css_bootstrap.min.css"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-includes/css/dist/block-library/style.min.css?ver=6.6.4",
+    "file": "research\\drh_assets\\raw\\css_wp-includes_css_dist_block-library_style.min.css__ver_6.6.4"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/aco-product-labels-for-woocommerce/assets/css/frontend.css?ver=1.5.10",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_aco-product-labels-for-woocommerce_assets_css_frontend.css__ver_1.5.10"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/css/woocommerce-layout.css?ver=9.4.5",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woocommerce_assets_css_woocommerce-layout.css__ver_9.4.5"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/css/woocommerce-smallscreen.css?ver=9.4.5",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woocommerce_assets_css_woocommerce-smallscreen.css__ver_9.4.5"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/css/woocommerce.css?ver=9.4.5",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woocommerce_assets_css_woocommerce.css__ver_9.4.5"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/fonts/WooCommerce.woff2",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_fonts_WooCommerce.woff2"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/fonts/WooCommerce.woff",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_fonts_WooCommerce.woff"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/fonts/WooCommerce.ttf",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_fonts_WooCommerce.ttf"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/loader.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_loader.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/visa.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_visa.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/mastercard.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_mastercard.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/laser.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_laser.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/diners.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_diners.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/maestro.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_maestro.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/jcb.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_jcb.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/amex.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_amex.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/images/icons/credit-cards/discover.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woocommerce_assets_images_icons_credit-cards_discover.svg"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/wpgens-refer-a-friend-premium/assets/css/gens-raf.css?ver=4.1.4",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_wpgens-refer-a-friend-premium_assets_css_gens-raf.css__ver_4.1.4"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/wpgens-refer-a-friend-premium/assets/fonts/fontello.eot?75050836",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_wpgens-refer-a-friend-premium_assets_fonts_fontello.eot__75050836"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/wpgens-refer-a-friend-premium/assets/fonts/fontello.woff?75050836",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_wpgens-refer-a-friend-premium_assets_fonts_fontello.woff__75050836"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/wpgens-refer-a-friend-premium/assets/fonts/fontello.ttf?75050836",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_wpgens-refer-a-friend-premium_assets_fonts_fontello.ttf__75050836"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/wpgens-refer-a-friend-premium/assets/fonts/fontello.svg?75050836",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_wpgens-refer-a-friend-premium_assets_fonts_fontello.svg__75050836"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/product-pre-orders-for-woo/css/product-pre-orders-for-woo-setting-frontend.css?ver=1.2.6",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_product-pre-orders-for-woo_css_product-pre-orders-for-woo-setting-frontend.css__ver_1.2.6"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-napostu/public/assets/css/public.css?ver=1.3.4",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woo-napostu_public_assets_css_public.css__ver_1.3.4"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/style.css?day=63",
+    "file": "research\\drh_assets\\raw\\css_wp-content_themes_hlidka_style.css__day_63"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/uploads/2020/11/Kopie-souboru-HI-RES-ICO_v2.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_uploads_2020_11_Kopie-souboru-HI-RES-ICO_v2.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu_bg.webp",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu_bg.webp"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu_bg.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu_bg.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu_fix.webp",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu_fix.webp"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu_fix.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu_fix.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/oa.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_oa.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/promo_1.webp",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_promo_1.webp"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen_top-2.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen_top-2.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen_bottom_2.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen_bottom_2.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen_bottom.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen_bottom.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen_top_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen_top_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/pergamen_bottom_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_pergamen_bottom_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/footer.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_footer.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/oddelovac_horozontal.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_oddelovac_horozontal.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-fb.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-fb.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-fb-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-fb-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-tw.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-tw.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-tw-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-tw-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-y.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-y.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-y-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-y-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-rss.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-rss.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-rss-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-rss-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-discord.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-discord.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-discord-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-discord-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-e.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-e.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-e-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-e-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-g.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-g.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-g-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-g-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-i.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-i.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-i-b.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-i-b.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/sipka.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_sipka.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/newsletter.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_newsletter.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/topline-hr.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_topline-hr.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/arrow_burger1.png?ver=2",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_arrow_burger1.png__ver_2"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/menu_bg_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_menu_bg_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/h1_bg_mobile.jpg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_h1_bg_mobile.jpg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/h1_bg_left_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_h1_bg_left_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/h1_bg_right_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_h1_bg_right_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/sidebar_mobilni.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_sidebar_mobilni.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/sidebar_title_mobile.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_sidebar_title_mobile.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/sidebar_sipka.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_sidebar_sipka.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-nav-sidebar.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-nav-sidebar.svg"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/ico-search.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_ico-search.png"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/images/lupa.png",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_themes_hlidka_images_lupa.png"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/client/blocks/wc-blocks.css?ver=wc-9.4.5",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woocommerce_assets_client_blocks_wc-blocks.css__ver_wc-9.4.5"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/mailpoet/assets/dist/css/mailpoet-public.b1f0906e.css?ver=6.6.4",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_mailpoet_assets_dist_css_mailpoet-public.b1f0906e.css__ver_6.6.4"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/slick.css?ver=2.3.14",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woo-product-gallery-slider_assets_css_slick.css__ver_2.3.14"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/slick-theme.css?ver=2.3.14",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woo-product-gallery-slider_assets_css_slick-theme.css__ver_2.3.14"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/ajax-loader.gif",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_ajax-loader.gif"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/fonts/slick.eot",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_fonts_slick.eot"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/fonts/slick.eot?",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_fonts_slick.eot"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/fonts/slick.woff",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_fonts_slick.woff"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/fonts/slick.ttf",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_fonts_slick.ttf"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/fonts/slick.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_fonts_slick.svg"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/jquery.fancybox.min.css?ver=2.3.14",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woo-product-gallery-slider_assets_css_jquery.fancybox.min.css__ver_2.3.14"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/flaticon.css?ver=2.3.14",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woo-product-gallery-slider_assets_css_font_flaticon.css__ver_2.3.14"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/Flaticon.eot",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_font_Flaticon.eot"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/Flaticon.eot?",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_font_Flaticon.eot"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/Flaticon.woff",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_font_Flaticon.woff"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/Flaticon.ttf",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_font_Flaticon.ttf"
+  },
+  {
+    "type": "asset",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woo-product-gallery-slider/assets/css/font/Flaticon.svg",
+    "file": "research\\drh_assets\\raw\\asset_wp-content_plugins_woo-product-gallery-slider_assets_css_font_Flaticon.svg"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/themes/hlidka/style.css?day=61",
+    "file": "research\\drh_assets\\raw\\css_wp-content_themes_hlidka_style.css__day_61"
+  },
+  {
+    "type": "css",
+    "source": "https://www.dracihlidka.cz/wp-content/plugins/woocommerce/assets/client/blocks/product-categories.css?ver=wc-9.4.5",
+    "file": "research\\drh_assets\\raw\\css_wp-content_plugins_woocommerce_assets_client_blocks_product-categories.css__ver_wc-9.4.5"
+  }
+]

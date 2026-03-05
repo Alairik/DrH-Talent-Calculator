@@ -1,0 +1,52 @@
+﻿# DRH Visual Asset Candidates
+
+- asset_wp-content_plugins_woocommerce_assets_images_icons_loader.svg
+- asset_wp-content_plugins_woo-product-gallery-slider_assets_css_ajax-loader.gif
+- asset_wp-content_themes_hlidka_images_footer.png
+- asset_wp-content_themes_hlidka_images_h1_bg_left_mobile.png
+- asset_wp-content_themes_hlidka_images_h1_bg_mobile.jpg
+- asset_wp-content_themes_hlidka_images_h1_bg_right_mobile.png
+- asset_wp-content_themes_hlidka_images_ico-nav-sidebar.svg
+- asset_wp-content_themes_hlidka_images_lb.png
+- asset_wp-content_themes_hlidka_images_lupa.png
+- asset_wp-content_themes_hlidka_images_menu.png
+- asset_wp-content_themes_hlidka_images_menu_bg.png
+- asset_wp-content_themes_hlidka_images_menu_bg.webp
+- asset_wp-content_themes_hlidka_images_menu_bg_mobile.png
+- asset_wp-content_themes_hlidka_images_menu_fix.png
+- asset_wp-content_themes_hlidka_images_menu_fix.webp
+- asset_wp-content_themes_hlidka_images_oa.png
+- asset_wp-content_themes_hlidka_images_oddelovac_horozontal.png
+- asset_wp-content_themes_hlidka_images_pergamen.png
+- asset_wp-content_themes_hlidka_images_pergamen_bottom.png
+- asset_wp-content_themes_hlidka_images_pergamen_bottom_2.png
+- asset_wp-content_themes_hlidka_images_pergamen_bottom_mobile.png
+- asset_wp-content_themes_hlidka_images_pergamen_top_mobile.png
+- asset_wp-content_themes_hlidka_images_pergamen_top-2.png
+- asset_wp-content_themes_hlidka_images_sidebar_mobilni.png
+- asset_wp-content_themes_hlidka_images_sidebar_sipka.png
+- asset_wp-content_themes_hlidka_images_sidebar_title_mobile.png
+- asset_wp-content_themes_hlidka_images_sipka.png
+- asset_wp-content_themes_hlidka_images_topline-hr.png
+- asset_wp-content_uploads_2016_10_symbol-1.png
+- asset_wp-content_uploads_2016_10_web_picture_autori2-300x282.jpg
+- asset_wp-content_uploads_2016_10_web_picture_historie2-300x282.jpg
+- asset_wp-content_uploads_2016_11_divider3-1024x90.jpg
+- asset_wp-content_uploads_2016_11_web_picture_intro3_V6-300x282.jpg
+- asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-180x180.jpg
+- asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-192x192.jpg
+- asset_wp-content_uploads_2016_12_cropped-icon_512_512_2-32x32.jpg
+- asset_wp-content_uploads_2017_02_partneri_v3-768x722.jpg
+- asset_wp-content_uploads_2020_11_Kopie-souboru-HI-RES-ICO_v2.png
+- asset_wp-content_uploads_2021_06_druzina_selem1.jpg
+- asset_wp-content_uploads_2021_06_druzina_selem2.jpg
+- asset_wp-content_uploads_2022_03_BTE-MINI.png
+- asset_wp-content_uploads_2024_07_image-6.png
+- asset_wp-content_uploads_2024_09_pytlik_1-423x375.png
+- asset_wp-content_uploads_2024_10_alch_1-423x375.jpg
+- asset_wp-content_uploads_2024_10_hex_1-423x375.jpg
+- asset_wp-content_uploads_2025_05_TD_produkt-423x375.png
+- asset_wp-content_uploads_2026_01_E-Shop_Produktove_fotky_mockupy_produkty.png
+- asset_wp-content_uploads_2026_01_E-Shop_Produktove_fotky_mockupy_produkty-300x266.png
+
+Total candidates: 48
