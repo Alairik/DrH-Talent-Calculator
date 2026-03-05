@@ -1,0 +1,117 @@
+:root {
+  --menu-left: url("../research/drh_assets/raw/custom/menu%20left.png");
+  --menu-mid: url("../research/drh_assets/raw/custom/menu%20mid.png");
+  --menu-end: url("../research/drh_assets/raw/custom/menu%20end.png");
+  --btn-main: url("../research/drh_assets/raw/custom/button.png");
+  --btn-left: url("../research/drh_assets/raw/custom/button%20left.png");
+  --menu-h: 64px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Palatino Linotype", Georgia, serif;
+  color: #f1e2c6;
+  background:
+    radial-gradient(900px 460px at 50% -20%, rgba(166, 125, 61, 0.24), transparent 58%),
+    linear-gradient(180deg, #120f0b, #0e0c0a);
+}
+
+.page {
+  width: min(1320px, 100vw - 2rem);
+  margin: 1.5rem auto;
+}
+
+h1 {
+  margin: 0 0 0.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.menu-prototype {
+  position: relative;
+  width: 100%;
+  min-height: 100px;
+}
+
+.menu-strip {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  width: 100%;
+  height: var(--menu-h);
+}
+
+.menu-left,
+.menu-mid,
+.menu-end {
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: auto 100%;
+}
+
+.menu-left {
+  width: 178px;
+  background-image: var(--menu-left);
+  background-position: left bottom;
+}
+
+.menu-mid {
+  background-image: var(--menu-mid);
+  background-size: auto 100%;
+  background-repeat: repeat-x;
+}
+
+.menu-end {
+  width: 236px;
+  background-image: var(--menu-end);
+  background-position: right bottom;
+}
+
+.menu-buttons {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  display: flex;
+  gap: 0.42rem;
+  align-items: center;
+  padding-left: 14px;
+  padding-right: 18px;
+}
+
+.menu-btn {
+  border: none;
+  min-width: 132px;
+  height: 50px;
+  padding: 0 1.05rem;
+  color: #2f1d10;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 rgba(255, 245, 220, 0.25);
+  background-image: var(--btn-main);
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.menu-btn.menu-btn-left {
+  width: 176px;
+  min-width: 176px;
+  margin-left: -8px;
+  padding-left: 1.45rem;
+  background-image: var(--btn-left);
+}
+
+.menu-btn:active {
+  transform: translateY(1px);
+}
