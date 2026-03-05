@@ -86,6 +86,9 @@ body.theme-epic .panel {
   --edge-ref: 5px;
   --edge-scale: 1;
   --edge-extra: calc(var(--edge-ref) * var(--edge-scale));
+  --shell-inset-top: calc(0.8rem + var(--edge-extra) + 3px);
+  --shell-inset-side: calc(0.8rem + var(--edge-extra) + 4px);
+  --shell-inset-bottom: calc(0.8rem + var(--edge-extra));
   padding-top: calc(0.8rem + var(--edge-extra) + 3px);
   padding-right: calc(0.8rem + var(--edge-extra) + 4px);
   padding-bottom: calc(0.8rem + var(--edge-extra));
@@ -94,6 +97,7 @@ body.theme-epic .panel {
 
 body.theme-epic .plan-panel {
   --edge-scale: 1;
+  --shell-inset-side: calc(0.8rem + var(--edge-extra) + 7px);
   padding-left: calc(0.8rem + var(--edge-extra) + 7px);
   padding-right: calc(0.8rem + var(--edge-extra) + 7px);
   background:
@@ -110,7 +114,33 @@ body.theme-epic .skills-panel { --edge-scale: 2; }      /* increased reduction f
 
 body.theme-epic .panel::before,
 body.theme-epic .panel::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+body.theme-epic .panel::before {
+  inset:
+    var(--shell-inset-top)
+    var(--shell-inset-side)
+    var(--shell-inset-bottom)
+    var(--shell-inset-side);
+  border-radius: 12px;
+  border: 1px solid rgba(127, 92, 48, 0.55);
+  background: linear-gradient(180deg, rgba(132, 91, 45, 0.12), rgba(70, 45, 23, 0.08));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 238, 206, 0.2),
+    inset 0 0 0 1px rgba(82, 55, 26, 0.24);
+  z-index: 0;
+}
+
+body.theme-epic .panel::after {
   content: none;
+}
+
+body.theme-epic .panel > * {
+  position: relative;
+  z-index: 1;
 }
 
 body.theme-epic .class-box,
