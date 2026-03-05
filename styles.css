@@ -1011,8 +1011,8 @@ button:hover {
 /* Default talents without branch tint use the same neutral tone as skill cells. */
 .node:not(.spec-0):not(.spec-1):not(.spec-2),
 .spec-node:not(.spec-0):not(.spec-1):not(.spec-2) {
-  border-color: var(--line);
-  background: rgba(64, 41, 20, 0.42);
+  border-color: #5e482d;
+  background: rgba(42, 28, 14, 0.72);
 }
 
 .node-info-btn {
