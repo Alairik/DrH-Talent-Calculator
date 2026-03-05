@@ -229,18 +229,19 @@ h3,
   .skills-panel {
     --skill-row-height-min: 29px;
     --skill-row-height-max: clamp(46px, 5.6vh, 64px);
-    --skill-list-gap: clamp(0.22rem, 1.1vh, 1.25rem);
+    --skill-row-height-dyn: var(--skill-row-height-min);
+    --skill-list-gap: clamp(0.22rem, 0.45vh, 0.45rem);
   }
 
   .skills-list {
     gap: var(--skill-list-gap);
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .skill-item {
     min-height: var(--skill-row-height-min);
     max-height: var(--skill-row-height-max);
-    height: auto;
+    height: clamp(var(--skill-row-height-min), var(--skill-row-height-dyn), var(--skill-row-height-max));
   }
 }
 

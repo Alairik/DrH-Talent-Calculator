@@ -320,6 +320,7 @@
     importBtn: document.getElementById("importBtn"),
     exchangeBox: document.getElementById("exchangeBox"),
     infoTooltip: document.getElementById("infoTooltip"),
+    skillsPanel: document.querySelector(".skills-panel"),
     talentsPanel: document.querySelector(".talents-panel")
   };
   els.mobileSectionButtons = Array.from(document.querySelectorAll(".mobile-section-btn"));
@@ -1476,7 +1477,29 @@
       showLevelDivider: true
     });
 
+    syncSkillRowHeights();
+
     els.skillCount.textContent = "";
+  }
+
+  function syncSkillRowHeights() {
+    if (!els.skillsPanel || !els.skillListBasic || !els.skillListClass) return;
+    if (window.innerWidth < 1025) {
+      els.skillsPanel.style.removeProperty("--skill-row-height-dyn");
+      return;
+    }
+    const basicRows = els.skillListBasic.querySelectorAll(".skill-item").length;
+    const classRows = els.skillListClass.querySelectorAll(".skill-item").length;
+    const maxRows = Math.max(1, basicRows, classRows);
+    const listHeight = Math.min(els.skillListBasic.clientHeight, els.skillListClass.clientHeight);
+    const listGapPx = 6;
+    const usableHeight = Math.max(0, listHeight - (maxRows - 1) * listGapPx);
+    const targetRowHeight = usableHeight / maxRows;
+    if (!Number.isFinite(targetRowHeight) || targetRowHeight <= 0) {
+      els.skillsPanel.style.removeProperty("--skill-row-height-dyn");
+      return;
+    }
+    els.skillsPanel.style.setProperty("--skill-row-height-dyn", `${targetRowHeight.toFixed(2)}px`);
   }
 
   function renderSkillColumn(container, skills, ctx) {
