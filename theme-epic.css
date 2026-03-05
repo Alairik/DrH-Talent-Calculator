@@ -168,6 +168,27 @@ body.theme-epic .talents-panel .general-branch {
   border-bottom: none;
 }
 
+body.theme-epic .talents-panel .general-branch,
+body.theme-epic .talents-panel .spec-picker,
+body.theme-epic .talents-panel .branch {
+  max-width: 100%;
+  width: 100%;
+  align-self: stretch;
+}
+
+/* Expanded-profession talent tiles: use full column width like other controls. */
+body.theme-epic .talents-panel .branch {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+/* Use saved vertical space for bigger advanced-profession buttons. */
+body.theme-epic .talents-panel .spec-node {
+  min-height: 78px;
+  font-size: 0.74rem;
+}
+
 body.theme-epic .talents-panel .general-branch::before {
   content: "";
   position: absolute;
