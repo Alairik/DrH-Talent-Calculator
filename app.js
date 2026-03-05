@@ -1028,7 +1028,7 @@
       state.selectedSpecializationByClass[profId] <= 2
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
-    const showL6General = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL && split.generalL6.length > 0;
+    const showL6General = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
       maxNodes: GENERAL_TALENT_SLOTS,
@@ -1943,10 +1943,7 @@
   function renderPlanOnly() {
     const modeBefore = state.levelMode;
     const signature = getPlanSignature();
-    if (signature !== state.lastPlanSignature) {
-      state.levelMode = "auto";
-      state.lastPlanSignature = signature;
-    }
+    state.lastPlanSignature = signature;
     const plan = buildPlan();
     renderSummary(plan);
     renderIssues(plan);
