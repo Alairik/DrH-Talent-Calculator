@@ -962,7 +962,7 @@
       window.setTimeout(() => {
         container.classList.remove("unlock-reveal-soft");
         for (const n of nodes) n.style.removeProperty("--unlock-i");
-      }, 520);
+      }, 860);
       return;
     }
     const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
