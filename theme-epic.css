@@ -119,7 +119,7 @@ body.theme-epic .skills-panel {
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
     var(--drh-bg-pergamen-bottom) bottom center / 100% auto no-repeat,
-    var(--drh-bg-skills-photo) right 30px bottom 24px / 330px auto no-repeat,
+    var(--drh-bg-skills-photo) right 30px bottom 124px / 330px auto no-repeat,
     var(--drh-bg-pergamen) center / 100% auto repeat-y;
   background-blend-mode: soft-light, normal, normal, normal, normal;
 }
