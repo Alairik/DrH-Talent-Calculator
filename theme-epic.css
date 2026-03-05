@@ -15,6 +15,10 @@ body.theme-epic {
   --drh-bg-pergamen: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen.png");
   --drh-bg-pergamen-top: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen_top-2.png");
   --drh-bg-pergamen-bottom: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen_bottom_2.png");
+  --tx-body: 0.2;
+  --tx-panel: 0.18;
+  --tx-controls: 0.2;
+  --tx-timeline: 0.14;
   color: var(--text);
   background:
     linear-gradient(180deg, rgba(8, 7, 11, 0.82), rgba(8, 7, 11, 0.88)),
@@ -57,8 +61,9 @@ body.theme-epic::after {
 body.theme-epic .column-controls {
   backdrop-filter: blur(10px);
   background:
-    linear-gradient(180deg, rgba(10, 9, 14, 0.8), rgba(10, 9, 14, 0.88)),
-    var(--drh-bg-pergamen-top) center / cover no-repeat,
+    linear-gradient(180deg, rgba(10, 9, 14, 0.7), rgba(10, 9, 14, 0.86)),
+    linear-gradient(180deg, rgba(255, 239, 205, var(--tx-controls)), rgba(255, 239, 205, 0)),
+    var(--drh-bg-pergamen-top) center top / cover no-repeat,
     linear-gradient(180deg, rgba(12, 10, 17, 0.95), rgba(9, 9, 14, 0.82)),
     repeating-linear-gradient(90deg, transparent 0 44px, rgba(255, 223, 158, 0.03) 44px 45px);
   border-bottom: 1px solid rgba(170, 126, 60, 0.66);
@@ -68,7 +73,8 @@ body.theme-epic .column-controls {
 body.theme-epic .panel {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(13, 11, 18, 0.66), rgba(13, 11, 18, 0.74)),
+    linear-gradient(180deg, rgba(13, 11, 18, 0.62), rgba(13, 11, 18, 0.72)),
+    linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen) center / cover no-repeat,
     linear-gradient(160deg, rgba(39, 33, 48, 0.92), rgba(20, 18, 30, 0.96)),
     radial-gradient(circle at 95% -8%, rgba(255, 196, 110, 0.09), transparent 52%);
@@ -82,8 +88,9 @@ body.theme-epic .panel {
 
 body.theme-epic .plan-panel {
   background:
-    linear-gradient(180deg, rgba(13, 11, 18, 0.68), rgba(13, 11, 18, 0.76)),
-    var(--drh-bg-pergamen-bottom) bottom center / cover no-repeat,
+    linear-gradient(180deg, rgba(13, 11, 18, 0.64), rgba(13, 11, 18, 0.74)),
+    linear-gradient(0deg, rgba(255, 237, 202, 0.12), rgba(255, 237, 202, 0)),
+    var(--drh-bg-pergamen-bottom) bottom center / contain no-repeat,
     var(--drh-bg-pergamen) center / cover no-repeat,
     linear-gradient(160deg, rgba(39, 33, 48, 0.92), rgba(20, 18, 30, 0.96));
   background-blend-mode: normal, soft-light, soft-light, normal;
@@ -119,9 +126,12 @@ body.theme-epic .timeline-help-btn,
 body.theme-epic .skill-rank-controls button,
 body.theme-epic .node-info-btn,
 body.theme-epic .spec-info-btn {
+  position: relative;
+  overflow: hidden;
   border: 1px solid #a77d41;
   color: #f7ebd1;
   background:
+    linear-gradient(180deg, rgba(255, 230, 176, 0.1), rgba(255, 230, 176, 0)),
     linear-gradient(180deg, rgba(44, 35, 52, 0.96), rgba(21, 18, 28, 0.98)),
     radial-gradient(circle at 50% -40%, rgba(255, 228, 174, 0.2), transparent 50%);
   box-shadow:
@@ -144,10 +154,20 @@ body.theme-epic .spec-info-btn:hover {
 
 body.theme-epic .class-box.active {
   border-color: var(--gold-strong);
+  background:
+    linear-gradient(180deg, rgba(var(--class-rgb), 0.26), rgba(var(--class-rgb), 0.08)),
+    linear-gradient(180deg, rgba(44, 35, 52, 0.96), rgba(21, 18, 28, 0.98));
   box-shadow:
     0 0 0 1px rgba(244, 199, 119, 0.58),
     0 0 24px rgba(var(--class-rgb), 0.42),
     0 12px 20px rgba(0, 0, 0, 0.35);
+}
+
+body.theme-epic .class-box.class-prof_6,
+body.theme-epic .class-box.class-prof_6:hover,
+body.theme-epic .class-box.class-prof_6.active {
+  color: #ffffff !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.62);
 }
 
 body.theme-epic .branch > h3,
@@ -161,7 +181,8 @@ body.theme-epic .node,
 body.theme-epic .spec-node {
   border-color: rgba(183, 141, 69, 0.82);
   background:
-    radial-gradient(circle at 20% 8%, rgba(255, 221, 162, 0.12), transparent 40%),
+    linear-gradient(180deg, rgba(255, 237, 204, 0.08), rgba(255, 237, 204, 0)),
+    radial-gradient(circle at 20% 8%, rgba(255, 221, 162, 0.1), transparent 40%),
     linear-gradient(180deg, rgba(48, 40, 56, 0.97), rgba(24, 21, 34, 0.99));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.07),
@@ -192,6 +213,7 @@ body.theme-epic .spec-node.active {
 body.theme-epic .skill-item {
   border-color: rgba(170, 131, 65, 0.82);
   background:
+    linear-gradient(180deg, rgba(255, 231, 187, 0.08), rgba(255, 231, 187, 0)),
     linear-gradient(180deg, rgba(32, 28, 42, 0.96), rgba(19, 18, 30, 1)),
     radial-gradient(circle at 100% 24%, rgba(255, 216, 143, 0.09), transparent 44%);
 }
@@ -206,8 +228,11 @@ body.theme-epic .level-display {
 
 body.theme-epic .timeline {
   background:
-    linear-gradient(180deg, rgba(12, 11, 20, 0.78), rgba(11, 11, 17, 0.34)),
+    linear-gradient(180deg, rgba(12, 11, 20, 0.72), rgba(11, 11, 17, 0.32)),
+    linear-gradient(180deg, rgba(255, 232, 189, var(--tx-timeline)), rgba(255, 232, 189, 0)),
+    var(--drh-bg-pergamen) center / cover no-repeat,
     repeating-linear-gradient(0deg, transparent 0 27px, rgba(255, 224, 163, 0.03) 27px 28px);
+  background-blend-mode: normal, soft-light, soft-light, normal;
   border: 1px solid rgba(156, 121, 60, 0.44);
   border-radius: 10px;
   box-shadow: inset 0 0 0 1px rgba(89, 66, 34, 0.36);
@@ -216,6 +241,7 @@ body.theme-epic .timeline {
 body.theme-epic .level-card {
   border-color: rgba(175, 136, 70, 0.78);
   background:
+    linear-gradient(180deg, rgba(255, 231, 187, 0.09), rgba(255, 231, 187, 0)),
     linear-gradient(180deg, rgba(35, 31, 45, 0.95), rgba(20, 19, 31, 1)),
     radial-gradient(circle at 100% 0, rgba(255, 219, 149, 0.1), transparent 38%);
 }
@@ -275,153 +301,6 @@ body.theme-epic #themeToggleBtn[aria-pressed="true"] {
 @media (prefers-reduced-motion: reduce) {
   body.theme-epic::before,
   body.theme-epic::after {
-    animation: none;
-  }
-}
-
-/* Epic Theme V3: material feel (stone, moss, arcane) */
-body.theme-epic .class-box,
-body.theme-epic .timeline-tools .lvl-btn,
-body.theme-epic .timeline-help-btn,
-body.theme-epic .skill-rank-controls button,
-body.theme-epic .node-info-btn,
-body.theme-epic .spec-info-btn {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid #7f6640;
-  background:
-    linear-gradient(180deg, rgba(96, 88, 78, 0.92), rgba(46, 41, 37, 0.98)),
-    repeating-linear-gradient(127deg, rgba(255, 255, 255, 0.04) 0 2px, rgba(0, 0, 0, 0.05) 2px 4px),
-    radial-gradient(circle at 22% 20%, rgba(235, 220, 186, 0.16), transparent 36%),
-    radial-gradient(circle at 80% 78%, rgba(26, 24, 22, 0.5), transparent 44%);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 245, 217, 0.28),
-    inset 0 -4px 0 rgba(26, 22, 18, 0.82),
-    inset 2px 0 0 rgba(255, 245, 217, 0.1),
-    inset -2px 0 0 rgba(20, 18, 16, 0.42),
-    0 5px 0 #2d261f,
-    0 9px 16px rgba(0, 0, 0, 0.4);
-}
-
-body.theme-epic .class-box::before,
-body.theme-epic .timeline-tools .lvl-btn::before,
-body.theme-epic .skill-rank-controls button::before,
-body.theme-epic .timeline-help-btn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 18% 24%, rgba(255, 255, 255, 0.12), transparent 18%),
-    radial-gradient(circle at 64% 32%, rgba(255, 255, 255, 0.09), transparent 14%),
-    radial-gradient(circle at 44% 78%, rgba(0, 0, 0, 0.16), transparent 20%),
-    repeating-linear-gradient(18deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 6px);
-  mix-blend-mode: soft-light;
-}
-
-body.theme-epic .class-box:active,
-body.theme-epic .timeline-tools .lvl-btn:active,
-body.theme-epic .timeline-help-btn:active,
-body.theme-epic .skill-rank-controls button:active,
-body.theme-epic .node:active,
-body.theme-epic .spec-node:active {
-  transform: translateY(3px);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 241, 210, 0.2),
-    inset 0 -2px 0 rgba(18, 16, 14, 0.86),
-    0 2px 0 #2d261f,
-    0 4px 10px rgba(0, 0, 0, 0.35);
-}
-
-body.theme-epic .class-box.active,
-body.theme-epic .spec-node.active,
-body.theme-epic .node.selected {
-  border-color: #ffdc9f;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 241, 213, 0.35),
-    inset 0 -4px 0 rgba(32, 25, 19, 0.85),
-    0 0 0 1px rgba(255, 219, 152, 0.6),
-    0 0 24px rgba(255, 187, 73, 0.36),
-    0 8px 18px rgba(0, 0, 0, 0.45);
-}
-
-body.theme-epic .node,
-body.theme-epic .spec-node,
-body.theme-epic .skill-item,
-body.theme-epic .level-card {
-  position: relative;
-  overflow: hidden;
-  border-width: 1px;
-  border-style: solid;
-  border-color: #8f7248;
-  background:
-    linear-gradient(180deg, rgba(67, 58, 50, 0.95), rgba(31, 28, 24, 1)),
-    repeating-linear-gradient(35deg, rgba(255, 255, 255, 0.03) 0 2px, rgba(0, 0, 0, 0.05) 2px 4px),
-    radial-gradient(circle at 76% 20%, rgba(239, 226, 192, 0.08), transparent 36%);
-  box-shadow:
-    inset 0 2px 0 rgba(255, 246, 221, 0.17),
-    inset 0 -5px 0 rgba(21, 18, 16, 0.84),
-    0 7px 14px rgba(0, 0, 0, 0.33);
-}
-
-body.theme-epic .node::before,
-body.theme-epic .spec-node::before,
-body.theme-epic .skill-item::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 22% 76%, rgba(255, 255, 255, 0.08), transparent 16%),
-    radial-gradient(circle at 80% 32%, rgba(0, 0, 0, 0.13), transparent 18%);
-}
-
-/* Moss accents for ranger-style elements */
-body.theme-epic .talents-panel[data-prof-id="PROF_2"] .node,
-body.theme-epic .talents-panel[data-prof-id="PROF_2"] .spec-node,
-body.theme-epic .skill-item.class-prof_2 {
-  background:
-    linear-gradient(180deg, rgba(58, 65, 50, 0.97), rgba(30, 36, 26, 1)),
-    radial-gradient(circle at 20% 88%, rgba(91, 151, 95, 0.26), transparent 24%),
-    radial-gradient(circle at 66% 74%, rgba(74, 130, 83, 0.18), transparent 28%),
-    repeating-linear-gradient(31deg, rgba(255, 255, 255, 0.02) 0 2px, rgba(0, 0, 0, 0.06) 2px 4px);
-  border-color: #6f8b56;
-}
-
-/* Arcane lightning accents for wizard-style elements */
-body.theme-epic .talents-panel[data-prof-id="PROF_4"] .node.selected,
-body.theme-epic .talents-panel[data-prof-id="PROF_4"] .spec-node.active,
-body.theme-epic .skill-item.class-prof_4 {
-  border-color: #9a84ff;
-  box-shadow:
-    inset 0 1px 0 rgba(237, 230, 255, 0.26),
-    inset 0 -4px 0 rgba(26, 22, 36, 0.88),
-    0 0 0 1px rgba(154, 132, 255, 0.56),
-    0 0 22px rgba(126, 105, 255, 0.46),
-    0 8px 16px rgba(0, 0, 0, 0.42);
-}
-
-body.theme-epic .talents-panel[data-prof-id="PROF_4"] .node.selected::after,
-body.theme-epic .talents-panel[data-prof-id="PROF_4"] .spec-node.active::after {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  pointer-events: none;
-  background:
-    linear-gradient(120deg, transparent 42%, rgba(183, 168, 255, 0.52) 49%, transparent 56%),
-    linear-gradient(65deg, transparent 44%, rgba(140, 122, 255, 0.36) 50%, transparent 56%);
-  animation: epic-v3-arcane 1.8s linear infinite;
-}
-
-@keyframes epic-v3-arcane {
-  0% { transform: translateX(-18%); opacity: 0.45; }
-  50% { opacity: 0.8; }
-  100% { transform: translateX(18%); opacity: 0.45; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body.theme-epic .talents-panel[data-prof-id="PROF_4"] .node.selected::after,
-  body.theme-epic .talents-panel[data-prof-id="PROF_4"] .spec-node.active::after {
     animation: none;
   }
 }
