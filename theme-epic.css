@@ -82,9 +82,15 @@ body.theme-epic .panel {
   background-blend-mode: soft-light, normal, normal, normal;
   border: none;
   box-shadow: none;
+  /* Dynamic inset derived from 3rd column reference (+5px). */
+  --edge-ref: 5px;
+  --edge-scale: 1;
+  --edge-extra: calc(var(--edge-ref) * var(--edge-scale));
+  padding: calc(0.8rem + var(--edge-extra));
 }
 
 body.theme-epic .plan-panel {
+  --edge-scale: 1;
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
@@ -92,6 +98,10 @@ body.theme-epic .plan-panel {
     var(--drh-bg-pergamen) center / 100% auto repeat-y;
   background-blend-mode: soft-light, normal, normal, normal;
 }
+
+/* Columns inherit spacing relative to 3rd-column reference. */
+body.theme-epic .talents-panel { --edge-scale: 1.056; } /* 0.95 / 0.90 */
+body.theme-epic .skills-panel { --edge-scale: 1.333; }  /* 1.20 / 0.90 */
 
 body.theme-epic .panel::before,
 body.theme-epic .panel::after {
@@ -318,6 +328,10 @@ body.theme-epic #themeToggleBtn[aria-pressed="true"] {
 }
 
 @media (max-width: 1024px) {
+  body.theme-epic .panel {
+    --edge-ref: 2px;
+  }
+
   body.theme-epic .panel::before,
   body.theme-epic .panel::after {
     width: 12px;
