@@ -174,7 +174,7 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-col-reserved-gap: 108px;
+    --left-col-reserved-gap: 160px;
     --middle-col-width-factor: 0.75;
   }
 
@@ -188,6 +188,7 @@ h3,
     justify-self: start;
     width: calc(100% - var(--left-col-reserved-gap));
     max-width: calc(100% - var(--left-col-reserved-gap));
+    height: 100%;
   }
 
   .column-controls > :nth-child(2) {
@@ -200,6 +201,18 @@ h3,
     justify-self: end;
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
+  }
+
+  .layout > .talents-panel > .branch-grid {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layout > .talents-panel > .branch-grid > .branch {
+    flex: 1 1 auto;
+    min-height: 0;
   }
 
   /* Desktop: cap row growth, then spend extra height as spacing. */
