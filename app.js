@@ -1034,7 +1034,12 @@
       state.selectedSpecializationByClass[profId] <= 2
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
-    const previewSpec = getPreviewSpecializationIndex(profId, specializationChoiceUnlocked, forcedSpec);
+    const previewSpec = getPreviewSpecializationIndex(
+      profId,
+      specializationChoiceUnlocked,
+      forcedSpec,
+      split.branches
+    );
     const showL6General = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
@@ -1770,13 +1775,23 @@
     return null;
   }
 
-  function getPreviewSpecializationIndex(profId, unlocked, forcedSpec) {
+  function getPreviewSpecializationIndex(profId, unlocked, forcedSpec, branches = []) {
     if (!unlocked) return null;
+    const preview = Number(state.previewSpecializationByClass[profId]);
     if (Number.isInteger(forcedSpec) && forcedSpec >= 0 && forcedSpec <= 2) {
+      if (
+        Number.isInteger(preview) &&
+        preview >= 0 &&
+        preview <= 2 &&
+        preview !== forcedSpec
+      ) {
+        const previewBranch = Array.isArray(branches[preview]) ? branches[preview] : [];
+        const hasSelectedInPreviewBranch = previewBranch.some((t) => state.selectedTalentIds.has(t.id));
+        if (hasSelectedInPreviewBranch) return preview;
+      }
       state.previewSpecializationByClass[profId] = forcedSpec;
       return forcedSpec;
     }
-    const preview = Number(state.previewSpecializationByClass[profId]);
     if (Number.isInteger(preview) && preview >= 0 && preview <= 2) return preview;
     state.previewSpecializationByClass[profId] = 0;
     return 0;
