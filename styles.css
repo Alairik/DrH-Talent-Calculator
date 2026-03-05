@@ -668,6 +668,10 @@ button:hover {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
 }
 
 .class-box:hover {
@@ -1828,8 +1832,9 @@ textarea {
     border-bottom: 1px solid var(--line);
   }
 
-  .mobile-class-select-wrap {
-    display: block;
+.mobile-class-select-wrap {
+    display: flex;
+    align-items: center;
     margin: 0;
   }
 
@@ -1838,6 +1843,7 @@ textarea {
     min-height: 36px;
     font-size: 0.84rem;
     padding: 0.35rem 0.45rem;
+    line-height: 1.1;
   }
 
   .mobile-panel-controls {
@@ -2017,9 +2023,13 @@ textarea {
   .mobile-section-btn {
     flex: 1 1 0;
     min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 10px;
     font-size: 0.76rem;
     padding: 0.2rem 0.24rem;
+    line-height: 1.1;
     border: 1px solid #5b472f;
     background: #241b14;
     color: var(--text);
