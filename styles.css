@@ -176,19 +176,25 @@ h3,
   :root {
     --left-col-reserved-gap: 160px;
     --middle-col-width-factor: 0.75;
+    --left-panel-target-width: 468px;
   }
 
   .column-controls > :first-child {
     justify-self: start;
-    width: calc(100% - var(--left-col-reserved-gap));
-    max-width: calc(100% - var(--left-col-reserved-gap));
+    width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
+    max-width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
   }
 
   .layout > .talents-panel {
     justify-self: start;
-    width: calc(100% - var(--left-col-reserved-gap));
-    max-width: calc(100% - var(--left-col-reserved-gap));
+    width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
+    max-width: min(var(--left-panel-target-width), calc(100% - var(--left-col-reserved-gap)));
     height: 100%;
+    --talent-grid-width: 344px;
+  }
+
+  .layout > .talents-panel .class-picker {
+    max-width: var(--talent-grid-width);
   }
 
   .column-controls > :nth-child(2) {
