@@ -1309,14 +1309,15 @@ button:hover {
 
 .kpi.kpi-skill-points {
   --kpi-cap: 43px;
-  --kpi-left: url("./research/drh_assets/raw/custom/text border - left.png");
-  --kpi-mid: url("./research/drh_assets/raw/custom/text border - mid.png");
-  --kpi-right: url("./research/drh_assets/raw/custom/text border - right.png");
+  --kpi-left: url("./research/drh_assets/raw/custom/text%20border%20-%20left.png");
+  --kpi-mid: url("./research/drh_assets/raw/custom/text%20border%20-%20mid.png");
+  --kpi-right: url("./research/drh_assets/raw/custom/text%20border%20-%20right.png");
   width: fit-content;
   min-width: 168px;
   min-height: 36px;
   border: none;
   border-radius: 0;
+  background-color: rgba(176, 133, 83, 0.9);
   background-image: var(--kpi-left), var(--kpi-right), var(--kpi-mid);
   background-position: left center, right center, left center;
   background-size: auto 100%, auto 100%, auto 100%;
