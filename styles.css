@@ -543,14 +543,28 @@ button:hover {
   align-self: center;
 }
 
+.talents-panel .general-branch,
+.talents-panel .spec-picker,
+.talents-panel .branch {
+  max-width: 100%;
+  width: 100%;
+  align-self: stretch;
+}
+
+.talents-panel .branch {
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
 .spec-node-wrap {
   position: relative;
 }
 
 .spec-node {
   width: 100%;
-  min-height: 68px;
-  font-size: 0.7rem;
+  min-height: 78px;
+  font-size: 0.74rem;
   padding: 0.35rem;
   text-align: center;
   position: relative;
