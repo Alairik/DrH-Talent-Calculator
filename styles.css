@@ -174,10 +174,9 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-panel-target-width: clamp(360px, 28vw, 468px);
+    --main-panel-target-width: clamp(360px, 27vw, 560px);
     --gap-panel-target-width: clamp(72px, 5.8vw, 132px);
-    --middle-panel-target-width: clamp(460px, 38vw, 760px);
-    --right-panel-target-width: clamp(320px, 25vw, 620px);
+    --gap-panel-inner-pad: clamp(8px, 0.7vw, 14px);
   }
 
   .column-controls,
@@ -185,17 +184,15 @@ h3,
     --desktop-main-gap: clamp(0.24rem, 0.7vw, 0.9rem);
     --desktop-main-width:
       calc(
-        var(--left-panel-target-width) +
+        (3 * var(--main-panel-target-width)) +
         var(--gap-panel-target-width) +
-        var(--middle-panel-target-width) +
-        var(--right-panel-target-width) +
         (3 * var(--desktop-main-gap))
       );
     grid-template-columns:
-      minmax(0, var(--left-panel-target-width))
+      minmax(0, var(--main-panel-target-width))
       minmax(0, var(--gap-panel-target-width))
-      minmax(0, var(--middle-panel-target-width))
-      minmax(0, var(--right-panel-target-width));
+      minmax(0, var(--main-panel-target-width))
+      minmax(0, var(--main-panel-target-width));
     gap: var(--desktop-main-gap);
     width: min(calc(100vw - 1.4rem), var(--desktop-main-width));
     margin-left: auto;
@@ -204,14 +201,14 @@ h3,
 
   .column-controls > :first-child {
     justify-self: start;
-    width: min(var(--left-panel-target-width), 100%);
-    max-width: min(var(--left-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
   }
 
   .layout > .talents-panel {
     justify-self: start;
-    width: min(var(--left-panel-target-width), 100%);
-    max-width: min(var(--left-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
     height: 100%;
   }
 
@@ -220,8 +217,8 @@ h3,
     justify-self: center;
     width: min(var(--gap-panel-target-width), 100%);
     max-width: min(var(--gap-panel-target-width), 100%);
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: var(--gap-panel-inner-pad);
+    padding-right: var(--gap-panel-inner-pad);
   }
 
   /* First-column controls fill the global shell width. */
@@ -235,26 +232,26 @@ h3,
 
   .column-controls > :nth-child(3) {
     justify-self: end;
-    width: min(var(--middle-panel-target-width), 100%);
-    max-width: min(var(--middle-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
   }
 
   .layout > .skills-panel {
     justify-self: end;
-    width: min(var(--middle-panel-target-width), 100%);
-    max-width: min(var(--middle-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
   }
 
   .column-controls > :nth-child(4) {
     justify-self: end;
-    width: min(var(--right-panel-target-width), 100%);
-    max-width: min(var(--right-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
   }
 
   .layout > .plan-panel {
     justify-self: end;
-    width: min(var(--right-panel-target-width), 100%);
-    max-width: min(var(--right-panel-target-width), 100%);
+    width: min(var(--main-panel-target-width), 100%);
+    max-width: min(var(--main-panel-target-width), 100%);
   }
 
   .layout > .talents-panel > .branch-grid {
@@ -363,10 +360,9 @@ h3,
 
 @media (min-width: 1025px) and (max-width: 1180px) {
   :root {
-    --left-panel-target-width: clamp(320px, 30vw, 410px);
-    --gap-panel-target-width: clamp(22px, 2vw, 34px);
-    --middle-panel-target-width: clamp(410px, 41vw, 560px);
-    --right-panel-target-width: clamp(280px, 26vw, 430px);
+    --main-panel-target-width: clamp(300px, 30vw, 420px);
+    --gap-panel-target-width: clamp(24px, 2.2vw, 38px);
+    --gap-panel-inner-pad: 0px;
   }
 
   .layout > .gap-icons-panel .class-gap-icons {
