@@ -168,6 +168,14 @@ body {
   overflow: hidden;
 }
 
+.talents-panel {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: auto;
+  scrollbar-color: #7d6539 #16120e;
+}
+
 .skills-panel {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
@@ -1300,6 +1308,26 @@ button:hover {
 }
 
 .timeline::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #ba9150, #856234);
+}
+
+.talents-panel::-webkit-scrollbar {
+  width: 12px;
+}
+
+.talents-panel::-webkit-scrollbar-track {
+  background: #16120e;
+  border: 1px solid #3d3125;
+  border-radius: 10px;
+}
+
+.talents-panel::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #9f7b43, #6f552f);
+  border-radius: 10px;
+  border: 1px solid #3f2f1b;
+}
+
+.talents-panel::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(180deg, #ba9150, #856234);
 }
 
