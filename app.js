@@ -2041,8 +2041,14 @@
 
   function renderTimeline(plan) {
     els.timeline.innerHTML = "";
+    const profId = state.selectedProfessionId;
+    const lockedSpecIndex = Number(state.selectedSpecializationByClass[profId]);
+    const lockedSpecName =
+      Number.isInteger(lockedSpecIndex) && lockedSpecIndex >= 0 && lockedSpecIndex <= 2
+        ? ((BRANCH_NAMES[profId] && BRANCH_NAMES[profId][lockedSpecIndex]) || "")
+        : "";
     const lockLevel = clampInt(
-      Number(state.specializationLockLevelByClass[state.selectedProfessionId]),
+      Number(state.specializationLockLevelByClass[profId]),
       1,
       state.config.maxLevel,
       0
@@ -2080,7 +2086,12 @@
       if (lockLevel > 0 && lvl.level === lockLevel) {
         const line = document.createElement("div");
         line.className = "timeline-line talent";
-        line.textContent = "S: Zamknutí specializace";
+        if (lockedSpecName) {
+          line.classList.add(`spec-${lockedSpecIndex}`);
+          line.textContent = `S: ${lockedSpecName}`;
+        } else {
+          line.textContent = "S: Zamknutí specializace";
+        }
         cell.appendChild(line);
       }
       for (const a of lvl.skillActions) {

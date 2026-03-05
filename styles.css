@@ -1282,6 +1282,18 @@ button:hover {
   color: #d0e7f8;
 }
 
+.timeline-line.spec-0 {
+  color: #f1a8a8;
+}
+
+.timeline-line.spec-1 {
+  color: #f2c08a;
+}
+
+.timeline-line.spec-2 {
+  color: #d2b7f5;
+}
+
 @media (max-width: 1024px) and (pointer: coarse) {
   .timeline-cell {
     grid-template-columns: 1fr;
