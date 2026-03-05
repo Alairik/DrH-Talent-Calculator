@@ -28,7 +28,7 @@ body.theme-epic {
     radial-gradient(1200px 850px at 104% -18%, rgba(140, 109, 255, 0.24), transparent 58%),
     radial-gradient(1000px 760px at 48% 120%, rgba(52, 145, 98, 0.19), transparent 62%),
     linear-gradient(180deg, #06070d 0%, #0b0d15 45%, #0a0d13 100%);
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+  font-family: var(--font-body);
 }
 
 body.theme-epic::before,
