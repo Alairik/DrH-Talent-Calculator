@@ -1456,7 +1456,7 @@
         const plus = document.createElement("button");
         plus.type = "button";
         plus.textContent = "+";
-        plus.disabled = targetRank >= 10;
+        plus.disabled = targetRank >= getSkillRankCap();
         plus.addEventListener("click", () => setSkillTargetRank(s.id, targetRank + 1, floorRank));
 
         controls.appendChild(minus);
@@ -1498,13 +1498,13 @@
     const selectedBranch = Number(state.selectedSpecializationByClass[profId]);
     if (!Number.isInteger(selectedBranch) || selectedBranch !== branch) return 0;
     if (Number(skill.required_level || 1) > SPECIALIZATION_UNLOCK_LEVEL) return 0;
-    return clampInt(skill.auto_floor_on_spec, 0, 10, 0);
+    return clampInt(skill.auto_floor_on_spec, 0, getSkillRankCap(), 0);
   }
 
   function setSkillTargetRank(id, desired, floor) {
     const skill = state.skills.find((x) => x.id === id);
     const isClass = isCurrentClassSkill(skill);
-    let next = Math.max(floor, Math.min(10, desired));
+    let next = Math.max(floor, Math.min(getSkillRankCap(), desired));
     // Class skills start at rank 3 once selected.
     if (isClass && floor === 0 && desired > 0) next = Math.max(3, next);
     if (next <= floor && floor === 0) {
@@ -2448,7 +2448,7 @@
       selectedTalentOrder: sanitizeIntMap(payload.selectedTalentOrder, 1, 9999),
       selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
       specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
-      selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, 10),
+      selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, getSkillRankCap()),
       talentOrderCounter: clampInt(payload.talentOrderCounter, 0, 9999, 0),
       manualLevel: clampInt(payload.manualLevel, 1, 36, 1),
       levelMode: payload.levelMode === "manual" ? "manual" : "auto",
@@ -2495,6 +2495,10 @@
       count += 1;
     }
     return out;
+  }
+
+  function getSkillRankCap() {
+    return clampInt(state.config.maxLevel, 1, 36, 36);
   }
 
   function persist() {
