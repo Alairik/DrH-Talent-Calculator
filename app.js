@@ -2069,21 +2069,37 @@
       card.className = "level-card";
       if (lvl.level > plan.totals.currentLevel) card.classList.add("future");
       if (lockLevel > 0 && lvl.level === lockLevel) card.classList.add("locked-spec-level");
+      const hasRemovableSteps =
+        lvl.talents.length > 0 ||
+        lvl.skillActions.length > 0 ||
+        (lockLevel > 0 && lvl.level === lockLevel);
+      const levelMeta = document.createElement("div");
+      levelMeta.className = "level-meta";
       const levelBadge = document.createElement("div");
       levelBadge.className = "level-badge";
       levelBadge.textContent = `Lv ${lvl.level}`;
+      levelMeta.appendChild(levelBadge);
+      if (hasRemovableSteps) {
+        const removeLevelBtn = document.createElement("button");
+        removeLevelBtn.type = "button";
+        removeLevelBtn.className = "timeline-remove-level";
+        removeLevelBtn.textContent = "×";
+        removeLevelBtn.title = `Smazat kroky pro level ${lvl.level}`;
+        removeLevelBtn.setAttribute("aria-label", `Smazat kroky pro level ${lvl.level}`);
+        removeLevelBtn.addEventListener("click", (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          removeTimelineLevelSteps(lvl, profId, lockLevel);
+        });
+        levelMeta.appendChild(removeLevelBtn);
+      }
       const cell = document.createElement("div");
       cell.className = "timeline-cell";
       for (const s of lvl.startSkills) {
         appendTimelineLine(cell, `D: ${s.name} (3)`, "timeline-line skill");
       }
       for (const t of lvl.talents) {
-        appendTimelineLine(
-          cell,
-          `S: ${t.name}`,
-          "timeline-line talent",
-          { type: "talent", talentId: t.id }
-        );
+        appendTimelineLine(cell, `S: ${t.name}`, "timeline-line talent");
       }
       if (lockLevel > 0 && lvl.level === lockLevel) {
         let cls = "timeline-line talent";
@@ -2092,22 +2108,12 @@
           cls += ` spec-${lockedSpecIndex}`;
           text = `S: ${lockedSpecName}`;
         }
-        appendTimelineLine(
-          cell,
-          text,
-          cls,
-          { type: "specLock", profId }
-        );
+        appendTimelineLine(cell, text, cls);
       }
       for (const a of lvl.skillActions) {
-        appendTimelineLine(
-          cell,
-          `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`,
-          "timeline-line skill",
-          { type: "skill", skillId: a.skill.id }
-        );
+        appendTimelineLine(cell, `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`, "timeline-line skill");
       }
-      card.appendChild(levelBadge);
+      card.appendChild(levelMeta);
       card.appendChild(cell);
       els.timeline.appendChild(card);
     }
@@ -2117,48 +2123,33 @@
     if (panel) panel.scrollTop = 0;
   }
 
-  function appendTimelineLine(cell, text, className, step = null) {
+  function appendTimelineLine(cell, text, className) {
     const line = document.createElement("div");
     line.className = className;
-    const label = document.createElement("span");
-    label.className = "timeline-line-text";
-    label.textContent = text;
-    line.appendChild(label);
-    if (step && typeof step === "object") {
-      const removeBtn = document.createElement("button");
-      removeBtn.type = "button";
-      removeBtn.className = "timeline-remove-step";
-      removeBtn.textContent = "×";
-      removeBtn.title = "Smazat krok";
-      removeBtn.setAttribute("aria-label", "Smazat krok");
-      removeBtn.addEventListener("click", (ev) => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        removeTimelineStep(step);
-      });
-      line.appendChild(removeBtn);
-    }
+    line.textContent = text;
     cell.appendChild(line);
   }
 
-  function removeTimelineStep(step) {
-    if (!step || typeof step !== "object") return;
-    if (step.type === "talent" && step.talentId) {
-      removeTalentSelection(step.talentId);
-    } else if (step.type === "skill" && step.skillId) {
-      const skill = state.skills.find((x) => x.id === step.skillId);
-      if (!skill) return;
+  function removeTimelineLevelSteps(levelState, profId, lockLevel) {
+    if (!levelState || typeof levelState !== "object") return;
+    for (const t of levelState.talents || []) {
+      if (t && t.id) removeTalentSelection(t.id);
+    }
+    for (const a of levelState.skillActions || []) {
+      const skillId = a && a.skill && a.skill.id;
+      if (!skillId) continue;
+      const skill = state.skills.find((x) => x.id === skillId);
+      if (!skill) continue;
       const starterIds = new Set(getClassStarterSkillIds());
       const floor = getSkillFloor(skill, starterIds, state.selectedProfessionId);
-      const target = getSkillTargetRank(step.skillId, floor);
+      const target = getSkillTargetRank(skillId, floor);
       const next = Math.max(floor, target - 1);
-      if (next <= floor) delete state.selectedSkillTargets[step.skillId];
-      else state.selectedSkillTargets[step.skillId] = next;
-    } else if (step.type === "specLock" && step.profId) {
-      delete state.selectedSpecializationByClass[step.profId];
-      delete state.specializationLockLevelByClass[step.profId];
-    } else {
-      return;
+      if (next <= floor) delete state.selectedSkillTargets[skillId];
+      else state.selectedSkillTargets[skillId] = next;
+    }
+    if (lockLevel > 0 && Number(levelState.level) === Number(lockLevel) && profId) {
+      delete state.selectedSpecializationByClass[profId];
+      delete state.specializationLockLevelByClass[profId];
     }
     cleanseInvalidSelections();
     renderAll();
