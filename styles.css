@@ -182,6 +182,11 @@ h3,
 
   .column-controls,
   .layout {
+    grid-template-columns:
+      minmax(0, var(--left-panel-target-width))
+      minmax(0, var(--gap-panel-target-width))
+      minmax(0, 1fr)
+      minmax(0, 1fr);
     gap: clamp(0.24rem, 0.7vw, 0.9rem);
   }
 
