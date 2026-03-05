@@ -254,6 +254,7 @@ h3,
     --gap-icon-size: clamp(86px, 5.3vw, 122px);
     height: 100%;
     width: var(--gap-icon-size);
+    margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
     align-items: center;
@@ -380,6 +381,9 @@ h3,
   outline: none !important;
   padding: 0.8rem 0;
   overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
 }
 
 .skills-panel {
