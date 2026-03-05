@@ -94,6 +94,8 @@ body.theme-epic .panel {
 
 body.theme-epic .plan-panel {
   --edge-scale: 1;
+  padding-left: calc(0.8rem + var(--edge-extra) + 7px);
+  padding-right: calc(0.8rem + var(--edge-extra) + 7px);
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
