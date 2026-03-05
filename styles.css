@@ -1078,6 +1078,14 @@ button:hover {
   background: #2a1f14;
 }
 
+/* Default (uncolored) selected talents: only lighter brown cell fill. */
+.node:not(.spec-0):not(.spec-1):not(.spec-2).selected,
+.spec-node:not(.spec-0):not(.spec-1):not(.spec-2).active {
+  border-color: #7a5a34;
+  background: rgba(86, 57, 30, 0.86);
+  box-shadow: none;
+}
+
 .node.pdf-covered {
   outline: 1px dashed #5ea4d6;
   outline-offset: -3px;

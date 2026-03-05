@@ -383,6 +383,17 @@ body.theme-epic .spec-node.active {
     inset 0 0 16px rgba(255, 227, 173, 0.08);
 }
 
+/* Default (uncolored) selected talents: only lighter brown cell fill. */
+body.theme-epic .node:not(.spec-0):not(.spec-1):not(.spec-2).selected,
+body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2).active {
+  border-color: rgba(140, 98, 48, 0.9);
+  background:
+    linear-gradient(180deg, rgba(176, 120, 58, 0.22), rgba(176, 120, 58, 0.04)),
+    linear-gradient(180deg, rgba(88, 56, 28, 0.88), rgba(64, 40, 20, 0.84));
+  box-shadow: none;
+  transform: none;
+}
+
 body.theme-epic .skill-item {
   position: relative;
   border-color: rgba(126, 89, 44, 0.72);
