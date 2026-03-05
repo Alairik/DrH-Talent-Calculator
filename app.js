@@ -1893,18 +1893,14 @@
     const split = splitClassTalentsForTree(classTalents);
     const forcedSpec = getActiveLockedSpecializationIndex(profId, currentLevel);
     if (forcedSpec !== null && !hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
-    const selectedBranchTalentCount = split.branches
-      .flat()
-      .filter((t) => state.selectedTalentIds.has(t.id))
-      .length;
-    const unspecializedLimit = getUnspecializedSpecTalentLimit(currentLevel);
+    const branchTalents = split.branches.flat().filter(Boolean);
     const lockedIndex = getLockedSpecializationIndex(profId, split.branches);
     if ((forcedSpec !== null && forcedSpec !== branchIndex) || (lockedIndex !== null && lockedIndex !== branchIndex)) return;
     if (checked) {
       if (
         forcedSpec === null &&
         !state.selectedTalentIds.has(talentId) &&
-        selectedBranchTalentCount >= unspecializedLimit
+        !canPickUnspecializedBranchTalentNow(profId, branchTalents, currentLevel)
       ) return;
       addTalentSelection(talentId);
       autoGrantSkillsFromSTalent(talentId);
@@ -1922,10 +1918,20 @@
     persist();
   }
 
-  function getUnspecializedSpecTalentLimit(currentLevel) {
+  function canPickUnspecializedBranchTalentNow(profId, branchTalents, currentLevel) {
     const lvl = clampInt(currentLevel, 1, state.config.maxLevel, 1);
-    if (lvl < SPECIALIZATION_TRANSITION_LEVEL) return 0;
-    return Math.max(1, Math.floor((lvl + 1) / SPECIALIZATION_UNLOCK_LEVEL));
+    if (lvl < SPECIALIZATION_TRANSITION_LEVEL) return false;
+    const plan = buildPlan();
+    const levelsById = plan && plan.talentLevelsById ? plan.talentLevelsById : {};
+    const selectedLevels = [];
+    for (const t of branchTalents || []) {
+      if (!t || !state.selectedTalentIds.has(t.id)) continue;
+      const pickLevel = Number(levelsById[t.id]);
+      if (Number.isFinite(pickLevel) && pickLevel > 0) selectedLevels.push(pickLevel);
+    }
+    if (selectedLevels.length === 0) return true;
+    const lastPickLevel = Math.max(...selectedLevels);
+    return lvl >= lastPickLevel + SPECIALIZATION_UNLOCK_LEVEL;
   }
 
   function buildPlan() {
