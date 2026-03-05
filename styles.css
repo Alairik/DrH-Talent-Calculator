@@ -531,6 +531,34 @@ button:hover {
   border-color: #d4ad66;
 }
 
+.spec-lock-btn {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border-radius: 999px;
+  border: 1px solid #8b6a3d;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-size: 0.6rem;
+  line-height: 1;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  z-index: 3;
+}
+
+.spec-lock-btn:hover {
+  border-color: #d4ad66;
+}
+
+.spec-lock-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
 .spec-node.spec-0 {
   border-color: #b02b2b;
   background: linear-gradient(180deg, rgba(153, 32, 32, 0.66), rgba(41, 14, 14, 0.96));
@@ -634,6 +662,10 @@ button:hover {
 .spec-node.active {
   border-color: var(--gold);
   box-shadow: 0 0 0 1px var(--gold-soft), 0 0 12px rgba(212, 173, 102, 0.16);
+}
+
+.spec-node.locked-spec {
+  box-shadow: 0 0 0 1px rgba(212, 173, 102, 0.92), 0 0 16px rgba(212, 173, 102, 0.28);
 }
 
 .node {

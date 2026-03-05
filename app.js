@@ -178,6 +178,7 @@
     selectedTalentOrder: {},
     talentOrderCounter: 0,
     selectedSpecializationByClass: {},
+    previewSpecializationByClass: {},
     selectedSkillTargets: {},
     pdfCoverage: {
       skills: new Set(),
@@ -669,6 +670,7 @@
       state.selectedTalentOrder = {};
       state.talentOrderCounter = 0;
       state.selectedSpecializationByClass = {};
+      state.previewSpecializationByClass = {};
       state.selectedSkillTargets = {};
       state.levelMode = "manual";
       state.manualLevel = 1;
@@ -1024,12 +1026,13 @@
       clearSpecializationBranch(profId, lockedSpecIndex);
     }
     const lockedSpecIndexAfterReq = getLockedSpecializationIndex(profId, split.branches);
-    const activeSpec =
+    const forcedSpec =
       Number.isInteger(state.selectedSpecializationByClass[profId]) &&
       state.selectedSpecializationByClass[profId] >= 0 &&
       state.selectedSpecializationByClass[profId] <= 2
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
+    const previewSpec = getPreviewSpecializationIndex(profId, specializationChoiceUnlocked, forcedSpec);
     const showL6General = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL && split.generalL6.length > 0;
 
     renderBranch(els.generalNodes, split.generalBase, {
@@ -1064,7 +1067,8 @@
       branchNames,
       split.branches,
       specializationChoiceUnlocked,
-      activeSpec,
+      previewSpec,
+      forcedSpec,
       currentLevel,
       hasSpecColor
     );
@@ -1078,10 +1082,11 @@
       const branchEnabled =
         specializationTalentsUnlocked &&
         reqReady &&
-        (activeSpec === null || activeSpec === i);
+        (forcedSpec === null || forcedSpec === i) &&
+        previewSpec === i;
       const branchVisible =
         specializationTalentsUnlocked &&
-        (activeSpec === null || activeSpec === i);
+        previewSpec === i;
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
@@ -1168,7 +1173,16 @@
     }
   }
 
-  function renderSpecializationPicker(profId, branchNames, branches, unlocked, activeIndex, currentLevel, enableSpecColor = false) {
+  function renderSpecializationPicker(
+    profId,
+    branchNames,
+    branches,
+    unlocked,
+    previewIndex,
+    forcedIndex,
+    currentLevel,
+    enableSpecColor = false
+  ) {
     els.specPicker.innerHTML = "";
     for (let i = 0; i < 3; i += 1) {
       const wrap = document.createElement("div");
@@ -1177,7 +1191,8 @@
       btn.type = "button";
       btn.className = "spec-node";
       if (enableSpecColor) btn.classList.add(`spec-${i}`);
-      if (activeIndex === i) btn.classList.add("active");
+      if (previewIndex === i) btn.classList.add("active");
+      if (forcedIndex === i) btn.classList.add("locked-spec");
       if (!unlocked) btn.classList.add("locked");
       const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
       const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
@@ -1194,22 +1209,10 @@
         btn.title = `Odemkne se při přestupu na level ${SPECIALIZATION_UNLOCK_LEVEL} (od ${SPECIALIZATION_TRANSITION_LEVEL}. úrovně). Aktuálně ${currentLevel}.`;
         btn.disabled = true;
       } else {
-        const blockedByLock = activeIndex !== null && activeIndex !== i;
-        const blockedByReq = missingReq.length > 0 && activeIndex !== i;
-        if (blockedByLock) btn.classList.add("locked");
-        if (blockedByReq) btn.classList.add("locked");
-        btn.title =
-          activeIndex === i
-            ? "Klikni pro vyčištění celé větve a odemknutí ostatních specializací."
-            : blockedByLock
-              ? "Ostatní specializace jsou zamčené, dokud neodznačíš aktivní větev."
-              : blockedByReq
-                ? `Chybí základní schopnosti: ${missingReq.map((x) => x.name).join(", ")}`
-                : "Vybrat specializaci";
-        btn.disabled = blockedByLock || blockedByReq;
+        btn.title = "Zobrazit nabídku větve";
+        btn.disabled = false;
         btn.addEventListener("click", () => {
-          if (activeIndex === i) clearSpecializationBranch(profId, i);
-          else if ((activeIndex === null || activeIndex === i) && missingReq.length === 0) setSpecialization(profId, i);
+          state.previewSpecializationByClass[profId] = i;
           renderAll();
           persist();
         });
@@ -1229,6 +1232,30 @@
 
       wrap.appendChild(btn);
       wrap.appendChild(infoBtn);
+      if (unlocked) {
+        const lockBtn = document.createElement("button");
+        lockBtn.type = "button";
+        lockBtn.className = "spec-lock-btn";
+        const locked = forcedIndex === i;
+        lockBtn.textContent = locked ? "●" : "○";
+        lockBtn.setAttribute("aria-label", locked ? `Odemknout ${branchNames[i]}` : `Zamknout ${branchNames[i]}`);
+        if (missingReq.length > 0) {
+          lockBtn.disabled = true;
+          lockBtn.title = `Chybí základní schopnosti: ${missingReq.map((x) => x.name).join(", ")}`;
+        } else {
+          lockBtn.title = locked ? "Klikni pro odemknutí specializace" : "Klikni pro zamknutí specializace";
+          lockBtn.addEventListener("click", (ev) => {
+            ev.preventDefault();
+            ev.stopPropagation();
+            if (locked) delete state.selectedSpecializationByClass[profId];
+            else state.selectedSpecializationByClass[profId] = i;
+            state.previewSpecializationByClass[profId] = i;
+            renderAll();
+            persist();
+          });
+        }
+        wrap.appendChild(lockBtn);
+      }
       els.specPicker.appendChild(wrap);
     }
   }
@@ -1733,6 +1760,18 @@
       return locked;
     }
     return null;
+  }
+
+  function getPreviewSpecializationIndex(profId, unlocked, forcedSpec) {
+    if (!unlocked) return null;
+    if (Number.isInteger(forcedSpec) && forcedSpec >= 0 && forcedSpec <= 2) {
+      state.previewSpecializationByClass[profId] = forcedSpec;
+      return forcedSpec;
+    }
+    const preview = Number(state.previewSpecializationByClass[profId]);
+    if (Number.isInteger(preview) && preview >= 0 && preview <= 2) return preview;
+    state.previewSpecializationByClass[profId] = 0;
+    return 0;
   }
 
   function setSpecialization(profId, branchIndex) {
