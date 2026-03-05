@@ -86,7 +86,10 @@ body.theme-epic .panel {
   --edge-ref: 5px;
   --edge-scale: 1;
   --edge-extra: calc(var(--edge-ref) * var(--edge-scale));
-  padding: calc(0.8rem + var(--edge-extra));
+  padding-top: calc(0.8rem + var(--edge-extra) + 3px);
+  padding-right: calc(0.8rem + var(--edge-extra) + 4px);
+  padding-bottom: calc(0.8rem + var(--edge-extra));
+  padding-left: calc(0.8rem + var(--edge-extra) + 4px);
 }
 
 body.theme-epic .plan-panel {
