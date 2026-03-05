@@ -11,7 +11,7 @@ body.theme-epic {
   --ember: #ff8840;
   --arcane: #8d74ff;
   --forest: #3ca16e;
-  --drh-bg-menu: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_menu_bg.webp");
+  --drh-bg-menu: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_promo_1.webp");
   --drh-bg-pergamen: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_pergamen.png");
   --drh-bg-pergamen-top: url("./research/drh_assets/raw/custom/pergamen%20top.png");
   --drh-bg-pergamen-bottom: url("./research/drh_assets/raw/custom/pergamen%20bottom.png");
@@ -22,7 +22,7 @@ body.theme-epic {
   color: var(--text);
   background:
     linear-gradient(180deg, rgba(8, 7, 11, 0.82), rgba(8, 7, 11, 0.88)),
-    var(--drh-bg-menu) center / cover fixed no-repeat,
+    var(--drh-bg-menu) center center / auto 100% fixed no-repeat,
     radial-gradient(1300px 700px at -6% -20%, rgba(255, 114, 56, 0.17), transparent 52%),
     radial-gradient(1200px 850px at 104% -18%, rgba(140, 109, 255, 0.24), transparent 58%),
     radial-gradient(1000px 760px at 48% 120%, rgba(52, 145, 98, 0.19), transparent 62%),
