@@ -159,6 +159,9 @@ body.theme-epic .panel > * {
 
 /* Local enclosure for first-column base 12 + extended 12 blocks. */
 body.theme-epic .talents-panel .general-branch {
+  --inner-node-radius: 12px;
+  --local-shell-gap: calc(0.34rem + 2px);
+  --local-shell-radius: calc(var(--inner-node-radius) + var(--local-shell-gap));
   position: relative;
   margin-bottom: 0.6rem;
   padding: 0.34rem;
@@ -171,7 +174,7 @@ body.theme-epic .talents-panel .general-branch::before {
   inset: -2px;
   pointer-events: none;
   border: 1px solid rgba(119, 86, 43, 0.58);
-  border-radius: 10px;
+  border-radius: var(--local-shell-radius);
   background: linear-gradient(180deg, rgba(128, 90, 45, 0.1), rgba(61, 40, 21, 0.06));
   box-shadow:
     inset 0 1px 0 rgba(255, 240, 209, 0.18),
