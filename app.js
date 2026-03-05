@@ -1069,12 +1069,13 @@
       clearSpecializationBranch(profId, lockedSpecIndex);
     }
     const lockedSpecIndexAfterReq = getLockedSpecializationIndex(profId, split.branches);
-    const forcedSpec =
+    const storedForcedSpec =
       Number.isInteger(state.selectedSpecializationByClass[profId]) &&
       state.selectedSpecializationByClass[profId] >= 0 &&
       state.selectedSpecializationByClass[profId] <= 2
         ? state.selectedSpecializationByClass[profId]
         : (lockedSpecIndexAfterReq !== null ? lockedSpecIndexAfterReq : null);
+    const forcedSpec = getActiveLockedSpecializationIndex(profId, currentLevel);
     const previewSpec = getPreviewSpecializationIndex(
       profId,
       specializationChoiceUnlocked,
@@ -1116,7 +1117,7 @@
       split.branches,
       specializationChoiceUnlocked,
       previewSpec,
-      forcedSpec,
+      storedForcedSpec,
       currentLevel,
       hasSpecColor
     );
@@ -1306,7 +1307,12 @@
               delete state.specializationLockLevelByClass[profId];
             } else {
               state.selectedSpecializationByClass[profId] = i;
-              state.specializationLockLevelByClass[profId] = getCurrentCharacterLevel();
+              state.specializationLockLevelByClass[profId] = clampInt(
+                getCurrentCharacterLevel() + 1,
+                1,
+                state.config.maxLevel,
+                SPECIALIZATION_UNLOCK_LEVEL
+              );
             }
             state.previewSpecializationByClass[profId] = i;
             renderAll();
@@ -1807,14 +1813,30 @@
 
   function getLockedSpecializationIndex(profId, branches) {
     void branches;
+    return getActiveLockedSpecializationIndex(profId);
+  }
+
+  function getActiveLockedSpecializationIndex(profId, currentLevel = getCurrentCharacterLevel()) {
     const forced = Number.isInteger(state.selectedSpecializationByClass[profId])
       ? state.selectedSpecializationByClass[profId]
       : null;
-    if (forced === 0 || forced === 1 || forced === 2) {
+    if ((forced === 0 || forced === 1 || forced === 2) && isSpecializationLockActive(profId, currentLevel)) {
       state.selectedSpecializationByClass[profId] = forced;
       return forced;
     }
     return null;
+  }
+
+  function isSpecializationLockActive(profId, currentLevel = getCurrentCharacterLevel()) {
+    const forced = Number(state.selectedSpecializationByClass[profId]);
+    if (!(forced === 0 || forced === 1 || forced === 2)) return false;
+    const lockLevel = clampInt(
+      Number(state.specializationLockLevelByClass[profId]),
+      1,
+      state.config.maxLevel,
+      SPECIALIZATION_UNLOCK_LEVEL
+    );
+    return currentLevel >= lockLevel;
   }
 
   function getPreviewSpecializationIndex(profId, unlocked, forcedSpec, branches = []) {
@@ -1846,7 +1868,12 @@
     const split = splitClassTalentsForTree(classTalents);
     if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     state.selectedSpecializationByClass[profId] = branchIndex;
-    state.specializationLockLevelByClass[profId] = getCurrentCharacterLevel();
+    state.specializationLockLevelByClass[profId] = clampInt(
+      getCurrentCharacterLevel() + 1,
+      1,
+      state.config.maxLevel,
+      SPECIALIZATION_UNLOCK_LEVEL
+    );
   }
 
   function clearSpecializationBranch(profId, branchIndex) {
@@ -1864,9 +1891,7 @@
     if (currentLevel < SPECIALIZATION_TRANSITION_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
-    const forcedSpec = Number.isInteger(state.selectedSpecializationByClass[profId])
-      ? state.selectedSpecializationByClass[profId]
-      : null;
+    const forcedSpec = getActiveLockedSpecializationIndex(profId, currentLevel);
     if (forcedSpec !== null && !hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
     const selectedBranchTalentCount = split.branches
       .flat()
@@ -2063,7 +2088,14 @@
 
   function getSpecializationLevelFloor(profId) {
     const idx = state.selectedSpecializationByClass[profId];
-    return Number.isInteger(idx) && idx >= 0 && idx <= 2 ? SPECIALIZATION_UNLOCK_LEVEL : 1;
+    if (!(Number.isInteger(idx) && idx >= 0 && idx <= 2)) return 1;
+    const lockLevel = clampInt(
+      Number(state.specializationLockLevelByClass[profId]),
+      1,
+      state.config.maxLevel,
+      SPECIALIZATION_UNLOCK_LEVEL
+    );
+    return Math.max(SPECIALIZATION_UNLOCK_LEVEL, lockLevel);
   }
 
   function renderPlanOnly() {
@@ -2128,7 +2160,8 @@
         !lvl.raceBonuses.length &&
         !lvl.startSkills.length &&
         !lvl.talents.length &&
-        !lvl.skillActions.length
+        !lvl.skillActions.length &&
+        !(lockLevel > 0 && lvl.level === lockLevel)
       ) {
         continue;
       }
