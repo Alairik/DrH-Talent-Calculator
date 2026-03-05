@@ -1134,7 +1134,7 @@
         const reqBranchIndex = requiredByTalentId.get(talent.id);
         if (isSelected) node.classList.add("selected");
         if (isStarterTalent) node.classList.add("locked");
-        if (isDisabled) node.classList.add("locked");
+        if (isDisabled && !isSelected) node.classList.add("locked");
         if (enableSpecColor && Number.isInteger(reqBranchIndex)) node.classList.add(`spec-${reqBranchIndex}`);
         if (isPdfCovered) node.classList.add("pdf-covered");
         const tooltipLines = [talent.name];
