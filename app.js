@@ -311,6 +311,7 @@
     manualLevelPlus: document.getElementById("manualLevelPlus"),
     timelineHelpBtn: document.getElementById("timelineHelpBtn"),
     shareLinkBtn: document.getElementById("shareLinkBtn"),
+    themeToggleBtn: document.getElementById("themeToggleBtn"),
     urlLoadStatus: document.getElementById("urlLoadStatus"),
     summary: document.getElementById("summary"),
     issues: document.getElementById("issues"),
@@ -332,6 +333,7 @@
   const MAX_BUILD_COLLECTION_SIZE = 512;
   const SAFE_ID_RE = /^[A-Za-z0-9_:-]{1,80}$/;
   const TIMELINE_HELP_TEXT = "S = schopnost.\nD = dovednost.\nTimeline ukazuje, kdy byla která schopnost nebo dovednost přidána.";
+  const THEME_STORAGE_KEY = `${window.APP_CONFIG.storageKey}__themeEpic`;
   const CZECH_DIACRITIC_MAP = Object.freeze({
     "andel": "anděl",
     "asketismus": "asketismus",
@@ -691,6 +693,7 @@
     }
 
     hydrateFromStorage();
+    hydrateTheme();
     const urlHydrationStatus = hydrateFromUrl();
     ensureDefaults();
     wireEvents();
@@ -814,6 +817,10 @@
           alert(url);
         }
       }
+    });
+    if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
+      const enabled = !document.body.classList.contains("theme-epic");
+      applyTheme(enabled, true);
     });
     if (els.timelineHelpBtn) {
       els.timelineHelpBtn.addEventListener("mouseenter", () => {
@@ -2501,6 +2508,32 @@
     window.setTimeout(() => {
       if (els.urlLoadStatus) els.urlLoadStatus.hidden = true;
     }, 4000);
+  }
+
+  function hydrateTheme() {
+    let enabled = false;
+    try {
+      enabled = localStorage.getItem(THEME_STORAGE_KEY) === "1";
+    } catch (_e) {
+      enabled = false;
+    }
+    applyTheme(enabled, false);
+  }
+
+  function applyTheme(enabled, persistTheme) {
+    document.body.classList.toggle("theme-epic", !!enabled);
+    if (els.themeToggleBtn) {
+      els.themeToggleBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
+      els.themeToggleBtn.textContent = enabled ? "Fantasy ON" : "Fantasy OFF";
+      els.themeToggleBtn.title = enabled ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
+    }
+    if (persistTheme) {
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, enabled ? "1" : "0");
+      } catch (_e) {
+        // ignore storage failures
+      }
+    }
   }
 
   function sanitizeBuildPayload(payload) {

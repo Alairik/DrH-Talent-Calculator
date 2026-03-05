@@ -325,6 +325,13 @@ h3,
   letter-spacing: 0.01em;
 }
 
+#themeToggleBtn {
+  width: 92px;
+  min-width: 92px;
+  font-size: 0.56rem;
+  letter-spacing: 0.01em;
+}
+
 .url-load-status {
   display: inline-flex;
   align-items: center;
