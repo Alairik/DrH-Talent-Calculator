@@ -250,10 +250,10 @@ h3,
   }
 
   .layout > .talents-panel .class-gap-icons {
-    --gap-icon-size: clamp(66px, 4.2vw, 92px);
+    --gap-icon-size: clamp(78px, 4.9vw, 112px);
     position: absolute;
     top: 0.7rem;
-    right: calc((var(--left-col-reserved-gap) * -0.5) - (var(--gap-icon-size) * 0.5));
+    right: calc(((var(--middle-col-shift-left) - var(--left-col-reserved-gap)) * 0.5) - (var(--gap-icon-size) * 0.5));
     bottom: 0.7rem;
     width: var(--gap-icon-size);
     display: grid;
