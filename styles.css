@@ -174,7 +174,7 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-col-reserved-gap: 72px;
+    --left-col-reserved-gap: 108px;
   }
 
   .column-controls > :first-child {
