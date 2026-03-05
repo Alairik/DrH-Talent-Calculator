@@ -1271,6 +1271,34 @@ button:hover {
   white-space: normal;
   overflow: visible;
   text-overflow: clip;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.35rem;
+}
+
+.timeline-line-text {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.timeline-remove-step {
+  width: 18px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid #8b6a3d;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-size: 0.72rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+}
+
+.timeline-remove-step:hover {
+  border-color: #d4ad66;
 }
 
 .timeline-line.race,
@@ -1297,6 +1325,13 @@ button:hover {
 @media (max-width: 1024px) and (pointer: coarse) {
   .timeline-cell {
     grid-template-columns: 1fr;
+  }
+
+  .timeline-remove-step {
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
   }
 }
 

@@ -2068,33 +2068,37 @@
       const cell = document.createElement("div");
       cell.className = "timeline-cell";
       for (const s of lvl.startSkills) {
-        const line = document.createElement("div");
-        line.className = "timeline-line skill";
-        line.textContent = `D: ${s.name} (3)`;
-        cell.appendChild(line);
+        appendTimelineLine(cell, `D: ${s.name} (3)`, "timeline-line skill");
       }
       for (const t of lvl.talents) {
-        const line = document.createElement("div");
-        line.className = "timeline-line talent";
-        line.textContent = `S: ${t.name}`;
-        cell.appendChild(line);
+        appendTimelineLine(
+          cell,
+          `S: ${t.name}`,
+          "timeline-line talent",
+          { type: "talent", talentId: t.id }
+        );
       }
       if (lockLevel > 0 && lvl.level === lockLevel) {
-        const line = document.createElement("div");
-        line.className = "timeline-line talent";
+        let cls = "timeline-line talent";
+        let text = "S: Zamknutí specializace";
         if (lockedSpecName) {
-          line.classList.add(`spec-${lockedSpecIndex}`);
-          line.textContent = `S: ${lockedSpecName}`;
-        } else {
-          line.textContent = "S: Zamknutí specializace";
+          cls += ` spec-${lockedSpecIndex}`;
+          text = `S: ${lockedSpecName}`;
         }
-        cell.appendChild(line);
+        appendTimelineLine(
+          cell,
+          text,
+          cls,
+          { type: "specLock", profId }
+        );
       }
       for (const a of lvl.skillActions) {
-        const line = document.createElement("div");
-        line.className = "timeline-line skill";
-        line.textContent = `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`;
-        cell.appendChild(line);
+        appendTimelineLine(
+          cell,
+          `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`,
+          "timeline-line skill",
+          { type: "skill", skillId: a.skill.id }
+        );
       }
       card.appendChild(levelBadge);
       card.appendChild(cell);
@@ -2104,6 +2108,54 @@
     els.timeline.scrollTop = 0;
     const panel = els.timeline.closest(".panel");
     if (panel) panel.scrollTop = 0;
+  }
+
+  function appendTimelineLine(cell, text, className, step = null) {
+    const line = document.createElement("div");
+    line.className = className;
+    const label = document.createElement("span");
+    label.className = "timeline-line-text";
+    label.textContent = text;
+    line.appendChild(label);
+    if (step && typeof step === "object") {
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "timeline-remove-step";
+      removeBtn.textContent = "×";
+      removeBtn.title = "Smazat krok";
+      removeBtn.setAttribute("aria-label", "Smazat krok");
+      removeBtn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        removeTimelineStep(step);
+      });
+      line.appendChild(removeBtn);
+    }
+    cell.appendChild(line);
+  }
+
+  function removeTimelineStep(step) {
+    if (!step || typeof step !== "object") return;
+    if (step.type === "talent" && step.talentId) {
+      removeTalentSelection(step.talentId);
+    } else if (step.type === "skill" && step.skillId) {
+      const skill = state.skills.find((x) => x.id === step.skillId);
+      if (!skill) return;
+      const starterIds = new Set(getClassStarterSkillIds());
+      const floor = getSkillFloor(skill, starterIds, state.selectedProfessionId);
+      const target = getSkillTargetRank(step.skillId, floor);
+      const next = Math.max(floor, target - 1);
+      if (next <= floor) delete state.selectedSkillTargets[step.skillId];
+      else state.selectedSkillTargets[step.skillId] = next;
+    } else if (step.type === "specLock" && step.profId) {
+      delete state.selectedSpecializationByClass[step.profId];
+      delete state.specializationLockLevelByClass[step.profId];
+    } else {
+      return;
+    }
+    cleanseInvalidSelections();
+    renderAll();
+    persist();
   }
 
   function exportBuild() {
