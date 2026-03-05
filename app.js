@@ -952,11 +952,16 @@
     if (!container) return;
     const isSmoothPanel = container.id === "generalBranchL6";
     if (isSmoothPanel) {
+      const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
+      for (let i = 0; i < nodes.length; i += 1) {
+        nodes[i].style.setProperty("--unlock-i", String(i));
+      }
       container.classList.remove("unlock-reveal-soft");
       void container.offsetWidth; // eslint-disable-line no-unused-expressions
       container.classList.add("unlock-reveal-soft");
       window.setTimeout(() => {
         container.classList.remove("unlock-reveal-soft");
+        for (const n of nodes) n.style.removeProperty("--unlock-i");
       }, 520);
       return;
     }
