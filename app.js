@@ -1102,7 +1102,8 @@
         talentLevelById,
         onToggle: (talent, checked) => toggleTalentInBranch(profId, i, talent.id, checked)
       });
-      if (branchVisible && !state.ui.branchVisible[i]) triggerUnlockAnimation(card);
+      // Keep branch previews visually stable when switching specs.
+      // Unlock animation here causes distracting dim/fade flashes.
       state.ui.branchVisible[i] = branchVisible;
     }
     const raceTalent = getRaceBonusTalent();
