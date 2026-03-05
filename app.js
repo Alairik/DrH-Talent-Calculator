@@ -1752,17 +1752,13 @@
   }
 
   function getLockedSpecializationIndex(profId, branches) {
+    void branches;
     const forced = Number.isInteger(state.selectedSpecializationByClass[profId])
       ? state.selectedSpecializationByClass[profId]
       : null;
     if (forced === 0 || forced === 1 || forced === 2) {
-      const locked = forced;
-      for (let i = 0; i < branches.length; i += 1) {
-        if (i === locked) continue;
-        for (const t of branches[i]) removeTalentSelection(t.id);
-      }
-      state.selectedSpecializationByClass[profId] = locked;
-      return locked;
+      state.selectedSpecializationByClass[profId] = forced;
+      return forced;
     }
     return null;
   }
