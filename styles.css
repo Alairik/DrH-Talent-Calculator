@@ -374,9 +374,10 @@ h3,
 }
 
 .gap-icons-panel {
-  border: none;
-  background: transparent;
-  box-shadow: none;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
   padding: 0.8rem 0;
   overflow: visible;
 }
