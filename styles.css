@@ -175,6 +175,7 @@ h3,
 @media (min-width: 1025px) {
   :root {
     --left-col-reserved-gap: 108px;
+    --middle-col-width-factor: 0.75;
   }
 
   .column-controls > :first-child {
@@ -187,6 +188,18 @@ h3,
     justify-self: start;
     width: calc(100% - var(--left-col-reserved-gap));
     max-width: calc(100% - var(--left-col-reserved-gap));
+  }
+
+  .column-controls > :nth-child(2) {
+    justify-self: start;
+    width: calc(100% * var(--middle-col-width-factor));
+    max-width: calc(100% * var(--middle-col-width-factor));
+  }
+
+  .layout > .skills-panel {
+    justify-self: start;
+    width: calc(100% * var(--middle-col-width-factor));
+    max-width: calc(100% * var(--middle-col-width-factor));
   }
 }
 
