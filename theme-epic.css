@@ -106,7 +106,7 @@ body.theme-epic .plan-panel {
 
 /* Columns inherit spacing relative to 3rd-column reference. */
 body.theme-epic .talents-panel { --edge-scale: 1.056; } /* 0.95 / 0.90 */
-body.theme-epic .skills-panel { --edge-scale: 1.5; }    /* increased reduction for middle column */
+body.theme-epic .skills-panel { --edge-scale: 2; }      /* increased reduction for middle column */
 
 body.theme-epic .panel::before,
 body.theme-epic .panel::after {
