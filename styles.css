@@ -177,6 +177,7 @@ h3,
     --left-col-reserved-gap: clamp(20px, 6vw, 160px);
     --middle-col-width-factor: 0.75;
     --left-panel-target-width: clamp(380px, 29vw, 468px);
+    --middle-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.24), 72px);
   }
 
   .column-controls > :first-child {
@@ -205,12 +206,14 @@ h3,
     justify-self: end;
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
+    transform: translateX(calc(-1 * var(--middle-col-shift-left)));
   }
 
   .layout > .skills-panel {
     justify-self: end;
     width: calc(100% * var(--middle-col-width-factor));
     max-width: calc(100% * var(--middle-col-width-factor));
+    transform: translateX(calc(-1 * var(--middle-col-shift-left)));
   }
 
   .layout > .talents-panel > .branch-grid {
