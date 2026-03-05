@@ -1,9 +1,9 @@
 :root {
-  --menu-left: url("../research/drh_assets/raw/custom/menu%20left.png");
-  --menu-mid: url("../research/drh_assets/raw/custom/menu%20mid.png");
-  --menu-end: url("../research/drh_assets/raw/custom/menu%20end.png");
-  --btn-main: url("../research/drh_assets/raw/custom/button.png");
-  --btn-left: url("../research/drh_assets/raw/custom/button%20left.png");
+  --menu-left: url("./assets/menu-left.png");
+  --menu-mid: url("./assets/menu-mid.png");
+  --menu-end: url("./assets/menu-end.png");
+  --btn-main: url("./assets/button.png");
+  --btn-left: url("./assets/button-left.png");
   --menu-h: 64px;
 }
 
