@@ -670,6 +670,8 @@
       state.talentOrderCounter = 0;
       state.selectedSpecializationByClass = {};
       state.selectedSkillTargets = {};
+      state.levelMode = "manual";
+      state.manualLevel = 1;
       renderAll();
       persist();
     });
@@ -1009,7 +1011,7 @@
     const split = splitClassTalentsForTree(classTalents, profId);
     const currentLevel = clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1);
     const specializationChoiceUnlocked = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL;
-    const specializationTalentsUnlocked = currentLevel >= SPECIALIZATION_UNLOCK_LEVEL;
+    const specializationTalentsUnlocked = currentLevel >= SPECIALIZATION_TRANSITION_LEVEL;
     if (!specializationChoiceUnlocked) {
       for (const branch of split.branches) {
         for (const talent of branch) removeTalentSelection(talent.id);
@@ -1072,8 +1074,14 @@
       const container = branchContainers[i];
       const card = container.parentElement;
       const branchTalents = split.branches[i] || [];
-      const branchEnabled = specializationTalentsUnlocked && activeSpec === i;
-      const branchVisible = specializationTalentsUnlocked && activeSpec === i;
+      const reqReady = hasSpecializationRequirements(profId, i, split.generalBase);
+      const branchEnabled =
+        specializationTalentsUnlocked &&
+        reqReady &&
+        (activeSpec === null || activeSpec === i);
+      const branchVisible =
+        specializationTalentsUnlocked &&
+        (activeSpec === null || activeSpec === i);
       card.classList.toggle("branch-active", branchEnabled);
       card.classList.toggle("branch-hidden", !branchVisible);
       renderBranch(container, branchTalents, {
@@ -1712,16 +1720,11 @@
   }
 
   function getLockedSpecializationIndex(profId, branches) {
-    const selectedByTalent = [];
-    for (let i = 0; i < branches.length; i += 1) {
-    const hasSelected = branches[i].some((t) => state.selectedTalentIds.has(t.id));
-      if (hasSelected) selectedByTalent.push(i);
-    }
     const forced = Number.isInteger(state.selectedSpecializationByClass[profId])
       ? state.selectedSpecializationByClass[profId]
       : null;
-    if (selectedByTalent.length > 0) {
-      const locked = selectedByTalent.includes(forced) ? forced : selectedByTalent[0];
+    if (forced === 0 || forced === 1 || forced === 2) {
+      const locked = forced;
       for (let i = 0; i < branches.length; i += 1) {
         if (i === locked) continue;
         for (const t of branches[i]) removeTalentSelection(t.id);
@@ -1729,7 +1732,6 @@
       state.selectedSpecializationByClass[profId] = locked;
       return locked;
     }
-    if (forced === 0 || forced === 1 || forced === 2) return forced;
     return null;
   }
 
@@ -1753,14 +1755,26 @@
 
   function toggleTalentInBranch(profId, branchIndex, talentId, checked) {
     const currentLevel = getCurrentCharacterLevel();
-    if (currentLevel < SPECIALIZATION_UNLOCK_LEVEL) return;
+    if (currentLevel < SPECIALIZATION_TRANSITION_LEVEL) return;
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
     const split = splitClassTalentsForTree(classTalents);
     if (!hasSpecializationRequirements(profId, branchIndex, split.generalBase)) return;
+    const forcedSpec = Number.isInteger(state.selectedSpecializationByClass[profId])
+      ? state.selectedSpecializationByClass[profId]
+      : null;
+    const selectedBranchTalentCount = split.branches
+      .flat()
+      .filter((t) => state.selectedTalentIds.has(t.id))
+      .length;
+    const unspecializedLimit = getUnspecializedSpecTalentLimit(currentLevel);
     const lockedIndex = getLockedSpecializationIndex(profId, split.branches);
-    if (lockedIndex !== null && lockedIndex !== branchIndex) return;
-    state.selectedSpecializationByClass[profId] = branchIndex;
+    if ((forcedSpec !== null && forcedSpec !== branchIndex) || (lockedIndex !== null && lockedIndex !== branchIndex)) return;
     if (checked) {
+      if (
+        forcedSpec === null &&
+        !state.selectedTalentIds.has(talentId) &&
+        selectedBranchTalentCount >= unspecializedLimit
+      ) return;
       addTalentSelection(talentId);
       autoGrantSkillsFromSTalent(talentId);
     }
@@ -1775,6 +1789,12 @@
     }
     renderAll();
     persist();
+  }
+
+  function getUnspecializedSpecTalentLimit(currentLevel) {
+    const lvl = clampInt(currentLevel, 1, state.config.maxLevel, 1);
+    if (lvl < SPECIALIZATION_TRANSITION_LEVEL) return 0;
+    return Math.max(1, Math.floor((lvl + 1) / SPECIALIZATION_UNLOCK_LEVEL));
   }
 
   function buildPlan() {
