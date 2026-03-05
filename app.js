@@ -287,6 +287,7 @@
     humanToggle: document.getElementById("humanToggle"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
+    classGapIcons: document.getElementById("classGapIcons"),
     generalNodes: document.getElementById("generalNodes"),
     generalBranchL6: document.getElementById("generalBranchL6"),
     generalNodesL6: document.getElementById("generalNodesL6"),
@@ -1087,6 +1088,7 @@
 
   function renderClassPicker() {
     els.classPicker.innerHTML = "";
+    if (els.classGapIcons) els.classGapIcons.innerHTML = "";
     for (const p of state.professions) {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -1106,6 +1108,26 @@
         persist();
       });
       els.classPicker.appendChild(btn);
+
+      if (els.classGapIcons) {
+        const gapBtn = document.createElement("button");
+        gapBtn.type = "button";
+        gapBtn.className = "class-box class-gap-icon";
+        gapBtn.classList.add(`class-${String(p.id || "").toLowerCase()}`);
+        if (p.id === state.selectedProfessionId) gapBtn.classList.add("active");
+        if (classIcon) {
+          gapBtn.style.setProperty("--class-gap-icon", `url("${classIcon}")`);
+        }
+        gapBtn.title = p.name;
+        gapBtn.setAttribute("aria-label", `Vybrat povolání: ${p.name}`);
+        gapBtn.addEventListener("click", () => {
+          state.selectedProfessionId = p.id;
+          cleanseInvalidSelections();
+          renderAll();
+          persist();
+        });
+        els.classGapIcons.appendChild(gapBtn);
+      }
     }
   }
 
