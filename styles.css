@@ -174,10 +174,17 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
-    --left-col-reserved-gap: clamp(20px, 6vw, 160px);
-    --middle-col-width-factor: 0.75;
+    --left-col-reserved-gap: clamp(0px, 4.8vw, 160px);
     --left-panel-target-width: clamp(380px, 29vw, 468px);
-    --middle-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.24), 72px);
+    --middle-panel-target-width: clamp(500px, 40vw, 760px);
+    --right-panel-target-width: clamp(360px, 27vw, 620px);
+    --middle-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.32), 110px);
+    --right-col-shift-left: clamp(0px, calc((1400px - 100vw) * 0.16), 52px);
+  }
+
+  .column-controls,
+  .layout {
+    gap: clamp(0.24rem, 0.7vw, 0.9rem);
   }
 
   .column-controls > :first-child {
@@ -204,16 +211,30 @@ h3,
 
   .column-controls > :nth-child(2) {
     justify-self: end;
-    width: calc(100% * var(--middle-col-width-factor));
-    max-width: calc(100% * var(--middle-col-width-factor));
+    width: min(var(--middle-panel-target-width), 100%);
+    max-width: min(var(--middle-panel-target-width), 100%);
     transform: translateX(calc(-1 * var(--middle-col-shift-left)));
   }
 
   .layout > .skills-panel {
     justify-self: end;
-    width: calc(100% * var(--middle-col-width-factor));
-    max-width: calc(100% * var(--middle-col-width-factor));
+    width: min(var(--middle-panel-target-width), 100%);
+    max-width: min(var(--middle-panel-target-width), 100%);
     transform: translateX(calc(-1 * var(--middle-col-shift-left)));
+  }
+
+  .column-controls > :nth-child(3) {
+    justify-self: end;
+    width: min(var(--right-panel-target-width), 100%);
+    max-width: min(var(--right-panel-target-width), 100%);
+    transform: translateX(calc(-1 * var(--right-col-shift-left)));
+  }
+
+  .layout > .plan-panel {
+    justify-self: end;
+    width: min(var(--right-panel-target-width), 100%);
+    max-width: min(var(--right-panel-target-width), 100%);
+    transform: translateX(calc(-1 * var(--right-col-shift-left)));
   }
 
   .layout > .talents-panel > .branch-grid {
