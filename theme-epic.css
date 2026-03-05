@@ -168,8 +168,15 @@ body.theme-epic .gap-icons-panel {
   border: none !important;
   box-shadow: none !important;
   outline: none !important;
-  padding-top: 0.8rem;
-  padding-bottom: 0.8rem;
+  --edge-ref: 0px;
+  --edge-scale: 0;
+  --edge-extra: 0px;
+  --shell-inset-top: 0px;
+  --shell-inset-side: 0px;
+  --shell-inset-bottom: 0px;
+  --shell-gap-base: 0px;
+  --shell-gap: 0px;
+  padding: 0.8rem 0 !important;
 }
 
 body.theme-epic .gap-icons-panel::before,

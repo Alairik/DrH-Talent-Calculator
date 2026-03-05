@@ -203,6 +203,8 @@ h3,
     justify-self: center;
     width: min(var(--gap-panel-target-width), 100%);
     max-width: min(var(--gap-panel-target-width), 100%);
+    padding-left: 0;
+    padding-right: 0;
   }
 
   /* First-column controls fill the global shell width. */
