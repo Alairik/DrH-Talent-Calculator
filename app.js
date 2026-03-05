@@ -7,6 +7,14 @@
     PROF_5: ["Assassin", "Lupič", "Sicco"],
     PROF_6: ["Bojový mnich", "Exorcista", "Kněz"]
   };
+  const TIMELINE_SPEC_COLORS = {
+    PROF_1: ["#f1a8a8", "#f2c08a", "#e4b0b0"],
+    PROF_2: ["#8edec3", "#c9a29b", "#e4be8f"],
+    PROF_3: ["#d9cb95", "#ea9e8f", "#c2b4f1"],
+    PROF_4: ["#e9a2a2", "#c9b0ee", "#c4c4c4"],
+    PROF_5: ["#93dca9", "#e4ce89", "#b7b7b7"],
+    PROF_6: ["#e8c1c1", "#cebced", "#f0f0f0"]
+  };
   const GENERAL_TALENT_SLOTS = 12;
   const BRANCH_TALENT_SLOTS = 8;
   const SPECIALIZATION_UNLOCK_LEVEL = 6;
@@ -2061,6 +2069,16 @@
   function renderTimeline(plan) {
     els.timeline.innerHTML = "";
     const profId = state.selectedProfessionId;
+    const classTalents = state.talents
+      .filter((t) => t.prof_id === profId)
+      .sort(byRequiredThenName);
+    const split = splitClassTalentsForTree(classTalents, profId);
+    const talentBranchById = new Map();
+    for (let bi = 0; bi < split.branches.length; bi += 1) {
+      for (const t of split.branches[bi] || []) {
+        if (t && t.id) talentBranchById.set(t.id, bi);
+      }
+    }
     const lockedSpecIndex = Number(state.selectedSpecializationByClass[profId]);
     const lockedSpecName =
       Number.isInteger(lockedSpecIndex) && lockedSpecIndex >= 0 && lockedSpecIndex <= 2
@@ -2115,19 +2133,42 @@
         appendTimelineLine(cell, `D: ${s.name} (3)`, "timeline-line skill");
       }
       for (const t of lvl.talents) {
-        appendTimelineLine(cell, `S: ${t.name}`, "timeline-line talent");
+        const branchIndex = Number(talentBranchById.get(t.id));
+        const className =
+          Number.isInteger(branchIndex) && branchIndex >= 0 && branchIndex <= 2
+            ? `timeline-line talent spec-${branchIndex} class-${String(profId || "").toLowerCase()}`
+            : "timeline-line talent";
+        const color =
+          Number.isInteger(branchIndex) && branchIndex >= 0 && branchIndex <= 2
+            ? getTimelineSpecColor(profId, branchIndex)
+            : "";
+        appendTimelineLine(cell, `S: ${t.name}`, className, color);
       }
       if (lockLevel > 0 && lvl.level === lockLevel) {
         let cls = "timeline-line talent";
         let text = "S: Zamknutí specializace";
+        let color = "";
         if (lockedSpecName) {
           cls += ` spec-${lockedSpecIndex}`;
           text = `S: ${lockedSpecName}`;
+          color = getTimelineSpecColor(profId, lockedSpecIndex);
         }
-        appendTimelineLine(cell, text, cls);
+        appendTimelineLine(cell, text, cls, color);
       }
       for (const a of lvl.skillActions) {
-        appendTimelineLine(cell, `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`, "timeline-line skill");
+        const skillBranchIndex = Number(a && a.skill && a.skill.spec_branch_index);
+        const skillInSpec =
+          a &&
+          a.skill &&
+          a.skill.prof_id === profId &&
+          Number.isInteger(skillBranchIndex) &&
+          skillBranchIndex >= 0 &&
+          skillBranchIndex <= 2;
+        const className = skillInSpec
+          ? `timeline-line skill spec-${skillBranchIndex} class-${String(profId || "").toLowerCase()}`
+          : "timeline-line skill";
+        const color = skillInSpec ? getTimelineSpecColor(profId, skillBranchIndex) : "";
+        appendTimelineLine(cell, `D: ${a.skill.name} ${a.from}->${a.to} (-${a.cost})`, className, color);
       }
       card.appendChild(levelMeta);
       card.appendChild(cell);
@@ -2139,11 +2180,21 @@
     if (panel) panel.scrollTop = 0;
   }
 
-  function appendTimelineLine(cell, text, className) {
+  function appendTimelineLine(cell, text, className, color = "") {
     const line = document.createElement("div");
     line.className = className;
+    if (color) line.style.color = color;
     line.textContent = text;
     cell.appendChild(line);
+  }
+
+  function getTimelineSpecColor(profId, specIndex) {
+    const colors = TIMELINE_SPEC_COLORS[profId];
+    if (Array.isArray(colors) && Number.isInteger(specIndex) && specIndex >= 0 && specIndex < colors.length) {
+      return String(colors[specIndex] || "");
+    }
+    const fallback = ["#f1a8a8", "#f2c08a", "#d2b7f5"];
+    return fallback[specIndex] || "";
   }
 
   function removeTimelineLevelSteps(levelState, profId, lockLevel) {
