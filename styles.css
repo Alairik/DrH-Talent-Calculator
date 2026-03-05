@@ -1273,6 +1273,7 @@ button:hover {
 .summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
   gap: 0.2rem;
   margin: 0;
 }
@@ -1304,6 +1305,32 @@ button:hover {
   font-size: 0.82rem;
   font-weight: 700;
   line-height: 1;
+}
+
+.kpi.kpi-skill-points {
+  --kpi-frame: url("./research/drh_assets/raw/asset_wp-content_themes_hlidka_images_sidebar_title_mobile.png");
+  width: fit-content;
+  min-width: 150px;
+  min-height: 41px;
+  border: 7px solid transparent;
+  border-image: var(--kpi-frame) 7 44 7 44 fill;
+  border-image-repeat: stretch;
+  background: transparent;
+  color: #2a1f12;
+  text-shadow: 0 1px 0 rgba(255, 250, 238, 0.35);
+  box-shadow: none;
+  gap: 0.32rem;
+  padding: 0.12rem 0.45rem;
+}
+
+.kpi.kpi-skill-points .label {
+  color: #4e3620;
+  font-weight: 700;
+}
+
+.kpi.kpi-skill-points .value {
+  color: #241809;
+  font-size: 0.9rem;
 }
 
 .issues {

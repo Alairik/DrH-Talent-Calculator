@@ -2202,12 +2202,12 @@
 
   function renderSummary(plan) {
     const kpis = [
-      ["Volne body dovednosti", String(plan.totals.freeSkillPoints)]
+      ["Body dovednosti", String(plan.totals.freeSkillPoints), "kpi-skill-points"]
     ];
     els.summary.innerHTML = "";
-    for (const [label, value] of kpis) {
+    for (const [label, value, extraClass] of kpis) {
       const div = document.createElement("div");
-      div.className = "kpi";
+      div.className = `kpi${extraClass ? ` ${extraClass}` : ""}`;
       div.innerHTML = `<div class="label">${escapeHtml(label)}</div><div class="value">${escapeHtml(value)}</div>`;
       els.summary.appendChild(div);
     }
