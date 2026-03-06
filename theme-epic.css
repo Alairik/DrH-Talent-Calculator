@@ -311,10 +311,9 @@ body.theme-epic .top-class-picker .class-box {
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.14),
-    0 0 0 1px rgba(var(--class-rgb), 0.2) !important;
+    0 0 0 1px rgba(var(--class-rgb), 1) !important;
   color: #fff3da !important;
   opacity: 1 !important;
   font-weight: 600;
@@ -324,10 +323,9 @@ body.theme-epic .top-class-picker .class-box {
 body.theme-epic .top-class-picker .class-box:hover {
   border: 0 !important;
   background-image: var(--class-frame-hover) !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.2),
-    0 0 14px rgba(var(--class-rgb), 0.3) !important;
+    0 0 14px rgba(var(--class-rgb), 1) !important;
 }
 
 body.theme-epic .top-class-picker .class-box.has-icon::before {
@@ -339,11 +337,10 @@ body.theme-epic .top-class-picker .class-box.has-icon::before {
 body.theme-epic .top-class-picker .class-box.active {
   border: 0 !important;
   background-image: var(--class-frame-active) !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.24),
-    0 0 0 1px rgba(var(--class-rgb), 0.42),
-    0 0 10px rgba(var(--class-rgb), 0.22) !important;
+    0 0 0 1px rgba(var(--class-rgb), 1),
+    0 0 10px rgba(var(--class-rgb), 1) !important;
   color: #fff7e8 !important;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
 }
@@ -456,30 +453,27 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.16),
-    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
+    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node:hover {
   border: 0 !important;
   background-image: var(--spec-frame-hover) !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.24),
-    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node.active,
 body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
   border: 0 !important;
   background-image: var(--spec-frame-active) !important;
-  background-color: transparent !important;
+  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.28),
-    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
-    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
+    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 1),
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
