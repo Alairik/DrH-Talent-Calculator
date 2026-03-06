@@ -1107,8 +1107,34 @@
         if (classIcon) {
           gapBtn.style.setProperty("--class-gap-icon", `url("${classIcon}")`);
         }
-        gapBtn.title = p.name;
+        const gapTip = document.createElement("span");
+        gapTip.className = "class-gap-tooltip";
+        gapTip.textContent = p.name;
+        gapBtn.appendChild(gapTip);
         gapBtn.setAttribute("aria-label", `Vybrat povolání: ${p.name}`);
+        const moveGapTip = (ev) => {
+          const x = Number(ev.clientX) + 14;
+          const y = Number(ev.clientY) - 10;
+          gapTip.style.left = `${Math.round(x)}px`;
+          gapTip.style.top = `${Math.round(y)}px`;
+        };
+        gapBtn.addEventListener("mouseenter", (ev) => {
+          gapTip.classList.add("visible");
+          moveGapTip(ev);
+        });
+        gapBtn.addEventListener("mousemove", moveGapTip);
+        gapBtn.addEventListener("mouseleave", () => {
+          gapTip.classList.remove("visible");
+        });
+        gapBtn.addEventListener("focus", () => {
+          gapTip.classList.add("visible");
+          const r = gapBtn.getBoundingClientRect();
+          gapTip.style.left = `${Math.round(r.right + 10)}px`;
+          gapTip.style.top = `${Math.round(r.top + r.height / 2)}px`;
+        });
+        gapBtn.addEventListener("blur", () => {
+          gapTip.classList.remove("visible");
+        });
         gapBtn.addEventListener("click", () => {
           state.selectedProfessionId = p.id;
           cleanseInvalidSelections();
