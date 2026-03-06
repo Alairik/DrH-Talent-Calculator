@@ -314,7 +314,6 @@
     quickLevelMinus: document.getElementById("quickLevelMinus"),
     quickLevelDisplay: document.getElementById("quickLevelDisplay"),
     quickLevelPlus: document.getElementById("quickLevelPlus"),
-    quickThemeBtn: document.getElementById("quickThemeBtn"),
     quickSaveBtn: document.getElementById("quickSaveBtn"),
     quickAttrsPanel: document.getElementById("quickAttrsPanel"),
     floatingPanel: document.getElementById("floatingPanel"),
@@ -956,10 +955,6 @@
     bindAttributeInput("int", els.attrIntBase, els.attrIntMod, els.attrIntMinus, els.attrIntPlus);
     bindAttributeInput("cha", els.attrChaBase, els.attrChaMod, els.attrChaMinus, els.attrChaPlus);
     if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
-      const enabled = !document.body.classList.contains("theme-epic");
-      applyTheme(enabled, true);
-    });
-    if (els.quickThemeBtn) els.quickThemeBtn.addEventListener("click", () => {
       const enabled = !document.body.classList.contains("theme-epic");
       applyTheme(enabled, true);
     });
@@ -3136,10 +3131,6 @@
       els.themeToggleBtn.setAttribute("aria-pressed", enabled ? "true" : "false");
       els.themeToggleBtn.textContent = enabled ? "Fantasy ON" : "Fantasy OFF";
       els.themeToggleBtn.title = enabled ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
-    }
-    if (els.quickThemeBtn) {
-      els.quickThemeBtn.textContent = enabled ? "Fantasy ON" : "Fantasy OFF";
-      els.quickThemeBtn.title = enabled ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
     }
     if (persistTheme) {
       try {
