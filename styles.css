@@ -212,7 +212,7 @@ h3,
   position: fixed;
   right: 12px;
   bottom: 14px;
-  --floating-peek-height: 36px;
+  --floating-peek-height: 72px;
   z-index: 1310;
   width: min(282px, calc(100vw - 20px));
   overflow: visible;
@@ -267,8 +267,9 @@ h3,
 }
 
 #quickRaceSelect {
-  flex: 1 1 auto;
-  min-width: 0;
+  flex: 0 1 190px;
+  min-width: 120px;
+  max-width: 190px;
   padding: 0.24rem 0.4rem;
   border-radius: 9px;
   border: 1px solid #8c6a3c;
