@@ -193,13 +193,28 @@ h3,
   line-height: 1;
 }
 
+.theme-toggle-floating {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 1320;
+  min-height: 32px;
+  padding: 0 0.55rem;
+  border-radius: 8px;
+  border: 1px solid rgba(110, 86, 51, 0.95);
+  background: linear-gradient(180deg, rgba(110, 86, 51, 0.62), rgba(30, 23, 17, 0.94));
+  color: #f7ecd9;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 .floating-panel {
   position: fixed;
   right: 12px;
   bottom: 14px;
-  --floating-peek-height: 104px;
+  --floating-peek-height: 36px;
   z-index: 1310;
-  width: min(338px, calc(100vw - 20px));
+  width: min(282px, calc(100vw - 20px));
   overflow: visible;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -215,21 +230,24 @@ h3,
   transform: translateY(calc(100% - var(--floating-peek-height)));
 }
 
-.floating-panel-slide-btn {
+#floatingPanel > #floatingPanelSlideBtn.floating-panel-slide-btn {
   position: absolute;
-  right: 6px;
-  top: 6px;
-  transform: none;
-  width: 26px;
-  height: 24px;
-  border-radius: 8px;
+  left: 50% !important;
+  right: auto !important;
+  top: -18px !important;
+  transform: translateX(-50%) !important;
+  width: 58px;
+  height: 18px;
+  border-radius: 11px 11px 0 0;
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(110, 86, 51, 0.8), rgba(30, 23, 17, 0.96));
   color: #f7ecd9;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
   line-height: 1;
   display: grid;
   place-items: center;
+  padding: 0;
+  z-index: 5;
 }
 
 .floating-row {
@@ -252,6 +270,21 @@ h3,
   flex: 1 1 auto;
   min-width: 0;
   padding: 0.24rem 0.4rem;
+  border-radius: 9px;
+  border: 1px solid #8c6a3c;
+  background: #cdb488;
+  color: #2f2213;
+}
+
+#quickRaceSelect:focus {
+  outline: none;
+  border-color: #d9b77a;
+  box-shadow: 0 0 0 1px rgba(217, 183, 122, 0.5);
+}
+
+#quickRaceSelect option {
+  background: #d8c198;
+  color: #2f2213;
 }
 
 #quickRandomBtn,
@@ -280,6 +313,13 @@ h3,
 
 .floating-save-btn {
   padding: 0 0.55rem;
+  font-weight: 700;
+}
+
+.floating-theme-btn {
+  min-width: 88px;
+  padding: 0 0.45rem;
+  font-size: 0.7rem;
   font-weight: 700;
 }
 

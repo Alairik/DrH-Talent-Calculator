@@ -1,0 +1,55 @@
+PAGE 1
+- Efektivní výroba (S)
+- vújedüm(S)
+- identifikace (D) Dokážeš urit,cojeneznámý kouzelnýpedmt zaa jaké mávlastnosti.
+- Preciznívýroba (S)
+- Substituce (S)
+- Výroba svitk(D)
+- anatomie(S)
+- sestavy (S)
+- aenergie (S)
+- aelixíry (S)
+- pedmty (S)
+- substance(S)
+
+PAGE 2
+- Koncentracemany (S) Zakaždou úrove postavyzískáš 2body many navíc.
+- Kouzlení zknih (S) S pomocíkouzelnickýchknih dokážeš sesilati kouzla,která
+- Pamnakouzla (S)
+- Rituál krve (S)
+- Rychlé kouzlení(S)
+- Vyvolání pítele (S)
+- oborDivoká magie (S) Dokážešse nauit tmtokouzlûm: Beranidlo, Mrazivástela,
+- oborMagiepromn(S)
+- obor Mentálnímagie (S)
+- 0bor Ochrannámagie (S)
+- oborVitální magie (S)
+- obor Vysokámagie (S)
+
+PAGE 3
+- Improvizace (S)
+- Odeziráni zert (S)
+- Vražednéostí (S)
+- Vrhánídýk(S)
+- Zákenákuše(S)
+- Zlodjská hantýrka (S) Získáš pístup ktajným informacím zpodsvtí.
+- Umníkoiího pohybu(D) Nauíšseti další dovednosti: Lezení, Ohebnost aPádzvýšky.
+- Umnípromn (D)
+- Umní rvá(D)
+- Umnískrývání (D) Nauíšse ti další dovednosti: Schováníse vestínu, Splynuti s davem
+- Umníšarmu(D) Nauíšse ti další dovednosti:Odhadlidí, Odvedenípozornosti
+- Umní železného klíe(D) Nauíšse tidalší dovednosti: Odstrannípastí, Otevíráni zamku
+
+PAGE 4
+- Boží bojovnik(S)
+- Darslitování (S) Pi hoduna past i dovednost,když klerikovihrozí smrt,házíš dvakrát.
+- Osvíceni(S) Zakaždou úrove získáváš 2body Pízn navíc.
+- Posvátnýsymbol(S) Ziskáváš bonus +2kúspchu provádní proseb.
+- Požehnanézdraví (S) Získáváš 1 život navíc zakaždou úrove klerika. Navícjsirezistentní vüi
+- Rituály aobady(S) Ovládneš znalost obad,díkykteré lze získat Píze navíc.
+- nauka Bojovníkvíiry (S) Ovládneš tyto dalšíprosby: Svatá zbroj,Ütok štstny, Vrácení úderu,
+- nauka Božích patron (S) Ovládneš tyto dalšíprosby: Posel bojovník, Posel rovnováhy,Posel stezky,
+- naukaDémonologie(S)
+- naukaMilosrdenství (S)
+- naukaSvatépravdy (S) Ovládneš tyto další prosby: Doznání, Falešné pátelství, Vidní pravdy,
+- nauka Žehnání aurami (S) Ovládneštyto další prosby:Aura ocelové pèsti, Aura protitemnotè, Aura

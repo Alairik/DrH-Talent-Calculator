@@ -1,0 +1,376 @@
+
+--- PAGE 1 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍKOUZELNKA
+Citlivost na Vichry Dokáženasát více many,nežjeobvyklé.
+many (S)
+Magistr magického Zvýší šanciseslat kouzlodaného oboru magie a nauísenavíc 3další.
+oboru(S)
+Posilování kouzel (S) Umožujeposílit efekt kouzla zmnou dosahu nebo délkyjeho trvání.
+Preciznikouzlení (S) Sesílání kouzla trvá 2x déle, ale získá Výhodu (bonus +5)na seslání daného
+kouzla.
+Pyrokineze (S) Silou myšlenky dokáže zažehnout libovolný holavýpedmt.
+Rituální kouzlení (S) Umožujevyužít manuvíce Kouzelník pro sesílánínároných kouzel.
+Rychlýodpoinek (S) Staí mujen poloviní doba odpoinku, abymohl provéstmeditaci.
+Telekineze (S) Silou myšlenky dokáže pohybovat spedmty ve svémn dosahu.
+Telepatie (S) Silou myšlenky dokáže komunikovatsmyslí jiných tvor.
+Transfermany (S) Dokážedáti vysát manujinémuKouzelníkovi nebotvorovi.
+Utajené kouzlení (S) Snižuje postihy pi kouzleníbez gest a slov.
+Zámna kouzel (S) Dokážesvá, jižjednounauená kouzla, nahradit za jiná.
+
+
+--- PAGE 2 ---
+BOJOVÝMÁG
+Dojovímágovépropadli vzrušení života na hran
+rizika asmrti. Mnozí znich díve zažili šikanu
+ateprve zoufalá snahapežít jim dalasílu ovládnout
+tivokou magi.Tehdy pronikli do tajemství bojových
+aochranných kouzel. Tato zaklínadla umí navic se
+silat tak rychle, že dokáží perušit vyvolávání ostat
+ních.
+A mohou jejch kouzla vypadat primitivnë, jsou
+neuviteln efektivní. Ohnivé koule, kamenný déšt
+imagické tornádo dokáží srovnatse zemí i celé ves
+nice. Bojoví mágovénikdy nezískají hluboké vdní
+Carodj.Zato však nikdynepanikaí v boji azvlád-
+HOu se soustedit na kouzla. Kdyžje to poteba, do
+kážísivykouzlit i magickou zbrai.
+K tomu,aby se mohlKouzelník stát Bojovým má
+gem,musí nejprveovládnout následující:
+znalost oboru Divokámagie
+znalost oboruOchrannámagie
+•schopnost Rychlé kouzlení
+ZVLÁŠTNÍSCHOPNOSTI
+BoJOVÉHOMÁGA
+Každý Bojový mág získávávolbou této specializace
+automaticky jednu užitenou zvláštní schopnost,
+která mupomáhá v boji.
+•ZbraBojového mága
+
+
+--- PAGE 3 ---
+TABULKAVOLITELNÝCH SCHOPNOSTÍBOJoVÉHO MÁGA
+Bitevní trénink (S) Ziskátrvalýbonus +1doÚtoku (Ú)iObrany (0)a zvládne nasátmanu
+bhem jednoho kola.
+Bojové sesílání (S) V rámci plkolových kouzel mže použítakciÚtok iObrana.Pokud sesílá
+kouzlootrvání jednohokola, mžese ibránit. Neutrží žádnýpostih za
+vyrušenípi sesílání.
+Energetickázbra(S) Dokáže sivyvolat magickou zbra a štít.
+Lámáníkouzel (S) Dokáže okamžitrozpoznat kouzlo sesílané dalšímiKouzelníky azrušit jeho
+sesílání.
+Magická dominance(S) Za uritémnožství many dokáže zvýšit poet kostek, kterými hází naÚtok
+iObranu.
+Magickázranitelnost (S)
+Posílená ochrana(S)
+Živlomág (S)
+Dávámu šanci prorážet svýmikouzly rezistence aimunity nepátel.
+Ochranná kouzla jsou o3body many levnjší (nejmén1 bodmany).
+Zvyšuje sejeho Základní obrana (ZO)o2.
+Stouto schopností mžezmnit podstatu živlu kouzla Divokémagie.
+
+
+--- PAGE 4 ---
+ARODJ
+arodjovévdí,že mocse skrýváve vdèní, Pro-
+u niklido nejzazších tajmagie a dokázaliji na
+prostoovládnout. Rikáse, že jejich mysl je nezlomi
+telná a zpohledu na nsebežným smrtelníkm ježí
+chlupy po celém tle. Atjižje to fascinací istrachem,
+tmto lidem není radno odporovat.
+arodj jeschopen sesílat ta nejmocnjší kouzla. Do-
+káže si je navíc pedpipravit a riüzn je upravovat.
+Krom toho dokážesvou myslí napadnout nkohoji
+ného. Tim užjepouhý krok od toho,abysidotyného
+naprosto podrobil a využil hojako loutku ve svých
+hrách.
+K tomu, aby se mohl Kouzelník stát Carodjem,
+musí nejprve ovládnoutnásledující:
+znalost oboru Vysoká magie
+Znalost oboru Mentálnímagie
+schopnostKouzlení zknih
+ZVLÁŠTNÍSCHOPNOSTI
+ARODÈJE
+Každý arodj získávávolbou této specializace au
+tomaticky jednu užitenou zvláštní schopnost, kte
+rámu pomáháv boji.
+Carodjova húl
+
+
+--- PAGE 5 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍARODJE
+Aura moci (S) ZískáVýhodu (Bonus+5)kevšem svým hodüm na Charisma.
+Hromadnésesílání (S) Dokáže seslat jedno kouzlo na více cilnajednou.
+Magické obrazce(S) Umí nakreslit obrazce,dokterých uzamkne kouzlo. To senásledn aktivuje
+narušením.
+Mentální souboj (S) Dokáže prostednictvímsvé myslinapadnout izabít nkohojiného.
+Micháníkouzel (S) Dokáže seslat dvkouzla najednou dlevlastního výbru.
+Podrobování (S)
+Pedkouzlení (S)
+Vládce many (S)
+Dokáže si podrobit tlo tvora poraženého v Mentálním souboji aovládatho.
+Získáschopnost pipravit kouzlo a držetho v hlav pro pozdjší finální seslání.
+Je schopennakoncentrovato polovinu svého vlastního maxima many více.
+
+
+--- PAGE 6 ---
+Kouzelnik
+NEKROMANT
+ilem cesty Nekromanta je vný život pro sebe
+Cva pro ty,které miluje. K dosažení tohoto mist
+rovstvíjepoteba zahoditveškeré koncepty morálky
+a bžného myšlení.Za toto mže být mnoými opo
+vrhován. Nekromantvšak ví, žepokud chce opravdu
+proniknout do tajtohoto temného umní, jsou vc,
+které bude muset obtovat.
+Vládci nad životem asmrtínejsou jen pouhýmivy-
+volávai mrtvol. Dokáží svou mysl penést dojiného
+tela, i využt vitání silu druhých k posíleni svých
+kouzel. Mají naprostoukontrolu nad toky energif ve
+svém tle. Mnozíuenci takétvrdí, žepokoili smrt.
+K tomu,abyse mohlKouzelníkstátNekromantem,
+musínejprve ovládnoutnásledující:
+• znalost oboru Vitální magie
+znalost oboru Magie promn
+schopnostRituál krve
+ZVLÁŠTNÍSCHOPNOSTI
+NEKROMANTA
+Každý Nekromantzískává volboutéto specializace
+automaticky jednu užitenou zvláštní schopnost,
+která mupomáhá v bi.
+•Nekromantova dýka
+
+
+--- PAGE 7 ---
+Darnoci (S)
+Nemrtvýdruh (S)
+TABULKA VOLITELNÝCH SCHOPNOSTÍNEKROMANTA
+Vnoci ziskáváVýhodu (bonus +5)ksesílání kouzel Vitální magie, Magie
+promn akouzel Nekromanta.
+Nemrtví jej vnímají jakodalšího nemrtvého, kterého nenapadají.
+Nemrtvéspojení (S) Dokáževidt, mluvit (pokudje toho,služebník"schopen) adokoncesesílat
+kouzla skrzesvého nemrtvého,služebníka.
+Pouto smrti(S)
+Rituální obtování (S)
+Dokáže vysát životy zovládaných nemrtvých.
+Obtovánímtvora získá tolik život, kolik mla ob.
+Sbratel duší (S) Dokáže dosvédýkynasát duše mrtvých aoživit je ve formmocných
+nehmotných avyšších nemrtvých. Zárovesenauí kouzlo Pokroilá
+reanimace.
+Srážlivost krve(S)
+Vitální dráhy(S)
+Jeho tlo je odolnjší proti krvácivým, bodným a seným zrannímarychleji
+seznich léí.
+Dokáže rozpoznat sílu tok energiev tle ato,jakmocje zdravéi zranné.
+
+
+--- PAGE 8 ---
+POZNÁMKA:Vpvodní verzipravidelDraí Hlid
+ky (1.0a 1.1) byly všechny Zlodjské dovednosti ve
+denysamostatn. Následnvšakdošlok úprav,která
+dovednosti v rámci jednotlivých zlodjských Umní
+mní na ,akce,stím, žedovedností sestává Umní
+samotné.Pikladem mžebýt Umníželezného klíe
+(novdovednost), kteráv sobzahrnuje (akce) Od
+stranní pastí,Otevirání zámkü aPadlání.
+
+
+--- PAGE 9 ---
+Bojsedvma
+zbranmi (S)
+Cilenýútok (S)
+Citlivámísta(S)
+Expertiza (S)
+Mistrovství sily
+osobnosti (S)
+Mistrovství
+zlatky (S)
+TABULKA VOLITELNÝCH SCHOPNOSTI ZLODEJE
+K lehkéjednoruní zbrani, i boji beze zbran,müže navíc v druhérucepoužít
+lehkou krátkou zbra ajejich statistiky seíst.
+Ütokynyní mžemíit pesn nahlavu nebona konetiny a tím nepítelizpisobit
+krvácení nebo jej zmrzait.
+Ziskábonus+3doZranní stelnými, vrhacími a lehkými zbranmi(vetnpsti).
+Pi každém pestupu nadalší úrove získávánavíc tolik dovednostních bod,kolik
+je její aktuálníhodnota. Navíc si dokážezvýšit stupe dovednosti až 2x za úrove.
+Nauíse dvanovéZlodjské triky: Manipulace, Odhad sociálníhostatusu.
+NauísedvanovéZlodjské triky: Handlování, Ukrytí pedmtu.
+Noní živel (S)
+Obratný
+bojovniík (S)
+Rychlétasení (S)
+Svižnéostí(S)
+Šestý smysl(S)
+Technika
+nabíjení (S)
+Zlodjovy smysly si pivyknou na tmu,aproto dokážeprovádt všechny akcena
+bezprostední vzdálenostiv naprostétm.
+Piboji s lehkýmijednoruními zbranmimže použít OBRmisto SIL.
+Dokáže bhem své okamžité akce bud pezbrojit, vypítlektvarneboaplikovat jed.
+Pi boji slehkýmijednorunímizbranmidokážeútoit 3xza 2kola.
+Získá Výhodu (bonus+5)knáhlým hodm na Posteh,Reflex pihrozícím
+nebezpeí azíská bonus+3kiniciativ.
+Nauíse používat nabijecí kladky. Kušepro njjiž nemaji nároky naSIL,alena b
+
+
+--- PAGE 10 ---
+ASSASSIN
+Ssassini, jakožto nejobávanjší zabijáci podsv-
+Miaúhlavní nepátelé strážcú zákona, jsou bez
+milostistiháni lovci odmn.Abysi zajistiliochranu,
+sdružují sedomalých bratrstev,kterýmjsounapros
+to oddáni. Nemusímnit tedy strach z prozrazení svými
+druhy protože jejich kodex dává familii na první mís
+to. Jestližedojde k vraždlena, je najehobratrech,
+aby ztrátu spravedliv yykoupili krvi. Nezidka se
+stáváže takto prolitá krev patí znepátelené famili.
+K tomu, abyse mohlZlodj stát Assassinem, musí
+nejprve ovládnout následující:
+• Umnírvá
+.Umnískrývání
+• SchopnostVrhánídýk
+ZVLÁŠTNÍSCHOPNOSTI
+ASSASSINA
+Jakmile se Zlodjrozhodne specializovat na Assassi-
+na získávápístup ke dvma novým rozšíením své
+profese. Prostednictvím prvního sestane souástí
+konkrétního klanu zabijákü a druhé mu umožní
+zvládnout pokroilé technikyboje se zbranmi své
+profese.
+Každý Assassin získáva volbou této specializace au
+tomaticky dv užitené zvláštní schopnosti.
+• Bratrstvo Assassin
+• Vražedné zbran
+
+
+--- PAGE 11 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍASSASSINA
+Assassinace (S) PiÜtokuz utajeni,i Útoku doZákl.obranyzpsobuje protivnikovi Zranní 2x.
+Mistrovství rvá(S) Naui setii novéZlodské triky:Dokonaldmuska,Otieseni,Piesny asah.
+Mistrovstvískrývání (S) Nauí seti novéZlodjskétriky: Infiltrace, Pánstín, Utajený útok.
+Riskantníútok (5)
+UmníPepad (D)
+Vjídýk (S)
+Výhodná pozice(S)
+Výroba jed (S)
+Získá jeden Útoknavíc, ale ztratí tím jednuObranu.
+Nauí senovému umní,které zahrnuje ti speciální Zlodjské triky použitelné
+v boji. Jsou jimi: Hlavounovafinta, Kontrolovaná trajektorie a Prohození pozic.
+VÚtokuna dálku dokážeAssassinvrhnout2projektily najednou.
+Piprvním Útokuv boji si místo hodu 1k6 poítáautomaticky íslo 6a teprve
+pakhází. Zvýšítaksvéšance na Kritický útok.
+Nauí sechovat drobnáexotickázvíata jakozdroj jedu,který mže pi svých
+akcích použít. Jsoujimi: Cernásmrt, Divotvorné sérum,Msiní polibek.
+
+
+--- PAGE 12 ---
+LUPI
+Dovolání Lupie je neobyejn nároné a ne
+bezpené. Nejde už zdaleka o vykrádání kapes
+obchodníki mštan. Novým cílem jsou dobe
+stežené trezory bank nebo gild, které jsou mnohdy
+chránny magií, složitými zámky nebopastmi. Není
+div, žejejich zdolánívyžadujevelmi specifickézna
+lostia trénink. Casodasu navíc dojdeke konfronta
+cis ochrankou. Anitehdynesmí Lupizpanikait, ale
+musi najit feeni. Jen tak se midestit legendo,pred
+níž není možnéuchránit žádnýpokladanimajetek.
+Jakmile se Zlodj rozhodne specializovat na Lupi-
+e, získávápístup kedvma novým rozšíením své
+profese. Prostednictvím prvního sestane souástí
+konkrétního lupiského klanu adruhé muumožní
+tréninkem zvládnout pokroilé techniky se zbran
+mi typickýmipro jehonovépovolání.
+K tomu, abysemohlZlodj stát Lupiem, musí nej
+prveovládnoutnásledujicí.
+.UmníŽeleznéhoklíe
+.UmníKoiího pohybu
+SchopnostImprovizace
+ZVLASTNISCHOPNOSTI
+LUPICE
+Každý Lupizískáva volbou této specializace auto
+matickydvužitené zvláštní schopnosti.
+• Bratrstvo lupi
+• Improvizovanézbran
+
+
+--- PAGE 13 ---
+Bojová kreativita (S)
+Druhá šance (S)
+Lupiskáudlátka (S)
+TABULKAVOLITELNÝCH SCHOPNOSTÍLUPIE
+Výhoda na bojové akce s novouimprovizovanouzbraní podobu 1 kola.
+Jednou za denmžepehoditneúspch uprofesní dovednosti.
+Dokáževyrábtvšechny zbran Zlodjského cechu a zárove ti speciální
+lupiská udlátka: Padák, Sada univerzálních klí, Zvonící koule.
+Lupiv parták (S)
+Mistrútku (S)
+Vycvií si užitenézvífe, které mu budepomáhat.
+Pi použití akce Pesun/Sprintse mže bránit svýmO.Navíc
+sejeho Pohyblivost zvýší o 10.
+Mistrovství koiiho
+pohybu(S)
+Mistrovství
+železnéhoklíe (S)
+Nauí seti novéZlodjskétriky: Flexibilita, Parkur,Útok zvýšky.
+Nauí seti novéZlodjskétriky: Nastražení pastí, Otevírání magickýchzámk,Padlánícenností
+Umníneférového
+boje (D)
+Nauí senovoudovednost spolu setemi novými Zlodjskými triky:
+Podkopnutí, Souboj na zemi, Utok doslabin
+
+
+--- PAGE 14 ---
+SICCO
+na rozdíl od svých koleg, dožádné organi
+zovanéskupiny nevstupuje. On je totiž tím,kdo
+jivytváí a kdo jí vládne. Hlavou rodiny a„kápem"
+klanu. Stávásetakšedou eminenci, která vládne síti
+informátor avykonavatel. Lupi, vrahi, pašerá
+kúadalších živl zpodsvtí.
+Jakmile se Zlodjrozhodne specializovat na Sicca,
+ziskává pístup kedvma novým rozšíením své
+profese. Prostednictvím prvního si vytváí vlastní
+sít a druhému umožní tréninkem zvládnoutpo-
+kroilé techniky boje se zbranmi typickými pro
+jeho novépovolání.
+Ktomu, aby se mohl Zlodj stát Siccem, musí nej
+prve ovládnoutnásledující:
+.Umní Promn
+.Umní Šarmu
+Zlodjská hantýrka
+ZVLASTNISCHOPNOSTI
+SICCA
+Každý Sicco získáva volbou této specializace auto
+maticky dvužitené zvláštní schopnosti.
+• Siccova sí
+•Zbrangentlemana
+
+
+--- PAGE 15 ---
+Alter ego(S)
+Dvrník(S)
+Mistrovství
+promn (S)
+Mistrovství
+šarmu (S)
+Povstiadrby (5)
+Šifrování(S)
+Umní boje
+spláštm (D)
+Zrcadlení (S)
+TABULKA VOLITELNÝCH SCHOPNOSTÍSICCA
+Je schopen sivytvoit obstojnéalter ego, kteréje tžké odhalit. ZískátakVýhodu +5
+khodüm v uritých sociálních interakcích.
+Sicco získávádosvsit loajálního rádceabodyguarda, který jej následujena
+cestách.
+Nauí se tinovéZlodjskétriky:Hraní mrtvého, Falešnétváe, Makety
+Nauí seti nové Zlodjskétriky: Odhad nepítele, Ostrý jazyk, Sladká slova
+Dokáževeejné osobyvykreslit v dobrém nebo špatnémsvtle.Tyto osobypak
+mohou ziskat Výhodu +5neboNevhodu kesvým hodm.
+Nauí se psát a zárove odhalovat složitézloineckéšifry. Komunikace
+oriskantních tématech jetakpro nj bezpenjší.
+Nauí senovoudovednost spolu setemi novýmiZlodjskými triky: Držení,
+Oslepení pláštm,Svedení útoku
+Sicco zkopírujenemagickou akci, kterou provedlajiná bytost. Dokážetakzaútoit
+válenickým trikem neboziskat Výhodu +5khodm nadovednost, kterou
+napodobuje.
+

@@ -1,0 +1,99 @@
+
+
+=== PAGE 1 ===
+TABULKAVOLITELNÝCH sCHOPNoSTÍVÁLENÍKA
+Mistrovství vezbrani (S)
+Rozvážnost(S)
+Skvlá kondice (S)
+Urputnost(S)
+Velení (S)
+Bonus+2kÚa 0pro zvolenýtypzbraní.
+Váleník si vybírá mezidvma styly boje: ofenzivní(+3kÚ.-2bo
+nebo defenzivní (-3 k Ú +3kOC).
+Bonus+3životy za každou úrove váleníka.
+Naváleníka senevztahuje efekt Meze vyazení (neupadádo bezvédomi).
+obranný (+1k 0všech len družiny).
+Možnost posilovat družinu rozkazy: útoný(+1k ÚC všech lenúdružin),
+Vicenásobnýútok (S)
+Škola boje drtikostí (S)
+Školaboje
+sbodnou zbraní(S)
+Školaboje
+sjednorunízbraní (S)
+Školaboje
+sobouruní zbraní(S)
+Školaboje
+sedvmazbranmi(S)
+Školabojese štítem (S)
+Váleník získává možnost útoit 3x za 2kola.
+Bonus+1 k Ú a 0pi bojibeze zbran.Triky:Trpaslií polibek,Strieni
+na zem,Nordický klí
+Bonus+1 k ÚaOsbodnými zbranmi. Triky: Úskok, Útok zobray;
+Výpad
+Bonus+1kÜaOsjednorunimi zbranmi. Triky: Tvrdý kryt. Uder
+hlavicí, Úhyb asek
+Bonus +1kÚa 0sobourunímizbranmi. Triky: Bezhlavý útok.
+Drtivýútok,Kružnýsek
+Umožuje sítat Útonost, Zranní a Obranu obouzbraní. Triky: Utok
+a vrh,Dvojitá obrana, Viivýútok
+Bonus+1kUC a0 pi boji seštítem.Triky: Sražení štitem,Utoki
+štítu, Zámek
+
+
+=== PAGE 2 ===
+TABULKA VOLITELNÝCH
+SCHOPNOSTÍHRANIÁE
+Bojse
+zvíaty (S)
+Bonus+2 kÚa Opi bojise
+zvíaty.
+Bojová húl
+(S)
+Bonus+2k Úa 0pi boji
+sholí.
+Léitelství
+(D)
+Dokážeš vyléittolik životü,jako
+jestupe zvládnutí této doved
+nosti.
+Obratné
+ostí(S)
+Pibojis meem sek Ú
+zapoítává OBR místo SIL.
+Ochoování
+zviat (D)
+Získáš zvíecího pítele, který ti
+pomáháv boji imimo nj.
+Przkum
+nictví(D)
+Ovládneš tiužitené dovednos
+ti: Kamufláž, Zahlazování stop
+a Líení pastí.
+Pesná
+stelba (S)
+Stílíš co dvkola a získáš tak
+kútokubonus +8.
+Rychlá
+stelba(S)
+Dokážeš vystelit zluku 3x za
+dy kola.
+Zocelení (S)
+Trvale zvýší Odolnost hraniáe
+o2 body atím ipoet jeho
+život.
+Magie
+pocestných
+(S)
+Dokážeš seslatkouzlo Bdlý
+spánek, Ochrana ped bouí
+aRychlost chodce.
+Magie
+pírody (S)
+Dokážešseslatkouzlo Neutrali
+zujjed,ÚÜder varováníaUzdrav
+lehkázranní.
+Magie
+zvíat(S)
+Dokážešseslatkouzlo Najdi
+zvíe,Pivolej zvíea Zviecí
+smysly.

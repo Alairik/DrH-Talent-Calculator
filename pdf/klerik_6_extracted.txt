@@ -1,0 +1,188 @@
+
+--- PAGE 1 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍ KLERIKA
+Asketismus(S)
+Bohoslužby(S)
+Slibem chudobysezvýší maximum PíznKlerika nadvojnásobek.
+Obadem zvýšíKlerik hodnotu svéPízn avšichni úastníci získají Výhodu
+(bonus +5)kovovacím hodüm na Vli.
+Božskádoména (S)
+Flagelantství (S)
+Nositel slova (S)
+Mnohoprosby ($)
+Požehnání (S)
+ádový slib (S)
+Sakrálnípedmty (S)
+Strážcemystéria (S)
+Svcení míst (S)
+Vzkíšení (S)
+Získáschopnost používat speciální efekty doménysvého boha.
+Utrpenímn aobètováním svých život dokážeKlerik doplnitsvou Píze.
+Dokáže prosby sefektem na Klerika nebosdotykovým dosahem pivolat ina
+jinétvoryana vtší vzdálenost.
+Dokáže vjednom okamžikuseslat stejnouprosbu vícekrát ato i na vícecil.
+Vovovacím i bojovémhodu mžešházet dvakrát a vybratsi lepší výsledek.
+Ziskávýhody i závazky lena ádu a rozpozná jeho leny.
+Umívyrobit posvátnépedmty, které mají ást boží mmoci.
+Dokáže se nauittyem mocným prosbám,nebojenahrazovat jinými,které
+nejsou v pravidlech. Prosby jsou: Beregondovoosvíceni, Mezisvt,Vyhnání,
+Znamení života.
+Dokáže vytvoit Posvátnémisto,kdejsoujeho prosby úinnjší.
+Zeme-li Klerik pi službbohu nebo sepi ní obtuje, mžebýtznovu
+vzkíšen.
+
+
+--- PAGE 2 ---
+BOJOVÝMNICH
+Rojoví mniši jsou ocelovou pstí víry. Ví, žeto
+Boravé zlo seskrývámezi lidmi. Jepoteba hotr
+pliv hledat a vytrhávat iskoeny,jinak tento plevel
+zadusí a znií vše dobré. Vyžaduje to velkou dávku
+tvrdosti a odhodlání, ale obojiho majina rozdávání.
+Bojoví mniši jsou rytiskou elitou. Kromtoho sez
+nich rekrutují vynikající Inkvizitoi aLovci arodj
+nic. Jen onimnohdy dokážíodhalit sít vražedných
+sekt a jejich len. Stejn úinn však umírozprášit
+isabaty kultista démon. Jsou to skutení hrdino
+vé,kteí bojují s temnotoupomocí sily.
+Aby se Klerik mohlspecializovat a stát se Bojovým
+mnichem, musí nejprve ovládnoutnásledujicí:
+schopnostBoží bojovník
+znalost nauky Bojovník víry
+znalost nauky Svaté pravdy
+ZVLÁŠTNÍSCHOPNOSTI
+BOJOVÉHO MNICHA
+Každý Bojovýmnichzískává volboutéto specializa
+ce automatickynásledující zvláštní schopnost,která
+znj v bojiiní nebezpenjšího protivníka.
+• Bojzblízka
+
+
+--- PAGE 3 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍBOJOVÉHO MNICHA
+Božízbroj (S) Mže bez omezení nosit libovolnou zbroja jejíkvalita se zvyšujeo +l.Proti
+magickým a nadpozemským bytostem dokonceo +2.
+Božskémantry (S) Svýmimantramiobohu vybudí mysl sebe i svých spojenc. K ovení na
+Vülinásledujicích 10 kol získávají Výhodu (bonus+5).
+Fanatismus(S) Dokážeútoit 3x za 2kola. Oddvanácté úrovnpak 2xkaždémkole.
+Inkvizitorský výcvik(S) Získá schopnost neupadnoutdobezvdomíabojovat adoHranice smrti.
+Zárove serozšíí jeho znalostnaukySvatépravdy odalší tyi prosby:
+Falešná smrt, Zadrprotivníka, Zastavení denía Zmatenímysli.
+Lovecarodjnic (S) Dokáže rozpoznat kouzelníky (pítomnostjejich many)a zárove ziská
+Rezistenci vi magii.
+Paladinský výcvik (S) Jeho základ Odolnosti sezvýší olboda nauíse nkolik Proseb rozšiujicic
+nauku Bojovník víry. Jsoujimi: Andlskázbroj,Kladivo na arodjnice,
+Podlom obranu, Požehnejvlastnostem.
+Posvátný vliv (S)
+Posvátná zbra(S)
+Klerikovi následovnícizískají bonus +1 kevšemovovacimhodm.
+Müže nosit libovolntžkou zbra, kterápsobíjako nadpozemská amá
+onus+3doonosti i Zranní.
+
+
+--- PAGE 4 ---
+EXORCISTA
+L'xorcisté jsou tajemní a dsiví samotái, íká
+Donich, ženemají strach anizdábla. Jsou to to
+tiž právoni, kdo dokážívymítatslužebníky temnot
+a, je-lito teba, vydatse za nimidojejich svta. Kro
+mtohodokáží ešitkletby, zjevení,posednutí a dalšt
+zléprojevy vyšší moci. Jejich cesty jsou však osamlé,
+protože jim málokdorozumí.A kdybyse pece nkdo
+našel, drží hood seberadji dál. Zlosi totižpamatuje
+a ekána píležitost najítjejich slabinu.
+Aby seKlerik mohl specializovat a stát se Exorcis
+tou, musí nejprveovládnout následující:
+znalost nauky Božíchpatron
+znalostnauky Démonologie
+schopnostOsvícení
+ZVLÁŠTNÍSCHOPNOSTI
+EXORCISTY
+Každý Exorcista získává volbou této specializace
+automaticky jednu zvláštní schopnost, která iní
+jeho mysl odolnjší.
+.Sebeovládání
+
+
+--- PAGE 5 ---
+TABULKA VOLITELNÝCH SCHOPNOSTÍ EXORCISTY
+Astrální
+poutník (S)
+Dsobijec(S)
+Exorcistadokáževstupovat doastrálního svta. Jediného místa,kdelze definitivn zab
+nadpozemské bytosti.
+V bojisnadpirozenými tvory ziskává trvalý bonus+2do Útoku,Obrany iZranní.
+Tento bonusnavíc súrovnmiroste.
+Exorcismus
+(S)
+Jazyk
+prastarých (S)
+Dokáže vycitit pítomnost posedlých a nauí sedalší Prosby naukyDémonologie,
+kterémuumožní je vymítat.Jsou jimi: Chraped posednutím,Odhal démona,Ukaž
+temnotu,Vyžedémona.
+Rozumínadpozemskému jazyku amluví jím. VzýváníPosl jetako3body Pizn
+levnjší. Zárovese nauí další Prosby znaukyBožich patron. Jsou jimi: Posel
+bdlosti, Posel domény,Posel lovec, Posel peeti.
+Kletby(S) Dokáže rozpoznat prokletámísta, bytosti ipedmtya vystopovat toho,kdo z
+prokletím stojí. Zárovese zvyšujijeho šance na odstranní kletby.
+Mystika(S)
+Nadpirozený
+boj(S)
+Dokáže odposlouchávat božskou komunikacia falšovat ji.Zárovezískává výhodu,
+pokud by sehonkdojiný pokusil takto zmanipulovat.
+KaždýExorcistv Útoka Obrana má novmagickýa nadpirozený efekt.
+Svtlonoš (S) Aura Svtlonoš dokáževracetzranní útoníkmataké je zastrašit.
+
+
+--- PAGE 6 ---
+KNZ
+KLnèží zasvtili celý svij život opravdovému po-
+roZumní božímuplánu. Ríká se, že vidajíjeho
+vize ajsoumutakblíž než kdokoliv jiný., Jsou-li Kn
+ivohroeni doki prjziskat podobu boha a stat
+sejehoavatary. Spožehnáním svého boha ochraujf
+a léí vící, bojují sesilami temnoty aíká se,že mo
+hou ioživit mrtvé.Jsou to právoni,kdo dokážeinit
+zázraky.
+ZVLÁŠTNÍSCHOPNOSTI
+KNZE
+KaždýKnz získávávolbou této specializace auto
+matickyjednu zvláštníschopnost, která muposky
+tuje lásku apodporu bžných lidí.
+• Milosrdenství
+Aby se Klerik mohl specializovat a státse Knzem,
+musínejprveovládnout následující:
+znalostnaukyMilosrdenstvíi
+znalost naukyŽehnáníaurami
+schopnost Požehnanézdraví
+
+
+--- PAGE 7 ---
+Avatar (S)
+Božiochrana(S)
+Ikony(S)
+Jasnozivost (S)
+Obti (S)
+Výcvik lazaretních
+léitel(S)
+Zázraky(S)
+TABULKA VOLITELNÝCH SCHOPNOSTÍKNEZE
+Promní se v mocnou nadpozemskoubytost reprezentující doménu jeho boha.
+Mášanci se zcela vyhnout efektu nevyžádaného kouzla i prosby.
+Dokáževyrábtsvaté obrazy a symboly,které mají posvátnou silu. Kdokoliv pak
+dokážejejich prostednictvím seslat prosby.
+Získá schopnostmítvidní, kterámu mohou odhalit skrytésouvislosti a pomoci
+pochopit vci.
+Dokážepomocí obtisnížit Obtížnost vzývání následujicí prosby o 10bod.
+Zlepší si stupe zvládnutídovedností První pomoc aZnalost pírodyo+l.
+Zárovese nauívyrábt5léka mastí: Léksvatého Aurélia, Léksvatého Jana, LékLék
+SvatéhoMaura,Lék svatého Núbia a Mast svaté Meredith.
+Dokážeinit nadpozemskévci. Zárove ovládne nkolik mocných Proseb Nauky
+Milosrdenství. Jsou jimi: Božská pomoc,Figiho zásah osudu,Vrat as, Zachra
+život.
+Zažehnutí
+aury(S)
+Dokážesesilat více aur najednou a pesouvatje podle poteby najiné bytosti.
+Zárove získáznalosti nkolika nových. Jsoujimi: Aurabratrství, Aurapravého
+svtla, Auraprobuzení, Aura strachu.
+
