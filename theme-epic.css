@@ -155,29 +155,6 @@ body.theme-epic .skills-panel {
 
 body.theme-epic .panel::before,
 body.theme-epic .panel::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-}
-
-body.theme-epic .panel::before {
-  inset:
-    calc(var(--shell-inset-top) - var(--shell-gap))
-    calc(var(--shell-inset-side) - var(--shell-gap))
-    calc(var(--shell-inset-bottom) - var(--shell-gap))
-    calc(var(--shell-inset-side) - var(--shell-gap));
-  border-radius: 0;
-  border: 1px solid rgba(127, 92, 48, 0.55);
-  background:
-    linear-gradient(180deg, rgba(166, 118, 62, 0.14), rgba(88, 58, 30, 0.1)),
-    rgba(120, 82, 42, 0.06);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 238, 206, 0.2),
-    inset 0 0 0 1px rgba(82, 55, 26, 0.24);
-  z-index: 0;
-}
-
-body.theme-epic .panel::after {
   content: none;
 }
 
