@@ -192,7 +192,7 @@ h3,
   :root {
     --talent-panel-target-width: clamp(300px, 24vw, 500px);
     --main-panel-target-width: clamp(360px, 30vw, 620px);
-    --gap-panel-target-width: clamp(52px, 4.5vw, 120px);
+    --gap-panel-target-width: clamp(90px, 7.5vw, 190px);
     --gap-panel-inner-pad: 0px;
   }
 
@@ -288,7 +288,7 @@ h3,
   }
 
   .layout > .gap-icons-panel .class-gap-icons {
-    --gap-icon-size: clamp(40px, calc(100% - 4px), 82px);
+    --gap-icon-size: clamp(56px, calc(100% - 6px), 120px);
     height: 100%;
     width: 100%;
     max-width: 100%;
@@ -407,7 +407,7 @@ h3,
 /* Narrow desktop / 13" laptops: keep skill names readable, simplify skill column. */
 @media (min-width: 1025px) and (max-width: 1700px) {
   .layout > .gap-icons-panel .class-gap-icons {
-    --gap-icon-size: clamp(36px, calc(100% - 4px), 68px);
+    --gap-icon-size: clamp(46px, calc(100% - 6px), 96px);
     gap: clamp(0.24rem, 0.5vh, 0.48rem);
   }
 
