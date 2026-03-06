@@ -291,6 +291,25 @@ body.theme-epic .class-box.has-icon::before {
   filter: saturate(1.08) contrast(1.04) brightness(1.08);
 }
 
+/* Top nav class picker: keep labels readable over icon texture. */
+body.theme-epic .top-class-picker .class-box {
+  color: #fff3da !important;
+  opacity: 1 !important;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.86), 0 0 6px rgba(0, 0, 0, 0.48);
+}
+
+body.theme-epic .top-class-picker .class-box.has-icon::before {
+  opacity: 0.12 !important;
+  mix-blend-mode: soft-light !important;
+  filter: saturate(0.95) contrast(1) brightness(0.84) !important;
+}
+
+body.theme-epic .top-class-picker .class-box.active {
+  color: #fff7e8 !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
+}
+
 body.theme-epic .class-box:hover,
 body.theme-epic .timeline-tools .lvl-btn:hover,
 body.theme-epic .timeline-help-btn:hover,
