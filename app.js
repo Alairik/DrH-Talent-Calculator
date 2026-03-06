@@ -1193,7 +1193,6 @@
           talentLevelById,
           onToggle: (talent, checked) => toggleTalent(talent.id, checked)
         });
-        if (!state.ui.l6Visible) triggerUnlockAnimation(els.generalBranchL6);
       } else {
         els.generalNodesL6.innerHTML = "";
       }
