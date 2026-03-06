@@ -931,6 +931,13 @@ button:hover {
   z-index: 0;
 }
 
+.node,
+.spec-node,
+.skill-title,
+.timeline-line {
+  font-family: "Seagram V3", "Lora", Georgia, "Times New Roman", serif !important;
+}
+
 .spec-info-btn {
   position: absolute;
   top: 3px;
