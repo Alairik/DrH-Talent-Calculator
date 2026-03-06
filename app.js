@@ -1078,6 +1078,23 @@
   function renderClassPicker() {
     els.classPicker.innerHTML = "";
     if (els.classGapIcons) els.classGapIcons.innerHTML = "";
+    let gapHoverTip = document.getElementById("classGapHoverTooltip");
+    if (!gapHoverTip) {
+      gapHoverTip = document.createElement("div");
+      gapHoverTip.id = "classGapHoverTooltip";
+      gapHoverTip.className = "class-hover-tooltip";
+      gapHoverTip.hidden = true;
+      document.body.appendChild(gapHoverTip);
+    }
+    const showGapHoverTip = (label, clientX, clientY) => {
+      gapHoverTip.textContent = label;
+      gapHoverTip.hidden = false;
+      gapHoverTip.style.left = `${Math.round(Number(clientX) + 14)}px`;
+      gapHoverTip.style.top = `${Math.round(Number(clientY) - 10)}px`;
+    };
+    const hideGapHoverTip = () => {
+      gapHoverTip.hidden = true;
+    };
     for (const p of state.professions) {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -1107,35 +1124,25 @@
         if (classIcon) {
           gapBtn.style.setProperty("--class-gap-icon", `url("${classIcon}")`);
         }
-        const gapTip = document.createElement("span");
-        gapTip.className = "class-gap-tooltip";
-        gapTip.textContent = p.name;
-        gapBtn.appendChild(gapTip);
         gapBtn.setAttribute("aria-label", `Vybrat povolání: ${p.name}`);
-        const moveGapTip = (ev) => {
-          const x = Number(ev.clientX) + 14;
-          const y = Number(ev.clientY) - 10;
-          gapTip.style.left = `${Math.round(x)}px`;
-          gapTip.style.top = `${Math.round(y)}px`;
-        };
         gapBtn.addEventListener("mouseenter", (ev) => {
-          gapTip.classList.add("visible");
-          moveGapTip(ev);
+          showGapHoverTip(p.name, ev.clientX, ev.clientY);
         });
-        gapBtn.addEventListener("mousemove", moveGapTip);
+        gapBtn.addEventListener("mousemove", (ev) => {
+          showGapHoverTip(p.name, ev.clientX, ev.clientY);
+        });
         gapBtn.addEventListener("mouseleave", () => {
-          gapTip.classList.remove("visible");
+          hideGapHoverTip();
         });
         gapBtn.addEventListener("focus", () => {
-          gapTip.classList.add("visible");
           const r = gapBtn.getBoundingClientRect();
-          gapTip.style.left = `${Math.round(r.right + 10)}px`;
-          gapTip.style.top = `${Math.round(r.top + r.height / 2)}px`;
+          showGapHoverTip(p.name, r.right + 10, r.top + r.height / 2);
         });
         gapBtn.addEventListener("blur", () => {
-          gapTip.classList.remove("visible");
+          hideGapHoverTip();
         });
         gapBtn.addEventListener("click", () => {
+          hideGapHoverTip();
           state.selectedProfessionId = p.id;
           cleanseInvalidSelections();
           renderAll();
