@@ -123,21 +123,34 @@ body.theme-epic .talents-panel {
 }
 body.theme-epic .skills-panel { --edge-scale: 2.2; }    /* increased reduction for middle column */
 body.theme-epic .skills-panel {
-  --skills-photo-size: clamp(180px, 14vw, 260px);
+  --skills-photo-size: clamp(324px, 25.2vw, 468px);
   --skills-photo-offset-right: 50px;
   --skills-photo-offset-bottom: clamp(44px, 7vh, 72px);
+  --skills-photo-opacity: 0.6;
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
     var(--drh-bg-pergamen-bottom) bottom center / 100% auto no-repeat,
-    var(--drh-bg-skills-photo) right var(--skills-photo-offset-right) bottom var(--skills-photo-offset-bottom) / var(--skills-photo-size) auto no-repeat,
     var(--drh-bg-pergamen) center / 100% auto repeat-y;
-  background-blend-mode: soft-light, normal, normal, normal, normal;
+  background-blend-mode: soft-light, normal, normal, normal;
+}
+
+body.theme-epic .skills-panel::after {
+  content: "";
+  position: absolute;
+  right: var(--skills-photo-offset-right);
+  bottom: var(--skills-photo-offset-bottom);
+  width: var(--skills-photo-size);
+  aspect-ratio: 300 / 282;
+  background: var(--drh-bg-skills-photo) center / contain no-repeat;
+  opacity: var(--skills-photo-opacity);
+  pointer-events: none;
+  z-index: 0;
 }
 
 @media (min-width: 1025px) and (max-width: 1700px) {
   body.theme-epic .skills-panel {
-    --skills-photo-size: clamp(166px, 12.8vw, 230px);
+    --skills-photo-size: clamp(299px, 23.04vw, 414px);
     --skills-photo-offset-right: 50px;
     --skills-photo-offset-bottom: clamp(42px, 6.6vh, 64px);
   }
@@ -145,7 +158,7 @@ body.theme-epic .skills-panel {
 
 @media (min-width: 1025px) and (max-width: 1700px) {
   body.theme-epic .skills-panel {
-    --skills-photo-size: clamp(152px, 11.2vw, 210px);
+    --skills-photo-size: clamp(274px, 20.16vw, 378px);
     --skills-photo-offset-right: 50px;
     --skills-photo-offset-bottom: clamp(38px, 6vh, 58px);
   }
