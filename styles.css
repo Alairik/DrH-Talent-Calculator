@@ -197,9 +197,9 @@ h3,
   position: fixed;
   right: 12px;
   bottom: 14px;
-  --floating-peek-height: 96px;
+  --floating-peek-height: 104px;
   z-index: 1310;
-  width: min(420px, calc(100vw - 20px));
+  width: min(338px, calc(100vw - 20px));
   overflow: visible;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -220,7 +220,7 @@ h3,
   right: 6px;
   top: 6px;
   transform: none;
-  width: 24px;
+  width: 26px;
   height: 24px;
   border-radius: 8px;
   border: 1px solid var(--line);
@@ -292,8 +292,8 @@ h3,
 
 .attr-row {
   display: grid;
-  grid-template-columns: 40px 1fr 1fr;
-  gap: 0.3rem;
+  grid-template-columns: 34px 24px 42px 24px 28px;
+  gap: 0.24rem;
   align-items: center;
 }
 
@@ -303,13 +303,47 @@ h3,
 }
 
 .attr-row input {
-  min-height: 30px;
+  min-height: 26px;
   border-radius: 7px;
   border: 1px solid #7b6240;
   background: #17130f;
   color: #fff0d4;
   text-align: center;
-  padding: 0.15rem 0.22rem;
+  padding: 0.1rem 0.16rem;
+}
+
+.attr-adjust-btn {
+  min-height: 26px;
+  width: 24px;
+  min-width: 24px;
+  border-radius: 7px;
+  border: 1px solid #7b6240;
+  background: #2a2017;
+  color: #fff0d4;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+}
+
+.attr-adjust-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+#attrSilBase,
+#attrObrBase,
+#attrOdoBase,
+#attrIntBase,
+#attrChaBase {
+  width: 42px;
+}
+
+#attrSilMod,
+#attrObrMod,
+#attrOdoMod,
+#attrIntMod,
+#attrChaMod {
+  width: 28px;
 }
 
 .save-modal {

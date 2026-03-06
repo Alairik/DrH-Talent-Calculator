@@ -11,11 +11,6 @@
   <div class="column-controls">
     <div id="controlSlotClass" class="control-slot control-slot-class">
       <div id="classTopControls" class="class-top-controls">
-        <div id="humanToggleSlotClass"></div>
-        <label id="humanToggleWrap" class="human-toggle">
-          <input id="humanToggle" type="checkbox" />
-          <span>Člověk</span>
-        </label>
         <div id="classPicker" class="class-picker top-class-picker"></div>
         <div id="resetSlotClass"></div>
       </div>
@@ -99,7 +94,6 @@
       </div>
       <div class="skills-bottom-bar">
         <div id="summary" class="summary skills-bottom-summary"></div>
-        <div id="humanToggleSlotBottom"></div>
       </div>
     </section>
 
@@ -124,11 +118,6 @@
 
   <aside id="floatingPanel" class="floating-panel" aria-label="Rychlé ovládání postavy">
     <button id="floatingPanelSlideBtn" type="button" class="floating-panel-slide-btn" aria-expanded="true" aria-label="Sbalit panel">▾</button>
-    <div class="floating-row floating-row-main">
-      <select id="quickRaceSelect" aria-label="Výběr rasy"></select>
-      <button id="quickRandomBtn" type="button" title="Náhodně vygenerovat postavu" aria-label="Náhodně vygenerovat postavu">🎲</button>
-      <button id="quickResetBtn" type="button" title="Resetovat postavu" aria-label="Resetovat postavu">↺</button>
-    </div>
     <div class="floating-row floating-row-level">
       <span class="floating-label">Lv</span>
       <button id="quickLevelMinus" type="button" aria-label="Snížit úroveň">-</button>
@@ -136,12 +125,47 @@
       <button id="quickLevelPlus" type="button" aria-label="Zvýšit úroveň">+</button>
       <button id="quickSaveBtn" type="button" class="floating-save-btn" title="Uložit postavu do URL">Uložit</button>
     </div>
+    <div class="floating-row floating-row-main">
+      <select id="quickRaceSelect" aria-label="Výběr rasy"></select>
+      <button id="quickRandomBtn" type="button" title="Náhodně vygenerovat postavu" aria-label="Náhodně vygenerovat postavu">🎲</button>
+      <button id="quickResetBtn" type="button" title="Resetovat postavu" aria-label="Resetovat postavu">↺</button>
+    </div>
     <div id="quickAttrsPanel" class="floating-attrs">
-      <div class="attr-row"><span>SIL</span><input id="attrSilBase" maxlength="2" inputmode="numeric" /><input id="attrSilMod" maxlength="2" inputmode="numeric" /></div>
-      <div class="attr-row"><span>OBR</span><input id="attrObrBase" maxlength="2" inputmode="numeric" /><input id="attrObrMod" maxlength="2" inputmode="numeric" /></div>
-      <div class="attr-row"><span>ODO</span><input id="attrOdoBase" maxlength="2" inputmode="numeric" /><input id="attrOdoMod" maxlength="2" inputmode="numeric" /></div>
-      <div class="attr-row"><span>INT</span><input id="attrIntBase" maxlength="2" inputmode="numeric" /><input id="attrIntMod" maxlength="2" inputmode="numeric" /></div>
-      <div class="attr-row"><span>CHA</span><input id="attrChaBase" maxlength="2" inputmode="numeric" /><input id="attrChaMod" maxlength="2" inputmode="numeric" /></div>
+      <div class="attr-row">
+        <span>SIL</span>
+        <button id="attrSilMinus" class="attr-adjust-btn" type="button" aria-label="Snížit SIL">-</button>
+        <input id="attrSilBase" maxlength="2" inputmode="numeric" />
+        <button id="attrSilPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit SIL">+</button>
+        <input id="attrSilMod" maxlength="2" inputmode="numeric" />
+      </div>
+      <div class="attr-row">
+        <span>OBR</span>
+        <button id="attrObrMinus" class="attr-adjust-btn" type="button" aria-label="Snížit OBR">-</button>
+        <input id="attrObrBase" maxlength="2" inputmode="numeric" />
+        <button id="attrObrPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit OBR">+</button>
+        <input id="attrObrMod" maxlength="2" inputmode="numeric" />
+      </div>
+      <div class="attr-row">
+        <span>ODO</span>
+        <button id="attrOdoMinus" class="attr-adjust-btn" type="button" aria-label="Snížit ODO">-</button>
+        <input id="attrOdoBase" maxlength="2" inputmode="numeric" />
+        <button id="attrOdoPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit ODO">+</button>
+        <input id="attrOdoMod" maxlength="2" inputmode="numeric" />
+      </div>
+      <div class="attr-row">
+        <span>INT</span>
+        <button id="attrIntMinus" class="attr-adjust-btn" type="button" aria-label="Snížit INT">-</button>
+        <input id="attrIntBase" maxlength="2" inputmode="numeric" />
+        <button id="attrIntPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit INT">+</button>
+        <input id="attrIntMod" maxlength="2" inputmode="numeric" />
+      </div>
+      <div class="attr-row">
+        <span>CHA</span>
+        <button id="attrChaMinus" class="attr-adjust-btn" type="button" aria-label="Snížit CHA">-</button>
+        <input id="attrChaBase" maxlength="2" inputmode="numeric" />
+        <button id="attrChaPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit CHA">+</button>
+        <input id="attrChaMod" maxlength="2" inputmode="numeric" />
+      </div>
     </div>
   </aside>
 

@@ -249,11 +249,11 @@
     specializationLockLevelByClass: {},
     selectedSkillTargets: {},
     attributes: {
-      sil: { base: 10, mod: 0 },
-      obr: { base: 10, mod: 0 },
-      odo: { base: 10, mod: 0 },
-      int: { base: 10, mod: 0 },
-      cha: { base: 10, mod: 0 }
+      sil: { base: 10, mod: 0, bonus: 0 },
+      obr: { base: 10, mod: 0, bonus: 0 },
+      odo: { base: 10, mod: 0, bonus: 0 },
+      int: { base: 10, mod: 0, bonus: 0 },
+      cha: { base: 10, mod: 0, bonus: 0 }
     },
     pdfCoverage: {
       skills: new Set(),
@@ -295,9 +295,6 @@
   const els = {
     layout: document.querySelector(".layout"),
     classTopControls: document.getElementById("classTopControls"),
-    humanToggleWrap: document.getElementById("humanToggleWrap"),
-    humanToggleSlotClass: document.getElementById("humanToggleSlotClass"),
-    humanToggleSlotBottom: document.getElementById("humanToggleSlotBottom"),
     resetSlotClass: document.getElementById("resetSlotClass"),
     resetSlotPlan: document.getElementById("resetSlotPlan"),
     controlSlotClass: document.getElementById("controlSlotClass"),
@@ -322,20 +319,29 @@
     floatingPanel: document.getElementById("floatingPanel"),
     floatingPanelSlideBtn: document.getElementById("floatingPanelSlideBtn"),
     attrSilBase: document.getElementById("attrSilBase"),
+    attrSilMinus: document.getElementById("attrSilMinus"),
+    attrSilPlus: document.getElementById("attrSilPlus"),
     attrSilMod: document.getElementById("attrSilMod"),
     attrObrBase: document.getElementById("attrObrBase"),
+    attrObrMinus: document.getElementById("attrObrMinus"),
+    attrObrPlus: document.getElementById("attrObrPlus"),
     attrObrMod: document.getElementById("attrObrMod"),
     attrOdoBase: document.getElementById("attrOdoBase"),
+    attrOdoMinus: document.getElementById("attrOdoMinus"),
+    attrOdoPlus: document.getElementById("attrOdoPlus"),
     attrOdoMod: document.getElementById("attrOdoMod"),
     attrIntBase: document.getElementById("attrIntBase"),
+    attrIntMinus: document.getElementById("attrIntMinus"),
+    attrIntPlus: document.getElementById("attrIntPlus"),
     attrIntMod: document.getElementById("attrIntMod"),
     attrChaBase: document.getElementById("attrChaBase"),
+    attrChaMinus: document.getElementById("attrChaMinus"),
+    attrChaPlus: document.getElementById("attrChaPlus"),
     attrChaMod: document.getElementById("attrChaMod"),
     saveCharacterModal: document.getElementById("saveCharacterModal"),
     saveCharacterUrl: document.getElementById("saveCharacterUrl"),
     copyCharacterUrlBtn: document.getElementById("copyCharacterUrlBtn"),
     closeCharacterModalBtn: document.getElementById("closeCharacterModalBtn"),
-    humanToggle: document.getElementById("humanToggle"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
     classGapIcons: document.getElementById("classGapIcons"),
@@ -777,7 +783,8 @@
       const cur = state.attributes[key] || {};
       state.attributes[key] = {
         base: clampInt(cur.base, 1, 21, 10),
-        mod: clampInt(cur.mod, -5, 5, 0)
+        mod: clampInt(cur.mod, -5, 5, 0),
+        bonus: clampInt(cur.bonus, 0, 6, 0)
       };
     }
   }
@@ -786,31 +793,13 @@
     const keys = ["sil", "obr", "odo", "int", "cha"];
     return keys.every((k) => {
       const a = state.attributes[k] || {};
-      return Number(a.base) === 10 && Number(a.mod) === 0;
+      return Number(a.base) === 10 && Number(a.mod) === 0 && Number(a.bonus) === 0;
     });
   }
 
   function wireEvents() {
-    if (els.humanToggle) els.humanToggle.addEventListener("change", () => {
-      const humanId = getHumanRaceId();
-      if (els.humanToggle.checked && humanId) {
-        state.selectedRaceId = humanId;
-      } else if (!els.humanToggle.checked && normalize((getRaceById(state.selectedRaceId) || {}).name) === "clovek") {
-        const fallback = getFirstNonHumanRaceId();
-        if (fallback) state.selectedRaceId = fallback;
-      }
-      applyCreationAttributeProfile();
-      cleanseInvalidSelections();
-      renderAll();
-      persist();
-    });
-
     if (els.mobileClassSelect) els.mobileClassSelect.addEventListener("change", () => {
-      state.selectedProfessionId = els.mobileClassSelect.value;
-      applyCreationAttributeProfile();
-      cleanseInvalidSelections();
-      renderAll();
-      persist();
+      applyProfessionChange(els.mobileClassSelect.value);
     });
 
     if (els.resetBtn) els.resetBtn.addEventListener("click", () => {
@@ -951,11 +940,11 @@
       });
     }
 
-    bindAttributeInput("sil", els.attrSilBase, els.attrSilMod);
-    bindAttributeInput("obr", els.attrObrBase, els.attrObrMod);
-    bindAttributeInput("odo", els.attrOdoBase, els.attrOdoMod);
-    bindAttributeInput("int", els.attrIntBase, els.attrIntMod);
-    bindAttributeInput("cha", els.attrChaBase, els.attrChaMod);
+    bindAttributeInput("sil", els.attrSilBase, els.attrSilMod, els.attrSilMinus, els.attrSilPlus);
+    bindAttributeInput("obr", els.attrObrBase, els.attrObrMod, els.attrObrMinus, els.attrObrPlus);
+    bindAttributeInput("odo", els.attrOdoBase, els.attrOdoMod, els.attrOdoMinus, els.attrOdoPlus);
+    bindAttributeInput("int", els.attrIntBase, els.attrIntMod, els.attrIntMinus, els.attrIntPlus);
+    bindAttributeInput("cha", els.attrChaBase, els.attrChaMod, els.attrChaMinus, els.attrChaPlus);
     if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
       const enabled = !document.body.classList.contains("theme-epic");
       applyTheme(enabled, true);
@@ -1016,6 +1005,26 @@
     });
   }
 
+  function applyProfessionChange(nextProfessionId) {
+    const nextId = String(nextProfessionId || "");
+    if (!nextId || nextId === state.selectedProfessionId) return;
+    const currentPlan = buildPlan();
+    const keepLevel = clampInt(
+      currentPlan && currentPlan.totals ? currentPlan.totals.currentLevel : state.manualLevel,
+      1,
+      state.config.maxLevel,
+      1
+    );
+    state.selectedProfessionId = nextId;
+    applyCreationAttributeProfile();
+    cleanseInvalidSelections();
+    // Keep displayed level stable across class switch so skill point totals recalc for the same level.
+    state.levelMode = "manual";
+    state.manualLevel = keepLevel;
+    renderAll();
+    persist();
+  }
+
   function doResetBuild(withConfirm = false) {
     if (withConfirm) {
       const ok = window.confirm("Opravdu chceš resetovat postavu?");
@@ -1043,12 +1052,10 @@
     }
     const keys = ["sil", "obr", "odo", "int", "cha"];
     for (const key of keys) {
-      const score = clampInt(1 + Math.floor(Math.random() * 21), 1, 21, 10);
-      state.attributes[key] = {
-        base: score,
-        mod: getAttributeModifier(score)
-      };
+      const cur = state.attributes[key] || {};
+      state.attributes[key] = { ...cur, bonus: clampInt(Math.floor(Math.random() * 7), 0, 6, 0) };
     }
+    applyCreationAttributeProfile();
   }
 
   function openSaveCharacterModal() {
@@ -1066,29 +1073,36 @@
     els.saveCharacterModal.hidden = true;
   }
 
-  function bindAttributeInput(attrKey, baseInput, modInput) {
-    const applyBase = () => {
-      const raw = baseInput ? String(baseInput.value || "") : "";
-      const parsed = clampInt(parseInt(raw, 10), 1, 21, state.attributes[attrKey].base);
-      state.attributes[attrKey].base = parsed;
-      state.attributes[attrKey].mod = getAttributeModifier(parsed);
-      if (baseInput) baseInput.value = String(parsed);
-      if (modInput) modInput.value = String(state.attributes[attrKey].mod);
-      persist();
-    };
+  function bindAttributeInput(attrKey, baseInput, modInput, minusBtn, plusBtn) {
     if (baseInput) {
-      baseInput.addEventListener("blur", applyBase);
-      baseInput.addEventListener("keydown", (ev) => {
-        if (ev.key === "Enter") {
-          applyBase();
-          baseInput.blur();
-        }
-      });
+      baseInput.readOnly = true;
+      baseInput.tabIndex = -1;
     }
     if (modInput) {
       modInput.readOnly = true;
       modInput.tabIndex = -1;
     }
+    if (minusBtn) {
+      minusBtn.addEventListener("click", () => {
+        changeAttributeBonus(attrKey, -1);
+      });
+    }
+    if (plusBtn) {
+      plusBtn.addEventListener("click", () => {
+        changeAttributeBonus(attrKey, 1);
+      });
+    }
+  }
+
+  function changeAttributeBonus(attrKey, delta) {
+    ensureAttributeDefaults();
+    const cur = state.attributes[attrKey] || { base: 10, mod: 0, bonus: 0 };
+    const nextBonus = clampInt(Number(cur.bonus || 0) + Number(delta || 0), 0, 6, Number(cur.bonus || 0));
+    if (nextBonus === Number(cur.bonus || 0)) return;
+    state.attributes[attrKey] = { ...cur, bonus: nextBonus };
+    applyCreationAttributeProfile();
+    renderQuickAttributeInputs();
+    persist();
   }
 
   function bindNumber(input, onChange) {
@@ -1112,8 +1126,6 @@
     renderClassPicker();
     renderMobileClassSelect();
     renderQuickRaceSelect();
-    const selectedRace = getRaceById(state.selectedRaceId);
-    if (els.humanToggle) els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
 
     els.maxLevel.value = state.config.maxLevel;
     els.talentL1.value = state.config.points.talentLevel1;
@@ -1149,12 +1161,9 @@
   }
 
   function relocateColumnControls() {
-    if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls || !els.humanToggleWrap) return;
+    if (!els.classTopControls || !els.skillsTopControls || !els.planTopControls) return;
     const isMobile = isMobileSectionLayout();
     if (isMobile) {
-      if (els.humanToggleSlotClass && els.humanToggleWrap.parentElement !== els.humanToggleSlotClass) {
-        els.humanToggleSlotClass.appendChild(els.humanToggleWrap);
-      }
       if (els.resetBtn && els.resetSlotClass && els.resetBtn.parentElement !== els.resetSlotClass) {
         els.resetSlotClass.appendChild(els.resetBtn);
       }
@@ -1169,9 +1178,6 @@
     } else {
       if (els.controlSlotClass && els.classTopControls.parentElement !== els.controlSlotClass) {
         els.controlSlotClass.appendChild(els.classTopControls);
-      }
-      if (els.humanToggleSlotBottom && els.humanToggleWrap.parentElement !== els.humanToggleSlotBottom) {
-        els.humanToggleSlotBottom.appendChild(els.humanToggleWrap);
       }
       if (els.resetBtn && els.resetSlotPlan && els.resetBtn.parentElement !== els.resetSlotPlan) {
         els.resetSlotPlan.appendChild(els.resetBtn);
@@ -1288,17 +1294,25 @@
 
   function renderQuickAttributeInputs() {
     const map = [
-      ["sil", els.attrSilBase, els.attrSilMod],
-      ["obr", els.attrObrBase, els.attrObrMod],
-      ["odo", els.attrOdoBase, els.attrOdoMod],
-      ["int", els.attrIntBase, els.attrIntMod],
-      ["cha", els.attrChaBase, els.attrChaMod]
+      ["sil", els.attrSilBase, els.attrSilMod, els.attrSilMinus, els.attrSilPlus],
+      ["obr", els.attrObrBase, els.attrObrMod, els.attrObrMinus, els.attrObrPlus],
+      ["odo", els.attrOdoBase, els.attrOdoMod, els.attrOdoMinus, els.attrOdoPlus],
+      ["int", els.attrIntBase, els.attrIntMod, els.attrIntMinus, els.attrIntPlus],
+      ["cha", els.attrChaBase, els.attrChaMod, els.attrChaMinus, els.attrChaPlus]
     ];
-    for (const [key, baseEl, modEl] of map) {
-      const a = state.attributes[key] || { base: 10, mod: 0 };
+    for (const [key, baseEl, modEl, minusEl, plusEl] of map) {
+      const a = state.attributes[key] || { base: 10, mod: 0, bonus: 0 };
+      const bonus = clampInt(Number(a.bonus), 0, 6, 0);
       if (baseEl) baseEl.value = String(clampInt(a.base, 1, 21, 10));
-      if (modEl) modEl.value = String(clampInt(a.mod, -5, 5, 0));
+      if (modEl) modEl.value = formatSignedInt(clampInt(a.mod, -5, 5, 0));
+      if (minusEl) minusEl.disabled = bonus <= 0;
+      if (plusEl) plusEl.disabled = bonus >= 6;
     }
+  }
+
+  function formatSignedInt(value) {
+    const n = Number(value) || 0;
+    return n > 0 ? `+${n}` : String(n);
   }
 
   function updateMobileSectionNav() {
@@ -1349,11 +1363,7 @@
       }
       btn.textContent = p.name;
       btn.addEventListener("click", () => {
-        state.selectedProfessionId = p.id;
-        applyCreationAttributeProfile();
-        cleanseInvalidSelections();
-        renderAll();
-        persist();
+        applyProfessionChange(p.id);
       });
       els.classPicker.appendChild(btn);
 
@@ -1385,11 +1395,7 @@
         });
         gapBtn.addEventListener("click", () => {
           hideGapHoverTip();
-          state.selectedProfessionId = p.id;
-          applyCreationAttributeProfile();
-          cleanseInvalidSelections();
-          renderAll();
-          persist();
+          applyProfessionChange(p.id);
         });
         els.classGapIcons.appendChild(gapBtn);
       }
@@ -2968,7 +2974,8 @@
       const item = src[key] && typeof src[key] === "object" ? src[key] : {};
       out[key] = {
         base: clampInt(item.base, 1, 21, 10),
-        mod: clampInt(item.mod, -5, 5, 0)
+        mod: clampInt(item.mod, -5, 5, 0),
+        bonus: clampInt(item.bonus, 0, 6, 0)
       };
     }
     return out;
@@ -3052,19 +3059,25 @@
     return 6;
   }
 
-  function applyCreationAttributeProfile() {
-    ensureAttributeDefaults();
+  function getCreationAttributeBaseScore(attrKey) {
     const race = getRaceById(state.selectedRaceId);
     const raceKey = normalize(race && race.name);
     const raceBase = RACE_BASE_ATTRIBUTES[raceKey] || RACE_BASE_ATTRIBUTES.clovek;
     const dominant = CLASS_DOMINANT_ATTRIBUTES[state.selectedProfessionId] || [];
+    const add = dominant.includes(attrKey) ? 3 : 0;
+    return clampInt(Number(raceBase[attrKey] || 10) + add, 1, 21, 10);
+  }
+
+  function applyCreationAttributeProfile() {
+    ensureAttributeDefaults();
     const keys = ["sil", "obr", "odo", "int", "cha"];
     for (const key of keys) {
-      const add = dominant.includes(key) ? 3 : 0;
-      const score = clampInt(Number(raceBase[key] || 10) + add, 1, 21, 10);
+      const bonus = clampInt(Number((state.attributes[key] || {}).bonus), 0, 6, 0);
+      const score = clampInt(getCreationAttributeBaseScore(key) + bonus, 1, 21, 10);
       state.attributes[key] = {
         base: score,
-        mod: getAttributeModifier(score)
+        mod: getAttributeModifier(score),
+        bonus
       };
     }
   }
