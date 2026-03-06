@@ -1,0 +1,221 @@
+
+--- PAGE 1 ---
+Bdlspánek
+Hraniáský luk
+Hraniáüyk
+Lovcovakoist
+Mluvení sezvíaty
+Moudrost
+Ostražitost
+TABULKA VOLITELNÝCH SCHOPNOSTÍHRANICARE
+Tvésmysly dokáží vycítit nebezpeí ibhem spnku.Navíc sebhem në
+lépe regeneruješ a uzdravuješ.
+Nauíš sevyrábtspeciální luk,který je silnjší než ostatní. Zárove
+ovládneš nkolik kouzel, kterámžešpi stelbs ním použít. Jde o Désšt
+šíp, Jasná stela, Ochromující šíp,Plamennýšíp a Trefa doerného.
+Ziskáš možnostmít zvláštní jezdecké zvíe a zlepšit svou schopnost jízdy
+na nm.Zárove se nauíš nkolik kouzel, která jsou s ním spojena. Jde
+oNezdolnost,Pivolej kon, S vtremozávod, Uklidni zvíe a Zvíeci
+posel.
+Vybereš si uritýdruhtvora a poznáš takdokonale jeho slabiny. V boji
+proti nnmu tak budeš mít vždy bonus+3k Ua O.
+Nauíš seporozunmtzvíatm a komunikovatsnimi.
+Dokážeš hodnotu svéZákladní obrany urovat bonusem za Inteligenci
+(INT),místo obvyklého bonusuza obratnost (OBR).
+Získáš „šestý smysl, kterýt uinívnímavjším. Projevuje se trvalým
+bonusem +3k Iniciativ, Reflexu i Postehu.
+Spíznnost sezvíaty Zvíata t napadnoupouzev pípad,kdy na n sám zaútoís. Zárove
+je dokážeš uklidnit vkaždésituaci.
+Stelba nakrátkou
+Vzdálenost
+Dokážešbezomezenístílet i na velmi krákévzdálenosti.V takové
+situaci máškobran(OaZranníbonus +2.
+Svtobžník
+Urputná stelba
+Totem
+Pi každém pestupu nadalší úrove získáváš navíc tolik dovednostnich
+bod,kolik je jejíaktuálníhodnota.
+Pi steleckém útoku na stejný cíl získáškÚbonus +1 (a to ado
+maximálníhobonusu +5).
+Dokážeš vyrobittotem, kterýti na lsmnuposkytnee:zvláštní schopnosti
+vybranéhozvíete.
+
+
+--- PAGE 2 ---
+CHODEC
+Chodcích se vypráví odjakživa mnoho píbhú,
+Oteré znich dajíživoucí legendy. Jsou to zpra
+vidla oni, kteí objevují nová území a ta pak asto
+nesou jejich jméno.Stejn tak jsou mnohdy oslavo
+vánijako prüzkumníci, kteíse bez báznvydávajf
+na území nepítele. Práv jimi získané informace
+uždokázaly zvrátit mnohobitev ve prospch slab
+štch. V neposlední adjsou to elitní lovci monster.
+Nepozorovan procházejí krajinou, chránni svým
+umním a chodeckým meem,který jim propüjuje
+legendární moc.
+schopnost Obratné ostí
+schopnostPrüzkumnictví
+znalost Magie pocestných
+ZVLÁŠTNÍSCHOPNOSTI
+CHODCE
+Každý Chodec získává volbou této specializace
+automaticky jednu užitenou zvláštní schopnost
+a jednu profesní dovednost, které mu pomáhají
+pežít na cestách. Jsou jimi:
+Aby se Hraniámohl specializovat a stát se Chod
+cem,musí nejprveovládnout následující:
+• Vytrvalost (S)
+•Znalostmístních pomr (D)
+
+
+--- PAGE 3 ---
+Chodcv me
+Chodecká
+magie
+Instinkt lovce
+TABULKAVOLITELNÝCH SCHOPNOSTÍ CHODCE
+Ziskášspeciální magickou zbra,která je silnjší než ostatní. Navíc ovládneš i nkolik
+kouzel,kterým ji mžešposilovat a promovat. Jsoujimi Odražení kouzla,Posílení
+zbran,Transmutace zbran,Záblesk a Živelnéostí.
+Nauíš se nkolikspeciálních kouzelnacesty. Jsou jimiFalešná stopa, Matení pachi,
+Matení stop, Oi pírody aUhranivý pohled.
+Dokážešautomaticky rozeznatavycítit nejslabší i nejsilnjší protivníky azískáváš
+speciální bonus +3vbojiproti nim.
+Jistáruka Pokud ti v boji padne na kostce1,házíš siznovu. Teprve výsledekdruhéhohodu sepak
+zapoítávádoÚtoku (Ú)i Obrany(0).
+Magicképasti
+Magie lovc
+monster
+Nauíš sevyrábt nebezpenépasti udržované aposilovanépírodnímagií.Jsou jimi:
+Jedovápast, Svazujicípast, Varovnápast, Veštík, Vyskakující koliky a Výbušnápast
+Ovládneškouzla, kterýmizajistíš svou dominanci vboji. Jedná seoBleskový výpad,
+Dvojitý švih,Sražení projektilu, Poškození zbran a Víivé ostí.
+Požíra
+Soustední
+Duševní sily
+Pozením orgánuprotivníkadokážeš získat na týden ást jeho schopností (hodnotu
+vybraného atributu).
+DokážešDuševnísílu koncentrovat tak, abyposilovala tvéfyzické apsychické
+schopnosti. Ovládneškouzla Oištëní, Pizpüsobení,Uvolnní, ZaceleníaUtuženi.
+
+
+--- PAGE 4 ---
+DRUID
+ruidové jsou hraniái, jejichž domovem sestal
+Divozd. Obklopeni prastarými stromy a vzácný
+mi živoichy pebývají vjeho srdci, kdenašli klid amír.
+Stalise tak nedílnou souástí lesa ajeho ochránci.
+Ten jimza topropüjuje ást svéohromnésílya mní
+je v legendy. Akoliv nikdopesnneví, kam ažmoc
+Druidsahá, mezi lidmi sešuškáledacos. Žejsou to
+zázraní léitelé a že jim hvozd naslouchá. Žejsou
+jediní,kteí ho dokáží uklidnit, stejnjako ho dokáží
+probudit. Žejim slouží oživlé stromy ažeprý dokáží
+vrátit životmrtvým. Jistéje,že v divoképírod patí
+mezi nejmocnjší bytosti vübec.
+Aby se Hraniámohl specializovat astát Drui
+dem,musí nejprveovládnout následující:
+POZNÁMKA: Druidské tradice a uméní jsou
+prastaré amocné. Ten, kdo se chce této profesi v
+novat, musí proniknout svými vdomostmi mno
+hem hloubji apoznat zákonitosti hvozdu apírody.
+Oproti jiným profesím zdeprotonajdeš více informa
+cí,které musišznátadodržovat.
+ZVLÁTNÍSCHOPNOSTI
+DRUIDA
+Každý Druid získávávolbou této specializace auto
+maticky dvmocné zvláštní schopnosti. Jedna mu
+propjí nebývalou sílu ochránce hvozda druhá
+zajistípístup kdruidským kouzlüm.
+• schopnostBojová húl
+znalost Léitelství
+znalost Magiepírody
+• Druidova kouzla
+• Druidské svcení (S)
+
+
+--- PAGE 5 ---
+Darypírody
+Druidovahl
+Druidskérituály
+TABULKA VOLITELNÝCH SCHOPNOSTÍDRUIDA
+Nauíšsevyrábt Léivoumast a speciální druidské odvary Jarnídouek,Letní
+žár, Podzimnípomocník,Zimníspá a Odvarzbezoáru.
+Diky této schopnosti získáš odhvozduvzácný dar. Zvláštní húl, která jesilnéjší,
+než ostatní a mánadpirozené schopnosti.
+Nauíš se provádt rituály Darživota, Láska hvozdu, Nenávist hvozdu, Uzdrav
+lykantropii, Uzdravzmrzaení, Zrušzkamenní.
+Magielesa Dokážeš seslat tato lesní kouzla: Bludnýkoen,Listová bouka, Otevená náru
+lesa, Povolejvily, Procházení stromy,Pivolej bludiky, SnovýmrakaZmna
+poasí.
+Magiehvozdu Dokážeš seslat tato kouzla hvozdu: Hnv hvozdu, Koroze, Najdi bytost, Probuzení
+Pastýe lesa, Probuzení stromu, Trnovástna, Zapletení, Zestromovatní.
+Prostoupení
+Sílapírody
+Vládni pirozeným
+vcem
+Dokážešvstoupitdostromu, propojit se sním a dokonceho ikontrolovat
+aovládat.
+Vehvozdu dokážešmeditací soustedit svou Duševní sílu tak,že se jejihodnota
+zdvojnásobí.
+Pomoci této schopnosti dokážeDruidvyprositnapirozených (pírodnich)
+vcech, abyuposlechlyjeho píikaz.
+
+
+--- PAGE 6 ---
+PÁNZVÍAT
+fezi hraniái se obas objevuji takoví, ktef se
+Morhodli zasvtit svoudušizviatüm. Dvují
+imvíce, než lidem a pojí jes niminerozlunépátel
+styí, Kdyžsepak sesvou smekounkde objeví, jeví
+eostatnim jakoPáni zviat. Pravda je však mnohen
+sožitjší. Jejich vztah je totiž založen na hlubokémn
+duševnim poutu, které celou smekuspojuje. Tojim
+pakposkytuje netušenémožnosti. íkáse, žedokáži
+nejen vidt oima zvíat, ale dokonce se v nprom.
+nit. Jejich smeka jim navícstojí vždy vrn poboku.
+ZVLÁŠTNÍ SCHOPNOSTIPÁNA
+ZVÍAT
+Každý Pán zvíat získává volbou této specializace
+automaticky dvnové zvláštní schopnosti. Diky
+jednédokáže stvoit smekuadruhá mudovolí oc
+hoit netradiní zvíecí pátele.
+•Další zvíecípátelé (S)
+.Smeka(S)
+Aby seHraniá mohl specializovat astát sePánem
+zviat,musínejprve ovládnout následující:
+•schopnost Bojse zvíaty
+• znalost Magiezvíat
+•znalost Ochoovánízvíat
+
+
+--- PAGE 7 ---
+Bestie
+Bojvesmece
+TABULKA VOLITELNÝCH SCHOPNOSTÍPÁNA ZVIRAT
+Promnou v bestii se zvýší tváOBRaSIL o +3. Zárovezískáš 3útoky za dv kola
+amocné drápy(8/+2/+2).
+Za každézvie vesvé smecezískáš kÚa Obonus +l a to ado výše maximálnik.
+bonusu +5.
+Divoké
+pokiky
+Napodobením evu zvíat získáš pístup kespeciálním kouzlm k ovlivnní protivniki
+ispojencvboji. Jsou jimi Bojovnýev, Dsivý ev, Pokik lovu, Varovný výkik
+aVábící kik.
+Magiesmeky Získáš schopnost sesilat kouzla prostednictvím svésmeky.Krom toho ovládneš
+inkolik kouzel sloužících kovlivnnísmeky. Jsou jimi Chra,Stvi, Trhej, Zadrž
+aZachra.
+Pokroilá
+Magie zvíat
+Díkytéto schopnosti pronikneš hloubjido tajMagie zvíat a nauíšsetato užitená
+kouzla: Mimikry,Nakrm zvíe, Oi zvíete, Pochvala a Poslouchej.
+Šamanismus Dokážeš se spojit s dušemimrtvýchzvíat a získat od nich informace. Stejn tak
+dokážešmrtvézvíe oživit.
+Tvaromni Dokážeš penést svoumysldozvíete tvésmeky anásledn ho ovládat, bojovat jeho
+prostednictvím nebo sním putovat.
+Zvíecí
+šampión
+Promníšjednozezvíat svésmneky v šamnpióna,který je vyšší otídu velikosti,må
+bonus+3kÚa Oadalší.
+

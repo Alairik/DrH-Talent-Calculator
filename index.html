@@ -23,14 +23,9 @@
     <div id="controlSlotPlan" class="control-slot control-slot-plan">
       <div id="planTopControls" class="top-controls plan-top-controls">
         <div id="topLevelControls" class="timeline-tools top-level-tools">
-          <button id="themeToggleBtn" type="button" class="lvl-btn" aria-pressed="false" title="Přepnout fantasy vzhled">Fantasy OFF</button>
           <button id="shareLinkBtn" type="button" class="lvl-btn" title="Kopírovat URL buildu">Uložit URL</button>
           <button id="timelineHelpBtn" type="button" class="timeline-help-btn" aria-label="Nápověda timeline" title="Nápověda">?</button>
           <span id="urlLoadStatus" class="url-load-status" hidden></span>
-          <span class="lvl-label">Lv</span>
-          <button id="manualLevelMinus" type="button" class="lvl-btn">-</button>
-          <div id="manualLevelDisplay" class="level-display">1</div>
-          <button id="manualLevelPlus" type="button" class="lvl-btn">+</button>
         </div>
         <div id="resetSlotPlan"></div>
       </div>
@@ -115,6 +110,7 @@
   </button>
 
   <button id="resetBtn" type="button" title="Reset výběru" aria-label="Reset výběru">↺</button>
+  <button id="themeToggleBtn" type="button" class="theme-toggle-floating" aria-pressed="false" title="Přepnout fantasy vzhled">Fantasy OFF</button>
 
   <aside id="floatingPanel" class="floating-panel" aria-label="Rychlé ovládání postavy">
     <button id="floatingPanelSlideBtn" type="button" class="floating-panel-slide-btn" aria-expanded="true" aria-label="Sbalit panel">▾</button>
@@ -123,6 +119,7 @@
       <button id="quickLevelMinus" type="button" aria-label="Snížit úroveň">-</button>
       <div id="quickLevelDisplay" class="floating-level-display">1</div>
       <button id="quickLevelPlus" type="button" aria-label="Zvýšit úroveň">+</button>
+      <button id="quickThemeBtn" type="button" class="floating-theme-btn" title="Přepnout fantasy vzhled">Fantasy OFF</button>
       <button id="quickSaveBtn" type="button" class="floating-save-btn" title="Uložit postavu do URL">Uložit</button>
     </div>
     <div class="floating-row floating-row-main">

@@ -314,6 +314,7 @@
     quickLevelMinus: document.getElementById("quickLevelMinus"),
     quickLevelDisplay: document.getElementById("quickLevelDisplay"),
     quickLevelPlus: document.getElementById("quickLevelPlus"),
+    quickThemeBtn: document.getElementById("quickThemeBtn"),
     quickSaveBtn: document.getElementById("quickSaveBtn"),
     quickAttrsPanel: document.getElementById("quickAttrsPanel"),
     floatingPanel: document.getElementById("floatingPanel"),
@@ -772,6 +773,11 @@
       clampInt(state.config.maxLevel, 1, 36, window.APP_CONFIG.maxLevel),
       window.APP_CONFIG.maxLevel
     );
+    // Point editor is hidden in current UI; keep canonical rules from config.
+    state.config.points.talentLevel1 = window.APP_CONFIG.points.talentLevel1;
+    state.config.points.talentPerLevel = window.APP_CONFIG.points.talentPerLevel;
+    state.config.points.skillLevel1 = window.APP_CONFIG.points.skillLevel1;
+    state.config.points.skillPerLevel = window.APP_CONFIG.points.skillPerLevel;
     ensureAttributeDefaults();
     if (areAttributesPristine()) applyCreationAttributeProfile();
   }
@@ -809,13 +815,17 @@
       doResetBuild(true);
     });
 
-    if (els.quickRaceSelect) els.quickRaceSelect.addEventListener("change", () => {
-      state.selectedRaceId = els.quickRaceSelect.value;
+    const onQuickRaceChange = () => {
+      state.selectedRaceId = String(els.quickRaceSelect.value || "");
       applyCreationAttributeProfile();
       cleanseInvalidSelections();
       renderAll();
       persist();
-    });
+    };
+    if (els.quickRaceSelect) {
+      els.quickRaceSelect.addEventListener("change", onQuickRaceChange);
+      els.quickRaceSelect.addEventListener("input", onQuickRaceChange);
+    }
 
     if (els.quickRandomBtn) els.quickRandomBtn.addEventListener("click", () => {
       randomizeCharacterQuick();
@@ -934,7 +944,7 @@
     if (els.floatingPanel && els.floatingPanelSlideBtn) {
       els.floatingPanelSlideBtn.addEventListener("click", () => {
         const collapsed = els.floatingPanel.classList.toggle("collapsed");
-        els.floatingPanelSlideBtn.textContent = collapsed ? "▴" : "▾";
+        els.floatingPanelSlideBtn.textContent = collapsed ? "⌃" : "⌄";
         els.floatingPanelSlideBtn.setAttribute("aria-expanded", collapsed ? "false" : "true");
         els.floatingPanelSlideBtn.setAttribute("aria-label", collapsed ? "Rozbalit panel" : "Sbalit panel");
       });
@@ -946,6 +956,10 @@
     bindAttributeInput("int", els.attrIntBase, els.attrIntMod, els.attrIntMinus, els.attrIntPlus);
     bindAttributeInput("cha", els.attrChaBase, els.attrChaMod, els.attrChaMinus, els.attrChaPlus);
     if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
+      const enabled = !document.body.classList.contains("theme-epic");
+      applyTheme(enabled, true);
+    });
+    if (els.quickThemeBtn) els.quickThemeBtn.addEventListener("click", () => {
       const enabled = !document.body.classList.contains("theme-epic");
       applyTheme(enabled, true);
     });
@@ -1046,16 +1060,236 @@
   }
 
   function randomizeCharacterQuick() {
-    if (state.races.length > 0) {
-      const race = state.races[Math.floor(Math.random() * state.races.length)];
-      if (race && race.id) state.selectedRaceId = race.id;
-    }
-    const keys = ["sil", "obr", "odo", "int", "cha"];
-    for (const key of keys) {
-      const cur = state.attributes[key] || {};
-      state.attributes[key] = { ...cur, bonus: clampInt(Math.floor(Math.random() * 7), 0, 6, 0) };
-    }
+    if (els.quickRaceSelect) state.selectedRaceId = String(els.quickRaceSelect.value || state.selectedRaceId || "");
+    const uiLevel = clampInt(parseInt(String((els.quickLevelDisplay && els.quickLevelDisplay.textContent) || ""), 10), 1, state.config.maxLevel, state.manualLevel);
+    state.manualLevel = uiLevel;
+    state.levelMode = "manual";
+    const profId = state.selectedProfessionId;
+    const targetLevel = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
+    if (!profId) return;
+
+    // Keep chosen class/race/level and regenerate full build.
+    state.selectedTalentIds.clear();
+    state.selectedTalentOrder = {};
+    state.talentOrderCounter = 0;
+    state.selectedSpecializationByClass = {};
+    state.previewSpecializationByClass = {};
+    state.specializationLockLevelByClass = {};
+    state.selectedSkillTargets = {};
+    state.levelMode = "manual";
+    state.manualLevel = targetLevel;
+
+    randomizeCreationAttributesByClass(profId);
     applyCreationAttributeProfile();
+
+    const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
+    const split = splitClassTalentsForTree(classTalents, profId);
+    const chosenSpec = chooseRandomSpecializationIndex(profId, split);
+    const talentLevelById = autoPickTalentsForLevel(profId, targetLevel, split, chosenSpec);
+
+    if (targetLevel >= SPECIALIZATION_UNLOCK_LEVEL) {
+      state.previewSpecializationByClass[profId] = chosenSpec;
+      state.selectedSpecializationByClass[profId] = chosenSpec;
+      const pickedInChosenSpec = (split.branches[chosenSpec] || []).some((t) => state.selectedTalentIds.has(t.id));
+      if (pickedInChosenSpec && hasSpecializationRequirements(profId, chosenSpec, split.generalBase)) {
+        state.specializationLockLevelByClass[profId] = SPECIALIZATION_UNLOCK_LEVEL;
+      } else {
+        delete state.specializationLockLevelByClass[profId];
+      }
+    }
+
+    autoPickSkillsForLevel(profId, targetLevel, talentLevelById, chosenSpec);
+  }
+
+  function randomizeCreationAttributesByClass(profId) {
+    const attrOrderByClass = {
+      PROF_1: ["sil", "odo", "obr", "int", "cha"],
+      PROF_2: ["obr", "int", "odo", "sil", "cha"],
+      PROF_3: ["int", "obr", "odo", "cha", "sil"],
+      PROF_4: ["int", "cha", "obr", "odo", "sil"],
+      PROF_5: ["obr", "cha", "int", "odo", "sil"],
+      PROF_6: ["cha", "int", "odo", "obr", "sil"]
+    };
+    const keys = attrOrderByClass[profId] || ["sil", "obr", "odo", "int", "cha"];
+    const rolls = [rollD6(), rollD6(), rollD6(), rollD6(), rollD6()].sort((a, b) => b - a);
+    const assigned = {};
+    for (let i = 0; i < keys.length; i += 1) assigned[keys[i]] = rolls[i];
+    for (const key of ["sil", "obr", "odo", "int", "cha"]) {
+      const cur = state.attributes[key] || {};
+      state.attributes[key] = { ...cur, bonus: clampInt(Number(assigned[key] || 1), 0, 6, 0) };
+    }
+  }
+
+  function rollD6() {
+    return 1 + Math.floor(Math.random() * 6);
+  }
+
+  function chooseRandomSpecializationIndex(profId, split) {
+    const forced = Number(state.selectedSpecializationByClass[profId]);
+    if (forced === 0 || forced === 1 || forced === 2) return forced;
+    const preview = Number(state.previewSpecializationByClass[profId]);
+    if (preview === 0 || preview === 1 || preview === 2) return preview;
+    const options = [0, 1, 2];
+    const weighted = [];
+    for (const i of options) {
+      const branchSize = Array.isArray(split.branches[i]) ? split.branches[i].length : 0;
+      const reqCount = getSpecializationRequirements(profId, i).length;
+      const weight = Math.max(1, branchSize + reqCount + 1);
+      for (let n = 0; n < weight; n += 1) weighted.push(i);
+    }
+    return weighted[Math.floor(Math.random() * weighted.length)] || 0;
+  }
+
+  function getTalentGainForLevel(level, racePointBonus) {
+    const base = level === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
+    const race = level === 1 ? racePointBonus.talentLevel1 : racePointBonus.talentPerLevel;
+    return Math.max(0, Number(base) + Number(race));
+  }
+
+  function autoPickTalentsForLevel(profId, targetLevel, split, chosenSpec) {
+    const raceTalent = getRaceBonusTalent();
+    const racePointBonus = getRacePointBonus(raceTalent);
+    const picked = new Set();
+    const levelById = new Map();
+    const preferredReqTalents = new Set((getSpecializationRequirements(profId, chosenSpec) || []).map((t) => t.id));
+
+    const generalBase = [...(split.generalBase || [])].sort((a, b) => scoreTalent(a, preferredReqTalents) - scoreTalent(b, preferredReqTalents));
+    const generalL6 = [...(split.generalL6 || [])].sort((a, b) => scoreTalent(a, preferredReqTalents) - scoreTalent(b, preferredReqTalents));
+    const mainBranch = [...((split.branches && split.branches[chosenSpec]) || [])].sort((a, b) => scoreTalent(a, preferredReqTalents) - scoreTalent(b, preferredReqTalents));
+    const sideBranches = [0, 1, 2]
+      .filter((i) => i !== chosenSpec)
+      .flatMap((i) => (split.branches && split.branches[i]) || [])
+      .sort((a, b) => scoreTalent(a, preferredReqTalents) - scoreTalent(b, preferredReqTalents));
+    const requiredTalents = generalBase.filter((t) => preferredReqTalents.has(t.id));
+    const generalBaseRest = generalBase.filter((t) => !preferredReqTalents.has(t.id));
+
+    const seen = new Set();
+    const queue = [];
+    const pushUnique = (arr) => {
+      for (const t of arr) {
+        if (!t || seen.has(t.id)) continue;
+        seen.add(t.id);
+        queue.push(t);
+      }
+    };
+    // Priority: spec requirements -> spec branch -> remaining class basics -> L6 basics -> side branches.
+    pushUnique(requiredTalents);
+    pushUnique(mainBranch);
+    pushUnique(generalBaseRest);
+    pushUnique(generalL6);
+    pushUnique(sideBranches);
+    pushUnique(state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName));
+
+    for (let lvl = 1; lvl <= targetLevel; lvl += 1) {
+      let slots = getTalentGainForLevel(lvl, racePointBonus);
+      while (slots > 0) {
+        const available = queue.filter((t) => !picked.has(t.id) && Number(t.required_level || 1) <= lvl);
+        if (!available.length) break;
+        const topScore = scoreTalent(available[0], preferredReqTalents);
+        const band = available.filter((t) => scoreTalent(t, preferredReqTalents) <= topScore + 2);
+        const talent = band[Math.floor(Math.random() * band.length)] || available[0];
+        const idx = queue.findIndex((t) => t.id === talent.id);
+        if (idx < 0) break;
+        addTalentSelection(talent.id);
+        autoGrantSkillsFromSTalent(talent.id);
+        picked.add(talent.id);
+        levelById.set(talent.id, lvl);
+        slots -= 1;
+      }
+    }
+    return levelById;
+  }
+
+  function scoreTalent(talent, preferredReqTalents) {
+    const reqLvl = Number(talent && talent.required_level ? talent.required_level : 1);
+    let score = reqLvl;
+    if (preferredReqTalents && preferredReqTalents.has(talent.id)) score -= 100;
+    return score;
+  }
+
+  function autoPickSkillsForLevel(profId, targetLevel, talentLevelById, chosenSpec) {
+    const raceTalent = getRaceBonusTalent();
+    const racePointBonus = getRacePointBonus(raceTalent);
+    const starterIds = new Set(getClassStarterSkillIds());
+    const closeStarterIds = new Set(getClassCloseStarterSkillIds());
+    const selectedTalentIds = new Set(state.selectedTalentIds);
+    for (const id of getClassStarterTalentIds(profId)) selectedTalentIds.add(id);
+    if (raceTalent) selectedTalentIds.add(raceTalent.id);
+    const dominant = new Set(CLASS_DOMINANT_ATTRIBUTES[profId] || []);
+
+    const plans = [];
+    for (const skill of state.skills) {
+      if ((!isSkillAvailableForClass(skill, profId) && !starterIds.has(skill.id)) || !isSkillVisibleForCurrentSpec(skill, profId)) continue;
+      const floor = getSkillFloor(skill, starterIds, profId);
+      plans.push({ skill, floor, current: floor, target: floor });
+    }
+
+    let pool = 0;
+    for (let lvl = 1; lvl <= targetLevel; lvl += 1) {
+      const classRule = CLASS_RULES[profId] || { skillPointsMultiplier: 3 };
+      const gain =
+        (lvl === 1 ? window.APP_CONFIG.points.skillLevel1 : classRule.skillPointsMultiplier * lvl) +
+        (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel);
+      pool += Number(gain) || 0;
+      const upgraded = new Set();
+
+      while (true) {
+        const options = plans
+          .filter((p) => p.current < getSkillRankCap())
+          .filter((p) => !upgraded.has(p.skill.id))
+          .filter((p) => Number(p.skill.required_level || 1) <= lvl)
+          .filter((p) => {
+            if (!requiresPrereqForSkill(p.skill) || !p.skill.ability_id) return true;
+            if (!selectedTalentIds.has(p.skill.ability_id)) return false;
+            const tl = Number(talentLevelById && talentLevelById.get ? talentLevelById.get(p.skill.ability_id) : 1);
+            return Number.isFinite(tl) ? tl <= lvl : true;
+          })
+          .map((p) => ({
+            p,
+            next: p.current + 1,
+            cost: p.current + 1
+          }))
+          .filter((x) => x.cost <= pool)
+          .sort((a, b) => {
+            const sa = scoreSkillPick(a.p.skill, profId, chosenSpec, dominant, closeStarterIds);
+            const sb = scoreSkillPick(b.p.skill, profId, chosenSpec, dominant, closeStarterIds);
+            if (sa !== sb) return sb - sa;
+            if (a.cost !== b.cost) return a.cost - b.cost;
+            return byName(a.p.skill, b.p.skill);
+          });
+
+        if (options.length === 0) break;
+        const pick = options[0];
+        pick.p.current = pick.next;
+        pick.p.target = Math.max(pick.p.target, pick.next);
+        pool -= pick.cost;
+        upgraded.add(pick.p.skill.id);
+      }
+    }
+
+    const out = {};
+    for (const p of plans) {
+      if (p.target > p.floor) out[p.skill.id] = p.target;
+    }
+    state.selectedSkillTargets = out;
+  }
+
+  function scoreSkillPick(skill, profId, chosenSpec, dominant, closeStarterIds) {
+    let score = 0;
+    const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
+    if (isClassSkill) score += 50;
+    if (closeStarterIds.has(skill.id)) score += 20;
+    if (requiresPrereqForSkill(skill)) score += 18;
+    const branch = Number(skill.spec_branch_index);
+    if (Number.isInteger(branch) && branch === chosenSpec) score += 30;
+    const checks = Array.isArray(skill.check_type) ? skill.check_type : [];
+    for (const ch of checks) {
+      const key = normalize(ch).slice(0, 3);
+      if (dominant.has(key)) score += 12;
+    }
+    if (skill.is_knowledge_based) score += 4;
+    score += Math.random() * 5;
+    return score;
   }
 
   function openSaveCharacterModal() {
@@ -1290,6 +1524,8 @@
       els.quickRaceSelect.appendChild(opt);
     }
     els.quickRaceSelect.value = state.selectedRaceId;
+    const effective = String(els.quickRaceSelect.value || "");
+    if (effective && effective !== state.selectedRaceId) state.selectedRaceId = effective;
   }
 
   function renderQuickAttributeInputs() {
@@ -1925,6 +2161,7 @@
     } else {
       state.selectedSkillTargets[id] = next;
     }
+    state.levelMode = "auto";
     renderAll();
     persist();
   }
@@ -1940,6 +2177,7 @@
       addTalentSelection(id);
       autoGrantSkillsFromSTalent(id);
     } else removeTalentSelection(id);
+    state.levelMode = "auto";
     renderAll();
     persist();
   }
@@ -2328,6 +2566,7 @@
       const stillSelected = (branches[branchIndex] || []).some((t) => state.selectedTalentIds.has(t.id));
       if (!stillSelected) delete state.selectedSpecializationByClass[profId];
     }
+    state.levelMode = "auto";
     renderAll();
     persist();
   }
@@ -2406,7 +2645,7 @@
       const talentBase =
         lvl === 1 ? state.config.points.talentLevel1 : state.config.points.talentPerLevel;
       const skillGain =
-        (lvl === 1 ? state.config.points.skillLevel1 : classRule.skillPointsMultiplier * lvl) +
+        (lvl === 1 ? window.APP_CONFIG.points.skillLevel1 : classRule.skillPointsMultiplier * lvl) +
         (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel);
       levels.push({
         level: lvl,
@@ -2539,8 +2778,9 @@
     renderIssues(plan);
     renderTimeline(plan);
     const currentLevel = String(clampInt(plan.totals.currentLevel, 1, state.config.maxLevel, 1));
-    els.manualLevelDisplay.textContent = currentLevel;
+    if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = currentLevel;
     if (els.mobileLevelPill) els.mobileLevelPill.textContent = currentLevel;
+    if (els.quickLevelDisplay) els.quickLevelDisplay.textContent = currentLevel;
     if (modeBefore !== state.levelMode) persist();
   }
 
@@ -2897,6 +3137,10 @@
       els.themeToggleBtn.textContent = enabled ? "Fantasy ON" : "Fantasy OFF";
       els.themeToggleBtn.title = enabled ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
     }
+    if (els.quickThemeBtn) {
+      els.quickThemeBtn.textContent = enabled ? "Fantasy ON" : "Fantasy OFF";
+      els.quickThemeBtn.title = enabled ? "Vypnout fantasy vzhled" : "Zapnout fantasy vzhled";
+    }
     if (persistTheme) {
       try {
         localStorage.setItem(THEME_STORAGE_KEY, enabled ? "1" : "0");
@@ -3102,9 +3346,17 @@
       skillLevel1: 0,
       skillPerLevel: 0
     };
-    if (!raceTalent) return base;
+    void raceTalent;
+    const uiRaceId = String((els.quickRaceSelect && els.quickRaceSelect.value) || "");
+    const selectedRaceId = String(uiRaceId || state.selectedRaceId || "");
+    if (selectedRaceId && selectedRaceId !== state.selectedRaceId) state.selectedRaceId = selectedRaceId;
+    // Current rules in this app: only Human gets extra skill points at level 1.
+    // Keep this hard-bound to Human race id to avoid stale/mismatched bonus states.
+    if (selectedRaceId !== "RACE_2") return base;
+    const raceMap = window.APP_CONFIG.raceBonusTalentIdByRaceId || {};
+    const bonusTalentId = raceMap[selectedRaceId] || "ABI_81";
     const fromConfig = window.APP_CONFIG.racePointBonusesByTalentId || {};
-    const cfg = fromConfig[raceTalent.id];
+    const cfg = fromConfig[bonusTalentId];
     if (cfg) return { ...base, ...cfg };
     return base;
   }
