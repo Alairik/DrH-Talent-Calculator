@@ -367,12 +367,15 @@ body.theme-epic .spec-node {
     inset 0 10px 16px rgba(255, 224, 168, 0.05),
     inset 0 -10px 16px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.08);
+  color: #fff3db;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.72), 0 0 8px rgba(0, 0, 0, 0.35);
+  font-weight: 700;
 }
 
 body.theme-epic .spec-node.has-icon::before {
-  opacity: 0.54;
-  mix-blend-mode: normal;
-  filter: saturate(1.08) contrast(1.03) brightness(1.06);
+  opacity: 0.24;
+  mix-blend-mode: soft-light;
+  filter: saturate(1.04) contrast(1.01) brightness(1.02);
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
