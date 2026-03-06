@@ -379,6 +379,10 @@ body.theme-epic #timelineHelpBtn.timeline-help-btn {
   top: 50%;
   transform: translateY(-50%);
   z-index: 1300;
+  width: 60px;
+  min-width: 60px;
+  height: 60px;
+  font-size: 1.7rem;
 }
 
 @media (max-width: 1024px) {
