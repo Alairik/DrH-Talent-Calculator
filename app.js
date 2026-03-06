@@ -1657,8 +1657,8 @@
     if (!skill || skill.prof_id !== profId) return 0;
     const branch = Number(skill.spec_branch_index);
     if (!Number.isInteger(branch) || branch < 0 || branch > 2) return 0;
-    const activeBranch = getActiveSpecializationBranchForSkills(profId);
-    if (!Number.isInteger(activeBranch) || activeBranch !== branch) return 0;
+    const selectedBranch = Number(state.selectedSpecializationByClass[profId]);
+    if (!Number.isInteger(selectedBranch) || selectedBranch !== branch) return 0;
     if (Number(skill.required_level || 1) > SPECIALIZATION_UNLOCK_LEVEL) return 0;
     return clampInt(skill.auto_floor_on_spec, 0, getSkillRankCap(), 0);
   }
@@ -2853,16 +2853,8 @@
     const branch = Number(skill.spec_branch_index);
     if (!Number.isInteger(branch) || branch < 0 || branch > 2) return true;
     if (skill.prof_id !== profId) return false;
-    const activeBranch = getActiveSpecializationBranchForSkills(profId);
-    return Number.isInteger(activeBranch) && activeBranch === branch;
-  }
-
-  function getActiveSpecializationBranchForSkills(profId = state.selectedProfessionId) {
-    const selected = Number(state.selectedSpecializationByClass[profId]);
-    if (Number.isInteger(selected) && selected >= 0 && selected <= 2) return selected;
-    const preview = Number(state.previewSpecializationByClass[profId]);
-    if (Number.isInteger(preview) && preview >= 0 && preview <= 2) return preview;
-    return null;
+    const selectedBranch = Number(state.selectedSpecializationByClass[profId]);
+    return Number.isInteger(selectedBranch) && selectedBranch === branch;
   }
 
   function countSelectedVisibleTalents(classTalents) {
