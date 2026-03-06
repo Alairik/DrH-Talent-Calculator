@@ -69,6 +69,16 @@ h3,
   display: none !important;
 }
 
+@media (min-width: 1025px) {
+  body {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .layout {
+    height: 100dvh;
+  }
+}
+
 .control-slot {
   min-width: 0;
 }
