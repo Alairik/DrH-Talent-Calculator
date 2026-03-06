@@ -1368,7 +1368,7 @@ button:hover {
 .unlock-reveal {
   position: relative;
   overflow: hidden;
-  animation: unlock-panel-rise 378ms ease-out;
+  animation: none;
 }
 
 .unlock-reveal::after {
@@ -1392,12 +1392,12 @@ button:hover {
 }
 
 .unlock-reveal .node:not(.empty) {
-  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) backwards;
   animation-delay: calc(var(--unlock-row, 0) * 92ms + var(--unlock-col, 0) * 16ms);
 }
 
 .unlock-reveal .spec-node {
-  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) backwards;
   animation-delay: calc(var(--unlock-row, 0) * 92ms + var(--unlock-col, 0) * 16ms);
 }
 
@@ -1478,17 +1478,14 @@ button:hover {
   0% {
     opacity: 0;
     transform: translateY(7px) scale(0.95);
-    box-shadow: 0 0 0 rgba(212, 173, 102, 0);
   }
   70% {
     opacity: 1;
     transform: translateY(0) scale(1.02);
-    box-shadow: 0 0 16px rgba(212, 173, 102, 0.24);
   }
   100% {
     opacity: 1;
     transform: translateY(0) scale(1);
-    box-shadow: 0 0 0 rgba(212, 173, 102, 0);
   }
 }
 
