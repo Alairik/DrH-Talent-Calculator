@@ -311,7 +311,10 @@ body.theme-epic .top-class-picker .class-box {
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  box-shadow: none !important;
+  background-color: rgba(var(--class-rgb), 0.24) !important;
+  box-shadow:
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.18),
+    0 0 0 1px rgba(var(--class-rgb), 0.2) !important;
   color: #fff3da !important;
   opacity: 1 !important;
   font-weight: 600;
@@ -321,21 +324,26 @@ body.theme-epic .top-class-picker .class-box {
 body.theme-epic .top-class-picker .class-box:hover {
   border: 0 !important;
   background-image: var(--class-frame-hover) !important;
-  box-shadow: 0 0 16px rgba(var(--class-rgb), 0.35) !important;
+  background-color: rgba(var(--class-rgb), 0.3) !important;
+  box-shadow:
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.24),
+    0 0 14px rgba(var(--class-rgb), 0.3) !important;
 }
 
 body.theme-epic .top-class-picker .class-box.has-icon::before {
-  opacity: 0.12 !important;
-  mix-blend-mode: soft-light !important;
-  filter: saturate(0.95) contrast(1) brightness(0.84) !important;
+  opacity: 0.26 !important;
+  mix-blend-mode: screen !important;
+  filter: saturate(1.06) contrast(1.03) brightness(1.02) !important;
 }
 
 body.theme-epic .top-class-picker .class-box.active {
   border: 0 !important;
   background-image: var(--class-frame-active) !important;
+  background-color: rgba(var(--class-rgb), 0.34) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb), 0.45),
-    0 0 10px rgba(var(--class-rgb), 0.24) !important;
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.28),
+    0 0 0 1px rgba(var(--class-rgb), 0.42),
+    0 0 10px rgba(var(--class-rgb), 0.22) !important;
   color: #fff7e8 !important;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
 }
