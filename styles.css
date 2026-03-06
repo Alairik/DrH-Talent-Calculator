@@ -64,6 +64,30 @@ h3,
   min-height: 0;
 }
 
+/* Desktop top menu is intentionally disabled; controls are moving to floating UI. */
+@media (min-width: 1025px) {
+  .column-controls {
+    display: none;
+  }
+}
+
+.floating-theme-toggle {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  z-index: 1320;
+  min-width: 104px;
+  height: 34px;
+  padding: 0 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #8b6a3d;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-weight: 700;
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
 .control-slot {
   min-width: 0;
 }

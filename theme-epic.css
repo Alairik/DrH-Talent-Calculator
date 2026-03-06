@@ -279,6 +279,7 @@ body.theme-epic .talents-panel .branch > * {
 body.theme-epic .class-box,
 body.theme-epic .timeline-tools .lvl-btn,
 body.theme-epic .timeline-help-btn,
+body.theme-epic .floating-theme-toggle,
 body.theme-epic .skill-rank-controls button,
 body.theme-epic .node-info-btn,
 body.theme-epic .spec-info-btn {
@@ -363,6 +364,7 @@ body.theme-epic .top-class-picker .class-box.active {
 body.theme-epic .class-box:hover,
 body.theme-epic .timeline-tools .lvl-btn:hover,
 body.theme-epic .timeline-help-btn:hover,
+body.theme-epic .floating-theme-toggle:hover,
 body.theme-epic .skill-rank-controls button:hover,
 body.theme-epic .node-info-btn:hover,
 body.theme-epic .spec-info-btn:hover {
