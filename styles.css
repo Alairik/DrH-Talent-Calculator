@@ -178,6 +178,142 @@ h3,
   line-height: 1;
 }
 
+.floating-panel {
+  position: fixed;
+  right: 12px;
+  bottom: 14px;
+  z-index: 1310;
+  width: min(420px, calc(100vw - 20px));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(29, 22, 16, 0.95), rgba(18, 14, 11, 0.95));
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.42);
+  padding: 0.5rem;
+  display: grid;
+  gap: 0.36rem;
+}
+
+.floating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.floating-row select,
+.floating-row button,
+.floating-level-display {
+  min-height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(110, 86, 51, 0.95);
+  background: linear-gradient(180deg, rgba(110, 86, 51, 0.62), rgba(30, 23, 17, 0.94));
+  color: #f7ecd9;
+}
+
+#quickRaceSelect {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0.24rem 0.4rem;
+}
+
+#quickRandomBtn,
+#quickResetBtn,
+#quickLevelMinus,
+#quickLevelPlus {
+  width: 34px;
+  min-width: 34px;
+  padding: 0;
+  font-weight: 700;
+}
+
+.floating-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  padding: 0 0.2rem;
+}
+
+.floating-level-display {
+  width: 40px;
+  min-width: 40px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+}
+
+.floating-save-btn {
+  padding: 0 0.55rem;
+  font-weight: 700;
+}
+
+.floating-toggle-btn {
+  margin-left: auto;
+  padding: 0 0.45rem;
+}
+
+.floating-attrs {
+  border-top: 1px solid rgba(116, 87, 49, 0.7);
+  padding-top: 0.3rem;
+  display: grid;
+  gap: 0.25rem;
+}
+
+.attr-row {
+  display: grid;
+  grid-template-columns: 40px 1fr 1fr;
+  gap: 0.3rem;
+  align-items: center;
+}
+
+.attr-row span {
+  font-size: 0.72rem;
+  color: #ead9b8;
+}
+
+.attr-row input {
+  min-height: 30px;
+  border-radius: 7px;
+  border: 1px solid #7b6240;
+  background: #17130f;
+  color: #fff0d4;
+  text-align: center;
+  padding: 0.15rem 0.22rem;
+}
+
+.save-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1400;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  padding: 0.8rem;
+}
+
+.save-modal-card {
+  width: min(520px, calc(100vw - 24px));
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: linear-gradient(180deg, rgba(29, 22, 16, 0.98), rgba(18, 14, 11, 0.98));
+  padding: 0.72rem;
+}
+
+.save-modal-card h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.95rem;
+}
+
+#saveCharacterUrl {
+  width: 100%;
+  min-height: 76px;
+  resize: vertical;
+}
+
+.save-modal-actions {
+  margin-top: 0.45rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 0.95fr 96px 1.2fr 0.9fr;
@@ -2029,6 +2165,11 @@ textarea {
 }
 
 @media (max-width: 1024px) {
+  .floating-panel,
+  .save-modal {
+    display: none !important;
+  }
+
   body {
     height: 100dvh;
     min-height: 100dvh;

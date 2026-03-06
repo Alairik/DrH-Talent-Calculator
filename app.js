@@ -248,6 +248,13 @@
     previewSpecializationByClass: {},
     specializationLockLevelByClass: {},
     selectedSkillTargets: {},
+    attributes: {
+      sil: { base: 10, mod: 0 },
+      obr: { base: 10, mod: 0 },
+      odo: { base: 10, mod: 0 },
+      int: { base: 10, mod: 0 },
+      cha: { base: 10, mod: 0 }
+    },
     pdfCoverage: {
       skills: new Set(),
       talents: new Set()
@@ -285,6 +292,29 @@
     mobileClassSelect: document.getElementById("mobileClassSelect"),
     mobileLevelPill: document.getElementById("mobileLevelPill"),
     mobileSectionNav: document.getElementById("mobileSectionNav"),
+    quickRaceSelect: document.getElementById("quickRaceSelect"),
+    quickRandomBtn: document.getElementById("quickRandomBtn"),
+    quickResetBtn: document.getElementById("quickResetBtn"),
+    quickLevelMinus: document.getElementById("quickLevelMinus"),
+    quickLevelDisplay: document.getElementById("quickLevelDisplay"),
+    quickLevelPlus: document.getElementById("quickLevelPlus"),
+    quickSaveBtn: document.getElementById("quickSaveBtn"),
+    quickAttrsToggle: document.getElementById("quickAttrsToggle"),
+    quickAttrsPanel: document.getElementById("quickAttrsPanel"),
+    attrSilBase: document.getElementById("attrSilBase"),
+    attrSilMod: document.getElementById("attrSilMod"),
+    attrObrBase: document.getElementById("attrObrBase"),
+    attrObrMod: document.getElementById("attrObrMod"),
+    attrOdoBase: document.getElementById("attrOdoBase"),
+    attrOdoMod: document.getElementById("attrOdoMod"),
+    attrIntBase: document.getElementById("attrIntBase"),
+    attrIntMod: document.getElementById("attrIntMod"),
+    attrChaBase: document.getElementById("attrChaBase"),
+    attrChaMod: document.getElementById("attrChaMod"),
+    saveCharacterModal: document.getElementById("saveCharacterModal"),
+    saveCharacterUrl: document.getElementById("saveCharacterUrl"),
+    copyCharacterUrlBtn: document.getElementById("copyCharacterUrlBtn"),
+    closeCharacterModalBtn: document.getElementById("closeCharacterModalBtn"),
     humanToggle: document.getElementById("humanToggle"),
     resetBtn: document.getElementById("resetBtn"),
     classPicker: document.getElementById("classPicker"),
@@ -716,6 +746,19 @@
       clampInt(state.config.maxLevel, 1, 36, window.APP_CONFIG.maxLevel),
       window.APP_CONFIG.maxLevel
     );
+    ensureAttributeDefaults();
+  }
+
+  function ensureAttributeDefaults() {
+    const keys = ["sil", "obr", "odo", "int", "cha"];
+    if (!state.attributes || typeof state.attributes !== "object") state.attributes = {};
+    for (const key of keys) {
+      const cur = state.attributes[key] || {};
+      state.attributes[key] = {
+        base: clampInt(cur.base, 1, 21, 10),
+        mod: clampInt(cur.mod, -5, 5, 0)
+      };
+    }
   }
 
   function wireEvents() {
@@ -740,15 +783,22 @@
     });
 
     if (els.resetBtn) els.resetBtn.addEventListener("click", () => {
-      state.selectedTalentIds.clear();
-      state.selectedTalentOrder = {};
-      state.talentOrderCounter = 0;
-      state.selectedSpecializationByClass = {};
-      state.previewSpecializationByClass = {};
-      state.specializationLockLevelByClass = {};
-      state.selectedSkillTargets = {};
-      state.levelMode = "manual";
-      state.manualLevel = 1;
+      doResetBuild(true);
+    });
+    if (els.quickResetBtn) els.quickResetBtn.addEventListener("click", () => {
+      doResetBuild(true);
+    });
+
+    if (els.quickRaceSelect) els.quickRaceSelect.addEventListener("change", () => {
+      state.selectedRaceId = els.quickRaceSelect.value;
+      cleanseInvalidSelections();
+      renderAll();
+      persist();
+    });
+
+    if (els.quickRandomBtn) els.quickRandomBtn.addEventListener("click", () => {
+      randomizeCharacterQuick();
+      cleanseInvalidSelections();
       renderAll();
       persist();
     });
@@ -800,6 +850,18 @@
       renderAll();
       persist();
     });
+    if (els.quickLevelMinus) els.quickLevelMinus.addEventListener("click", () => {
+      state.levelMode = "manual";
+      state.manualLevel = clampInt(state.manualLevel - 1, 1, state.config.maxLevel, 1);
+      renderAll();
+      persist();
+    });
+    if (els.quickLevelPlus) els.quickLevelPlus.addEventListener("click", () => {
+      state.levelMode = "manual";
+      state.manualLevel = clampInt(state.manualLevel + 1, 1, state.config.maxLevel, state.config.maxLevel);
+      renderAll();
+      persist();
+    });
     if (els.shareLinkBtn) els.shareLinkBtn.addEventListener("click", async () => {
       const url = buildShareUrl();
       try {
@@ -821,6 +883,43 @@
         }
       }
     });
+    if (els.quickSaveBtn) els.quickSaveBtn.addEventListener("click", () => {
+      openSaveCharacterModal();
+    });
+    if (els.copyCharacterUrlBtn) els.copyCharacterUrlBtn.addEventListener("click", async () => {
+      const text = els.saveCharacterUrl ? String(els.saveCharacterUrl.value || "") : "";
+      if (!text) return;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(text);
+          els.copyCharacterUrlBtn.textContent = "OK";
+          window.setTimeout(() => {
+            if (els.copyCharacterUrlBtn) els.copyCharacterUrlBtn.textContent = "Kopírovat";
+          }, 900);
+        }
+      } catch (_e) {
+        alert("Kopírování selhalo.");
+      }
+    });
+    if (els.closeCharacterModalBtn) els.closeCharacterModalBtn.addEventListener("click", () => {
+      closeSaveCharacterModal();
+    });
+    if (els.saveCharacterModal) els.saveCharacterModal.addEventListener("click", (ev) => {
+      if (ev.target === els.saveCharacterModal) closeSaveCharacterModal();
+    });
+    if (els.quickAttrsToggle) els.quickAttrsToggle.addEventListener("click", () => {
+      const willOpen = !!(els.quickAttrsPanel && els.quickAttrsPanel.hidden);
+      if (els.quickAttrsPanel) els.quickAttrsPanel.hidden = !willOpen;
+      els.quickAttrsToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
+      els.quickAttrsToggle.textContent = willOpen ? "Atributy ▴" : "Atributy ▾";
+      els.quickAttrsToggle.title = willOpen ? "Skrýt atributy" : "Zobrazit atributy";
+    });
+
+    bindAttributeInput("sil", els.attrSilBase, els.attrSilMod);
+    bindAttributeInput("obr", els.attrObrBase, els.attrObrMod);
+    bindAttributeInput("odo", els.attrOdoBase, els.attrOdoMod);
+    bindAttributeInput("int", els.attrIntBase, els.attrIntMod);
+    bindAttributeInput("cha", els.attrChaBase, els.attrChaMod);
     if (els.themeToggleBtn) els.themeToggleBtn.addEventListener("click", () => {
       const enabled = !document.body.classList.contains("theme-epic");
       applyTheme(enabled, true);
@@ -881,6 +980,89 @@
     });
   }
 
+  function doResetBuild(withConfirm = false) {
+    if (withConfirm) {
+      const ok = window.confirm("Opravdu chceš resetovat postavu?");
+      if (!ok) return;
+    }
+    state.selectedTalentIds.clear();
+    state.selectedTalentOrder = {};
+    state.talentOrderCounter = 0;
+    state.selectedSpecializationByClass = {};
+    state.previewSpecializationByClass = {};
+    state.specializationLockLevelByClass = {};
+    state.selectedSkillTargets = {};
+    state.levelMode = "manual";
+    state.manualLevel = 1;
+    ensureAttributeDefaults();
+    for (const key of Object.keys(state.attributes)) {
+      state.attributes[key].base = 10;
+      state.attributes[key].mod = 0;
+    }
+    renderAll();
+    persist();
+  }
+
+  function randomizeCharacterQuick() {
+    if (state.races.length > 0) {
+      const race = state.races[Math.floor(Math.random() * state.races.length)];
+      if (race && race.id) state.selectedRaceId = race.id;
+    }
+    const keys = ["sil", "obr", "odo", "int", "cha"];
+    for (const key of keys) {
+      state.attributes[key] = {
+        base: clampInt(1 + Math.floor(Math.random() * 21), 1, 21, 10),
+        mod: clampInt(-5 + Math.floor(Math.random() * 11), -5, 5, 0)
+      };
+    }
+  }
+
+  function openSaveCharacterModal() {
+    if (!els.saveCharacterModal || !els.saveCharacterUrl) return;
+    els.saveCharacterUrl.value = buildShareUrl();
+    els.saveCharacterModal.hidden = false;
+  }
+
+  function closeSaveCharacterModal() {
+    if (!els.saveCharacterModal) return;
+    els.saveCharacterModal.hidden = true;
+  }
+
+  function bindAttributeInput(attrKey, baseInput, modInput) {
+    const applyBase = () => {
+      const raw = baseInput ? String(baseInput.value || "") : "";
+      const parsed = clampInt(parseInt(raw, 10), 1, 21, state.attributes[attrKey].base);
+      state.attributes[attrKey].base = parsed;
+      if (baseInput) baseInput.value = String(parsed);
+      persist();
+    };
+    const applyMod = () => {
+      const raw = modInput ? String(modInput.value || "") : "";
+      const parsed = clampInt(parseInt(raw, 10), -5, 5, state.attributes[attrKey].mod);
+      state.attributes[attrKey].mod = parsed;
+      if (modInput) modInput.value = String(parsed);
+      persist();
+    };
+    if (baseInput) {
+      baseInput.addEventListener("blur", applyBase);
+      baseInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          applyBase();
+          baseInput.blur();
+        }
+      });
+    }
+    if (modInput) {
+      modInput.addEventListener("blur", applyMod);
+      modInput.addEventListener("keydown", (ev) => {
+        if (ev.key === "Enter") {
+          applyMod();
+          modInput.blur();
+        }
+      });
+    }
+  }
+
   function bindNumber(input, onChange) {
     input.addEventListener("change", () => {
       onChange(input.value);
@@ -901,6 +1083,7 @@
   function renderControls() {
     renderClassPicker();
     renderMobileClassSelect();
+    renderQuickRaceSelect();
     const selectedRace = getRaceById(state.selectedRaceId);
     if (els.humanToggle) els.humanToggle.checked = normalize(selectedRace && selectedRace.name) === "clovek";
 
@@ -911,6 +1094,8 @@
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = String(manual);
+    if (els.quickLevelDisplay) els.quickLevelDisplay.textContent = String(manual);
+    renderQuickAttributeInputs();
   }
 
   function renderMobileClassSelect() {
@@ -1058,6 +1243,34 @@
       container.classList.remove("unlock-reveal");
       clearUnlockOrderVars(nodes);
     }, 1000);
+  }
+
+  function renderQuickRaceSelect() {
+    if (!els.quickRaceSelect) return;
+    els.quickRaceSelect.innerHTML = "";
+    for (const r of state.races) {
+      const opt = document.createElement("option");
+      opt.value = r.id;
+      opt.textContent = r.name;
+      if (r.id === state.selectedRaceId) opt.selected = true;
+      els.quickRaceSelect.appendChild(opt);
+    }
+    els.quickRaceSelect.value = state.selectedRaceId;
+  }
+
+  function renderQuickAttributeInputs() {
+    const map = [
+      ["sil", els.attrSilBase, els.attrSilMod],
+      ["obr", els.attrObrBase, els.attrObrMod],
+      ["odo", els.attrOdoBase, els.attrOdoMod],
+      ["int", els.attrIntBase, els.attrIntMod],
+      ["cha", els.attrChaBase, els.attrChaMod]
+    ];
+    for (const [key, baseEl, modEl] of map) {
+      const a = state.attributes[key] || { base: 10, mod: 0 };
+      if (baseEl) baseEl.value = String(clampInt(a.base, 1, 21, 10));
+      if (modEl) modEl.value = String(clampInt(a.mod, -5, 5, 0));
+    }
   }
 
   function updateMobileSectionNav() {
@@ -2497,6 +2710,7 @@
       selectedSpecializationByClass: state.selectedSpecializationByClass,
       specializationLockLevelByClass: state.specializationLockLevelByClass,
       selectedSkillTargets: state.selectedSkillTargets,
+      attributes: state.attributes,
       manualLevel: state.manualLevel,
       levelMode: state.levelMode,
       config: state.config
@@ -2544,6 +2758,7 @@
     state.selectedSpecializationByClass = clean.selectedSpecializationByClass;
     state.specializationLockLevelByClass = clean.specializationLockLevelByClass;
     state.selectedSkillTargets = clean.selectedSkillTargets;
+    state.attributes = clean.attributes;
     state.manualLevel = Number.isFinite(clean.manualLevel)
       ? clampInt(clean.manualLevel, 1, 36, 1)
       : 1;
@@ -2666,6 +2881,7 @@
       selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
       specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
       selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, getSkillRankCap()),
+      attributes: sanitizeAttributes(payload.attributes),
       talentOrderCounter: clampInt(payload.talentOrderCounter, 0, 9999, 0),
       manualLevel: clampInt(payload.manualLevel, 1, 36, 1),
       levelMode: payload.levelMode === "manual" ? "manual" : "auto",
@@ -2710,6 +2926,20 @@
       if (!Number.isFinite(n)) continue;
       out[id] = clampInt(n, min, max, min);
       count += 1;
+    }
+    return out;
+  }
+
+  function sanitizeAttributes(value) {
+    const keys = ["sil", "obr", "odo", "int", "cha"];
+    const src = value && typeof value === "object" ? value : {};
+    const out = {};
+    for (const key of keys) {
+      const item = src[key] && typeof src[key] === "object" ? src[key] : {};
+      out[key] = {
+        base: clampInt(item.base, 1, 21, 10),
+        mod: clampInt(item.mod, -5, 5, 0)
+      };
     }
     return out;
   }

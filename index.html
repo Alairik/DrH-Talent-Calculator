@@ -122,6 +122,40 @@
 
   <button id="resetBtn" type="button" title="Reset výběru" aria-label="Reset výběru">↺</button>
 
+  <aside id="floatingPanel" class="floating-panel" aria-label="Rychlé ovládání postavy">
+    <div class="floating-row floating-row-main">
+      <select id="quickRaceSelect" aria-label="Výběr rasy"></select>
+      <button id="quickRandomBtn" type="button" title="Náhodně vygenerovat postavu" aria-label="Náhodně vygenerovat postavu">🎲</button>
+      <button id="quickResetBtn" type="button" title="Resetovat postavu" aria-label="Resetovat postavu">↺</button>
+    </div>
+    <div class="floating-row floating-row-level">
+      <span class="floating-label">Lv</span>
+      <button id="quickLevelMinus" type="button" aria-label="Snížit úroveň">-</button>
+      <div id="quickLevelDisplay" class="floating-level-display">1</div>
+      <button id="quickLevelPlus" type="button" aria-label="Zvýšit úroveň">+</button>
+      <button id="quickSaveBtn" type="button" class="floating-save-btn" title="Uložit postavu do URL">Uložit</button>
+      <button id="quickAttrsToggle" type="button" class="floating-toggle-btn" aria-expanded="false" aria-controls="quickAttrsPanel" title="Zobrazit atributy">Atributy ▾</button>
+    </div>
+    <div id="quickAttrsPanel" class="floating-attrs" hidden>
+      <div class="attr-row"><span>SIL</span><input id="attrSilBase" maxlength="2" inputmode="numeric" /><input id="attrSilMod" maxlength="2" inputmode="numeric" /></div>
+      <div class="attr-row"><span>OBR</span><input id="attrObrBase" maxlength="2" inputmode="numeric" /><input id="attrObrMod" maxlength="2" inputmode="numeric" /></div>
+      <div class="attr-row"><span>ODO</span><input id="attrOdoBase" maxlength="2" inputmode="numeric" /><input id="attrOdoMod" maxlength="2" inputmode="numeric" /></div>
+      <div class="attr-row"><span>INT</span><input id="attrIntBase" maxlength="2" inputmode="numeric" /><input id="attrIntMod" maxlength="2" inputmode="numeric" /></div>
+      <div class="attr-row"><span>CHA</span><input id="attrChaBase" maxlength="2" inputmode="numeric" /><input id="attrChaMod" maxlength="2" inputmode="numeric" /></div>
+    </div>
+  </aside>
+
+  <div id="saveCharacterModal" class="save-modal" hidden>
+    <div class="save-modal-card">
+      <h3>URL postavy</h3>
+      <textarea id="saveCharacterUrl" readonly></textarea>
+      <div class="save-modal-actions">
+        <button id="copyCharacterUrlBtn" type="button">Kopírovat</button>
+        <button id="closeCharacterModalBtn" type="button">Zavřít</button>
+      </div>
+    </div>
+  </div>
+
   <nav id="mobileSectionNav" class="mobile-section-nav" aria-label="Přepínač sekcí">
     <button type="button" class="mobile-section-btn active" data-section-index="0">Talenty</button>
     <button type="button" class="mobile-section-btn" data-section-index="1">Dovednosti</button>
