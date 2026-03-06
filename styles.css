@@ -64,6 +64,11 @@ h3,
   min-height: 0;
 }
 
+/* Legacy top controls disabled - replaced by floating panel. */
+.column-controls {
+  display: none !important;
+}
+
 .control-slot {
   min-width: 0;
 }
@@ -184,6 +189,7 @@ h3,
   bottom: 14px;
   z-index: 1310;
   width: min(420px, calc(100vw - 20px));
+  overflow: visible;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(29, 22, 16, 0.95), rgba(18, 14, 11, 0.95));
@@ -191,6 +197,29 @@ h3,
   padding: 0.5rem;
   display: grid;
   gap: 0.36rem;
+  transition: transform 180ms ease;
+}
+
+.floating-panel.collapsed {
+  transform: translateX(calc(100% - 34px));
+}
+
+.floating-panel-slide-btn {
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 56px;
+  border-radius: 10px 0 0 10px;
+  border: 1px solid var(--line);
+  border-right: 0;
+  background: linear-gradient(180deg, rgba(110, 86, 51, 0.8), rgba(30, 23, 17, 0.96));
+  color: #f7ecd9;
+  font-size: 0.95rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
 }
 
 .floating-row {
@@ -788,26 +817,26 @@ h3,
 }
 
 .timeline-help-btn {
-  width: 60px;
-  min-width: 60px;
-  height: 60px;
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
   padding: 0;
   border-radius: 999px;
   border: 1px solid #8b6a3d;
   background: rgba(28, 22, 16, 0.92);
   color: #f7e8cc;
   font-weight: 700;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   line-height: 1;
   display: inline-grid;
   place-items: center;
 }
 
 .plan-top-controls .timeline-tools .timeline-help-btn {
-  width: 52px;
-  min-width: 52px;
-  height: 52px;
-  font-size: 1.56rem;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  font-size: 1.05rem;
 }
 
 .timeline-help-btn:hover {
