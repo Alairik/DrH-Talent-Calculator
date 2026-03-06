@@ -271,7 +271,7 @@
     classTopControls: document.getElementById("classTopControls"),
     humanToggleWrap: document.getElementById("humanToggleWrap"),
     humanToggleSlotClass: document.getElementById("humanToggleSlotClass"),
-    humanToggleSlotSkills: document.getElementById("humanToggleSlotSkills"),
+    humanToggleSlotBottom: document.getElementById("humanToggleSlotBottom"),
     resetSlotClass: document.getElementById("resetSlotClass"),
     resetSlotPlan: document.getElementById("resetSlotPlan"),
     controlSlotClass: document.getElementById("controlSlotClass"),
@@ -957,8 +957,8 @@
       if (els.controlSlotClass && els.classTopControls.parentElement !== els.controlSlotClass) {
         els.controlSlotClass.appendChild(els.classTopControls);
       }
-      if (els.humanToggleSlotSkills && els.humanToggleWrap.parentElement !== els.humanToggleSlotSkills) {
-        els.humanToggleSlotSkills.appendChild(els.humanToggleWrap);
+      if (els.humanToggleSlotBottom && els.humanToggleWrap.parentElement !== els.humanToggleSlotBottom) {
+        els.humanToggleSlotBottom.appendChild(els.humanToggleWrap);
       }
       if (els.resetBtn && els.resetSlotPlan && els.resetBtn.parentElement !== els.resetSlotPlan) {
         els.resetSlotPlan.appendChild(els.resetBtn);

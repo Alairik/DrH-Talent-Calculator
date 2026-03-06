@@ -1703,8 +1703,23 @@ button:hover {
 }
 
 .skills-bottom-summary {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.skills-bottom-bar {
   margin-top: auto;
   padding-top: 0.38rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+#humanToggleSlotBottom {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
 }
 
 #talentCount,
