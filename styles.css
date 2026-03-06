@@ -1366,6 +1366,11 @@ button:hover {
   animation-delay: calc(var(--unlock-row, 0) * 92ms + var(--unlock-col, 0) * 16ms);
 }
 
+.unlock-reveal .spec-node {
+  animation: unlock-node-pop 320ms cubic-bezier(0.18, 0.85, 0.24, 1) both;
+  animation-delay: calc(var(--unlock-row, 0) * 92ms + var(--unlock-col, 0) * 16ms);
+}
+
 .unlock-reveal-soft {
   position: relative;
   isolation: isolate;
@@ -1462,6 +1467,7 @@ button:hover {
   .unlock-reveal-soft,
   .unlock-reveal-soft::after,
   .unlock-reveal-soft .node:not(.empty),
+  .unlock-reveal .spec-node,
   .unlock-reveal::after,
   .unlock-reveal .node:not(.empty) {
     animation: none !important;

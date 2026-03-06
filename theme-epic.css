@@ -529,12 +529,6 @@ body.theme-epic .timeline-line.race {
   color: #ddc8ff;
 }
 
-/* In fantasy mode keep unlock glow local to each node, avoid panel overflow flash. */
-body.theme-epic .unlock-reveal::after,
-body.theme-epic .unlock-reveal-soft::after {
-  display: none;
-}
-
 body.theme-epic .summary,
 body.theme-epic .issues,
 body.theme-epic .url-load-status,

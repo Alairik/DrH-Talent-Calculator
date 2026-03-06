@@ -261,7 +261,8 @@
     },
     ui: {
       l6Visible: false,
-      branchVisible: [false, false, false]
+      branchVisible: [false, false, false],
+      specOpportunityPulseByClass: {}
     }
   };
 
@@ -1016,7 +1017,7 @@
     els.infoTooltip.style.top = `${Math.round(top)}px`;
   }
 
-  function triggerUnlockAnimation(container) {
+  function triggerUnlockAnimation(container, nodeSelector = ".node:not(.empty)") {
     if (!container) return;
     const setUnlockOrderVars = (nodes) => {
       if (!Array.isArray(nodes) || nodes.length === 0) return;
@@ -1046,20 +1047,8 @@
         n.style.removeProperty("--unlock-col");
       }
     };
-    const isSmoothPanel = container.id === "generalBranchL6";
-    if (isSmoothPanel) {
-      const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
-      setUnlockOrderVars(nodes);
-      container.classList.remove("unlock-reveal-soft");
-      void container.offsetWidth; // eslint-disable-line no-unused-expressions
-      container.classList.add("unlock-reveal-soft");
-      window.setTimeout(() => {
-        container.classList.remove("unlock-reveal-soft");
-        clearUnlockOrderVars(nodes);
-      }, 860);
-      return;
-    }
-    const nodes = Array.from(container.querySelectorAll(".node:not(.empty)"));
+    const nodes = Array.from(container.querySelectorAll(nodeSelector));
+    if (nodes.length === 0) return;
     setUnlockOrderVars(nodes);
     container.classList.remove("unlock-reveal");
     // Force restart so repeated unlocks play reliably.
@@ -1221,6 +1210,20 @@
       currentLevel,
       hasSpecColor
     );
+
+    const branchTalentsFlat = split.branches.flat().filter(Boolean);
+    const forcedSpecActive = getActiveLockedSpecializationIndex(profId, currentLevel) !== null;
+    const unspecPickState = getUnspecializedBranchPickState(profId, branchTalentsFlat, currentLevel);
+    const specPulseKey = `L${unspecPickState.nextLevel}`;
+    const shouldPulseSpecPicker =
+      specializationChoiceUnlocked &&
+      !forcedSpecActive &&
+      unspecPickState.available &&
+      state.ui.specOpportunityPulseByClass[profId] !== specPulseKey;
+    if (shouldPulseSpecPicker && els.specPicker) {
+      triggerUnlockAnimation(els.specPicker, ".spec-node");
+      state.ui.specOpportunityPulseByClass[profId] = specPulseKey;
+    }
 
     const branchContainers = [els.branch1, els.branch2, els.branch3];
     for (let i = 0; i < branchContainers.length; i += 1) {
@@ -2049,8 +2052,15 @@
   }
 
   function canPickUnspecializedBranchTalentNow(profId, branchTalents, currentLevel) {
+    return getUnspecializedBranchPickState(profId, branchTalents, currentLevel).available;
+  }
+
+  function getUnspecializedBranchPickState(profId, branchTalents, currentLevel) {
+    void profId;
     const lvl = clampInt(currentLevel, 1, state.config.maxLevel, 1);
-    if (lvl < SPECIALIZATION_TRANSITION_LEVEL) return false;
+    if (lvl < SPECIALIZATION_TRANSITION_LEVEL) {
+      return { available: false, nextLevel: SPECIALIZATION_TRANSITION_LEVEL };
+    }
     const plan = buildPlan();
     const levelsById = plan && plan.talentLevelsById ? plan.talentLevelsById : {};
     const selectedLevels = [];
@@ -2059,9 +2069,14 @@
       const pickLevel = Number(levelsById[t.id]);
       if (Number.isFinite(pickLevel) && pickLevel > 0) selectedLevels.push(pickLevel);
     }
-    if (selectedLevels.length === 0) return true;
-    const lastPickLevel = Math.max(...selectedLevels);
-    return lvl >= lastPickLevel + SPECIALIZATION_UNLOCK_LEVEL;
+    const nextLevel =
+      selectedLevels.length === 0
+        ? SPECIALIZATION_TRANSITION_LEVEL
+        : (Math.max(...selectedLevels) + SPECIALIZATION_UNLOCK_LEVEL);
+    return {
+      available: lvl >= nextLevel,
+      nextLevel: clampInt(nextLevel, SPECIALIZATION_TRANSITION_LEVEL, state.config.maxLevel, SPECIALIZATION_TRANSITION_LEVEL)
+    };
   }
 
   function buildPlan() {
