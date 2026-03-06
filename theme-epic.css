@@ -443,31 +443,35 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   --spec-frame-idle: url("assets/ui/class-frame-idle.png");
   --spec-frame-hover: url("assets/ui/class-frame-hover.png");
   --spec-frame-active: url("assets/ui/class-frame-active.png");
-  border: 8px solid transparent !important;
-  border-image-source: var(--spec-frame-idle);
-  border-image-slice: 28;
-  border-image-width: 1;
-  border-image-repeat: stretch;
-  background-clip: padding-box;
+  border: 0 !important;
+  background-image: var(--spec-frame-idle) !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.12),
-    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.18);
+    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.16),
+    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node:hover {
-  border-image-source: var(--spec-frame-hover);
+  border: 0 !important;
+  background-image: var(--spec-frame-hover) !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
   box-shadow:
     inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.16),
-    0 0 12px rgba(var(--class-rgb, 124, 94, 56), 0.26);
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node.active,
 body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
-  border-image-source: var(--spec-frame-active);
+  border: 0 !important;
+  background-image: var(--spec-frame-active) !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.28) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.2),
+    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.18),
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
-    0 0 12px rgba(var(--class-rgb, 124, 94, 56), 0.24);
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
