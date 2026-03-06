@@ -372,7 +372,7 @@ body.theme-epic .spec-node {
     0 0 0 1px rgba(0, 0, 0, 0.08);
   color: #fff3db;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.72), 0 0 8px rgba(0, 0, 0, 0.35);
-  font-weight: 700;
+  font-weight: 500;
 }
 
 body.theme-epic .spec-node.has-icon::before {
@@ -411,6 +411,7 @@ body.theme-epic .node.selected {
     0 0 24px rgba(255, 190, 82, 0.34),
     inset 0 0 24px rgba(255, 220, 152, 0.1);
   transform: translateY(-1px);
+  font-weight: 600;
 }
 
 body.theme-epic .spec-node.active {
@@ -419,6 +420,7 @@ body.theme-epic .spec-node.active {
     0 0 0 1px rgba(255, 225, 166, 0.58),
     0 0 20px rgba(255, 199, 108, 0.34),
     inset 0 0 16px rgba(255, 227, 173, 0.08);
+  font-weight: 500;
 }
 
 /* Default (uncolored) selected talents: only lighter brown cell fill. */
@@ -430,6 +432,10 @@ body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2).active {
     linear-gradient(180deg, rgba(88, 56, 28, 0.88), rgba(64, 40, 20, 0.84));
   box-shadow: none;
   transform: none;
+}
+
+body.theme-epic .spec-node.locked-spec {
+  font-weight: 600;
 }
 
 body.theme-epic .skill-item {
