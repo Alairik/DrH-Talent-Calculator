@@ -1305,6 +1305,70 @@
       "branch_index": 1
     },
     {
+      "id": "PDF_ABI_ALCT_01",
+      "name": "Astralni sfery",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Pronikne do podstaty astralnich sfer, privolava demony dle potreby a vyrabi unikatni vlastni predmety.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_02",
+      "name": "Ovladnuti zivlu",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Dokaze ovladat projevy zivlu: zemetreseni, prilivovou vlnu, pozar nebo hurikan a urcit jejich silu.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_03",
+      "name": "Ozivle pomucky",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Privolava specificke demony a vyrabi: Chodici truhla, Letajici lucerna, Mluvici hlava a Ozivly obusek.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_04",
+      "name": "Portaly a zrcadla",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Propojuje mista a vyrabi: Mimoprostorove zrcadlo, Portal, Vidouci kameny a Zrcadlo dusi.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_05",
+      "name": "Poslove zivlu",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Privolava elementaly zivlu: Igni, Undina, Terra a Sylfa, kteri poslouchaji rozkazy.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_06",
+      "name": "Prace s esencemi",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Z many vyseparuje esence a provadi jemne zmeny hmoty a energie.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_07",
+      "name": "Prace s vichry many",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Pracuje s Vichry many a vyrabi: Detektor vichru many, Manafiltr, Managenerator a Manatransformator.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_ALCT_08",
+      "name": "Talismany",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Rozpoznava drahe kameny, aktivuje jejich skrytou silu a vyrabi uzitecne talismany se zvlastnimi schopnostmi.",
+      "branch_index": 2
+    },
+    {
       "id": "PDF_ABI_WIZX_01",
       "name": "Citlivost na vichry many",
       "prof_id": "PROF_4",
