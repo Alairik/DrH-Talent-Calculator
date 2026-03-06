@@ -204,8 +204,9 @@ body.theme-epic .gap-icons-panel::after {
   content: none;
 }
 
-/* Local enclosure for first-column base 12 + extended 12 blocks. */
-body.theme-epic .talents-panel .general-branch {
+/* Local enclosure for first-column base 12 + extended 12 blocks + advanced class blocks. */
+body.theme-epic .talents-panel .general-branch,
+body.theme-epic .talents-panel .branch {
   --inner-node-radius: 12px;
   --local-shell-gap: calc(0.34rem + 2px);
   --local-shell-radius: calc(var(--inner-node-radius) + var(--local-shell-gap));
@@ -233,7 +234,7 @@ body.theme-epic .talents-panel .branch {
   align-self: flex-start;
   margin-left: 0;
   margin-right: auto;
-  padding: 0;
+  padding: 0.34rem;
   border: none;
   background: transparent;
 }
@@ -244,7 +245,8 @@ body.theme-epic .talents-panel .spec-node {
   font-size: 0.74rem;
 }
 
-body.theme-epic .talents-panel .general-branch::before {
+body.theme-epic .talents-panel .general-branch::before,
+body.theme-epic .talents-panel .branch::before {
   content: "";
   position: absolute;
   inset: -2px;
@@ -258,7 +260,8 @@ body.theme-epic .talents-panel .general-branch::before {
   z-index: 0;
 }
 
-body.theme-epic .talents-panel .general-branch > * {
+body.theme-epic .talents-panel .general-branch > *,
+body.theme-epic .talents-panel .branch > * {
   position: relative;
   z-index: 1;
 }
