@@ -311,9 +311,9 @@ body.theme-epic .top-class-picker .class-box {
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-color: rgba(var(--class-rgb), 0.24) !important;
+  background-color: rgba(var(--class-rgb), 0.4) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.18),
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.3),
     0 0 0 1px rgba(var(--class-rgb), 0.2) !important;
   color: #fff3da !important;
   opacity: 1 !important;
@@ -324,9 +324,9 @@ body.theme-epic .top-class-picker .class-box {
 body.theme-epic .top-class-picker .class-box:hover {
   border: 0 !important;
   background-image: var(--class-frame-hover) !important;
-  background-color: rgba(var(--class-rgb), 0.3) !important;
+  background-color: rgba(var(--class-rgb), 0.5) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.24),
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.38),
     0 0 14px rgba(var(--class-rgb), 0.3) !important;
 }
 
@@ -339,9 +339,9 @@ body.theme-epic .top-class-picker .class-box.has-icon::before {
 body.theme-epic .top-class-picker .class-box.active {
   border: 0 !important;
   background-image: var(--class-frame-active) !important;
-  background-color: rgba(var(--class-rgb), 0.34) !important;
+  background-color: rgba(var(--class-rgb), 0.56) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb), 0.28),
+    inset 0 0 0 999px rgba(var(--class-rgb), 0.44),
     0 0 0 1px rgba(var(--class-rgb), 0.42),
     0 0 10px rgba(var(--class-rgb), 0.22) !important;
   color: #fff7e8 !important;
@@ -438,6 +438,14 @@ body.theme-epic .spec-node.has-icon::before {
   filter: saturate(1.04) contrast(1.01) brightness(1.02);
 }
 
+/* Provide class color for ADV picker (spec-node) based on currently selected profession. */
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] { --class-rgb: 124, 50, 50; }
+body.theme-epic .talents-panel[data-prof-id="PROF_2"] { --class-rgb: 47, 107, 67; }
+body.theme-epic .talents-panel[data-prof-id="PROF_3"] { --class-rgb: 138, 91, 36; }
+body.theme-epic .talents-panel[data-prof-id="PROF_4"] { --class-rgb: 47, 88, 121; }
+body.theme-epic .talents-panel[data-prof-id="PROF_5"] { --class-rgb: 48, 48, 48; }
+body.theme-epic .talents-panel[data-prof-id="PROF_6"] { --class-rgb: 214, 214, 214; }
+
 /* Advanced class picker uses the same DRH frame states as top class picker. */
 body.theme-epic .talents-panel .spec-picker .spec-node {
   --spec-frame-idle: url("assets/ui/class-frame-idle.png");
@@ -448,18 +456,18 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   background-size: 100% 100% !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
-  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.42) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.16),
+    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.3),
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node:hover {
   border: 0 !important;
   background-image: var(--spec-frame-hover) !important;
-  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.52) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.16),
+    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.4),
     0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
 }
 
@@ -467,9 +475,9 @@ body.theme-epic .talents-panel .spec-picker .spec-node.active,
 body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
   border: 0 !important;
   background-image: var(--spec-frame-active) !important;
-  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.28) !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.6) !important;
   box-shadow:
-    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.18),
+    inset 0 0 0 999px rgba(var(--class-rgb, 124, 94, 56), 0.48),
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
     0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
 }
