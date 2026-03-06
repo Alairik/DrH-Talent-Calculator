@@ -303,10 +303,25 @@ body.theme-epic .class-box.has-icon::before {
 
 /* Top nav class picker: keep labels readable over icon texture. */
 body.theme-epic .top-class-picker .class-box {
+  --class-frame-idle: url("assets/ui/class-frame-idle.png");
+  --class-frame-hover: url("assets/ui/class-frame-hover.png");
+  --class-frame-active: url("assets/ui/class-frame-active.png");
+  border: 0 !important;
+  background-image: var(--class-frame-idle) !important;
+  background-size: 100% 100% !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  box-shadow: none !important;
   color: #fff3da !important;
   opacity: 1 !important;
   font-weight: 600;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.86), 0 0 6px rgba(0, 0, 0, 0.48);
+}
+
+body.theme-epic .top-class-picker .class-box:hover {
+  border: 0 !important;
+  background-image: var(--class-frame-hover) !important;
+  box-shadow: 0 0 16px rgba(var(--class-rgb), 0.35) !important;
 }
 
 body.theme-epic .top-class-picker .class-box.has-icon::before {
@@ -316,6 +331,11 @@ body.theme-epic .top-class-picker .class-box.has-icon::before {
 }
 
 body.theme-epic .top-class-picker .class-box.active {
+  border: 0 !important;
+  background-image: var(--class-frame-active) !important;
+  box-shadow:
+    0 0 0 1px rgba(var(--class-rgb), 0.7),
+    0 0 22px rgba(var(--class-rgb), 0.52) !important;
   color: #fff7e8 !important;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
 }
