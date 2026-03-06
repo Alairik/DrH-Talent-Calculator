@@ -239,6 +239,15 @@ body.theme-epic .talents-panel .branch {
   background: transparent;
 }
 
+/* Adv-class branch should hug 8 skills (2 rows), not reserve extra vertical space. */
+body.theme-epic .layout > .talents-panel > .branch-grid > .branch {
+  flex: 0 0 auto;
+}
+
+body.theme-epic .talents-panel .branch .branch-nodes {
+  align-content: start;
+}
+
 /* Use saved vertical space for bigger advanced-profession buttons. */
 body.theme-epic .talents-panel .spec-node {
   min-height: clamp(56px, 7.2vh, var(--talent-node-size-max));
