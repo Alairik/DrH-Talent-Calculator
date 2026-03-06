@@ -288,6 +288,10 @@ h3,
   padding: 0.8rem;
 }
 
+.save-modal[hidden] {
+  display: none !important;
+}
+
 .save-modal-card {
   width: min(520px, calc(100vw - 24px));
   border: 1px solid var(--line);

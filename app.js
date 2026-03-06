@@ -907,6 +907,9 @@
     if (els.saveCharacterModal) els.saveCharacterModal.addEventListener("click", (ev) => {
       if (ev.target === els.saveCharacterModal) closeSaveCharacterModal();
     });
+    document.addEventListener("keydown", (ev) => {
+      if (ev.key === "Escape") closeSaveCharacterModal();
+    });
     if (els.quickAttrsToggle) els.quickAttrsToggle.addEventListener("click", () => {
       const willOpen = !!(els.quickAttrsPanel && els.quickAttrsPanel.hidden);
       if (els.quickAttrsPanel) els.quickAttrsPanel.hidden = !willOpen;
@@ -1019,7 +1022,11 @@
 
   function openSaveCharacterModal() {
     if (!els.saveCharacterModal || !els.saveCharacterUrl) return;
-    els.saveCharacterUrl.value = buildShareUrl();
+    try {
+      els.saveCharacterUrl.value = buildShareUrl();
+    } catch (_e) {
+      els.saveCharacterUrl.value = window.location.href;
+    }
     els.saveCharacterModal.hidden = false;
   }
 
