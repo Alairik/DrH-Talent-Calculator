@@ -467,6 +467,9 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   --frame-image: var(--spec-frame-idle);
   --frame-alpha: 1;
   border: 0 !important;
+  border-radius: 14px;
+  overflow: hidden;
+  clip-path: inset(0 round 14px);
   box-shadow:
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
@@ -493,6 +496,7 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
   content: "";
   position: absolute;
   inset: 0;
+  border-radius: inherit;
   background-image: var(--frame-image);
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -500,6 +504,15 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
   opacity: var(--frame-alpha);
   pointer-events: none;
   z-index: 2;
+}
+
+/* Make ADV-picker icon artwork more legible under the frame and tints. */
+body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
+  border-radius: inherit;
+  opacity: 0.44;
+  mix-blend-mode: normal;
+  filter: saturate(1.2) contrast(1.08) brightness(1.14);
+  transform: scale(1.14);
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
@@ -519,7 +532,8 @@ body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2):not(.selected)
 }
 
 body.theme-epic .spec-node-wrap {
-  border-radius: 12px;
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 body.theme-epic .node.selected {
