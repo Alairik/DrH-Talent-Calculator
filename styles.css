@@ -1739,7 +1739,7 @@ button:hover {
 .kpi.kpi-skill-points {
   --kpi-frame-idle: url("assets/ui/class-frame-idle.png");
   width: fit-content;
-  min-width: 172px;
+  min-width: 188px;
   min-height: 34px;
   border: 0;
   border-radius: 10px;
@@ -1758,7 +1758,7 @@ button:hover {
     inset 0 0 0 1px rgba(255, 255, 255, 0.08),
     0 0 0 1px rgba(110, 86, 51, 0.2);
   gap: 0.32rem;
-  padding: 0.18rem 0.48rem;
+  padding: 0.18rem 20px;
 }
 
 .kpi.kpi-skill-points .label {
