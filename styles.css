@@ -451,7 +451,7 @@ h3,
 }
 
 /* Smaller desktop width: remove the gap icons column completely. */
-@media (min-width: 1025px) and (max-width: 1700px) {
+@media (min-width: 1025px) and (max-width: 1366px) {
   .column-controls,
   .layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
