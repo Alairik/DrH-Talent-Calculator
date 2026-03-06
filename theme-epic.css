@@ -467,8 +467,6 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   --frame-image: var(--spec-frame-idle);
   --frame-alpha: 1;
   border: 0 !important;
-  background:
-    linear-gradient(180deg, rgba(var(--class-rgb, 124, 94, 56), 0.34), rgba(var(--class-rgb, 124, 94, 56), 0.2)) !important;
   box-shadow:
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
@@ -477,8 +475,6 @@ body.theme-epic .talents-panel .spec-picker .spec-node:hover {
   border: 0 !important;
   --frame-image: var(--spec-frame-hover);
   --frame-alpha: 1;
-  background:
-    linear-gradient(180deg, rgba(var(--class-rgb, 124, 94, 56), 0.42), rgba(var(--class-rgb, 124, 94, 56), 0.26)) !important;
   box-shadow:
     0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
 }
@@ -488,8 +484,6 @@ body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
   border: 0 !important;
   --frame-image: var(--spec-frame-active);
   --frame-alpha: 1;
-  background:
-    linear-gradient(180deg, rgba(var(--class-rgb, 124, 94, 56), 0.52), rgba(var(--class-rgb, 124, 94, 56), 0.34)) !important;
   box-shadow:
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
     0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
