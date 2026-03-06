@@ -306,41 +306,56 @@ body.theme-epic .top-class-picker .class-box {
   --class-frame-idle: url("assets/ui/class-frame-idle.png");
   --class-frame-hover: url("assets/ui/class-frame-hover.png");
   --class-frame-active: url("assets/ui/class-frame-active.png");
+  --frame-image: var(--class-frame-idle);
+  --frame-alpha: 1;
   border: 0 !important;
-  background-image: var(--class-frame-idle) !important;
-  background-size: 100% 100% !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-color: rgb(var(--class-rgb)) !important;
+  background-image: none !important;
+  background-color: rgba(var(--class-rgb), 0.22) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb), 1) !important;
+    0 0 0 1px rgba(var(--class-rgb), 0.2) !important;
   color: #fff3da !important;
   opacity: 1 !important;
   font-weight: 600;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.86), 0 0 6px rgba(0, 0, 0, 0.48);
 }
 
+body.theme-epic .top-class-picker .class-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--frame-image);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: var(--frame-alpha);
+  pointer-events: none;
+  z-index: 2;
+}
+
 body.theme-epic .top-class-picker .class-box:hover {
   border: 0 !important;
-  background-image: var(--class-frame-hover) !important;
-  background-color: rgb(var(--class-rgb)) !important;
+  --frame-image: var(--class-frame-hover);
+  --frame-alpha: 1;
+  background-color: rgba(var(--class-rgb), 0.3) !important;
   box-shadow:
-    0 0 14px rgba(var(--class-rgb), 1) !important;
+    0 0 14px rgba(var(--class-rgb), 0.3) !important;
 }
 
 body.theme-epic .top-class-picker .class-box.has-icon::before {
   opacity: 0.26 !important;
   mix-blend-mode: screen !important;
   filter: saturate(1.06) contrast(1.03) brightness(1.02) !important;
+  z-index: 1;
 }
 
 body.theme-epic .top-class-picker .class-box.active {
   border: 0 !important;
-  background-image: var(--class-frame-active) !important;
-  background-color: rgb(var(--class-rgb)) !important;
+  --frame-image: var(--class-frame-active);
+  --frame-alpha: 1;
+  background-color: rgba(var(--class-rgb), 0.38) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb), 1),
-    0 0 10px rgba(var(--class-rgb), 1) !important;
+    0 0 0 1px rgba(var(--class-rgb), 0.42),
+    0 0 10px rgba(var(--class-rgb), 0.22) !important;
   color: #fff7e8 !important;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
 }
@@ -433,6 +448,7 @@ body.theme-epic .spec-node.has-icon::before {
   opacity: 0.24;
   mix-blend-mode: soft-light;
   filter: saturate(1.04) contrast(1.01) brightness(1.02);
+  z-index: 1;
 }
 
 /* Provide class color for ADV picker (spec-node) based on currently selected profession. */
@@ -448,32 +464,46 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   --spec-frame-idle: url("assets/ui/class-frame-idle.png");
   --spec-frame-hover: url("assets/ui/class-frame-hover.png");
   --spec-frame-active: url("assets/ui/class-frame-active.png");
+  --frame-image: var(--spec-frame-idle);
+  --frame-alpha: 1;
   border: 0 !important;
-  background-image: var(--spec-frame-idle) !important;
-  background-size: 100% 100% !important;
-  background-repeat: no-repeat !important;
-  background-position: center !important;
-  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
+  background-image: none !important;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
+    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node:hover {
   border: 0 !important;
-  background-image: var(--spec-frame-hover) !important;
-  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
+  --frame-image: var(--spec-frame-hover);
+  --frame-alpha: 1;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.3) !important;
   box-shadow:
-    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.24) !important;
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node.active,
 body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
   border: 0 !important;
-  background-image: var(--spec-frame-active) !important;
-  background-color: rgb(var(--class-rgb, 124, 94, 56)) !important;
+  --frame-image: var(--spec-frame-active);
+  --frame-alpha: 1;
+  background-color: rgba(var(--class-rgb, 124, 94, 56), 0.38) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 1),
-    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 1) !important;
+    0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
+    0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
+}
+
+body.theme-epic .talents-panel .spec-picker .spec-node::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--frame-image);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: var(--frame-alpha);
+  pointer-events: none;
+  z-index: 2;
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
