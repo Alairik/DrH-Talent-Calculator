@@ -126,15 +126,13 @@ body.theme-epic .skills-panel {
   --skills-photo-size: clamp(180px, 14vw, 260px);
   --skills-photo-offset-right: 50px;
   --skills-photo-offset-bottom: clamp(44px, 7vh, 72px);
-  --skills-photo-veil: 0.75;
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
     var(--drh-bg-pergamen-bottom) bottom center / 100% auto no-repeat,
-    linear-gradient(180deg, rgba(212, 188, 146, var(--skills-photo-veil)), rgba(212, 188, 146, var(--skills-photo-veil))) right var(--skills-photo-offset-right) bottom var(--skills-photo-offset-bottom) / var(--skills-photo-size) auto no-repeat,
     var(--drh-bg-skills-photo) right var(--skills-photo-offset-right) bottom var(--skills-photo-offset-bottom) / var(--skills-photo-size) auto no-repeat,
     var(--drh-bg-pergamen) center / 100% auto repeat-y;
-  background-blend-mode: soft-light, normal, normal, normal, normal, normal;
+  background-blend-mode: soft-light, normal, normal, normal, normal;
 }
 
 @media (min-width: 1025px) and (max-width: 1700px) {
@@ -271,6 +269,12 @@ body.theme-epic .spec-info-btn {
     inset 0 -8px 14px rgba(0, 0, 0, 0.22);
 }
 
+body.theme-epic .class-box.has-icon::before {
+  opacity: 0.62;
+  mix-blend-mode: normal;
+  filter: saturate(1.08) contrast(1.04) brightness(1.08);
+}
+
 body.theme-epic .class-box:hover,
 body.theme-epic .timeline-tools .lvl-btn:hover,
 body.theme-epic .timeline-help-btn:hover,
@@ -350,6 +354,12 @@ body.theme-epic .spec-node {
     inset 0 10px 16px rgba(255, 224, 168, 0.05),
     inset 0 -10px 16px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+body.theme-epic .spec-node.has-icon::before {
+  opacity: 0.54;
+  mix-blend-mode: normal;
+  filter: saturate(1.08) contrast(1.03) brightness(1.06);
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
