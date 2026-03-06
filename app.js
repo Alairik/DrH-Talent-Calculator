@@ -318,7 +318,6 @@
     quickLevelDisplay: document.getElementById("quickLevelDisplay"),
     quickLevelPlus: document.getElementById("quickLevelPlus"),
     quickSaveBtn: document.getElementById("quickSaveBtn"),
-    quickAttrsToggle: document.getElementById("quickAttrsToggle"),
     quickAttrsPanel: document.getElementById("quickAttrsPanel"),
     floatingPanel: document.getElementById("floatingPanel"),
     floatingPanelSlideBtn: document.getElementById("floatingPanelSlideBtn"),
@@ -943,17 +942,10 @@
     document.addEventListener("keydown", (ev) => {
       if (ev.key === "Escape") closeSaveCharacterModal();
     });
-    if (els.quickAttrsToggle) els.quickAttrsToggle.addEventListener("click", () => {
-      const willOpen = !!(els.quickAttrsPanel && els.quickAttrsPanel.hidden);
-      if (els.quickAttrsPanel) els.quickAttrsPanel.hidden = !willOpen;
-      els.quickAttrsToggle.setAttribute("aria-expanded", willOpen ? "true" : "false");
-      els.quickAttrsToggle.textContent = willOpen ? "Atributy ▴" : "Atributy ▾";
-      els.quickAttrsToggle.title = willOpen ? "Skrýt atributy" : "Zobrazit atributy";
-    });
     if (els.floatingPanel && els.floatingPanelSlideBtn) {
       els.floatingPanelSlideBtn.addEventListener("click", () => {
         const collapsed = els.floatingPanel.classList.toggle("collapsed");
-        els.floatingPanelSlideBtn.textContent = collapsed ? "❮" : "❯";
+        els.floatingPanelSlideBtn.textContent = collapsed ? "▴" : "▾";
         els.floatingPanelSlideBtn.setAttribute("aria-expanded", collapsed ? "false" : "true");
         els.floatingPanelSlideBtn.setAttribute("aria-label", collapsed ? "Rozbalit panel" : "Sbalit panel");
       });

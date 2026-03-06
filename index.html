@@ -123,7 +123,7 @@
   <button id="resetBtn" type="button" title="Reset výběru" aria-label="Reset výběru">↺</button>
 
   <aside id="floatingPanel" class="floating-panel" aria-label="Rychlé ovládání postavy">
-    <button id="floatingPanelSlideBtn" type="button" class="floating-panel-slide-btn" aria-expanded="true" aria-label="Sbalit panel">❯</button>
+    <button id="floatingPanelSlideBtn" type="button" class="floating-panel-slide-btn" aria-expanded="true" aria-label="Sbalit panel">▾</button>
     <div class="floating-row floating-row-main">
       <select id="quickRaceSelect" aria-label="Výběr rasy"></select>
       <button id="quickRandomBtn" type="button" title="Náhodně vygenerovat postavu" aria-label="Náhodně vygenerovat postavu">🎲</button>
@@ -135,9 +135,8 @@
       <div id="quickLevelDisplay" class="floating-level-display">1</div>
       <button id="quickLevelPlus" type="button" aria-label="Zvýšit úroveň">+</button>
       <button id="quickSaveBtn" type="button" class="floating-save-btn" title="Uložit postavu do URL">Uložit</button>
-      <button id="quickAttrsToggle" type="button" class="floating-toggle-btn" aria-expanded="false" aria-controls="quickAttrsPanel" title="Zobrazit atributy">Atributy ▾</button>
     </div>
-    <div id="quickAttrsPanel" class="floating-attrs" hidden>
+    <div id="quickAttrsPanel" class="floating-attrs">
       <div class="attr-row"><span>SIL</span><input id="attrSilBase" maxlength="2" inputmode="numeric" /><input id="attrSilMod" maxlength="2" inputmode="numeric" /></div>
       <div class="attr-row"><span>OBR</span><input id="attrObrBase" maxlength="2" inputmode="numeric" /><input id="attrObrMod" maxlength="2" inputmode="numeric" /></div>
       <div class="attr-row"><span>ODO</span><input id="attrOdoBase" maxlength="2" inputmode="numeric" /><input id="attrOdoMod" maxlength="2" inputmode="numeric" /></div>

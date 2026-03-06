@@ -187,6 +187,7 @@ h3,
   position: fixed;
   right: 12px;
   bottom: 14px;
+  --floating-peek-height: 96px;
   z-index: 1310;
   width: min(420px, calc(100vw - 20px));
   overflow: visible;
@@ -201,22 +202,21 @@ h3,
 }
 
 .floating-panel.collapsed {
-  transform: translateX(calc(100% - 34px));
+  transform: translateY(calc(100% - var(--floating-peek-height)));
 }
 
 .floating-panel-slide-btn {
   position: absolute;
-  left: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 30px;
-  height: 56px;
-  border-radius: 10px 0 0 10px;
+  right: 6px;
+  top: 6px;
+  transform: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
   border: 1px solid var(--line);
-  border-right: 0;
   background: linear-gradient(180deg, rgba(110, 86, 51, 0.8), rgba(30, 23, 17, 0.96));
   color: #f7ecd9;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   line-height: 1;
   display: grid;
   place-items: center;
@@ -271,11 +271,6 @@ h3,
 .floating-save-btn {
   padding: 0 0.55rem;
   font-weight: 700;
-}
-
-.floating-toggle-btn {
-  margin-left: auto;
-  padding: 0 0.45rem;
 }
 
 .floating-attrs {
