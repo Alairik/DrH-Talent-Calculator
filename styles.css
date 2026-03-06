@@ -1702,6 +1702,11 @@ button:hover {
   margin: 0;
 }
 
+.skills-bottom-summary {
+  margin-top: auto;
+  padding-top: 0.38rem;
+}
+
 #talentCount,
 #skillCount {
   display: none;
@@ -1732,34 +1737,30 @@ button:hover {
 }
 
 .kpi.kpi-skill-points {
-  --kpi-cap: 43px;
-  --kpi-left: url("./research/drh_assets/raw/custom/text%20border%20-%20left.png");
-  --kpi-mid: url("./research/drh_assets/raw/custom/text%20border%20-%20mid.png");
-  --kpi-right: url("./research/drh_assets/raw/custom/text%20border%20-%20right.png");
   width: fit-content;
-  min-width: 168px;
-  min-height: 36px;
-  border: none;
-  border-radius: 0;
-  background-color: rgba(176, 133, 83, 0.9);
-  background-image: var(--kpi-left), var(--kpi-right), var(--kpi-mid);
-  background-position: left center, right center, left center;
-  background-size: auto 100%, auto 100%, auto 100%;
-  background-repeat: no-repeat, no-repeat, repeat-x;
-  color: #2a1f12;
-  text-shadow: 0 1px 0 rgba(255, 250, 238, 0.35);
-  box-shadow: none;
+  min-width: 172px;
+  min-height: 34px;
+  border: 1px solid rgba(110, 86, 51, 0.95);
+  border-radius: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(110, 86, 51, 0.62),
+    rgba(30, 23, 17, 0.94)
+  );
+  color: #f7ecd9;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.65);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   gap: 0.32rem;
-  padding: 0.1rem calc(var(--kpi-cap) + 0.42rem);
+  padding: 0.18rem 0.48rem;
 }
 
 .kpi.kpi-skill-points .label {
-  color: #4e3620;
-  font-weight: 700;
+  color: #e7d8bf;
+  font-weight: 600;
 }
 
 .kpi.kpi-skill-points .value {
-  color: #241809;
+  color: #fff0d4;
   font-size: 0.9rem;
 }
 

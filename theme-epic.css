@@ -684,6 +684,12 @@ body.theme-epic .info-tooltip {
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.44);
 }
 
+body.theme-epic .skills-bottom-summary {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+}
+
 body.theme-epic .info-tooltip {
   color: #f7ecd8;
 }
