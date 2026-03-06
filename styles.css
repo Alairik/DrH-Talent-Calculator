@@ -213,6 +213,7 @@ h3,
       minmax(0, var(--main-panel-target-width));
     gap: var(--desktop-main-gap);
     width: min(calc(100vw - 1.4rem), 1920px);
+    justify-content: center;
     margin-left: auto;
     margin-right: auto;
   }
