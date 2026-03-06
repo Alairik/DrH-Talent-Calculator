@@ -334,8 +334,8 @@ body.theme-epic .top-class-picker .class-box.active {
   border: 0 !important;
   background-image: var(--class-frame-active) !important;
   box-shadow:
-    0 0 0 1px rgba(var(--class-rgb), 0.7),
-    0 0 22px rgba(var(--class-rgb), 0.52) !important;
+    0 0 0 1px rgba(var(--class-rgb), 0.45),
+    0 0 10px rgba(var(--class-rgb), 0.24) !important;
   color: #fff7e8 !important;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.92), 0 0 10px rgba(0, 0, 0, 0.52);
 }
