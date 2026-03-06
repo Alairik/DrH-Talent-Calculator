@@ -117,12 +117,15 @@ body.theme-epic .talents-panel {
   --shell-inset-side: calc(0.8rem + var(--edge-extra) + 14px);
   padding-left: calc(0.8rem + var(--edge-extra) + 14px);
   padding-right: calc(0.8rem + var(--edge-extra) + 14px);
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 body.theme-epic .skills-panel { --edge-scale: 2.2; }    /* increased reduction for middle column */
 body.theme-epic .skills-panel {
-  --skills-photo-size: clamp(96px, 8.8vw, 150px);
-  --skills-photo-offset-right: 2px;
-  --skills-photo-offset-bottom: clamp(38px, 6vh, 58px);
+  --skills-photo-size: clamp(180px, 14vw, 260px);
+  --skills-photo-offset-right: 50px;
+  --skills-photo-offset-bottom: clamp(44px, 7vh, 72px);
   --skills-photo-veil: 0.75;
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
@@ -136,17 +139,17 @@ body.theme-epic .skills-panel {
 
 @media (min-width: 1025px) and (max-width: 1700px) {
   body.theme-epic .skills-panel {
-    --skills-photo-size: clamp(116px, 10.5vw, 176px);
-    --skills-photo-offset-right: clamp(2px, 0.7vw, 8px);
-    --skills-photo-offset-bottom: clamp(52px, 7vh, 72px);
+    --skills-photo-size: clamp(166px, 12.8vw, 230px);
+    --skills-photo-offset-right: 50px;
+    --skills-photo-offset-bottom: clamp(42px, 6.6vh, 64px);
   }
 }
 
 @media (min-width: 1025px) and (max-width: 1700px) {
   body.theme-epic .skills-panel {
-    --skills-photo-size: clamp(98px, 9.6vw, 146px);
-    --skills-photo-offset-right: 2px;
-    --skills-photo-offset-bottom: clamp(44px, 6.5vh, 62px);
+    --skills-photo-size: clamp(152px, 11.2vw, 210px);
+    --skills-photo-offset-right: 50px;
+    --skills-photo-offset-bottom: clamp(38px, 6vh, 58px);
   }
 }
 

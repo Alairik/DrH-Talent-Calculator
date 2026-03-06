@@ -191,8 +191,8 @@ h3,
 @media (min-width: 1025px) {
   :root {
     --main-panel-target-width: clamp(360px, 27vw, 560px);
-    --gap-panel-target-width: clamp(72px, 5.8vw, 132px);
-    --gap-panel-inner-pad: clamp(8px, 0.7vw, 14px);
+    --gap-panel-target-width: clamp(52px, 4.2vw, 110px);
+    --gap-panel-inner-pad: 0px;
   }
 
   .column-controls,
@@ -233,8 +233,11 @@ h3,
     justify-self: center;
     width: min(var(--gap-panel-target-width), 100%);
     max-width: min(var(--gap-panel-target-width), 100%);
-    padding-left: var(--gap-panel-inner-pad);
-    padding-right: var(--gap-panel-inner-pad);
+    padding-left: 0;
+    padding-right: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
   }
 
   /* First-column controls fill the global shell width. */
@@ -283,10 +286,10 @@ h3,
   }
 
   .layout > .gap-icons-panel .class-gap-icons {
-    --gap-icon-size: clamp(58px, 4.2vw, 92px);
+    --gap-icon-size: clamp(40px, calc(100% - 4px), 82px);
     height: 100%;
     width: 100%;
-    max-width: var(--gap-icon-size);
+    max-width: 100%;
     margin: 0 auto;
     display: grid;
     grid-template-rows: repeat(6, 1fr);
@@ -298,9 +301,9 @@ h3,
   }
 
   .layout > .gap-icons-panel .class-gap-icon {
-    width: min(var(--gap-icon-size), 100%);
+    width: var(--gap-icon-size);
     min-width: 0;
-    height: min(var(--gap-icon-size), 100%);
+    height: var(--gap-icon-size);
     aspect-ratio: 1 / 1;
     border-radius: 999px;
     border: 1px solid rgba(214, 169, 90, 0.98);
@@ -388,9 +391,9 @@ h3,
 }
 
 /* Narrow desktop / 13" laptops: keep skill names readable, simplify skill column. */
-@media (min-width: 1025px) and (max-width: 1700px) {
+@media (min-width: 1025px) and (max-width: 1820px) {
   .layout > .gap-icons-panel .class-gap-icons {
-    --gap-icon-size: clamp(62px, 4.4vw, 88px);
+    --gap-icon-size: clamp(36px, calc(100% - 4px), 68px);
     gap: clamp(0.24rem, 0.5vh, 0.48rem);
   }
 
@@ -400,7 +403,7 @@ h3,
   }
 
   #skillListClass {
-    display: none;
+    display: flex;
   }
 
   .skill-item {
@@ -433,7 +436,7 @@ h3,
 }
 
 /* Smaller desktop width: remove the gap icons column completely. */
-@media (min-width: 1025px) and (max-width: 1700px) {
+@media (min-width: 1025px) and (max-width: 1820px) {
   .column-controls,
   .layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);

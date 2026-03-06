@@ -1984,8 +1984,11 @@
       return forcedSpec;
     }
     if (Number.isInteger(preview) && preview >= 0 && preview <= 2) return preview;
-    state.previewSpecializationByClass[profId] = 0;
-    return 0;
+    for (let i = 0; i < 3; i += 1) {
+      const branchTalents = Array.isArray(branches[i]) ? branches[i] : [];
+      if (branchTalents.some((t) => state.selectedTalentIds.has(t.id))) return i;
+    }
+    return null;
   }
 
   function setSpecialization(profId, branchIndex) {
