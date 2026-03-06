@@ -273,6 +273,25 @@
     }
   };
 
+  const RACE_BASE_ATTRIBUTES = {
+    clovek: { sil: 7, obr: 7, odo: 7, int: 7, cha: 7 },
+    trpaslik: { sil: 10, obr: 5, odo: 10, int: 5, cha: 5 },
+    elf: { sil: 6, obr: 7, odo: 5, int: 10, cha: 9 },
+    barbar: { sil: 9, obr: 8, odo: 8, int: 5, cha: 5 },
+    obr: { sil: 12, obr: 3, odo: 12, int: 3, cha: 3 },
+    gnom: { sil: 4, obr: 10, odo: 5, int: 9, cha: 5 },
+    pulcik: { sil: 6, obr: 9, odo: 6, int: 7, cha: 8 }
+  };
+
+  const CLASS_DOMINANT_ATTRIBUTES = {
+    PROF_1: ["sil", "odo"],
+    PROF_2: ["obr", "int"],
+    PROF_3: ["obr", "odo"],
+    PROF_4: ["int", "cha"],
+    PROF_5: ["obr", "cha"],
+    PROF_6: ["int", "cha"]
+  };
+
   const els = {
     layout: document.querySelector(".layout"),
     classTopControls: document.getElementById("classTopControls"),
@@ -749,6 +768,7 @@
       window.APP_CONFIG.maxLevel
     );
     ensureAttributeDefaults();
+    if (areAttributesPristine()) applyCreationAttributeProfile();
   }
 
   function ensureAttributeDefaults() {
@@ -763,6 +783,14 @@
     }
   }
 
+  function areAttributesPristine() {
+    const keys = ["sil", "obr", "odo", "int", "cha"];
+    return keys.every((k) => {
+      const a = state.attributes[k] || {};
+      return Number(a.base) === 10 && Number(a.mod) === 0;
+    });
+  }
+
   function wireEvents() {
     if (els.humanToggle) els.humanToggle.addEventListener("change", () => {
       const humanId = getHumanRaceId();
@@ -772,6 +800,7 @@
         const fallback = getFirstNonHumanRaceId();
         if (fallback) state.selectedRaceId = fallback;
       }
+      applyCreationAttributeProfile();
       cleanseInvalidSelections();
       renderAll();
       persist();
@@ -779,6 +808,7 @@
 
     if (els.mobileClassSelect) els.mobileClassSelect.addEventListener("change", () => {
       state.selectedProfessionId = els.mobileClassSelect.value;
+      applyCreationAttributeProfile();
       cleanseInvalidSelections();
       renderAll();
       persist();
@@ -793,6 +823,7 @@
 
     if (els.quickRaceSelect) els.quickRaceSelect.addEventListener("change", () => {
       state.selectedRaceId = els.quickRaceSelect.value;
+      applyCreationAttributeProfile();
       cleanseInvalidSelections();
       renderAll();
       persist();
@@ -1008,10 +1039,7 @@
     state.levelMode = "manual";
     state.manualLevel = 1;
     ensureAttributeDefaults();
-    for (const key of Object.keys(state.attributes)) {
-      state.attributes[key].base = 10;
-      state.attributes[key].mod = 0;
-    }
+    applyCreationAttributeProfile();
     renderAll();
     persist();
   }
@@ -1023,9 +1051,10 @@
     }
     const keys = ["sil", "obr", "odo", "int", "cha"];
     for (const key of keys) {
+      const score = clampInt(1 + Math.floor(Math.random() * 21), 1, 21, 10);
       state.attributes[key] = {
-        base: clampInt(1 + Math.floor(Math.random() * 21), 1, 21, 10),
-        mod: clampInt(-5 + Math.floor(Math.random() * 11), -5, 5, 0)
+        base: score,
+        mod: getAttributeModifier(score)
       };
     }
   }
@@ -1050,14 +1079,9 @@
       const raw = baseInput ? String(baseInput.value || "") : "";
       const parsed = clampInt(parseInt(raw, 10), 1, 21, state.attributes[attrKey].base);
       state.attributes[attrKey].base = parsed;
+      state.attributes[attrKey].mod = getAttributeModifier(parsed);
       if (baseInput) baseInput.value = String(parsed);
-      persist();
-    };
-    const applyMod = () => {
-      const raw = modInput ? String(modInput.value || "") : "";
-      const parsed = clampInt(parseInt(raw, 10), -5, 5, state.attributes[attrKey].mod);
-      state.attributes[attrKey].mod = parsed;
-      if (modInput) modInput.value = String(parsed);
+      if (modInput) modInput.value = String(state.attributes[attrKey].mod);
       persist();
     };
     if (baseInput) {
@@ -1070,13 +1094,8 @@
       });
     }
     if (modInput) {
-      modInput.addEventListener("blur", applyMod);
-      modInput.addEventListener("keydown", (ev) => {
-        if (ev.key === "Enter") {
-          applyMod();
-          modInput.blur();
-        }
-      });
+      modInput.readOnly = true;
+      modInput.tabIndex = -1;
     }
   }
 
@@ -1339,6 +1358,7 @@
       btn.textContent = p.name;
       btn.addEventListener("click", () => {
         state.selectedProfessionId = p.id;
+        applyCreationAttributeProfile();
         cleanseInvalidSelections();
         renderAll();
         persist();
@@ -1374,6 +1394,7 @@
         gapBtn.addEventListener("click", () => {
           hideGapHoverTip();
           state.selectedProfessionId = p.id;
+          applyCreationAttributeProfile();
           cleanseInvalidSelections();
           renderAll();
           persist();
@@ -3021,6 +3042,39 @@
   function getFirstNonHumanRaceId() {
     const nonHuman = state.races.find((r) => normalize(r.name) !== "clovek");
     return nonHuman ? nonHuman.id : null;
+  }
+
+  function getAttributeModifier(score) {
+    const x = clampInt(score, 1, 23, 1);
+    if (x <= 1) return -5;
+    if (x <= 3) return -4;
+    if (x <= 5) return -3;
+    if (x <= 7) return -2;
+    if (x <= 9) return -1;
+    if (x <= 11) return 0;
+    if (x <= 13) return 1;
+    if (x <= 15) return 2;
+    if (x <= 17) return 3;
+    if (x <= 19) return 4;
+    if (x <= 21) return 5;
+    return 6;
+  }
+
+  function applyCreationAttributeProfile() {
+    ensureAttributeDefaults();
+    const race = getRaceById(state.selectedRaceId);
+    const raceKey = normalize(race && race.name);
+    const raceBase = RACE_BASE_ATTRIBUTES[raceKey] || RACE_BASE_ATTRIBUTES.clovek;
+    const dominant = CLASS_DOMINANT_ATTRIBUTES[state.selectedProfessionId] || [];
+    const keys = ["sil", "obr", "odo", "int", "cha"];
+    for (const key of keys) {
+      const add = dominant.includes(key) ? 3 : 0;
+      const score = clampInt(Number(raceBase[key] || 10) + add, 1, 21, 10);
+      state.attributes[key] = {
+        base: score,
+        mod: getAttributeModifier(score)
+      };
+    }
   }
 
   function getRaceBonusTalent() {
