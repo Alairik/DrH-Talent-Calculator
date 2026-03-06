@@ -120,14 +120,34 @@ body.theme-epic .talents-panel {
 }
 body.theme-epic .skills-panel { --edge-scale: 2.2; }    /* increased reduction for middle column */
 body.theme-epic .skills-panel {
-  --skills-photo-cap-gap: 140px;
+  --skills-photo-size: clamp(96px, 8.8vw, 150px);
+  --skills-photo-offset-right: 2px;
+  --skills-photo-offset-bottom: clamp(38px, 6vh, 58px);
+  --skills-photo-veil: 0.75;
   background:
     linear-gradient(180deg, rgba(255, 237, 202, var(--tx-panel)), rgba(255, 237, 202, 0)),
     var(--drh-bg-pergamen-top) top center / 100% auto no-repeat,
     var(--drh-bg-pergamen-bottom) bottom center / 100% auto no-repeat,
-    var(--drh-bg-skills-photo) right 30px bottom 124px / 330px auto no-repeat,
+    linear-gradient(180deg, rgba(212, 188, 146, var(--skills-photo-veil)), rgba(212, 188, 146, var(--skills-photo-veil))) right var(--skills-photo-offset-right) bottom var(--skills-photo-offset-bottom) / var(--skills-photo-size) auto no-repeat,
+    var(--drh-bg-skills-photo) right var(--skills-photo-offset-right) bottom var(--skills-photo-offset-bottom) / var(--skills-photo-size) auto no-repeat,
     var(--drh-bg-pergamen) center / 100% auto repeat-y;
-  background-blend-mode: soft-light, normal, normal, normal, normal;
+  background-blend-mode: soft-light, normal, normal, normal, normal, normal;
+}
+
+@media (min-width: 1025px) and (max-width: 1700px) {
+  body.theme-epic .skills-panel {
+    --skills-photo-size: clamp(116px, 10.5vw, 176px);
+    --skills-photo-offset-right: clamp(2px, 0.7vw, 8px);
+    --skills-photo-offset-bottom: clamp(52px, 7vh, 72px);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1700px) {
+  body.theme-epic .skills-panel {
+    --skills-photo-size: clamp(98px, 9.6vw, 146px);
+    --skills-photo-offset-right: 2px;
+    --skills-photo-offset-bottom: clamp(44px, 6.5vh, 62px);
+  }
 }
 
 body.theme-epic .panel::before,
@@ -177,6 +197,15 @@ body.theme-epic .gap-icons-panel {
   --shell-gap-base: 0px;
   --shell-gap: 0px;
   padding: 0.8rem 0 !important;
+  overflow: hidden !important;
+}
+
+body.theme-epic .top-class-picker .class-box {
+  font-family: "Seagram V3", "Lora", Georgia, "Times New Roman", serif !important;
+}
+
+body.theme-epic .spec-node {
+  font-family: "Seagram V3", "Lora", Georgia, "Times New Roman", serif !important;
 }
 
 body.theme-epic .gap-icons-panel::before,
