@@ -190,6 +190,7 @@ h3,
 
 @media (min-width: 1025px) {
   :root {
+    --talent-panel-target-width: clamp(300px, 22vw, 420px);
     --main-panel-target-width: clamp(360px, 27vw, 560px);
     --gap-panel-target-width: clamp(52px, 4.2vw, 110px);
     --gap-panel-inner-pad: 0px;
@@ -200,12 +201,13 @@ h3,
     --desktop-main-gap: clamp(0.24rem, 0.7vw, 0.9rem);
     --desktop-main-width:
       calc(
-        (3 * var(--main-panel-target-width)) +
+        var(--talent-panel-target-width) +
+        (2 * var(--main-panel-target-width)) +
         var(--gap-panel-target-width) +
         (3 * var(--desktop-main-gap))
       );
     grid-template-columns:
-      minmax(0, var(--main-panel-target-width))
+      minmax(0, var(--talent-panel-target-width))
       minmax(0, var(--gap-panel-target-width))
       minmax(0, var(--main-panel-target-width))
       minmax(0, var(--main-panel-target-width));
@@ -217,14 +219,14 @@ h3,
 
   .column-controls > :first-child {
     justify-self: start;
-    width: min(var(--main-panel-target-width), 100%);
-    max-width: min(var(--main-panel-target-width), 100%);
+    width: min(var(--talent-panel-target-width), 100%);
+    max-width: min(var(--talent-panel-target-width), 100%);
   }
 
   .layout > .talents-panel {
     justify-self: start;
-    width: min(var(--main-panel-target-width), 100%);
-    max-width: min(var(--main-panel-target-width), 100%);
+    width: min(var(--talent-panel-target-width), 100%);
+    max-width: min(var(--talent-panel-target-width), 100%);
     height: 100%;
   }
 
@@ -375,6 +377,18 @@ h3,
     min-height: var(--skill-row-height-min);
     max-height: var(--skill-row-height-max);
     height: clamp(var(--skill-row-height-min), var(--skill-row-height-dyn), var(--skill-row-height-max));
+  }
+
+  .talents-panel {
+    --talent-grid-width: min(100%, clamp(248px, 28vh, 356px));
+    --talent-grid-gap: clamp(0.22rem, 0.35vh, 0.32rem);
+    --talent-node-size-max: calc((var(--talent-grid-width) - (3 * var(--talent-grid-gap))) / 4);
+  }
+
+  .spec-node {
+    min-height: clamp(56px, 7.2vh, var(--talent-node-size-max));
+    font-size: clamp(0.62rem, 0.74vh, 0.74rem);
+    padding: clamp(0.2rem, 0.36vh, 0.35rem);
   }
 }
 

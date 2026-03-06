@@ -240,7 +240,7 @@ body.theme-epic .talents-panel .branch {
 
 /* Use saved vertical space for bigger advanced-profession buttons. */
 body.theme-epic .talents-panel .spec-node {
-  min-height: clamp(74px, 11vh, var(--talent-node-size-max));
+  min-height: clamp(56px, 7.2vh, var(--talent-node-size-max));
   font-size: 0.74rem;
 }
 
