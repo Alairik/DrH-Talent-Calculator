@@ -459,6 +459,34 @@ body.theme-epic .talents-panel[data-prof-id="PROF_4"] { --class-rgb: 47, 88, 121
 body.theme-epic .talents-panel[data-prof-id="PROF_5"] { --class-rgb: 48, 48, 48; }
 body.theme-epic .talents-panel[data-prof-id="PROF_6"] { --class-rgb: 214, 214, 214; }
 
+/* Warrior branch color parity: keep same vivid branch behavior as other classes. */
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-0 {
+  border-color: #a83030;
+  background: linear-gradient(180deg, rgba(121, 28, 28, 0.68), rgba(46, 14, 14, 0.9));
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-1 {
+  border-color: #b76a31;
+  background: linear-gradient(180deg, rgba(125, 45, 27, 0.66), rgba(52, 24, 14, 0.9));
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-2 {
+  border-color: #8f4f4f;
+  background: linear-gradient(180deg, rgba(102, 35, 44, 0.64), rgba(45, 18, 28, 0.9));
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-0.selected {
+  box-shadow: 0 0 0 1px #a83030, 0 0 18px rgba(168, 48, 48, 0.46);
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-1.selected {
+  box-shadow: 0 0 0 1px #b76a31, 0 0 18px rgba(183, 106, 49, 0.46);
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .general-nodes .node.spec-2.selected {
+  box-shadow: 0 0 0 1px #8f4f4f, 0 0 18px rgba(143, 79, 79, 0.46);
+}
+
 /* Advanced class picker uses the same DRH frame states as top class picker. */
 body.theme-epic .talents-panel .spec-picker .spec-node {
   --spec-frame-idle: url("assets/ui/class-frame-idle.png");
@@ -490,6 +518,21 @@ body.theme-epic .talents-panel .spec-picker .spec-node.locked-spec {
   box-shadow:
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.36),
     0 0 10px rgba(var(--class-rgb, 124, 94, 56), 0.22) !important;
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .spec-picker .spec-node.spec-0 {
+  border-color: #b02b2b;
+  background: linear-gradient(180deg, rgba(153, 32, 32, 0.72), rgba(41, 14, 14, 0.96));
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .spec-picker .spec-node.spec-1 {
+  border-color: #b16a2d;
+  background: linear-gradient(180deg, rgba(154, 58, 34, 0.7), rgba(44, 19, 13, 0.96));
+}
+
+body.theme-epic .talents-panel[data-prof-id="PROF_1"] .spec-picker .spec-node.spec-2 {
+  border-color: #8b4f46;
+  background: linear-gradient(180deg, rgba(131, 45, 45, 0.68), rgba(23, 26, 30, 0.96));
 }
 
 body.theme-epic .talents-panel .spec-picker .spec-node::after {
