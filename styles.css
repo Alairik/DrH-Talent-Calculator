@@ -453,6 +453,10 @@ h3,
 
 /* Smaller desktop width: remove the gap icons column completely. */
 @media (min-width: 1025px) and (max-width: 1366px) {
+  #classPicker.top-class-picker {
+    display: grid;
+  }
+
   .column-controls,
   .layout {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
@@ -473,6 +477,13 @@ h3,
     justify-self: stretch;
     width: 100%;
     max-width: 100%;
+  }
+}
+
+/* Wide desktop: use the icon gap-column picker only, hide top class picker. */
+@media (min-width: 1367px) {
+  #classPicker.top-class-picker {
+    display: none;
   }
 }
 
