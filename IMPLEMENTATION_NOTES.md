@@ -213,3 +213,16 @@ Stav k tomuto checkpointu:
 - Dopsat finalni schopnosti pro rozsirena povolani.
 - Az pote finalni graficke ladeni.
 
+## 13) Responsive checkpoint (desktop approved)
+
+Status potvrzeny uzivatelem:
+
+- aktualni desktop responsive stav je schvaleny jako referencni baseline
+- rozvrzeni 4 sloupcu + fantasy skin v teto podobe zachovat
+- dalsi zmeny desktopu delat jen jako jemne doladeni, ne jako redesign
+
+Poznamka:
+
+- mobilni verze je vedome "pending" a bude se resit v dalsi iteraci
+- do te doby drzet fokus na stabilite desktopu
+
