@@ -373,6 +373,23 @@ body.theme-epic .spec-info-btn:hover {
     inset 0 -10px 16px rgba(0, 0, 0, 0.28);
 }
 
+body.theme-epic #timelineHelpBtn.timeline-help-btn {
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1300;
+}
+
+@media (max-width: 1024px) {
+  body.theme-epic #timelineHelpBtn.timeline-help-btn {
+    top: auto;
+    right: 10px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    transform: none;
+  }
+}
+
 /* Keep +/- skill buttons in classic style even in fantasy mode. */
 body.theme-epic .skill-rank-controls button {
   border: 1px solid var(--line);

@@ -674,6 +674,24 @@ h3,
   border-color: #d4ad66;
 }
 
+/* Floating help button on right side of the viewport. */
+#timelineHelpBtn.timeline-help-btn {
+  position: fixed;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1300;
+}
+
+@media (max-width: 1024px) {
+  #timelineHelpBtn.timeline-help-btn {
+    top: auto;
+    right: 10px;
+    bottom: calc(72px + env(safe-area-inset-bottom));
+    transform: none;
+  }
+}
+
 #shareLinkBtn {
   width: 78px;
   min-width: 78px;
