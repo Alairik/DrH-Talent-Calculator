@@ -1824,7 +1824,7 @@
         if (isSelected && Number.isFinite(selectedAtLevel) && selectedAtLevel > 0) {
           const lvl = document.createElement("span");
           lvl.className = "node-level-indicator";
-          lvl.textContent = String(selectedAtLevel);
+          lvl.textContent = `Lv ${selectedAtLevel}`;
           node.appendChild(lvl);
         }
         if (isDisabled || isStarterTalent) node.setAttribute("aria-disabled", "true");

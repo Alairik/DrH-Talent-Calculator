@@ -1469,10 +1469,10 @@ button:hover {
   position: absolute;
   top: 3px;
   right: 3px;
-  width: 24px;
-  min-width: 24px;
-  height: 16px;
-  font-size: 0.5rem;
+  width: 34px;
+  min-width: 34px;
+  height: 17px;
+  font-size: 0.44rem;
   font-weight: 700;
   line-height: 1;
   padding: 0;
