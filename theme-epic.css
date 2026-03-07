@@ -658,11 +658,12 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
 
 /* Make ADV-picker icon artwork more legible under the frame and tints. */
 body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
+  inset: 5px;
   border-radius: inherit;
   opacity: 0.44;
   mix-blend-mode: normal;
   filter: saturate(1.2) contrast(1.08) brightness(1.14);
-  transform: scale(1.14);
+  transform: none;
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
