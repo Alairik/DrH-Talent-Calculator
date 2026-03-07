@@ -464,6 +464,34 @@ body.theme-epic .tile-frame-overlay {
   z-index: 7;
 }
 
+/* Base 12 + extended 12: keep frame on top and prevent rounding clip cut. */
+body.theme-epic .general-nodes .node,
+body.theme-epic .branch-nodes .node {
+  overflow: visible;
+}
+
+body.theme-epic .general-nodes .node .tile-frame-overlay,
+body.theme-epic .branch-nodes .node .tile-frame-overlay {
+  inset: -2px;
+  background-size: 100% 100%;
+  z-index: 18;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+body.theme-epic .general-nodes .node .node-label,
+body.theme-epic .branch-nodes .node .node-label {
+  z-index: 20;
+}
+
+body.theme-epic .general-nodes .node .node-info-btn,
+body.theme-epic .branch-nodes .node .node-info-btn,
+body.theme-epic .general-nodes .node .node-level-indicator,
+body.theme-epic .branch-nodes .node .node-level-indicator {
+  z-index: 22 !important;
+}
+
 /* Advanced class picker buttons should not use the square frame overlay. */
 body.theme-epic .spec-picker .tile-frame-overlay {
   display: none;
