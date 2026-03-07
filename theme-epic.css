@@ -453,6 +453,11 @@ body.theme-epic .tile-frame-overlay {
   z-index: 7;
 }
 
+/* Advanced class picker buttons should not use the square frame overlay. */
+body.theme-epic .spec-picker .tile-frame-overlay {
+  display: none;
+}
+
 /* Fantasy-only Lv plate styling. */
 body.theme-epic .node-level-indicator {
   top: 1px;
