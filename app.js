@@ -1056,9 +1056,8 @@
 
   function randomizeCharacterQuick() {
     if (els.quickRaceSelect) state.selectedRaceId = String(els.quickRaceSelect.value || state.selectedRaceId || "");
-    const uiLevel = clampInt(parseInt(String((els.quickLevelDisplay && els.quickLevelDisplay.textContent) || ""), 10), 1, state.config.maxLevel, state.manualLevel);
-    state.manualLevel = uiLevel;
     state.levelMode = "manual";
+    state.manualLevel = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     const profId = state.selectedProfessionId;
     const targetLevel = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     if (!profId) return;
@@ -1094,6 +1093,8 @@
     }
 
     autoPickSkillsForLevel(profId, targetLevel, talentLevelById, chosenSpec);
+    state.levelMode = "manual";
+    state.manualLevel = targetLevel;
   }
 
   function randomizeCreationAttributesByClass(profId) {
@@ -1157,6 +1158,9 @@
       .sort((a, b) => scoreTalent(a, preferredReqTalents) - scoreTalent(b, preferredReqTalents));
     const requiredTalents = generalBase.filter((t) => preferredReqTalents.has(t.id));
     const generalBaseRest = generalBase.filter((t) => !preferredReqTalents.has(t.id));
+    const requiredIds = new Set(requiredTalents.map((t) => t.id));
+    const mainBranchIds = new Set(mainBranch.map((t) => t.id));
+    let preLockOffBranchPicks = 0;
 
     const seen = new Set();
     const queue = [];
@@ -1180,15 +1184,34 @@
       while (slots > 0) {
         const available = queue.filter((t) => !picked.has(t.id) && Number(t.required_level || 1) <= lvl);
         if (!available.length) break;
-        const topScore = scoreTalent(available[0], preferredReqTalents);
-        const band = available.filter((t) => scoreTalent(t, preferredReqTalents) <= topScore + 2);
-        const talent = band[Math.floor(Math.random() * band.length)] || available[0];
+        const lockAchieved =
+          [...requiredIds].every((id) => picked.has(id)) &&
+          [...mainBranchIds].some((id) => picked.has(id));
+        let poolForPick = available;
+        if (lvl >= SPECIALIZATION_UNLOCK_LEVEL && !lockAchieved) {
+          const lockCandidates = available.filter((t) => requiredIds.has(t.id) || mainBranchIds.has(t.id));
+          if (lockCandidates.length > 0) {
+            poolForPick = lockCandidates;
+          } else if (preLockOffBranchPicks >= 1) {
+            break;
+          }
+        }
+        const topScore = scoreTalent(poolForPick[0], preferredReqTalents);
+        const band = poolForPick.filter((t) => scoreTalent(t, preferredReqTalents) <= topScore + 2);
+        const talent = band[Math.floor(Math.random() * band.length)] || poolForPick[0];
         const idx = queue.findIndex((t) => t.id === talent.id);
         if (idx < 0) break;
         addTalentSelection(talent.id);
         autoGrantSkillsFromSTalent(talent.id);
         picked.add(talent.id);
         levelById.set(talent.id, lvl);
+        if (
+          lvl >= SPECIALIZATION_UNLOCK_LEVEL &&
+          !requiredIds.has(talent.id) &&
+          !mainBranchIds.has(talent.id)
+        ) {
+          preLockOffBranchPicks += 1;
+        }
         slots -= 1;
       }
     }
