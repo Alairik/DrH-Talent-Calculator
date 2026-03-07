@@ -498,7 +498,7 @@ body.theme-epic .node-level-indicator::before {
   position: absolute;
   inset: 0;
   background: transparent url("./research/drh_assets/grafika/LvXX.png") center / 100% 100% no-repeat;
-  filter: none;
+  filter: saturate(0.68) brightness(0.82) contrast(0.96);
   z-index: -1;
   pointer-events: none;
 }
