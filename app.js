@@ -269,7 +269,8 @@
     ui: {
       l6Visible: false,
       branchVisible: [false, false, false],
-      specOpportunityPulseByClass: {}
+      specOpportunityPulseByClass: {},
+      freezeManualLevel: false
     }
   };
 
@@ -827,10 +828,15 @@
     }
 
     if (els.quickRandomBtn) els.quickRandomBtn.addEventListener("click", () => {
-      randomizeCharacterQuick();
-      cleanseInvalidSelections();
-      renderAll();
-      persist();
+      state.ui.freezeManualLevel = true;
+      try {
+        randomizeCharacterQuick();
+        cleanseInvalidSelections();
+        renderAll();
+        persist();
+      } finally {
+        state.ui.freezeManualLevel = false;
+      }
     });
 
     bindNumber(els.maxLevel, (v) => {
@@ -3470,6 +3476,7 @@
       return fallback;
     }
     if (state.levelMode === "manual") {
+      if (state.ui.freezeManualLevel) return manual;
       if (fallback > manual) {
         state.levelMode = "auto";
         state.manualLevel = fallback;
