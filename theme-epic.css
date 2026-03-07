@@ -471,7 +471,7 @@ body.theme-epic .spec-picker .tile-frame-overlay {
 
 /* Fantasy-only Lv plate styling. */
 body.theme-epic .node-level-indicator {
-  top: 1px;
+  top: -3px;
   left: 1px;
   right: auto;
   width: 48px;
