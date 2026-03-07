@@ -2131,8 +2131,13 @@
     if (closeStarterIds.has(skill.id)) return 0;
     const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
     const hasReq = requiresPrereqForSkill(skill);
-    if (!hasReq) return isClassSkill ? 1 : 2;
-    return isClassSkill ? 3 : 4;
+    const isAdvanced = Number(skill.required_level || 1) >= SPECIALIZATION_UNLOCK_LEVEL;
+    if (!isAdvanced) {
+      if (!hasReq) return isClassSkill ? 1 : 2;
+      return isClassSkill ? 3 : 4;
+    }
+    if (!hasReq) return isClassSkill ? 5 : 6;
+    return isClassSkill ? 7 : 8;
   }
 
   function getSkillFloor(skill, starterIds, profId = state.selectedProfessionId) {
