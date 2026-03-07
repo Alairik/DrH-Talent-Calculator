@@ -1809,7 +1809,7 @@
         const infoBtn = document.createElement("button");
         infoBtn.type = "button";
         infoBtn.className = "node-info-btn";
-        infoBtn.textContent = "i";
+        infoBtn.textContent = "";
         infoBtn.setAttribute("aria-label", `Info: ${talent.name}`);
         infoBtn.addEventListener("click", (ev) => {
           ev.preventDefault();
@@ -1824,7 +1824,7 @@
         if (isSelected && Number.isFinite(selectedAtLevel) && selectedAtLevel > 0) {
           const lvl = document.createElement("span");
           lvl.className = "node-level-indicator";
-          lvl.textContent = `Lv ${selectedAtLevel}`;
+          lvl.textContent = String(selectedAtLevel);
           node.appendChild(lvl);
         }
         if (isDisabled || isStarterTalent) node.setAttribute("aria-disabled", "true");
@@ -1895,7 +1895,7 @@
       const infoBtn = document.createElement("button");
       infoBtn.type = "button";
       infoBtn.className = "spec-info-btn";
-      infoBtn.textContent = "i";
+      infoBtn.textContent = "";
       infoBtn.setAttribute("aria-label", `Info: ${branchNames[i]}`);
       infoBtn.addEventListener("click", (ev) => {
         ev.preventDefault();
