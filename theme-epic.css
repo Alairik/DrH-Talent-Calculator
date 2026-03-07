@@ -506,9 +506,9 @@ body.theme-epic .node-level-indicator {
   top: -11px;
   left: 1px;
   right: auto;
-  width: 48px;
-  min-width: 48px;
-  height: 38px;
+  width: 53px;
+  min-width: 53px;
+  height: 42px;
   font-size: 0.54rem;
   font-family: var(--font-body), Georgia, "Times New Roman", serif;
   font-weight: 300 !important;
@@ -518,11 +518,15 @@ body.theme-epic .node-level-indicator {
   background: transparent;
   color: #4a301d;
   letter-spacing: 0.01em;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  text-shadow: none !important;
   display: grid;
   place-items: center;
   isolation: isolate;
-  z-index: 11;
+  z-index: 30 !important;
+  filter: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 body.theme-epic .node-level-indicator::before {
@@ -530,9 +534,10 @@ body.theme-epic .node-level-indicator::before {
   position: absolute;
   inset: 0;
   background: transparent url("./research/drh_assets/grafika/LvXX.png") center / 100% 100% no-repeat;
-  filter: saturate(0.68) brightness(0.82) contrast(0.96);
+  filter: none !important;
   z-index: -1;
   pointer-events: none;
+  opacity: 1 !important;
 }
 
 body.theme-epic .class-box.active {
@@ -690,7 +695,7 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
 
 /* Make ADV-picker icon artwork more legible under the frame and tints. */
 body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
-  inset: 4px 0;
+  inset: 4px -4px;
   border-radius: 18px;
   opacity: 0.44;
   mix-blend-mode: normal;
