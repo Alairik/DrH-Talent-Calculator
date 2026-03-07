@@ -363,9 +363,7 @@ body.theme-epic .top-class-picker .class-box.active {
 body.theme-epic .class-box:hover,
 body.theme-epic .timeline-tools .lvl-btn:hover,
 body.theme-epic .timeline-help-btn:hover,
-body.theme-epic .skill-rank-controls button:hover,
-body.theme-epic .node-info-btn:hover,
-body.theme-epic .spec-info-btn:hover {
+body.theme-epic .skill-rank-controls button:hover {
   border-color: var(--gold-strong);
   box-shadow:
     0 0 14px rgba(244, 199, 119, 0.28),
@@ -432,7 +430,7 @@ body.theme-epic .node-info-btn:hover,
 body.theme-epic .spec-info-btn:hover {
   border: none !important;
   box-shadow: none !important;
-  filter: brightness(1.08) saturate(1.06);
+  filter: none !important;
 }
 
 /* Fantasy-only square frame overlay above tile base, below labels/info/lv plate. */
