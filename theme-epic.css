@@ -412,14 +412,14 @@ body.theme-epic .skill-rank-controls button:hover {
 body.theme-epic .node-info-btn,
 body.theme-epic .spec-info-btn {
   position: absolute;
-  top: 1px;
-  right: 1px;
+  top: -8px;
+  right: -8px;
   left: auto;
   width: 48px;
   height: 48px;
   min-width: 48px;
   z-index: 11;
-  transform: translate(4px, -4px);
+  transform: none;
   border: none !important;
   background: transparent url("./research/drh_assets/grafika/info.png") center / 100% 100% no-repeat !important;
   box-shadow: none !important;
