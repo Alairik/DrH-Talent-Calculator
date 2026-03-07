@@ -424,6 +424,7 @@ body.theme-epic .spec-info-btn {
   color: transparent !important;
   font-size: 0 !important;
   border-radius: 0 !important;
+  opacity: 1 !important;
 }
 
 body.theme-epic .node-info-btn:hover,
@@ -431,6 +432,15 @@ body.theme-epic .spec-info-btn:hover {
   border: none !important;
   box-shadow: none !important;
   filter: none !important;
+}
+
+body.theme-epic .node.selected .node-info-btn,
+body.theme-epic .spec-node.active .spec-info-btn,
+body.theme-epic .spec-node.locked-spec .spec-info-btn {
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 1 !important;
 }
 
 /* Fantasy-only square frame overlay above tile base, below labels/info/lv plate. */
@@ -452,11 +462,13 @@ body.theme-epic .node-level-indicator {
   min-width: 48px;
   height: 38px;
   font-size: 0.54rem;
-  font-weight: 400;
+  font-family: var(--font-body), Georgia, "Times New Roman", serif;
+  font-weight: 300 !important;
   padding: 0;
   border-radius: 0;
   border: none;
   background: transparent;
+  color: #4a301d;
   letter-spacing: 0.01em;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
   display: grid;
