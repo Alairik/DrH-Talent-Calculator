@@ -1249,10 +1249,12 @@
         (lvl === 1 ? window.APP_CONFIG.points.skillLevel1 : classRule.skillPointsMultiplier * lvl) +
         (lvl === 1 ? racePointBonus.skillLevel1 : racePointBonus.skillPerLevel);
       pool += Number(gain) || 0;
+      const upgraded = new Set();
 
       while (true) {
         const options = plans
           .filter((p) => p.current < getSkillRankCap())
+          .filter((p) => !upgraded.has(p.skill.id))
           .filter((p) => Number(p.skill.required_level || 1) <= lvl)
           .filter((p) => {
             if (!requiresPrereqForSkill(p.skill) || !p.skill.ability_id) return true;
@@ -1280,6 +1282,7 @@
         pick.p.current = pick.next;
         pick.p.target = Math.max(pick.p.target, pick.next);
         pool -= pick.cost;
+        upgraded.add(pick.p.skill.id);
       }
     }
 
