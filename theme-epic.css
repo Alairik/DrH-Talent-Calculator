@@ -459,7 +459,7 @@ body.theme-epic .tile-frame-overlay {
   display: block;
   position: absolute;
   inset: 0;
-  background: transparent url("./research/drh_assets/grafika/U%C5%BE%C5%A1%C3%AD%20drsn%C3%BD%20fantasy%20r.png") center / 112% 112% no-repeat;
+  background: transparent url("./research/drh_assets/grafika/ramecek_ctverec.png") center / 112% 112% no-repeat;
   pointer-events: none;
   z-index: 7;
 }
