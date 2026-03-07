@@ -1800,7 +1800,13 @@
         if (isStarterTalent) tooltipLines.push("[ZAKLAD OD LVL 1]");
         if (isPdfCovered) tooltipLines.push("[PDF]");
         const tooltipText = tooltipLines.join("\n");
-        node.textContent = talent.name;
+        const label = document.createElement("span");
+        label.className = "node-label";
+        label.textContent = talent.name;
+        node.appendChild(label);
+        const frame = document.createElement("span");
+        frame.className = "tile-frame-overlay";
+        node.appendChild(frame);
         node.setAttribute("aria-label", tooltipText);
         node.addEventListener("mouseenter", () => showInfoTooltip(tooltipText, node, false));
         node.addEventListener("mouseleave", () => {
@@ -1868,7 +1874,13 @@
         btn.classList.add("muted");
       }
       const suffix = selectedCount > 0 ? ` (${selectedCount})` : "";
-      btn.textContent = `${branchNames[i]}${suffix}`;
+      const specLabel = document.createElement("span");
+      specLabel.className = "spec-label";
+      specLabel.textContent = `${branchNames[i]}${suffix}`;
+      btn.appendChild(specLabel);
+      const specFrame = document.createElement("span");
+      specFrame.className = "tile-frame-overlay";
+      btn.appendChild(specFrame);
       const req = getSpecializationRequirements(profId, i);
       const infoText = buildSpecializationInfoText(branchNames[i], req, branches[i] || []);
       btn.setAttribute("aria-label", infoText);

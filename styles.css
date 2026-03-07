@@ -1250,6 +1250,26 @@ button:hover {
   font-family: "Seagram V3", "Lora", Georgia, "Times New Roman", serif !important;
 }
 
+.node,
+.spec-node {
+  isolation: isolate;
+}
+
+.tile-frame-overlay {
+  position: absolute;
+  inset: 0;
+  background: transparent url("./research/drh_assets/grafika/Ramecek_ctverec_bez pozadi.png") center / 100% 100% no-repeat;
+  pointer-events: none;
+  z-index: 7;
+}
+
+.node-label,
+.spec-label {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+}
+
 .spec-info-btn {
   position: absolute;
   top: 1px;
@@ -1266,7 +1286,7 @@ button:hover {
   padding: 0;
   display: grid;
   place-items: center;
-  z-index: 8;
+  z-index: 11;
 }
 
 .spec-info-btn:hover {
@@ -1289,7 +1309,7 @@ button:hover {
   padding: 0;
   display: grid;
   place-items: center;
-  z-index: 3;
+  z-index: 11;
 }
 
 .spec-lock-btn:hover {
@@ -1458,7 +1478,7 @@ button:hover {
   padding: 0;
   display: grid;
   place-items: center;
-  z-index: 8;
+  z-index: 11;
 }
 
 .node-info-btn:hover {
@@ -1485,7 +1505,7 @@ button:hover {
   display: grid;
   place-items: center;
   isolation: isolate;
-  z-index: 9;
+  z-index: 11;
   pointer-events: none;
 }
 
