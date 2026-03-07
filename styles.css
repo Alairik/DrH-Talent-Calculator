@@ -212,9 +212,9 @@ h3,
   position: fixed;
   right: 12px;
   bottom: 14px;
-  --floating-peek-height: 72px;
+  --floating-peek-height: 116px;
   z-index: 1310;
-  width: min(282px, calc(100vw - 20px));
+  width: min(228px, calc(100vw - 20px));
   overflow: visible;
   border: 1px solid var(--line);
   border-radius: 12px;
@@ -313,8 +313,17 @@ h3,
 }
 
 .floating-save-btn {
+  width: 100%;
   padding: 0 0.55rem;
   font-weight: 700;
+}
+
+.floating-row-save {
+  width: 100%;
+}
+
+.floating-panel.collapsed .floating-attrs {
+  display: none;
 }
 
 .floating-attrs {
