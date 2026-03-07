@@ -1258,7 +1258,7 @@ button:hover {
 .tile-frame-overlay {
   position: absolute;
   inset: 0;
-  background: transparent url("./research/drh_assets/grafika/Ramecek_ctverec_bez pozadi.png") center / 100% 100% no-repeat;
+  background: transparent url("./research/drh_assets/grafika/Ramecek_ctverec_bez pozadi.png") center / 112% 112% no-repeat;
   pointer-events: none;
   z-index: 7;
 }
