@@ -1518,6 +1518,15 @@ button:hover {
   pointer-events: none;
 }
 
+/* LV plate should just appear on selection; no extra highlighted state. */
+.node.selected .node-level-indicator,
+.spec-node.active .node-level-indicator,
+.spec-node.locked-spec .node-level-indicator {
+  color: #f7e8cc;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  filter: none;
+}
+
 .info-tooltip {
   position: fixed;
   z-index: 1200;
