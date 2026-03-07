@@ -602,9 +602,9 @@ body.theme-epic .talents-panel .spec-picker .spec-node {
   --frame-image: var(--spec-frame-idle);
   --frame-alpha: 1;
   border: 0 !important;
-  border-radius: 14px;
+  border-radius: 20px;
   overflow: hidden;
-  clip-path: inset(0 round 14px);
+  clip-path: inset(0 round 20px);
   box-shadow:
     0 0 0 1px rgba(var(--class-rgb, 124, 94, 56), 0.2) !important;
 }
@@ -646,7 +646,7 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: inherit;
+  border-radius: 18px;
   background-image: var(--frame-image);
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -659,7 +659,7 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
 /* Make ADV-picker icon artwork more legible under the frame and tints. */
 body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
   inset: 4px;
-  border-radius: inherit;
+  border-radius: 18px;
   opacity: 0.44;
   mix-blend-mode: normal;
   filter: saturate(1.2) contrast(1.08) brightness(1.14);
