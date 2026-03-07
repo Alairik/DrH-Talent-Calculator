@@ -645,7 +645,7 @@ body.theme-epic .talents-panel[data-prof-id="PROF_1"] .spec-picker .spec-node.sp
 body.theme-epic .talents-panel .spec-picker .spec-node::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: 5px;
   border-radius: inherit;
   background-image: var(--frame-image);
   background-size: 100% 100%;
@@ -658,12 +658,12 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
 
 /* Make ADV-picker icon artwork more legible under the frame and tints. */
 body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
-  inset: 0 5px;
+  inset: -2px -2px;
   border-radius: 0;
   opacity: 0.44;
   mix-blend-mode: normal;
   filter: saturate(1.2) contrast(1.08) brightness(1.14);
-  transform: none;
+  transform: scale(1.04);
 }
 
 /* In epic mode, uncolored talents should match default skill-cell visual. */
