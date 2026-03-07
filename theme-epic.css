@@ -419,6 +419,7 @@ body.theme-epic .spec-info-btn {
   height: 48px;
   min-width: 48px;
   z-index: 11;
+  transform: translate(4px, -4px);
   border: none !important;
   background: transparent url("./research/drh_assets/grafika/info.png") center / 100% 100% no-repeat !important;
   box-shadow: none !important;

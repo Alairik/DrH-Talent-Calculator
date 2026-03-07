@@ -1288,6 +1288,7 @@ button:hover {
   display: grid;
   place-items: center;
   z-index: 11;
+  transform: translate(4px, -4px);
 }
 
 .spec-info-btn:hover {
@@ -1481,6 +1482,7 @@ button:hover {
   display: grid;
   place-items: center;
   z-index: 11;
+  transform: translate(4px, -4px);
 }
 
 .node-info-btn:hover {
