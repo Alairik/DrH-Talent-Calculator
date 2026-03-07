@@ -468,8 +468,8 @@ body.theme-epic .tile-frame-overlay {
 body.theme-epic .general-nodes .node,
 body.theme-epic .branch-nodes .node {
   overflow: visible;
-  width: calc(100% - 4px);
-  margin: 2px auto;
+  width: calc(100% - 8px);
+  margin: 4px auto;
 }
 
 body.theme-epic .general-nodes .node .tile-frame-overlay,
