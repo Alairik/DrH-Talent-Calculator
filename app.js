@@ -1815,7 +1815,7 @@
         const infoBtn = document.createElement("button");
         infoBtn.type = "button";
         infoBtn.className = "node-info-btn";
-        infoBtn.textContent = "";
+        infoBtn.textContent = "i";
         infoBtn.setAttribute("aria-label", `Info: ${talent.name}`);
         infoBtn.addEventListener("click", (ev) => {
           ev.preventDefault();
@@ -1907,7 +1907,7 @@
       const infoBtn = document.createElement("button");
       infoBtn.type = "button";
       infoBtn.className = "spec-info-btn";
-      infoBtn.textContent = "";
+      infoBtn.textContent = "i";
       infoBtn.setAttribute("aria-label", `Info: ${branchNames[i]}`);
       infoBtn.addEventListener("click", (ev) => {
         ev.preventDefault();
