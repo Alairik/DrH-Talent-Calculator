@@ -1241,6 +1241,11 @@ button:hover {
   border-radius: 10px;
 }
 
+/* Advanced class picker: shrink inner button by 2px from each side. */
+.spec-picker .spec-node-wrap {
+  padding: 2px;
+}
+
 .spec-node {
   font-family: "Seagram V3", "Lora", Georgia, "Times New Roman", serif !important;
   width: 100%;
