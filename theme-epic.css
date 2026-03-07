@@ -468,6 +468,10 @@ body.theme-epic .tile-frame-overlay {
 body.theme-epic .general-nodes .node,
 body.theme-epic .branch-nodes .node {
   overflow: visible;
+  /* Keep frame full-size, but inset the colored button surface by 2px. */
+  padding: calc(0.25rem + 2px);
+  background-clip: content-box;
+  border-color: transparent;
 }
 
 body.theme-epic .general-nodes .node .tile-frame-overlay,
