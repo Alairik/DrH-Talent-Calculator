@@ -658,8 +658,8 @@ body.theme-epic .talents-panel .spec-picker .spec-node::after {
 
 /* Make ADV-picker icon artwork more legible under the frame and tints. */
 body.theme-epic .talents-panel .spec-picker .spec-node.has-icon::before {
-  inset: 5px;
-  border-radius: inherit;
+  inset: 0 5px;
+  border-radius: 0;
   opacity: 0.44;
   mix-blend-mode: normal;
   filter: saturate(1.2) contrast(1.08) brightness(1.14);
