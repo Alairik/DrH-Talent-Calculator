@@ -443,6 +443,17 @@ body.theme-epic .spec-node.locked-spec .spec-info-btn {
   opacity: 1 !important;
 }
 
+/* Basic 12 + extended 12: force visible diagonal offset and stable icon look. */
+body.theme-epic .general-nodes .node .node-info-btn,
+body.theme-epic .branch-nodes .node .node-info-btn {
+  top: -16px !important;
+  right: -16px !important;
+  left: auto !important;
+  z-index: 20 !important;
+  filter: none !important;
+  opacity: 1 !important;
+}
+
 /* Fantasy-only square frame overlay above tile base, below labels/info/lv plate. */
 body.theme-epic .tile-frame-overlay {
   display: block;

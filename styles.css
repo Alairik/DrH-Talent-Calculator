@@ -1659,7 +1659,6 @@ button:hover {
 .general-nodes .node.spec-1.selected,
 .general-nodes .node.spec-2.selected {
   transform: translateY(-1px);
-  filter: saturate(1.15) brightness(1.18);
   outline: 1px solid rgba(255, 241, 208, 0.55);
   outline-offset: -2px;
 }
