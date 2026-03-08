@@ -248,6 +248,7 @@
     previewSpecializationByClass: {},
     specializationLockLevelByClass: {},
     selectedSkillTargets: {},
+    unspecializedPickLevelByTalentId: {},
     attributes: {
       sil: { base: 10, mod: 0, bonus: 0 },
       obr: { base: 10, mod: 0, bonus: 0 },
@@ -1052,6 +1053,7 @@
     state.previewSpecializationByClass = {};
     state.specializationLockLevelByClass = {};
     state.selectedSkillTargets = {};
+    state.unspecializedPickLevelByTalentId = {};
     state.levelMode = "manual";
     state.manualLevel = 1;
     ensureAttributeDefaults();
@@ -1076,6 +1078,7 @@
     state.previewSpecializationByClass = {};
     state.specializationLockLevelByClass = {};
     state.selectedSkillTargets = {};
+    state.unspecializedPickLevelByTalentId = {};
     state.levelMode = "manual";
     state.manualLevel = targetLevel;
 
@@ -2093,7 +2096,10 @@
     const levels = [];
     for (const t of branchTalents) {
       if (!t || !state.selectedTalentIds.has(t.id)) continue;
-      const lvl = Number(talentLevelById && talentLevelById.get ? talentLevelById.get(t.id) : NaN);
+      const storedLevel = Number(state.unspecializedPickLevelByTalentId[t.id]);
+      const lvl = Number.isFinite(storedLevel) && storedLevel > 0
+        ? storedLevel
+        : Number(talentLevelById && talentLevelById.get ? talentLevelById.get(t.id) : NaN);
       if (Number.isFinite(lvl) && lvl > 0) levels.push(clampInt(lvl, 1, state.config.maxLevel, 1));
     }
     levels.sort((a, b) => a - b);
@@ -2347,6 +2353,7 @@
   function removeTalentSelection(id) {
     state.selectedTalentIds.delete(id);
     delete state.selectedTalentOrder[id];
+    delete state.unspecializedPickLevelByTalentId[id];
   }
 
   function compareTalentsBySelectionOrder(a, b) {
@@ -2710,6 +2717,12 @@
         !canPickUnspecializedBranchTalentNow(profId, branchTalents, currentLevel)
       ) return;
       addTalentSelection(talentId);
+      if (forcedSpec === null) {
+        state.unspecializedPickLevelByTalentId[talentId] = Math.max(
+          SPECIALIZATION_UNLOCK_LEVEL,
+          clampInt(currentLevel, 1, state.config.maxLevel, SPECIALIZATION_UNLOCK_LEVEL)
+        );
+      }
       autoGrantSkillsFromSTalent(talentId);
     }
     else {
@@ -2741,7 +2754,10 @@
     const selectedLevels = [];
     for (const t of branchTalents || []) {
       if (!t || !state.selectedTalentIds.has(t.id)) continue;
-      const pickLevel = Number(levelsById[t.id]);
+      const storedLevel = Number(state.unspecializedPickLevelByTalentId[t.id]);
+      const pickLevel = Number.isFinite(storedLevel) && storedLevel > 0
+        ? storedLevel
+        : Number(levelsById[t.id]);
       if (Number.isFinite(pickLevel) && pickLevel > 0) selectedLevels.push(pickLevel);
     }
     const nextLevel =
