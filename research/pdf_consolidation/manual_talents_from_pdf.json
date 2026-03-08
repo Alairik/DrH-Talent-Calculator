@@ -2045,7 +2045,7 @@
       "name": "Bozi zbroj",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Muze bez omezeni nosit libovolnou zbroj a jeji kvalita se zvysuje o +1. Proti magickym a nadpozemskym bytostem dokonce o +2.",
       "branch_index": 0
     },
     {
@@ -2053,7 +2053,7 @@
       "name": "Bozske mantry",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Svymi mantrami o bohu vybudi mysl sebe i svych spojencu. K overeni na Vuli nasledujicich 10 kol ziskavaji Vyhodu (bonus +5).",
       "branch_index": 0
     },
     {
@@ -2061,7 +2061,7 @@
       "name": "Fanatismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Dokaze utocit 3x za 2 kola. Od dvanacte urovne pak 2x v kazdem kole.",
       "branch_index": 0
     },
     {
@@ -2069,7 +2069,7 @@
       "name": "Inkvizitorsky vycvik",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Ziska schopnost neupadnout do bezvedomi a bojovat az do Hranice smrti. Zaroven se rozsiri jeho znalost nauky Svate pravdy o dalsi ctyri prosby: Falesna smrt, Zadrz protivnika, Zastaveni deni a Zmateni mysli.",
       "branch_index": 0
     },
     {
@@ -2077,7 +2077,7 @@
       "name": "Lovec carodejnic",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Dokaze rozpoznat kouzelniky (pritomnost jejich many) a zaroven ziska Rezistenci vuci magii.",
       "branch_index": 0
     },
     {
@@ -2085,7 +2085,7 @@
       "name": "Paladinsky vycvik",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Jeho zaklad Odolnosti se zvysi o 1 bod a nauci se nekolik Proseb rozsirujicich nauku Bojovniku viry. Jsou jimi: Andelska zbroj, Kladivo na carodejnice, Podlom obranu, Pozehnej vlastnostem.",
       "branch_index": 0
     },
     {
@@ -2093,7 +2093,7 @@
       "name": "Posvatny vliv",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Klerikovi nasledovnici ziskaji bonus +1 ke vsem overovacim hodum.",
       "branch_index": 0
     },
     {
@@ -2101,7 +2101,7 @@
       "name": "Posvatna zbran",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Muze nosit libovolne tezkou zbran, ktera pusobi jako nadpozemska a ma bonus +2 do Utocnosti i Zraneni.",
       "branch_index": 0
     },
     {
@@ -2109,7 +2109,7 @@
       "name": "Astralni poutnik",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Exorcista dokaze vstupovat do astralniho sveta. Jedineho mista, kde lze definitivne zabit nadpozemske bytosti.",
       "branch_index": 1
     },
     {
@@ -2117,7 +2117,7 @@
       "name": "Desobijec",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "V boji s nadprirozenymi tvory ziskava trvaly bonus +2 do Utoku, Obrany i Zraneni. Tento bonus navic s urovnemi roste.",
       "branch_index": 1
     },
     {
@@ -2125,7 +2125,7 @@
       "name": "Exorcismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokaze vycitit pritomnost posedlych a nauci se dalsi Prosby nauky Demonologie, ktere mu umozni je vymitat. Jsou jimi: Chran pred posednutim, Odhal demona, Ukaz temnotu, Vyzen demona.",
       "branch_index": 1
     },
     {
@@ -2133,7 +2133,7 @@
       "name": "Jazyk prastarych",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Rozumi nadpozemskemu jazyku a mluvi jim. Vzyvani Poslu je tak o 3 body Prizne levnejsi. Zaroven se nauci dalsi Prosby z nauky Bozich patronu. Jsou jimi: Posel bdelosti, Posel domeny, Posel lovec, Posel peceti.",
       "branch_index": 1
     },
     {
@@ -2141,7 +2141,7 @@
       "name": "Kletby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokaze rozpoznat prokleta mista, bytosti i predmety a vystopovat toho, kdo za prokletim stoji. Zaroven se zvysuji jeho sance na odstraneni kletby.",
       "branch_index": 1
     },
     {
@@ -2149,7 +2149,7 @@
       "name": "Mystika",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokaze odposlouchavat bozskou komunikaci a falsovat ji. Zaroven ziskava vyhodu, pokud by se ho nekdo jiny pokusil takto zmanipulovat.",
       "branch_index": 1
     },
     {
@@ -2157,7 +2157,7 @@
       "name": "Nadprirozeny boj",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Kazdy Exorcistuv Utok a Obrana ma nove magicky a nadprirozeny efekt.",
       "branch_index": 1
     },
     {
@@ -2165,7 +2165,7 @@
       "name": "Svetlonos",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Aura Svetlonosu dokaze vracet zraneni utocnikum a take je zastrasit.",
       "branch_index": 1
     },
     {
@@ -2173,7 +2173,7 @@
       "name": "Avatar",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Promeni se v mocnou nadpozemskou bytost reprezentujici domenu jeho boha.",
       "branch_index": 2
     },
     {
@@ -2181,7 +2181,7 @@
       "name": "Bozi ochrana",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Ma sanci se zcela vyhnout efektu nevyzadaneho kouzla ci prosby.",
       "branch_index": 2
     },
     {
@@ -2189,7 +2189,7 @@
       "name": "Ikony",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokaze vyrabet svate obrazy a symboly, ktere maji posvatnou silu. Kdokoliv pak dokaze jejich prostrednictvim sesilat prosby.",
       "branch_index": 2
     },
     {
@@ -2197,7 +2197,7 @@
       "name": "Jasnozrivost",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Ziska schopnost mit videni, ktera mu mohou odhalit skryte souvislosti a pomoci pochopit veci.",
       "branch_index": 2
     },
     {
@@ -2205,7 +2205,7 @@
       "name": "Obeti",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokaze pomoci obeti snizit Obtiznost vzyvani nasledujici prosby o 10 bodu.",
       "branch_index": 2
     },
     {
@@ -2213,7 +2213,7 @@
       "name": "Vycvik lazaretnich lecitelu",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Zlepsi si stupen zvladnuti dovednosti Prvni pomoc a Znalost prirody o +1. Zaroven se nauci vyrabet 5 leku a masti: Lek svateho Aurelia, Lek svateho Jana, Lek svateho Maura, Lek svateho Nubia a Mast svate Meredith.",
       "branch_index": 2
     },
     {
@@ -2221,7 +2221,7 @@
       "name": "Zazraky",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokaze cinit nadpozemske veci. Zaroven ovladne nekolik mocnych Proseb Nauky Milosrdenstvi. Jsou jimi: Bozska pomoc, Figiho zasah osudu, Vrat cas, Zachran zivot.",
       "branch_index": 2
     },
     {
@@ -2229,7 +2229,7 @@
       "name": "Zazehnuti aury",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokaze sesilat vice aur najednou a presouvat je podle potreby na jine bytosti. Zaroven ziska znalosti nekolika novych. Jsou jimi: Aura bratrstvi, Aura praveho svetla, Aura probuzeni, Aura strachu.",
       "branch_index": 2
     }
   ]
