@@ -565,7 +565,9 @@ body.theme-epic .spec-pick-level-indicator {
   min-width: 34px;
   aspect-ratio: 461 / 240;
   height: auto;
-  font-size: 0.44rem;
+  font-size: 0.52rem;
+  color: #f7e8cc;
+  text-shadow: none !important;
   z-index: 26 !important;
 }
 

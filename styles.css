@@ -1530,9 +1530,11 @@ button:hover {
   width: 34px;
   min-width: 34px;
   height: auto;
-  font-size: 0.46rem;
+  font-size: 0.52rem;
   line-height: 1;
   padding: 0.08rem 0.15rem;
+  color: #f7e8cc;
+  text-shadow: none;
   z-index: 24;
 }
 
