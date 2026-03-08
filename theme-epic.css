@@ -518,12 +518,13 @@ body.theme-epic .spec-picker .tile-frame-overlay {
 
 /* Fantasy-only Lv plate styling. */
 body.theme-epic .node-level-indicator {
-  top: -11px;
+  top: -8px;
   left: 1px;
   right: auto;
-  width: 53px;
-  min-width: 53px;
-  height: 42px;
+  width: 46px;
+  min-width: 46px;
+  aspect-ratio: 461 / 240;
+  height: auto;
   font-size: 0.54rem;
   font-family: var(--font-body), Georgia, "Times New Roman", serif;
   font-weight: 300 !important;
