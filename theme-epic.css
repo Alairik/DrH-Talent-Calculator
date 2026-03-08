@@ -798,6 +798,11 @@ body.theme-epic .spec-node.locked-spec {
   font-weight: 525;
 }
 
+body.theme-epic .spec-node.locked-spec::before {
+  width: 36px;
+  height: 36px;
+}
+
 body.theme-epic .skill-item {
   position: relative;
   border-color: rgba(126, 89, 44, 0.72);
