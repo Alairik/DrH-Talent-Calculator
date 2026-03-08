@@ -1949,7 +1949,7 @@
       "name": "Asketismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Slibem chudoby se zvysi maximum Prizne Klerika na dvojnasobek.",
       "clr_l6_general": true
     },
     {
@@ -1957,7 +1957,7 @@
       "name": "Bohosluzby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Obradem zvysi Klerik hodnotu sve Prizne a vsichni ucastnici ziskaji Vyhodu (bonus +5) k overovacim hodum na Vuli.",
       "clr_l6_general": true
     },
     {
@@ -1965,7 +1965,7 @@
       "name": "Bozska domena",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Ziska schopnost pouzivat specialni efekty domeny sveho boha.",
       "clr_l6_general": true
     },
     {
@@ -1973,7 +1973,7 @@
       "name": "Flagelantstvi",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Utrpenim a obetovanim svych zivotu dokaze Klerik doplnit svou Prizen.",
       "clr_l6_general": true
     },
     {
@@ -1981,7 +1981,7 @@
       "name": "Nositel slova",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokaze prosby s efektem na Klerika nebo s dotykovym dosahem privolat i na jine tvory a na vetsi vzdalenost.",
       "clr_l6_general": true
     },
     {
@@ -1989,7 +1989,7 @@
       "name": "Mnohoprosby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokaze v jednom okamziku seslat stejnou prosbu vicekrat a to i na vice cilu.",
       "clr_l6_general": true
     },
     {
@@ -1997,7 +1997,7 @@
       "name": "Pozehnani",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "V overovacim ci bojovem hodu muzes hazet dvakrat a vybrat si lepsi vysledek.",
       "clr_l6_general": true
     },
     {
@@ -2005,7 +2005,7 @@
       "name": "Radovy slib",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Ziska vyhody i zavazky clena radu a rozpozna jeho cleny.",
       "clr_l6_general": true
     },
     {
@@ -2013,7 +2013,7 @@
       "name": "Sakralni predmety",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Umi vyrobit posvatne predmety, ktere maji cast bozi moci.",
       "clr_l6_general": true
     },
     {
@@ -2021,7 +2021,7 @@
       "name": "Strazce mysteria",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokaze se naucit ctyrem mocnym prosbam, nebo je nahrazovat jinymi, ktere nejsou v pravidlech. Prosby jsou: Beregondovo osviceni, Mezisvet, Vyhnani, Znameni zivota.",
       "clr_l6_general": true
     },
     {
@@ -2029,7 +2029,7 @@
       "name": "Sveceni mist",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokaze vytvorit Posvatne misto, kde jsou jeho prosby ucinnejsi.",
       "clr_l6_general": true
     },
     {
@@ -2037,7 +2037,7 @@
       "name": "Vzkriseni",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Zemre-li Klerik pri sluzbe bohu nebo se pri ni obetuje, muze byt znovu vzkrisen.",
       "clr_l6_general": true
     },
     {
