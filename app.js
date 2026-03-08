@@ -1954,7 +1954,8 @@
         lockBtn.type = "button";
         lockBtn.className = "spec-lock-btn";
         const locked = forcedIndex === i;
-        lockBtn.textContent = locked ? "●" : "○";
+        if (locked) lockBtn.classList.add("is-locked");
+        lockBtn.textContent = "";
         lockBtn.setAttribute("aria-label", locked ? `Odemknout ${branchNames[i]}` : `Zamknout ${branchNames[i]}`);
         if (missingReq.length > 0) {
           lockBtn.disabled = true;
