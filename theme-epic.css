@@ -468,8 +468,8 @@ body.theme-epic .tile-frame-overlay {
 body.theme-epic .general-nodes .node,
 body.theme-epic .branch-nodes .node {
   overflow: visible;
-  /* Keep frame full-size, but inset the colored button surface by 3px. */
-  padding: calc(0.25rem + 3px);
+  /* Keep frame full-size, but inset the colored button surface enough so it never peeks out. */
+  padding: calc(0.25rem + 5px);
   background-clip: content-box;
   border-color: transparent;
 }
@@ -494,6 +494,21 @@ body.theme-epic .branch-nodes .node .node-info-btn,
 body.theme-epic .general-nodes .node .node-level-indicator,
 body.theme-epic .branch-nodes .node .node-level-indicator {
   z-index: 22 !important;
+}
+
+/* Keep selected overlay/glow inside the fantasy frame on non-picker talent tiles. */
+body.theme-epic .general-nodes .node.spec-0.selected,
+body.theme-epic .general-nodes .node.spec-1.selected,
+body.theme-epic .general-nodes .node.spec-2.selected,
+body.theme-epic .branch-nodes .node.selected {
+  outline-offset: -5px !important;
+}
+
+body.theme-epic .general-nodes .node.spec-0.selected::before,
+body.theme-epic .general-nodes .node.spec-1.selected::before,
+body.theme-epic .general-nodes .node.spec-2.selected::before,
+body.theme-epic .branch-nodes .node.selected::before {
+  inset: 4px !important;
 }
 
 /* Advanced class picker buttons should not use the square frame overlay. */
