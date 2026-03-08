@@ -798,7 +798,7 @@ body.theme-epic .spec-node.locked-spec {
   font-weight: 525;
 }
 
-body.theme-epic .spec-node.locked-spec::before {
+body.theme-epic .spec-corner-marker {
   width: 36px;
   height: 36px;
 }

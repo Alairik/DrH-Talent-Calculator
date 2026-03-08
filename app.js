@@ -1979,6 +1979,11 @@
       if (previewIndex === i) btn.classList.add("active");
       if (forcedIndex === i) btn.classList.add("locked-spec");
       if (!unlocked) btn.classList.add("locked");
+      if (forcedIndex === i) {
+        const corner = document.createElement("span");
+        corner.className = "spec-corner-marker";
+        wrap.appendChild(corner);
+      }
       const selectedCount = (branches[i] || []).filter((t) => state.selectedTalentIds.has(t.id)).length;
       const hasSelectedInBranch = selectedCount > 0;
       if (unlocked && forcedIndex !== null && forcedIndex !== i && !hasSelectedInBranch) {
