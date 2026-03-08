@@ -1353,7 +1353,7 @@ button:hover {
   content: "";
   position: absolute;
   inset: 2px;
-  background: transparent url("./research/drh_assets/grafika/lock - solo.png") center / contain no-repeat;
+  background: transparent url("./research/drh_assets/grafika/lock-solo.png") center / contain no-repeat;
   pointer-events: none;
 }
 
