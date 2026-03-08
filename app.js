@@ -1950,39 +1950,43 @@
       wrap.appendChild(btn);
       wrap.appendChild(infoBtn);
       if (unlocked) {
-        const lockBtn = document.createElement("button");
-        lockBtn.type = "button";
-        lockBtn.className = "spec-lock-btn";
         const locked = forcedIndex === i;
-        if (locked) lockBtn.classList.add("is-locked");
-        lockBtn.textContent = "";
-        lockBtn.setAttribute("aria-label", locked ? `Odemknout ${branchNames[i]}` : `Zamknout ${branchNames[i]}`);
-        if (missingReq.length > 0) {
-          lockBtn.disabled = true;
-          lockBtn.title = `Chybí základní schopnosti: ${missingReq.map((x) => x.name).join(", ")}`;
-        } else {
-          lockBtn.title = locked ? "Klikni pro odemknutí specializace" : "Klikni pro zamknutí specializace";
-          lockBtn.addEventListener("click", (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            if (locked) {
-              delete state.selectedSpecializationByClass[profId];
-              delete state.specializationLockLevelByClass[profId];
-            } else {
-              state.selectedSpecializationByClass[profId] = i;
-              state.specializationLockLevelByClass[profId] = clampInt(
-                getCurrentCharacterLevel() + 1,
-                1,
-                state.config.maxLevel,
-                SPECIALIZATION_UNLOCK_LEVEL
-              );
-            }
-            state.previewSpecializationByClass[profId] = i;
-            renderAll();
-            persist();
-          });
+        const hideLockBecauseOtherBranchLocked = forcedIndex !== null && !locked;
+        if (!hideLockBecauseOtherBranchLocked) {
+          const lockBtn = document.createElement("button");
+          lockBtn.type = "button";
+          lockBtn.className = "spec-lock-btn";
+          if (locked) lockBtn.classList.add("is-locked");
+          if (forcedIndex === null) lockBtn.classList.add("is-unselected");
+          lockBtn.textContent = "";
+          lockBtn.setAttribute("aria-label", locked ? `Odemknout ${branchNames[i]}` : `Zamknout ${branchNames[i]}`);
+          if (missingReq.length > 0) {
+            lockBtn.disabled = true;
+            lockBtn.title = `Chybí základní schopnosti: ${missingReq.map((x) => x.name).join(", ")}`;
+          } else {
+            lockBtn.title = locked ? "Klikni pro odemknutí specializace" : "Klikni pro zamknutí specializace";
+            lockBtn.addEventListener("click", (ev) => {
+              ev.preventDefault();
+              ev.stopPropagation();
+              if (locked) {
+                delete state.selectedSpecializationByClass[profId];
+                delete state.specializationLockLevelByClass[profId];
+              } else {
+                state.selectedSpecializationByClass[profId] = i;
+                state.specializationLockLevelByClass[profId] = clampInt(
+                  getCurrentCharacterLevel() + 1,
+                  1,
+                  state.config.maxLevel,
+                  SPECIALIZATION_UNLOCK_LEVEL
+                );
+              }
+              state.previewSpecializationByClass[profId] = i;
+              renderAll();
+              persist();
+            });
+          }
+          wrap.appendChild(lockBtn);
         }
-        wrap.appendChild(lockBtn);
       }
       els.specPicker.appendChild(wrap);
     }

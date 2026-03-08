@@ -1361,6 +1361,14 @@ button:hover {
   filter: grayscale(0.92) saturate(0.45) brightness(0.78);
 }
 
+.spec-lock-btn.is-unselected::before {
+  filter: saturate(0.35) brightness(0.72);
+}
+
+.spec-lock-btn.is-unselected::after {
+  filter: saturate(0.35) brightness(0.72);
+}
+
 .spec-lock-btn:hover {
   filter: none;
   transform: translateY(-1px);
