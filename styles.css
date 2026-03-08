@@ -1237,7 +1237,7 @@ button:hover {
 
 .spec-node-wrap {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 10px;
 }
 
@@ -1324,8 +1324,7 @@ button:hover {
   left: auto;
   width: 44px;
   min-width: 44px;
-  aspect-ratio: 461 / 240;
-  height: auto;
+  height: 39px; /* ~70% taller than the native LvXX plate ratio at this width */
   border-radius: 0;
   border: 0;
   background: transparent;
@@ -1335,11 +1334,11 @@ button:hover {
   padding: 0;
   display: grid;
   place-items: center;
-  z-index: 12;
+  z-index: 80;
   cursor: pointer;
-  opacity: 0.55;
-  filter: grayscale(0.8) saturate(0.6) brightness(0.86);
-  transition: opacity 120ms ease, filter 120ms ease, transform 120ms ease;
+  opacity: 1;
+  filter: none;
+  transition: filter 120ms ease, transform 120ms ease;
 }
 
 .spec-lock-btn::before {
@@ -1348,42 +1347,38 @@ button:hover {
   inset: 0;
   background: transparent url("./research/drh_assets/grafika/LvXX.png") center / 100% 100% no-repeat;
   pointer-events: none;
+  opacity: 1;
+  filter: grayscale(0.92) saturate(0.45) brightness(0.82);
 }
 
 .spec-lock-btn::after {
   content: "";
   position: absolute;
-  inset: 2px;
+  inset: 4px 6px;
   background: transparent url("./research/drh_assets/grafika/lock-solo.png") center / contain no-repeat;
   pointer-events: none;
+  opacity: 1;
+  filter: grayscale(0.92) saturate(0.45) brightness(0.78);
 }
 
 .spec-lock-btn:hover {
-  opacity: 0.78;
-  filter: grayscale(0.35) saturate(0.9) brightness(0.95);
+  filter: none;
   transform: translateY(-1px);
 }
 
-.spec-lock-btn.is-locked {
-  opacity: 1;
+.spec-lock-btn:not(.is-locked):hover::after {
+  filter: grayscale(0) saturate(1.25) brightness(1.2) drop-shadow(0 0 4px rgba(255, 209, 124, 0.45));
+}
+
+.spec-lock-btn.is-locked::before,
+.spec-lock-btn.is-locked::after {
   filter: none;
 }
 
-.spec-lock-btn.is-locked:hover {
-  opacity: 1;
-  filter: brightness(1.06);
-  transform: translateY(-1px);
-}
-
 .spec-lock-btn:disabled {
-  opacity: 0.3;
   cursor: default;
   transform: none;
-  filter: grayscale(1) saturate(0.45) brightness(0.72);
-}
-
-.spec-lock-btn:disabled::after {
-  opacity: 0.7;
+  opacity: 1;
 }
 
 .spec-node.spec-0 {

@@ -737,7 +737,7 @@ body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2):not(.selected)
 
 body.theme-epic .spec-node-wrap {
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible;
 }
 
 body.theme-epic .node.selected {
