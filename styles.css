@@ -2227,6 +2227,7 @@ button:hover {
 
 .level-card.locked-spec-level {
   position: relative;
+  isolation: isolate;
   border-color: #d4ad66;
   box-shadow: 0 0 0 1px #7d6539, 0 0 14px rgba(212, 173, 102, 0.28);
 }
@@ -2240,7 +2241,7 @@ button:hover {
   height: 38px;
   background: transparent url("./research/drh_assets/grafika/left corner.png") left top / contain no-repeat;
   pointer-events: none;
-  z-index: 7;
+  z-index: 999;
 }
 
 .level-meta {
