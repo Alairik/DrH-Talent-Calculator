@@ -1499,7 +1499,10 @@ button:hover {
 .spec-node.locked-spec {
   border-color: var(--gold);
   background: #2a1f14;
-  box-shadow: 0 0 0 1px var(--gold-soft), 0 0 16px rgba(212, 173, 102, 0.2);
+  box-shadow:
+    0 0 0 2px rgba(255, 214, 136, 0.82),
+    0 0 0 4px rgba(125, 101, 57, 0.62),
+    0 0 22px rgba(212, 173, 102, 0.36);
   color: #fff0d4;
 }
 
@@ -2223,8 +2226,21 @@ button:hover {
 }
 
 .level-card.locked-spec-level {
+  position: relative;
   border-color: #d4ad66;
   box-shadow: 0 0 0 1px #7d6539, 0 0 14px rgba(212, 173, 102, 0.28);
+}
+
+.level-card.locked-spec-level::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 34px;
+  height: 34px;
+  background: transparent url("./research/drh_assets/grafika/left corner.png") left top / contain no-repeat;
+  pointer-events: none;
+  z-index: 7;
 }
 
 .level-meta {

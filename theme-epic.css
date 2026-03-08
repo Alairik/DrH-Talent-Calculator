@@ -774,6 +774,12 @@ body.theme-epic .spec-node:not(.spec-0):not(.spec-1):not(.spec-2).active {
 }
 
 body.theme-epic .spec-node.locked-spec {
+  border-color: #ffe1a6;
+  box-shadow:
+    0 0 0 2px rgba(255, 227, 173, 0.86),
+    0 0 0 4px rgba(86, 60, 27, 0.72),
+    0 0 24px rgba(255, 199, 108, 0.42),
+    inset 0 0 16px rgba(255, 227, 173, 0.1);
   font-weight: 525;
 }
 
@@ -882,6 +888,11 @@ body.theme-epic .level-card {
 body.theme-epic .level-card.future {
   opacity: 0.68;
   filter: saturate(85%);
+}
+
+body.theme-epic .level-card.locked-spec-level::before {
+  width: 36px;
+  height: 36px;
 }
 
 body.theme-epic .timeline-line.skill {
