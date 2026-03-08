@@ -1322,9 +1322,9 @@ button:hover {
   bottom: -3px;
   top: auto;
   left: auto;
-  width: 44px;
-  min-width: 44px;
-  height: 39px; /* ~70% taller than the native LvXX plate ratio at this width */
+  width: 33px;
+  min-width: 33px;
+  height: 29px; /* scaled down ~25% from previous ACP lock size */
   border-radius: 0;
   border: 0;
   background: transparent;
@@ -1354,7 +1354,7 @@ button:hover {
 .spec-lock-btn::after {
   content: "";
   position: absolute;
-  inset: 4px 6px;
+  inset: 3px 4px;
   background: transparent url("./research/drh_assets/grafika/lock-solo.png") center / contain no-repeat;
   pointer-events: none;
   opacity: 1;
