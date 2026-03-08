@@ -1099,6 +1099,7 @@
     }
 
     autoPickSkillsForLevel(profId, targetLevel, talentLevelById, chosenSpec);
+    clampRandomizedSkillTargetsToLevel(profId, targetLevel, chosenSpec);
     state.levelMode = "manual";
     state.manualLevel = targetLevel;
   }
@@ -1297,6 +1298,83 @@
       if (p.target > p.floor) out[p.skill.id] = p.target;
     }
     state.selectedSkillTargets = out;
+  }
+
+  function clampRandomizedSkillTargetsToLevel(profId, targetLevel, chosenSpec) {
+    const levelCap = clampInt(targetLevel, 1, state.config.maxLevel, 1);
+    const starterIds = new Set(getClassStarterSkillIds());
+    const closeStarterIds = new Set(getClassCloseStarterSkillIds());
+    const dominant = new Set(CLASS_DOMINANT_ATTRIBUTES[profId] || []);
+    const maxIterations = 800;
+    let iter = 0;
+    while (iter < maxIterations) {
+      const plan = buildPlan();
+      const current = clampInt(
+        plan && plan.totals ? plan.totals.currentLevel : levelCap,
+        1,
+        state.config.maxLevel,
+        levelCap
+      );
+      if (current <= levelCap) break;
+      let candidate = null;
+      for (const [id, target] of Object.entries(state.selectedSkillTargets)) {
+        const skill = state.skills.find((x) => x.id === id);
+        if (!skill) continue;
+        const floor = getSkillFloor(skill, starterIds, profId);
+        const rank = clampInt(Number(target), 0, getSkillRankCap(), 0);
+        if (rank <= floor) continue;
+        const retention = scoreSkillRetention(skill, profId, chosenSpec, dominant, closeStarterIds);
+        const overFloor = rank - floor;
+        const compare = {
+          id,
+          floor,
+          rank,
+          retention,
+          overFloor
+        };
+        if (!candidate) {
+          candidate = compare;
+          continue;
+        }
+        if (compare.retention < candidate.retention) {
+          candidate = compare;
+          continue;
+        }
+        if (compare.retention === candidate.retention && compare.overFloor > candidate.overFloor) {
+          candidate = compare;
+          continue;
+        }
+        if (
+          compare.retention === candidate.retention &&
+          compare.overFloor === candidate.overFloor &&
+          byName(skill, state.skills.find((x) => x.id === candidate.id) || skill) < 0
+        ) {
+          candidate = compare;
+        }
+      }
+      if (!candidate) break;
+      const next = Math.max(candidate.floor, candidate.rank - 1);
+      if (next <= candidate.floor) delete state.selectedSkillTargets[candidate.id];
+      else state.selectedSkillTargets[candidate.id] = next;
+      iter += 1;
+    }
+  }
+
+  function scoreSkillRetention(skill, profId, chosenSpec, dominant, closeStarterIds) {
+    let score = 0;
+    const isClassSkill = skill.prof_id === profId && !isBasicSkill(skill);
+    if (isClassSkill) score += 100;
+    if (closeStarterIds.has(skill.id)) score += 60;
+    if (requiresPrereqForSkill(skill)) score += 25;
+    const branch = Number(skill.spec_branch_index);
+    if (Number.isInteger(branch) && branch === chosenSpec) score += 35;
+    const checks = Array.isArray(skill.check_type) ? skill.check_type : [];
+    for (const ch of checks) {
+      const key = normalize(ch).slice(0, 3);
+      if (dominant.has(key)) score += 10;
+    }
+    if (skill.is_knowledge_based) score += 3;
+    return score;
   }
 
   function scoreSkillPick(skill, profId, chosenSpec, dominant, closeStarterIds) {
