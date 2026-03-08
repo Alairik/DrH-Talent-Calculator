@@ -891,8 +891,8 @@ body.theme-epic .level-card.future {
 }
 
 body.theme-epic .level-card.locked-spec-level::before {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
 }
 
 body.theme-epic .timeline-line.skill {
