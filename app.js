@@ -2090,8 +2090,7 @@
   }
 
   function getBranchCooldownPickLevels(branchIndex, branches, forcedIndex, talentLevelById) {
-    if (!(forcedIndex === 0 || forcedIndex === 1 || forcedIndex === 2)) return [];
-    if (branchIndex === forcedIndex) return [];
+    void forcedIndex;
     const branchTalents = Array.isArray(branches && branches[branchIndex]) ? branches[branchIndex] : [];
     const levels = [];
     for (const t of branchTalents) {
