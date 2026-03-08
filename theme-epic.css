@@ -556,6 +556,19 @@ body.theme-epic .node-level-indicator::before {
   opacity: 1 !important;
 }
 
+body.theme-epic .spec-pick-level-indicator {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  width: 34px;
+  min-width: 34px;
+  aspect-ratio: 461 / 240;
+  height: auto;
+  font-size: 0.44rem;
+  z-index: 26 !important;
+}
+
 body.theme-epic .class-box.active {
   border-color: var(--gold-strong);
   background:

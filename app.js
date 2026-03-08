@@ -1828,6 +1828,7 @@
       previewSpec,
       storedForcedSpec,
       currentLevel,
+      talentLevelById,
       hasSpecColor
     );
 
@@ -1958,8 +1959,10 @@
     previewIndex,
     forcedIndex,
     currentLevel,
+    talentLevelById,
     enableSpecColor = false
   ) {
+    const levelMap = talentLevelById instanceof Map ? talentLevelById : new Map();
     els.specPicker.innerHTML = "";
     for (let i = 0; i < 3; i += 1) {
       const wrap = document.createElement("div");
@@ -1986,6 +1989,18 @@
       specLabel.className = "spec-label";
       specLabel.textContent = `${branchNames[i]}${suffix}`;
       btn.appendChild(specLabel);
+      const extraPickLevels = getBranchCooldownPickLevels(i, branches, forcedIndex, levelMap);
+      if (extraPickLevels.length > 0) {
+        const lvWrap = document.createElement("div");
+        lvWrap.className = "spec-pick-levels";
+        for (const lvlValue of extraPickLevels.slice(0, 4)) {
+          const lvl = document.createElement("span");
+          lvl.className = "node-level-indicator spec-pick-level-indicator";
+          lvl.textContent = `Lv ${lvlValue}`;
+          lvWrap.appendChild(lvl);
+        }
+        btn.appendChild(lvWrap);
+      }
       const specFrame = document.createElement("span");
       specFrame.className = "tile-frame-overlay";
       btn.appendChild(specFrame);
@@ -2064,6 +2079,20 @@
       }
       els.specPicker.appendChild(wrap);
     }
+  }
+
+  function getBranchCooldownPickLevels(branchIndex, branches, forcedIndex, talentLevelById) {
+    if (!(forcedIndex === 0 || forcedIndex === 1 || forcedIndex === 2)) return [];
+    if (branchIndex === forcedIndex) return [];
+    const branchTalents = Array.isArray(branches && branches[branchIndex]) ? branches[branchIndex] : [];
+    const levels = [];
+    for (const t of branchTalents) {
+      if (!t || !state.selectedTalentIds.has(t.id)) continue;
+      const lvl = Number(talentLevelById && talentLevelById.get ? talentLevelById.get(t.id) : NaN);
+      if (Number.isFinite(lvl) && lvl > 0) levels.push(clampInt(lvl, 1, state.config.maxLevel, 1));
+    }
+    levels.sort((a, b) => a - b);
+    return levels;
   }
 
   function buildSpecializationInfoText(branchName, requirements, branchTalents) {
