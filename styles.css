@@ -1322,9 +1322,9 @@ button:hover {
   bottom: 3px;
   top: auto;
   left: auto;
-  width: 38px;
-  height: 24px;
-  min-width: 38px;
+  width: 52px;
+  height: 32px;
+  min-width: 52px;
   border-radius: 0;
   border: 0;
   background: transparent;
@@ -1352,7 +1352,7 @@ button:hover {
 .spec-lock-btn::after {
   content: "";
   position: absolute;
-  inset: 3px;
+  inset: 2px;
   background: transparent url("./research/drh_assets/grafika/lock - solo.png") center / contain no-repeat;
   pointer-events: none;
 }
