@@ -1277,9 +1277,9 @@
           .sort((a, b) => {
             const sa = scoreSkillPick(a.p.skill, profId, chosenSpec, dominant, closeStarterIds);
             const sb = scoreSkillPick(b.p.skill, profId, chosenSpec, dominant, closeStarterIds);
-            // Spend pool aggressively: prefer cheaper upgrades first.
-            if (a.cost !== b.cost) return a.cost - b.cost;
             if (sa !== sb) return sb - sa;
+            // Keep preference order, then pick cheaper option within same score band.
+            if (a.cost !== b.cost) return a.cost - b.cost;
             return byName(a.p.skill, b.p.skill);
           });
 
