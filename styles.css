@@ -1322,9 +1322,10 @@ button:hover {
   bottom: -3px;
   top: auto;
   left: auto;
-  width: 52px;
-  height: 64px;
-  min-width: 52px;
+  width: 44px;
+  min-width: 44px;
+  aspect-ratio: 461 / 240;
+  height: auto;
   border-radius: 0;
   border: 0;
   background: transparent;
