@@ -1,36 +1,14 @@
 (function () {
-  const NOTES_KEY = "dh_journal_notes_v1";
-  const CHECKLIST_KEY = "dh_journal_checklist_v1";
   const COL_TAB_KEY = "dh_journal_col_tab_v1";
-
-  const notesEl = document.getElementById("journalNotes");
-  const checklistEl = document.getElementById("journalChecklist");
-  const frameEl = document.getElementById("calcEmbedFrame");
   const colTabButtons = Array.from(document.querySelectorAll(".col-tab-btn"));
+  const mainFrame = document.getElementById("calcEmbedFrame");
+  const creatorFrame = document.getElementById("creatorEmbedFrame");
   let activeTab = localStorage.getItem(COL_TAB_KEY) || "talents";
+  let reloadTimer = null;
 
-  if (notesEl) {
-    notesEl.value = localStorage.getItem(NOTES_KEY) || "";
-    notesEl.addEventListener("input", () => localStorage.setItem(NOTES_KEY, notesEl.value || ""));
-  }
-  if (checklistEl) {
-    checklistEl.value = localStorage.getItem(CHECKLIST_KEY) || "";
-    checklistEl.addEventListener("input", () => localStorage.setItem(CHECKLIST_KEY, checklistEl.value || ""));
-  }
-
-  function setActiveTab(next) {
-    activeTab = next === "skills" ? "skills" : "talents";
-    localStorage.setItem(COL_TAB_KEY, activeTab);
-    for (const btn of colTabButtons) {
-      btn.classList.toggle("active", btn.dataset.colTab === activeTab);
-    }
-    applyEmbedStyle();
-  }
-
-  function getEmbedStyleText() {
+  function getMainEmbedStyleText() {
     const showTalents = activeTab === "talents";
     return `
-      /* Hide everything except talent column, skills column and floating character panel */
       .column-controls { display: none !important; }
       .gap-icons-panel, .plan-panel, #mobileStickyHeader, #mobileSectionNav, #mobileLevelPill { display: none !important; }
       .layout {
@@ -55,20 +33,121 @@
     `;
   }
 
-  function applyEmbedStyle() {
-    if (!frameEl) return;
+  function getCreatorEmbedStyleText() {
+    return `
+      .column-controls, .layout, .gap-icons-panel, .plan-panel, #mobileSectionNav, #mobileLevelPill, #saveCharacterModal { display: none !important; }
+      #mobileStickyHeader {
+        display: block !important;
+        position: static !important;
+        inset: auto !important;
+        background: transparent !important;
+        border: 0 !important;
+        padding: 8px !important;
+      }
+      #mobileStickyHeader .mobile-class-select-wrap {
+        width: 100% !important;
+      }
+      #mobileStickyHeader select {
+        width: 100% !important;
+      }
+      #floatingPanel {
+        display: block !important;
+        position: static !important;
+        inset: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        margin: 8px !important;
+        width: auto !important;
+        max-width: none !important;
+        transform: none !important;
+      }
+      #floatingPanel.collapsed {
+        transform: none !important;
+      }
+      #floatingPanelSlideBtn {
+        display: none !important;
+      }
+      body {
+        overflow: auto !important;
+      }
+    `;
+  }
+
+  function injectStyle(frame, id, cssText) {
+    if (!frame) return;
+    const doc = frame.contentDocument;
+    if (!doc) return;
+    const style = doc.createElement("style");
+    style.id = id;
+    style.textContent = cssText;
+    const old = doc.getElementById(id);
+    if (old) old.remove();
+    (doc.head || doc.documentElement).appendChild(style);
+  }
+
+  function applyMainEmbedStyle() {
     try {
-      const doc = frameEl.contentDocument;
-      if (!doc) return;
-      const style = doc.createElement("style");
-      style.id = "gm-journal-embed-style";
-      style.textContent = getEmbedStyleText();
-      const old = doc.getElementById("gm-journal-embed-style");
-      if (old) old.remove();
-      (doc.head || doc.documentElement).appendChild(style);
+      injectStyle(mainFrame, "gm-journal-main-embed-style", getMainEmbedStyleText());
     } catch (err) {
-      console.warn("GM journal iframe styling failed", err);
+      console.warn("GM journal main iframe styling failed", err);
     }
+  }
+
+  function scheduleMainReload() {
+    if (!mainFrame) return;
+    if (reloadTimer) clearTimeout(reloadTimer);
+    reloadTimer = setTimeout(() => {
+      reloadTimer = null;
+      try {
+        if (mainFrame.contentWindow) mainFrame.contentWindow.location.reload();
+      } catch (err) {
+        console.warn("Main preview reload failed", err);
+      }
+    }, 180);
+  }
+
+  function hookCreatorEvents() {
+    if (!creatorFrame || !creatorFrame.contentDocument) return;
+    const doc = creatorFrame.contentDocument;
+    const isCreatorControl = (el) => {
+      if (!el || !el.id) return false;
+      if (el.id === "mobileClassSelect" || el.id === "quickRaceSelect") return true;
+      if (el.id === "quickLevelMinus" || el.id === "quickLevelPlus" || el.id === "quickResetBtn" || el.id === "quickRandomBtn") return true;
+      if (el.id === "quickSaveBtn") return true;
+      if (/^attr(Sil|Obr|Odo|Int|Cha)(Base|Mod|Plus|Minus)$/.test(el.id)) return true;
+      return false;
+    };
+    doc.addEventListener("click", (ev) => {
+      const t = ev.target;
+      if (isCreatorControl(t)) scheduleMainReload();
+    }, true);
+    doc.addEventListener("change", (ev) => {
+      const t = ev.target;
+      if (isCreatorControl(t)) scheduleMainReload();
+    }, true);
+    doc.addEventListener("input", (ev) => {
+      const t = ev.target;
+      if (isCreatorControl(t)) scheduleMainReload();
+    }, true);
+  }
+
+  function applyCreatorEmbedStyle() {
+    try {
+      injectStyle(creatorFrame, "gm-journal-creator-embed-style", getCreatorEmbedStyleText());
+      hookCreatorEvents();
+    } catch (err) {
+      console.warn("GM journal creator iframe styling failed", err);
+    }
+  }
+
+  function setActiveTab(next) {
+    activeTab = next === "skills" ? "skills" : "talents";
+    localStorage.setItem(COL_TAB_KEY, activeTab);
+    for (const btn of colTabButtons) {
+      btn.classList.toggle("active", btn.dataset.colTab === activeTab);
+    }
+    applyMainEmbedStyle();
   }
 
   for (const btn of colTabButtons) {
@@ -76,8 +155,7 @@
   }
   setActiveTab(activeTab);
 
-  if (!frameEl) return;
-  frameEl.addEventListener("load", () => {
-    applyEmbedStyle();
-  });
+  if (mainFrame) mainFrame.addEventListener("load", applyMainEmbedStyle);
+  if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);
 })();
+
