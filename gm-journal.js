@@ -90,6 +90,7 @@
   function getCreatorEmbedStyleText() {
     return `
       .column-controls, .layout, .gap-icons-panel, .plan-panel, #mobileSectionNav, #mobileLevelPill, #saveCharacterModal { display: none !important; }
+      #themeToggleBtn { display: none !important; }
       #mobileStickyHeader {
         display: block !important;
         position: static !important;
