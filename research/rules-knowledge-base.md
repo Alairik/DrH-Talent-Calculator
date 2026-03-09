@@ -5,6 +5,9 @@ Ucel: jeden centralni zdroj pravidel pro vsechny nastroje v tomto repu:
 - randomizer postavy
 - budouci generator deniku pro PJ
 
+Primarni textovy referencni prehled:
+- `research/PPZ_RULES_STRUCTURED.md` (kapitoly 1-18, tagy, vazby, implementacni mapovani)
+
 Status:
 - cast pravidel je potvrzena
 - cast je zatim "TODO/overit podle finalnich podkladu"
@@ -103,4 +106,3 @@ Kazda nova funkce musi:
 - cist pravidla z centralniho rules modelu
 - neobchazet pravidla lokalnimi hardcoded podminkami v UI
 - mit timeline/denik export, ktery lze zpetne validovat
-
