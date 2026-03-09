@@ -755,6 +755,8 @@ h3,
 
   .column-controls {
     display: grid !important;
+    position: relative;
+    z-index: 70;
   }
 
   #controlSlotGap,
@@ -771,6 +773,15 @@ h3,
     justify-self: stretch;
     width: 100%;
     max-width: 100%;
+  }
+
+  /* Help button must stay floating, not embedded in the top menu row. */
+  #timelineHelpBtn.timeline-help-btn {
+    position: fixed !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 1300 !important;
   }
 }
 
