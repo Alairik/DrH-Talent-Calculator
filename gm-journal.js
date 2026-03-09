@@ -257,9 +257,6 @@
       selectedSpecializationKeyByClass: {},
       specializationLockLevelByClass: {},
       selectedSkillTargets: {},
-      journalMeta: {
-        rssEnabled: false
-      },
       attributes: defaultAttributes(),
       manualLevel: 1,
       levelMode: "auto",
@@ -296,7 +293,6 @@
     if (!state.build.selectedSpecializationKeyByClass || typeof state.build.selectedSpecializationKeyByClass !== "object") {
       state.build.selectedSpecializationKeyByClass = {};
     }
-    state.build.journalMeta = sanitizeJournalMeta(state.build.journalMeta);
     state.build.config.maxLevel = state.maxLevel;
     cleanseBuildForClass();
     applyClassStarterPackage(true);
@@ -391,6 +387,7 @@
 
   function renderTabs() {
     if (state.activeTab === "calculator") state.activeTab = "talents";
+    if (state.activeTab === "systems") state.activeTab = "skills";
     els.tabButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.tab === state.activeTab);
     });
@@ -406,10 +403,6 @@
     if (state.activeTab === "spells") {
       const spells = buildSpellPreview();
       els.tabContent.innerHTML = renderList(spells.length ? spells : ["Bez kouzel."]);
-      return;
-    }
-    if (state.activeTab === "systems") {
-      renderSystemsTab();
       return;
     }
     const items = buildItemPreview();
@@ -551,44 +544,6 @@
         syncLevelWithSelections(false);
         applyBuildToControls();
         renderAll();
-        persistBuild();
-      });
-    }
-  }
-
-  function renderSystemsTab() {
-    const profId = state.build.professionId;
-    const level = state.build.manualLevel;
-    const spec = state.build.selectedSpecializationKeyByClass[profId] || "";
-    const specName = ((SPECIALIZATION_OPTIONS[profId] || []).find((x) => x.key === spec) || {}).name || "Bez specializace";
-    const lockLevel = state.build.specializationLockLevelByClass[profId];
-    const canSpec = level >= 6;
-    const unlockRule = canSpec ? "Specializace je od 6. urovne. Bez locku lze brat 1 spec schopnost kazdou 6. uroven." : "Specializace se otevre na 6. urovni.";
-    const rssEnabled = Boolean(state.build.journalMeta.rssEnabled);
-
-    els.tabContent.innerHTML = `
-      <div class="progress-grid">
-        <div class="progress-row">
-          <strong>Progrese postavy</strong>
-          <div class="meta-help">${unlockRule}</div>
-        </div>
-        <div class="progress-row">
-          <strong>Aktivni specializace: ${escapeHtml(specName)}</strong>
-          <div class="meta-help">${lockLevel ? `Locknuto na urovni ${lockLevel}.` : "Specializace zatim neni locknuta."}</div>
-        </div>
-        <div class="progress-row">
-          <label>
-            <input id="rssEnabledInput" type="checkbox" ${rssEnabled ? "checked" : ""} />
-            Pouzivat RSS poznamky pro encounter
-          </label>
-          <div class="meta-help">RSS pridava teren, viditelnost, AB ekonomiku a reakce. ZSS zustava validni fallback.</div>
-        </div>
-      </div>
-    `;
-    const rssEl = document.getElementById("rssEnabledInput");
-    if (rssEl) {
-      rssEl.addEventListener("change", () => {
-        state.build.journalMeta.rssEnabled = Boolean(rssEl.checked);
         persistBuild();
       });
     }
@@ -1029,7 +984,6 @@
     out.selectedSpecializationKeyByClass = sanitizeIdMap(p.selectedSpecializationKeyByClass);
     out.specializationLockLevelByClass = sanitizeIntMap(p.specializationLockLevelByClass, 1, 36);
     out.selectedSkillTargets = sanitizeIntMap(p.selectedSkillTargets, 1, 36);
-    out.journalMeta = sanitizeJournalMeta(p.journalMeta);
     out.attributes = sanitizeAttributes(p.attributes);
     out.manualLevel = clampLevel(p.manualLevel);
     out.levelMode = p.levelMode === "manual" ? "manual" : "auto";
@@ -1080,13 +1034,6 @@
       out[id] = val;
     }
     return out;
-  }
-
-  function sanitizeJournalMeta(value) {
-    const src = value && typeof value === "object" ? value : {};
-    return {
-      rssEnabled: Boolean(src.rssEnabled)
-    };
   }
 
   function sanitizeAttributes(value) {
