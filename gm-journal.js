@@ -332,7 +332,12 @@
         if (!s.prof_id || s.prof_id === profId) return true;
         return basicSkillNames.has(n);
       })
-      .sort(byName);
+      .sort((a, b) => {
+        const aClass = a.prof_id === profId ? 0 : 1;
+        const bClass = b.prof_id === profId ? 0 : 1;
+        if (aClass !== bClass) return aClass - bClass;
+        return byName(a, b);
+      });
 
     els.tabContent.innerHTML = `
       <div class="interactive-list">

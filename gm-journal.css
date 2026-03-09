@@ -163,6 +163,8 @@ button:hover {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   min-height: 0;
+  height: calc(100dvh - 2rem);
+  overflow: hidden;
 }
 
 .tab-nav {
@@ -291,5 +293,10 @@ button:hover {
   .sheet-layout {
     grid-template-columns: 1fr;
     min-height: auto;
+  }
+
+  .tabs-panel {
+    height: auto;
+    min-height: 420px;
   }
 }
