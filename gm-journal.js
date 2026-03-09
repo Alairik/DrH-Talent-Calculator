@@ -32,6 +32,58 @@
         min-height: 0 !important;
         overflow: auto !important;
       }
+
+      ${showTalents ? `
+      .talents-panel {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        grid-template-areas:
+          "base ext"
+          "spec spec"
+          "adv adv" !important;
+        align-content: start !important;
+        gap: 8px !important;
+      }
+      .talents-panel > #panelClassControls {
+        display: none !important;
+      }
+      .talents-panel > .general-branch {
+        grid-area: base !important;
+        margin: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+      }
+      .talents-panel > #generalBranchL6 {
+        grid-area: ext !important;
+        margin: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+      }
+      .talents-panel > .spec-picker {
+        grid-area: spec !important;
+        margin: 0 !important;
+        max-width: none !important;
+        width: 100% !important;
+        align-self: stretch !important;
+      }
+      .talents-panel > .branch-grid {
+        grid-area: adv !important;
+        width: 100% !important;
+        margin: 0 !important;
+        gap: 8px !important;
+      }
+      .talents-panel > .branch-grid > .branch {
+        max-width: none !important;
+        width: 100% !important;
+      }
+      .talents-panel > .branch-grid > .branch > h3 {
+        margin-bottom: 4px !important;
+      }
+      .talents-panel > .branch-grid > .branch > .branch-nodes {
+        grid-template-columns: repeat(8, minmax(0, 1fr)) !important;
+        gap: 6px !important;
+      }
+      ` : ``}
     `;
   }
 
