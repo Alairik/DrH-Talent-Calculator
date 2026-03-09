@@ -8,47 +8,48 @@
 </head>
 <body>
   <main class="sheet-layout">
-    <section class="panel controls-panel">
-      <h1>GM Journal Builder</h1>
-      <div class="controls-grid">
-        <label>
-          Povolani
-          <select id="professionSelect"></select>
-        </label>
-        <label>
-          Rasa
-          <select id="raceSelect"></select>
-        </label>
-        <label>
-          Level
-          <div class="level-row">
-            <button id="levelDownBtn" type="button">-</button>
-            <input id="levelInput" type="number" min="1" max="36" value="1" />
-            <button id="levelUpBtn" type="button">+</button>
+    <section class="left-column">
+      <section class="panel controls-panel">
+        <h1>GM Journal Builder</h1>
+        <div class="controls-grid">
+          <label>
+            Povolani
+            <select id="professionSelect"></select>
+          </label>
+          <label>
+            Rasa
+            <select id="raceSelect"></select>
+          </label>
+          <label>
+            Level
+            <div class="level-row">
+              <button id="levelDownBtn" type="button">-</button>
+              <input id="levelInput" type="number" min="1" max="36" value="1" />
+              <button id="levelUpBtn" type="button">+</button>
+            </div>
+          </label>
+        </div>
+        <div class="actions-row">
+          <button id="randomizeBtn" type="button">Randomize postavy</button>
+          <button id="resetBtn" type="button">Reset</button>
+          <button id="saveBtn" type="button">Ulozit URL</button>
+        </div>
+        <p class="hint">Nova samostatna stranka. Puvodni kalkulator zustava beze zmeny.</p>
+      </section>
+
+      <section class="panel diary-panel">
+        <header class="diary-head">
+          <div>
+            <h2 id="charName">Postava</h2>
+            <p id="charMeta">-</p>
           </div>
-        </label>
-      </div>
-      <div class="actions-row">
-        <button id="randomizeBtn" type="button">Randomize postavy</button>
-        <button id="resetBtn" type="button">Reset</button>
-        <button id="saveBtn" type="button">Ulozit URL</button>
-      </div>
-      <p class="hint">Nova samostatna stranka. Puvodni kalkulator zustava beze zmeny.</p>
-    </section>
-
-    <section class="panel diary-panel">
-      <header class="diary-head">
-        <div>
-          <h2 id="charName">Postava</h2>
-          <p id="charMeta">-</p>
-        </div>
-        <div class="life-mana">
-          <div><span>Zivoty:</span> <strong id="hpValue">0</strong></div>
-          <div><span>Mana:</span> <strong id="manaValue">0</strong></div>
-        </div>
-      </header>
-
-      <section class="attrs-grid" id="attrsGrid"></section>
+          <div class="life-mana">
+            <div><span>Zivoty:</span> <strong id="hpValue">0</strong></div>
+            <div><span>Mana:</span> <strong id="manaValue">0</strong></div>
+          </div>
+        </header>
+        <section class="attrs-grid" id="attrsGrid"></section>
+      </section>
     </section>
 
     <section class="panel tabs-panel">
