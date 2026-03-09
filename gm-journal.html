@@ -10,6 +10,14 @@
   <main class="sheet-layout">
     <section class="left-column">
       <section class="panel controls-panel">
+        <div class="pc-meta" aria-label="Souhrn postavy">
+          <label class="pc-meta-field">
+            <span>Životy</span>
+            <input id="hpDisplayInput" type="number" min="1" step="1" />
+          </label>
+          <button id="hpAutoBtn" type="button" class="pc-meta-btn">Auto</button>
+          <span id="hpAutoHint" class="pc-meta-hint"></span>
+        </div>
         <div class="creator-embed-wrap">
           <iframe id="creatorEmbedFrame" title="DrH tvorba postavy" src="./index.html"></iframe>
         </div>

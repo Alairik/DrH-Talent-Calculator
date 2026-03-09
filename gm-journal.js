@@ -6,6 +6,9 @@
   const auxTabContent = document.getElementById("auxTabContent");
   const auxTabTitle = document.getElementById("auxTabTitle");
   const auxTabHint = document.getElementById("auxTabHint");
+  const hpDisplayInput = document.getElementById("hpDisplayInput");
+  const hpAutoBtn = document.getElementById("hpAutoBtn");
+  const hpAutoHint = document.getElementById("hpAutoHint");
   let activeTab = localStorage.getItem(COL_TAB_KEY) || "talents";
   let reloadTimer = null;
   let currentClassName = "";
@@ -22,6 +25,7 @@
   const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
   const SPELLS_STORAGE_KEY = "dh_journal_spells_v1";
   const INVENTORY_STORAGE_KEY = "dh_journal_inventory_v1";
+  const HP_STORAGE_KEY = "dh_journal_hp_override_v1";
   const SPELLS_DATA = {
     hranicar: {
       fixed: [
@@ -194,6 +198,57 @@
       ...extras,
       levelLine
     ];
+  }
+
+  function loadHpOverride() {
+    try {
+      const raw = localStorage.getItem(HP_STORAGE_KEY);
+      if (!raw) return null;
+      const value = Number.parseInt(raw, 10);
+      return Number.isFinite(value) && value > 0 ? value : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveHpOverride(value) {
+    try {
+      if (Number.isFinite(value) && value > 0) {
+        localStorage.setItem(HP_STORAGE_KEY, String(value));
+      } else {
+        localStorage.removeItem(HP_STORAGE_KEY);
+      }
+    } catch {
+      // ignore storage failures
+    }
+  }
+
+  function getOdoFromCreator() {
+    if (!creatorFrame || !creatorFrame.contentDocument) return 10;
+    const doc = creatorFrame.contentDocument;
+    const odo = Number.parseInt(doc.getElementById("attrOdoBase")?.value || "10", 10);
+    return Number.isFinite(odo) && odo > 0 ? odo : 10;
+  }
+
+  function computeAutoHp() {
+    const level = Math.max(1, Number.parseInt(String(journalState.level || 1), 10) || 1);
+    const odo = getOdoFromCreator();
+    return Math.max(1, 10 + odo + (level - 1) * 4);
+  }
+
+  function updateHpUi() {
+    if (!hpDisplayInput || !hpAutoHint) return;
+    const autoHp = computeAutoHp();
+    const hasManual = Number.isFinite(journalState.hpOverride) && journalState.hpOverride > 0;
+    const shown = hasManual ? journalState.hpOverride : autoHp;
+    hpDisplayInput.value = String(shown);
+    hpAutoHint.textContent = hasManual ? `Auto: ${autoHp}` : `Auto aktivní: ${autoHp}`;
+  }
+
+  function resetHpToAuto() {
+    journalState.hpOverride = null;
+    saveHpOverride(null);
+    updateHpUi();
   }
 
   function loadInventoryEntriesState() {
@@ -699,6 +754,12 @@
     } else {
       ensureInventoryEntries(false);
     }
+
+    if (forceInventoryReroll) {
+      resetHpToAuto();
+    } else {
+      updateHpUi();
+    }
   }
 
   function updateAuxTabContent() {
@@ -821,6 +882,7 @@
 
   journalState.selectedOptionalSpells = loadOptionalSpellsState();
   journalState.inventoryEntries = loadInventoryEntriesState();
+  journalState.hpOverride = loadHpOverride();
 
   for (const btn of colTabButtons) {
     btn.addEventListener("click", () => setActiveTab(btn.dataset.colTab || "talents"));
@@ -872,6 +934,24 @@
       else delete journalState.selectedOptionalSpells[key];
       saveOptionalSpellsState();
     });
+  }
+
+  if (hpDisplayInput) {
+    hpDisplayInput.addEventListener("input", () => {
+      const value = Number.parseInt(hpDisplayInput.value || "", 10);
+      if (Number.isFinite(value) && value > 0) {
+        journalState.hpOverride = value;
+        saveHpOverride(value);
+      } else {
+        journalState.hpOverride = null;
+        saveHpOverride(null);
+      }
+      updateHpUi();
+    });
+  }
+
+  if (hpAutoBtn) {
+    hpAutoBtn.addEventListener("click", () => resetHpToAuto());
   }
   if (mainFrame) mainFrame.addEventListener("load", applyRightPaneMode);
   if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);

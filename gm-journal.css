@@ -71,9 +71,51 @@ h1, h2, h3 { margin: 0; }
 
 .controls-panel {
   display: grid;
-  grid-template-rows: minmax(0, 1fr);
-  gap: 0;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 0.5rem;
   height: 100%;
+}
+
+.pc-meta {
+  display: grid;
+  grid-template-columns: minmax(0, 170px) auto 1fr;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.pc-meta-field {
+  display: grid;
+  gap: 0.22rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.pc-meta-field input {
+  width: 100%;
+  border: 1px solid #6d5532;
+  border-radius: 8px;
+  background: rgba(18, 14, 11, 0.92);
+  color: #f3e8d1;
+  padding: 0.34rem 0.45rem;
+  font: inherit;
+}
+
+.pc-meta-btn {
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #201822;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  height: 33px;
+}
+
+.pc-meta-hint {
+  font-size: 0.78rem;
+  color: var(--muted);
+  align-self: center;
 }
 
 .creator-embed-wrap {
