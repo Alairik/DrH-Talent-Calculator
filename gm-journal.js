@@ -18,7 +18,7 @@
     selectedOptionalSpells: {}
   };
 
-  const SPELL_CLASSES = ["hraniÄŤĂˇĹ™", "kouzelnĂ­k", "klerik"];
+  const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
   const SPELLS_STORAGE_KEY = "dh_journal_spells_v1";
   const SPELLS_DATA = {
     hranicar: {
@@ -63,44 +63,44 @@
   };
 
   const STARTER_RULE_LINES = [
-    "3 blĂ­zkĂ© dovednosti povolĂˇnĂ­ automaticky na stupni 3.",
-    "+3 dovednostnĂ­ body na zaÄŤĂˇtku.",
-    "ÄŚlovÄ›k: +2 dovednostnĂ­ body navĂ­c (VĹˇestrannost)."
+    "3 blízké dovednosti povolání automaticky na stupni 3.",
+    "+3 dovednostní body na začátku.",
+    "Člověk: +2 dovednostní body navíc (Všestrannost)."
   ];
   const COMMON_STARTER_ITEMS = [
-    "CestovnĂ­ plĂˇĹˇĹĄ a pevnĂ© boty",
-    "MÄ›Ĺˇec s mincemi",
+    "Cestovní plášť a pevné boty",
+    "Měšec s mincemi",
     "Tornistra / vak",
-    "KĹ™esadlo, lano, svĂ­ce nebo louÄŤ"
+    "Křesadlo, lano, svíce nebo louč"
   ];
   const CLASS_LOADOUTS = {
     valecnik: {
-      fixed: ["BojovĂˇ zbraĹ (jednoruÄŤnĂ­ nebo obouruÄŤnĂ­)", "Ĺ tĂ­t nebo druhĂˇ zbraĹ", "StĹ™ednĂ­ zbroj"],
-      pool: ["ZĂˇloĹľnĂ­ dĂ˝ka", "KrouĹľkovĂˇ kukla", "LĂ©kĂˇrniÄŤka", "OpravnĂˇ sada na zbroj", "VrhacĂ­ sekera"]
+      fixed: ["Bojová zbraň (jednoruční nebo obouruční)", "Štít nebo druhá zbraň", "Střední zbroj"],
+      pool: ["Záložní dýka", "Kroužková kukla", "Lékárnička", "Opravná sada na zbroj", "Vrhací sekera"]
     },
     hranicar: {
-      fixed: ["Luk + toulec ĹˇĂ­pĹŻ", "LehkĂˇ/stĹ™ednĂ­ zbraĹ na blĂ­zko", "KoĹľenĂˇ zbroj"],
-      pool: ["LoveckĂ˝ nĹŻĹľ", "Past na zvÄ›Ĺ™", "BylinkĂˇĹ™skĂˇ braĹˇna", "MaskovacĂ­ plĂˇĹˇĹĄ", "NĂˇhradnĂ­ tÄ›tiva"]
+      fixed: ["Luk + toulec šípů", "Lehká/střední zbraň na blízko", "Kožená zbroj"],
+      pool: ["Lovecký nůž", "Past na zvěř", "Bylinkářská brašna", "Maskovací plášť", "Náhradní tětiva"]
     },
     alchymista: {
-      fixed: ["AlchymistickĂˇ braĹˇna", "ZĂˇkladnĂ­ sklenÄ›nĂ© baĹky", "Sada surovin"],
-      pool: ["PĹ™enosnĂ˝ hmoĹľdĂ­Ĺ™", "FiltraÄŤnĂ­ plĂˇtno", "2x prĂˇzdnĂ˝ flakĂłn", "MÄ›Ĺ™icĂ­ sada", "DestilaÄŤnĂ­ mini-set"]
+      fixed: ["Alchymistická brašna", "Základní skleněné baňky", "Sada surovin"],
+      pool: ["Přenosný hmoždíř", "Filtrační plátno", "2x prázdný flakón", "Měřicí sada", "Destilační mini-set"]
     },
     kouzelnik: {
-      fixed: ["HĹŻl / fokus", "Kniha poznĂˇmek", "LehkĂ˝ odÄ›v bez zbroje"],
-      pool: ["RituĂˇlnĂ­ chalk", "SvĂ­ce a kadidlo", "NĂˇhradnĂ­ fokus", "Pergameny", "OchrannĂ˝ talisman"]
+      fixed: ["Hůl / fokus", "Kniha poznámek", "Lehký oděv bez zbroje"],
+      pool: ["Rituální chalk", "Svíce a kadidlo", "Náhradní fokus", "Pergameny", "Ochranný talisman"]
     },
     zlodej: {
-      fixed: ["LehkĂˇ zbraĹ", "LehkĂˇ zbroj", "Sada paklĂ­ÄŤĹŻ / nĂˇĹ™adĂ­"],
-      pool: ["HĂˇzecĂ­ dĂ˝ky", "KĂˇpÄ›", "Lanko s hĂˇkem", "KouĹ™ovĂˇ ampule", "MaskovacĂ­ sada"]
+      fixed: ["Lehká zbraň", "Lehká zbroj", "Sada paklíčů / nářadí"],
+      pool: ["Házecí dýky", "Kápě", "Lanko s hákem", "Kouřová ampule", "Maskovací sada"]
     },
     klerik: {
-      fixed: ["PosvĂˇtnĂ˝ symbol", "JednoruÄŤnĂ­ zbraĹ", "LehkĂˇ/stĹ™ednĂ­ zbroj"],
-      pool: ["CestovnĂ­ oltĂˇĹ™Ă­k", "LĂ©ÄŤivĂ© obvazy", "SvÄ›cenĂˇ voda", "ModlitebnĂ­ kniha", "Kadidelnice"]
+      fixed: ["Posvátný symbol", "Jednoruční zbraň", "Lehká/střední zbroj"],
+      pool: ["Cestovní oltářík", "Léčivé obvazy", "Svěcená voda", "Modlitební kniha", "Kadidelnice"]
     },
     fallback: {
-      fixed: ["ZĂˇkladnĂ­ zbraĹ", "CestovnĂ­ odÄ›v"],
-      pool: ["DĂ˝ka", "Lano", "LĂ©kĂˇrniÄŤka", "Vak na zĂˇsoby"]
+      fixed: ["Základní zbraň", "Cestovní oděv"],
+      pool: ["Dýka", "Lano", "Lékárnička", "Vak na zásoby"]
     }
   };
 
@@ -181,10 +181,10 @@
     const extras = pickRandomUnique(loadout.pool || [], extrasCount);
     const levelLine =
       snapshot.level <= 5
-        ? "NĂ­zkĂ© ĂşrovnÄ›: lehkĂˇ, praktickĂˇ vĂ˝bava."
+        ? "Nízké úrovně: lehká, praktická výbava."
         : snapshot.level <= 10
-          ? "StĹ™ednĂ­ ĂşrovnÄ›: ĹˇirĹˇĂ­ sada nĂˇstrojĹŻ a zĂˇloh."
-          : "VyĹˇĹˇĂ­ ĂşrovnÄ›: robustnĂ­ vĂ˝bava s vĂ­ce specializacĂ­.";
+          ? "Střední úrovně: širší sada nástrojů a záloh."
+          : "Vyšší úrovně: robustní výbava s více specializací.";
 
     return [
       ...COMMON_STARTER_ITEMS,
@@ -629,10 +629,10 @@
       },
       recipes: {
         title: "Recepty",
-        hint: "Sekce receptĹŻ Alchymisty. Obsah bude navĂˇzĂˇn na pravidla povolĂˇnĂ­."
+        hint: "Sekce receptů Alchymisty. Obsah bude navázán na pravidla povolání."
       },
       inventory: {
-        title: "InventĂˇĹ™",
+        title: "Inventář",
         hint: ""
       }
     };
@@ -655,7 +655,7 @@
           <ul>${starterHtml}</ul>
         </div>
         <div>
-          <strong>DoporuÄŤenĂˇ vĂ˝bava (${escapeHtml(journalState.className || "postava")} Â· ĂşroveĹ ${escapeHtml(journalState.level)}):</strong>
+          <strong>Doporučená výbava (${escapeHtml(journalState.className || "postava")} · úroveň ${escapeHtml(journalState.level)}):</strong>
           <ul>${itemsHtml}</ul>
         </div>
       `;
@@ -772,4 +772,6 @@
   if (mainFrame) mainFrame.addEventListener("load", applyRightPaneMode);
   if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);
 })();
+
+
 
