@@ -479,8 +479,10 @@
             <div class="interactive-list calc-native-list">
               ${skills.map((s) => {
                 const rank = Number(selectedSkillTargets[s.id] || 0);
+                const isClassSkill = isClassSkillForProfession(s, profId);
+                const rowClass = isClassSkill ? `interactive-row calc-skill-row class-${String(profId || "").toLowerCase()}` : "interactive-row calc-skill-row";
                 return `
-                  <div class="interactive-row">
+                  <div class="${rowClass}">
                     <span>Lv ${Number(s.required_level || 1)} - ${escapeHtml(s.name)}</span>
                     <div class="rank-ctrl">
                       <button type="button" data-calc-skill-minus="${escapeHtml(s.id)}">-</button>
@@ -607,8 +609,10 @@
       <div class="interactive-list">
         ${available.map((s) => {
           const rank = Number(state.build.selectedSkillTargets[s.id] || 0);
+          const isClassSkill = isClassSkillForProfession(s, profId);
+          const rowClass = isClassSkill ? `interactive-row calc-skill-row class-${String(profId || "").toLowerCase()}` : "interactive-row calc-skill-row";
           return `
-            <div class="interactive-row">
+            <div class="${rowClass}">
               <span>${escapeHtml(s.name)}</span>
               <div class="rank-ctrl">
                 <button type="button" data-skill-minus="${escapeHtml(s.id)}">-</button>

@@ -297,6 +297,37 @@ button:hover {
   padding: 0.16rem;
 }
 
+.calc-skill-row.class-prof_1 {
+  border-color: #7c3232;
+  background: rgba(96, 28, 28, 0.45);
+}
+
+.calc-skill-row.class-prof_2 {
+  border-color: #2f6b43;
+  background: rgba(28, 72, 43, 0.45);
+}
+
+.calc-skill-row.class-prof_3 {
+  border-color: #8a5b24;
+  background: rgba(99, 61, 19, 0.45);
+}
+
+.calc-skill-row.class-prof_4 {
+  border-color: #2f5879;
+  background: rgba(25, 48, 75, 0.45);
+}
+
+.calc-skill-row.class-prof_5 {
+  border-color: #111111;
+  background: rgba(7, 7, 7, 0.78);
+}
+
+.calc-skill-row.class-prof_6 {
+  border-color: #d8d8d8;
+  background: rgba(235, 235, 235, 0.9);
+  color: #1a1a1a;
+}
+
 .calc-native-wrap {
   display: grid;
   gap: 0.6rem;
