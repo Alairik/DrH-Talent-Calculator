@@ -34,10 +34,13 @@
       optionalGroups: [
         { label: "Hranicarsky luk", spells: ["Dest sipu", "Jasna strela", "Ochromujici sip", "Plamenny sip", "Trefa do cerneho"] },
         { label: "Hranicaruv kun", spells: ["Nezdolnost", "Privolej kone", "S vetrem o zavod", "Uklidni zvire", "Zvireci posel"] },
-        { label: "Chodecka magie", spells: ["Falesna stopa", "Mateni pachu", "Mateni stop", "Oci prirody", "Uhrancivy pohled"] },
-        { label: "Chodcuv mec", spells: ["Odrazeni kouzla", "Posileni zbrane", "Transmutace zbrane", "Zablesk", "Zivelne ostri"] },
-        { label: "Magie lovcu monster", spells: ["Bleskovy vypad", "Dvojity svih", "Srazeni projektilu", "Poskozeni zbrane", "Virive ostri"] },
-        { label: "Druidova kouzla", spells: ["Obri rust", "Poskytni pribytek", "Pozehnani prirody", "Probuzeni hvozdu", "Prilnavost brectanu", "Privolej Druida", "Splynuti", "Trnovy stit", "Uklidneni hvozdu", "Uvadni"] }
+        { label: "Druidova kouzla", requiresSpec: 0, spells: ["Obri rust", "Poskytni pribytek", "Pozehnani prirody", "Probuzeni hvozdu", "Prilnavost brectanu", "Privolej Druida", "Splynuti", "Trnovy stit", "Uklidneni hvozdu", "Uvadni"] },
+        { label: "Chodecka magie", requiresSpec: 1, spells: ["Falesna stopa", "Mateni pachu", "Mateni stop", "Oci prirody", "Uhrancivy pohled"] },
+        { label: "Chodcuv mec", requiresSpec: 1, spells: ["Odrazeni kouzla", "Posileni zbrane", "Transmutace zbrane", "Zablesk", "Zivelne ostri"] },
+        { label: "Magie lovcu monster", requiresSpec: 1, spells: ["Bleskovy vypad", "Dvojity svih", "Srazeni projektilu", "Poskozeni zbrane", "Virive ostri"] },
+        { label: "Divoke pokriky", requiresSpec: 2, spells: ["Bojovny rev", "Desivy rev", "Pokrik lovu", "Varovny vykrik", "Vabici krik"] },
+        { label: "Magie smecky", requiresSpec: 2, spells: ["Chran", "Stvi", "Trhej", "Zadrz", "Zachran"] },
+        { label: "Pokrocila magie zvirat", requiresSpec: 2, spells: ["Mimikry", "Nakrm zvire", "Oci zvirete", "Pochvala", "Poslouchej"] }
       ],
       note: "Volitelna kouzla vychazeji z volitelnych schopnosti a specializaci PPP."
     },
@@ -219,6 +222,17 @@
     };
   }
 
+  function getLockedSpecializationIndex() {
+    if (!mainFrame || !mainFrame.contentDocument) return null;
+    const doc = mainFrame.contentDocument;
+    const locked = doc.querySelector(".spec-picker .spec-node.locked-spec");
+    if (!locked) return null;
+    for (let i = 0; i <= 2; i += 1) {
+      if (locked.classList.contains(`spec-${i}`)) return i;
+    }
+    return null;
+  }
+
   function getSelectedSpellKey(classKey, spellName) {
     return `${classKey}::${spellName}`;
   }
@@ -233,7 +247,11 @@
       ? `<ul>${fixed.map((x) => `<li>${escapeHtml(x.name)}</li>`).join("")}</ul>`
       : "<p>Na teto urovni nejsou evidovana zadna pevna kouzla.</p>";
 
-    const groups = ctx.def.optionalGroups || [];
+    const lockedSpec = getLockedSpecializationIndex();
+    const groups = (ctx.def.optionalGroups || []).filter((g) => {
+      if (!Object.prototype.hasOwnProperty.call(g, "requiresSpec")) return true;
+      return g.requiresSpec === lockedSpec;
+    });
     const groupsHtml = groups.length
       ? groups.map((g) => {
           const checks = (g.spells || []).map((spell) => {
@@ -253,13 +271,14 @@
             </div>
           `;
         }).join("")
-      : "<p>Volitelna kouzla zatim nejsou pro tuto tridu vypsana.</p>";
+      : "<p>Volitelna kouzla nejsou dostupna (nebo cekaji na zamceni specializace).</p>";
 
     return `
       <div>
         <strong>Pevna kouzla (automaticka):</strong>
         ${fixedHtml}
       </div>
+      ${lockedSpec === null ? "<p><em>Specializace neni zamcena - specializacni kouzla se skryvaji.</em></p>" : ""}
       <div>
         <strong>Volitelna kouzla (checklist):</strong>
         ${groupsHtml}
