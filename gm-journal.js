@@ -3,8 +3,39 @@
   const colTabButtons = Array.from(document.querySelectorAll(".col-tab-btn"));
   const mainFrame = document.getElementById("calcEmbedFrame");
   const creatorFrame = document.getElementById("creatorEmbedFrame");
+  const auxTabContent = document.getElementById("auxTabContent");
+  const auxTabTitle = document.getElementById("auxTabTitle");
+  const auxTabHint = document.getElementById("auxTabHint");
   let activeTab = localStorage.getItem(COL_TAB_KEY) || "talents";
   let reloadTimer = null;
+  let currentClassName = "";
+
+  const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
+
+  function normalizeText(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function classHasSpells(className) {
+    const n = normalizeText(className);
+    return SPELL_CLASSES.some((key) => n.includes(normalizeText(key)));
+  }
+
+  function classIsAlchemist(className) {
+    const n = normalizeText(className);
+    return n.includes("alchymista");
+  }
+
+  function getVisibleTabsForClass(className) {
+    const tabs = new Set(["talents", "skills", "inventory"]);
+    if (classHasSpells(className)) tabs.add("spells");
+    if (classIsAlchemist(className)) tabs.add("recipes");
+    return tabs;
+  }
 
   function getMainEmbedStyleText() {
     const showTalents = activeTab === "talents";
@@ -210,6 +241,66 @@
     }, 180);
   }
 
+  function getSelectedClassNameFromCreator() {
+    if (!creatorFrame || !creatorFrame.contentDocument) return "";
+    const doc = creatorFrame.contentDocument;
+    const select = doc.getElementById("mobileClassSelect");
+    if (!select) return "";
+    const idx = select.selectedIndex;
+    if (idx < 0 || !select.options[idx]) return "";
+    return select.options[idx].textContent || "";
+  }
+
+  function updateAuxTabContent() {
+    if (!auxTabContent || !auxTabTitle || !auxTabHint) return;
+    const byTab = {
+      spells: {
+        title: "Kouzla",
+        hint: "Sekce kouzel pro zvolené povolání. Obsah bude navázán na pravidla povolání."
+      },
+      recipes: {
+        title: "Recepty",
+        hint: "Sekce receptů Alchymisty. Obsah bude navázán na pravidla povolání."
+      },
+      inventory: {
+        title: "Inventář",
+        hint: "Sekce inventáře deníku. Obsah bude doplněn v dalším kroku."
+      }
+    };
+    const data = byTab[activeTab];
+    if (!data) {
+      auxTabContent.hidden = true;
+      return;
+    }
+    auxTabTitle.textContent = data.title;
+    auxTabHint.textContent = data.hint;
+    auxTabContent.hidden = false;
+  }
+
+  function syncTabVisibility() {
+    const visibleTabs = getVisibleTabsForClass(currentClassName);
+    for (const btn of colTabButtons) {
+      const tab = btn.dataset.colTab || "";
+      const isVisible = visibleTabs.has(tab);
+      btn.hidden = !isVisible;
+    }
+    if (!visibleTabs.has(activeTab)) {
+      activeTab = "talents";
+      localStorage.setItem(COL_TAB_KEY, activeTab);
+    }
+  }
+
+  function applyRightPaneMode() {
+    const isCalcTab = activeTab === "talents" || activeTab === "skills";
+    if (mainFrame) mainFrame.style.display = isCalcTab ? "block" : "none";
+    if (isCalcTab) {
+      if (auxTabContent) auxTabContent.hidden = true;
+      applyMainEmbedStyle();
+    } else {
+      updateAuxTabContent();
+    }
+  }
+
   function hookCreatorEvents() {
     if (!creatorFrame || !creatorFrame.contentDocument) return;
     const doc = creatorFrame.contentDocument;
@@ -223,11 +314,21 @@
     };
     doc.addEventListener("click", (ev) => {
       const t = ev.target;
-      if (isCreatorControl(t)) scheduleMainReload();
+      if (isCreatorControl(t)) {
+        currentClassName = getSelectedClassNameFromCreator();
+        syncTabVisibility();
+        applyRightPaneMode();
+        scheduleMainReload();
+      }
     }, true);
     doc.addEventListener("change", (ev) => {
       const t = ev.target;
-      if (isCreatorControl(t)) scheduleMainReload();
+      if (isCreatorControl(t)) {
+        currentClassName = getSelectedClassNameFromCreator();
+        syncTabVisibility();
+        applyRightPaneMode();
+        scheduleMainReload();
+      }
     }, true);
     doc.addEventListener("input", (ev) => {
       const t = ev.target;
@@ -239,6 +340,9 @@
     try {
       injectStyle(creatorFrame, "gm-journal-creator-embed-style", getCreatorEmbedStyleText());
       arrangeCreatorHeaderControls();
+      currentClassName = getSelectedClassNameFromCreator();
+      syncTabVisibility();
+      applyRightPaneMode();
       hookCreatorEvents();
     } catch (err) {
       console.warn("GM journal creator iframe styling failed", err);
@@ -246,12 +350,15 @@
   }
 
   function setActiveTab(next) {
-    activeTab = next === "skills" ? "skills" : "talents";
+    const nextTab = String(next || "talents");
+    activeTab = nextTab;
+    const visibleTabs = getVisibleTabsForClass(currentClassName);
+    if (!visibleTabs.has(activeTab)) activeTab = "talents";
     localStorage.setItem(COL_TAB_KEY, activeTab);
     for (const btn of colTabButtons) {
       btn.classList.toggle("active", btn.dataset.colTab === activeTab);
     }
-    applyMainEmbedStyle();
+    applyRightPaneMode();
   }
 
   for (const btn of colTabButtons) {
@@ -259,6 +366,6 @@
   }
   setActiveTab(activeTab);
 
-  if (mainFrame) mainFrame.addEventListener("load", applyMainEmbedStyle);
+  if (mainFrame) mainFrame.addEventListener("load", applyRightPaneMode);
   if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);
 })();

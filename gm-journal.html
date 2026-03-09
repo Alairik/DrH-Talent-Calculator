@@ -22,11 +22,18 @@
         <a href="./index.html" target="_blank" rel="noopener">Otevrit samostatne</a>
       </header>
       <nav class="col-tabs" aria-label="Prepinani sloupcu kalkulatoru">
-        <button type="button" class="col-tab-btn active" data-col-tab="talents">Schopnosti (sloupec 1)</button>
-        <button type="button" class="col-tab-btn" data-col-tab="skills">Dovednosti (sloupec 3)</button>
+        <button type="button" class="col-tab-btn active" data-col-tab="talents">Schopnosti</button>
+        <button type="button" class="col-tab-btn" data-col-tab="skills">Dovednosti</button>
+        <button type="button" class="col-tab-btn" data-col-tab="spells">Kouzla</button>
+        <button type="button" class="col-tab-btn" data-col-tab="recipes">Recepty</button>
+        <button type="button" class="col-tab-btn" data-col-tab="inventory">Inventář</button>
       </nav>
       <div class="calc-embed-wrap">
         <iframe id="calcEmbedFrame" title="DrH kalkulator" src="./index.html"></iframe>
+        <section id="auxTabContent" class="aux-tab-content" hidden>
+          <h3 id="auxTabTitle"></h3>
+          <p id="auxTabHint"></p>
+        </section>
       </div>
     </section>
   </main>
