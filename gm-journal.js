@@ -183,6 +183,7 @@
     els.professionSelect.addEventListener("change", () => {
       state.build.professionId = els.professionSelect.value;
       cleanseBuildForClass();
+      applyClassStarterPackage(true);
       ensureAttributeProfile();
       syncLevelWithSelections(false);
       renderAll();
@@ -298,6 +299,7 @@
     state.build.journalMeta = sanitizeJournalMeta(state.build.journalMeta);
     state.build.config.maxLevel = state.maxLevel;
     cleanseBuildForClass();
+    applyClassStarterPackage(true);
   }
 
   function applyBuildToControls() {
@@ -715,6 +717,56 @@
       delete state.build.selectedSpecializationKeyByClass[profId];
       if (state.build.specializationLockLevelByClass) delete state.build.specializationLockLevelByClass[profId];
     }
+  }
+
+  function applyClassStarterPackage(keepExisting) {
+    const profId = state.build.professionId;
+    const classRules = (state.kb && state.kb.classRules && state.kb.classRules[profId]) || null;
+    if (!classRules) return;
+
+    if (!Array.isArray(state.build.selectedTalentIds)) state.build.selectedTalentIds = [];
+    if (!state.build.selectedTalentOrder || typeof state.build.selectedTalentOrder !== "object") {
+      state.build.selectedTalentOrder = {};
+    }
+    if (!state.build.selectedSkillTargets || typeof state.build.selectedSkillTargets !== "object") {
+      state.build.selectedSkillTargets = {};
+    }
+
+    const selectedTalentSet = new Set(state.build.selectedTalentIds);
+    const starterTalentNames = Array.isArray(classRules.starterTalents) ? classRules.starterTalents : [];
+    for (const talentName of starterTalentNames) {
+      const talent = findTalentByNameAndProfession(talentName, profId);
+      if (!talent) continue;
+      if (!selectedTalentSet.has(talent.id)) {
+        selectedTalentSet.add(talent.id);
+        state.build.talentOrderCounter = Number(state.build.talentOrderCounter || 0) + 1;
+        state.build.selectedTalentOrder[talent.id] = state.build.talentOrderCounter;
+      }
+    }
+    state.build.selectedTalentIds = [...selectedTalentSet];
+
+    const starterSkillNames = Array.isArray(classRules.starterSkills) ? classRules.starterSkills : [];
+    for (const skillName of starterSkillNames) {
+      const skill = findSkillByNameForProfession(skillName, profId);
+      if (!skill) continue;
+      const current = Number(state.build.selectedSkillTargets[skill.id] || 0);
+      if (keepExisting) {
+        state.build.selectedSkillTargets[skill.id] = Math.max(1, current);
+      } else if (current <= 0) {
+        state.build.selectedSkillTargets[skill.id] = 1;
+      }
+    }
+  }
+
+  function findTalentByNameAndProfession(name, profId) {
+    const target = normalize(name);
+    return state.talents.find((t) => t.prof_id === profId && normalize(t.name) === target) || null;
+  }
+
+  function findSkillByNameForProfession(name, profId) {
+    const target = normalize(name);
+    const available = getAvailableSkills(profId, Math.max(1, state.build.manualLevel || 1));
+    return available.find((s) => normalize(s.name) === target) || null;
   }
 
   function randomizeBuild() {
