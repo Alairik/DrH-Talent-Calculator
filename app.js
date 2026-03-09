@@ -249,6 +249,8 @@
     previewSpecializationByClass: {},
     specializationLockLevelByClass: {},
     selectedSkillTargets: {},
+    skillAutoRecalc: true,
+    skillActionOrder: [],
     unspecializedPickLevelByTalentId: {},
     attributes: {
       sil: { base: 10, mod: 0, bonus: 0 },
@@ -441,6 +443,7 @@
     themeToggleBtn: document.getElementById("themeToggleBtn"),
     urlLoadStatus: document.getElementById("urlLoadStatus"),
     summary: document.getElementById("summary"),
+    skillAutoRecalcBtn: document.getElementById("skillAutoRecalcBtn"),
     issues: document.getElementById("issues"),
     timeline: document.getElementById("timeline"),
     exportBtn: document.getElementById("exportBtn"),
@@ -859,8 +862,63 @@
     state.config.points.skillLevel1 = window.APP_CONFIG.points.skillLevel1;
     state.config.points.skillPerLevel = window.APP_CONFIG.points.skillPerLevel;
     ensureCreationDiceDefaults();
+    if (!Array.isArray(state.skillActionOrder)) state.skillActionOrder = [];
+    if (typeof state.skillAutoRecalc !== "boolean") state.skillAutoRecalc = true;
     ensureAttributeDefaults();
     if (areAttributesPristine()) applyCreationAttributeProfile();
+    syncSkillActionOrderToTargets();
+  }
+
+  function buildSkillPlansForOrder(profId = state.selectedProfessionId) {
+    const starterIds = new Set(getClassStarterSkillIds());
+    const plans = [];
+    for (const s of state.skills) {
+      if ((!isSkillAvailableForClass(s, profId) && !starterIds.has(s.id)) || !isSkillVisibleForCurrentSpec(s, profId)) continue;
+      const startRank = getSkillFloor(s, starterIds, profId);
+      const targetRank = getSkillTargetRank(s.id, startRank);
+      if (targetRank <= 0) continue;
+      plans.push({ skill: s, startRank, targetRank });
+    }
+    return plans;
+  }
+
+  function syncSkillActionOrderToTargets() {
+    const plans = buildSkillPlansForOrder(state.selectedProfessionId);
+    const desired = new Map();
+    for (const p of plans) {
+      const steps = Math.max(0, Number(p.targetRank) - Number(p.startRank));
+      if (steps > 0) desired.set(p.skill.id, steps);
+    }
+    const used = new Map();
+    const normalized = [];
+    for (const id of state.skillActionOrder || []) {
+      const maxSteps = desired.get(id) || 0;
+      const cur = used.get(id) || 0;
+      if (maxSteps > cur) {
+        normalized.push(id);
+        used.set(id, cur + 1);
+      }
+    }
+    const sortedPlans = [...plans].sort((a, b) => byName(a.skill, b.skill));
+    for (const p of sortedPlans) {
+      const id = p.skill.id;
+      const maxSteps = desired.get(id) || 0;
+      let cur = used.get(id) || 0;
+      while (cur < maxSteps) {
+        normalized.push(id);
+        cur += 1;
+      }
+      if (cur > 0) used.set(id, cur);
+    }
+    state.skillActionOrder = normalized;
+  }
+
+  function updateSkillAutoRecalcUi() {
+    if (!els.skillAutoRecalcBtn) return;
+    const on = !!state.skillAutoRecalc;
+    els.skillAutoRecalcBtn.setAttribute("aria-pressed", on ? "true" : "false");
+    els.skillAutoRecalcBtn.classList.toggle("is-off", !on);
+    els.skillAutoRecalcBtn.textContent = on ? "Auto dovednosti: ON" : "Auto dovednosti: OFF";
   }
 
   function ensureCreationDiceDefaults() {
@@ -1097,6 +1155,26 @@
     if (els.quickSaveBtn) els.quickSaveBtn.addEventListener("click", () => {
       openSaveCharacterModal();
     });
+    if (els.skillAutoRecalcBtn) {
+      els.skillAutoRecalcBtn.addEventListener("click", () => {
+        const next = !state.skillAutoRecalc;
+        if (!next) {
+          const plan = buildPlan();
+          const ordered = [];
+          for (const lvl of plan.levels || []) {
+            for (const a of lvl.skillActions || []) {
+              if (a && a.skill && a.skill.id) ordered.push(a.skill.id);
+            }
+          }
+          state.skillActionOrder = ordered;
+        }
+        state.skillAutoRecalc = next;
+        syncSkillActionOrderToTargets();
+        renderPlanOnly();
+        updateSkillAutoRecalcUi();
+        persist();
+      });
+    }
     document.addEventListener("click", (ev) => {
       const target = ev.target;
       if (!(target instanceof HTMLElement)) return;
@@ -1230,6 +1308,7 @@
     }
     applyCreationAttributeProfile();
     cleanseInvalidSelections();
+    syncSkillActionOrderToTargets();
     // Keep displayed level stable across class switch so skill point totals recalc for the same level.
     state.levelMode = "manual";
     state.manualLevel = keepLevel;
@@ -1249,6 +1328,7 @@
     state.previewSpecializationByClass = {};
     state.specializationLockLevelByClass = {};
     state.selectedSkillTargets = {};
+    state.skillActionOrder = [];
     state.unspecializedPickLevelByTalentId = {};
     state.levelMode = "manual";
     state.manualLevel = 1;
@@ -1278,6 +1358,7 @@
     state.previewSpecializationByClass = {};
     state.specializationLockLevelByClass = {};
     state.selectedSkillTargets = {};
+    state.skillActionOrder = [];
     state.unspecializedPickLevelByTalentId = {};
     state.levelMode = "manual";
     state.manualLevel = targetLevel;
@@ -2034,6 +2115,7 @@
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
     if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = String(manual);
     if (els.quickLevelDisplay) els.quickLevelDisplay.textContent = String(manual);
+    updateSkillAutoRecalcUi();
     renderQuickAttributeInputs();
   }
 
@@ -2891,6 +2973,7 @@
   function setSkillTargetRank(id, desired, floor) {
     const skill = state.skills.find((x) => x.id === id);
     const isClass = isCurrentClassSkill(skill);
+    const prev = getSkillTargetRank(id, floor);
     let next = Math.max(floor, Math.min(getSkillRankCap(), desired));
     // Class skills start at rank 3 once selected.
     if (isClass && floor === 0 && desired > 0) next = Math.max(3, next);
@@ -2900,6 +2983,23 @@
       delete state.selectedSkillTargets[id];
     } else {
       state.selectedSkillTargets[id] = next;
+    }
+    if (!state.skillAutoRecalc) {
+      let diff = next - prev;
+      if (diff > 0) {
+        while (diff > 0) {
+          state.skillActionOrder.push(id);
+          diff -= 1;
+        }
+      } else if (diff < 0) {
+        let removeCount = Math.abs(diff);
+        for (let i = state.skillActionOrder.length - 1; i >= 0 && removeCount > 0; i -= 1) {
+          if (state.skillActionOrder[i] !== id) continue;
+          state.skillActionOrder.splice(i, 1);
+          removeCount -= 1;
+        }
+      }
+      syncSkillActionOrderToTargets();
     }
     state.levelMode = "auto";
     renderAll();
@@ -3417,6 +3517,9 @@
     for (const t of classStarterTalents) assignedTalentLevel.set(t.id, 1);
 
     let skillPointPool = 0;
+    syncSkillActionOrderToTargets();
+    const manualSkillQueue = [...(state.skillActionOrder || [])];
+    const skillPlanById = new Map(skillPlans.map((p) => [p.skill.id, p]));
 
     for (const lvlState of levels) {
       while (lvlState.talents.length < lvlState.talentCapacity && talentQueue.length > 0) {
@@ -3429,41 +3532,82 @@
 
       skillPointPool += lvlState.skillGain;
       const upgradedThisLevel = new Set();
+      if (state.skillAutoRecalc) {
+        while (true) {
+          const candidates = skillPlans
+            .filter((p) => p.currentRank < p.targetRank)
+            .filter((p) => !upgradedThisLevel.has(p.skill.id))
+            .filter((p) => Number(p.skill.required_level || 1) <= lvlState.level)
+            .filter((p) => {
+              if (!requiresPrereqForSkill(p.skill) || !p.skill.ability_id) return true;
+              const reqLvl = assignedTalentLevel.get(p.skill.ability_id);
+              return typeof reqLvl === "number" && reqLvl <= lvlState.level;
+            })
+            .map((p) => ({
+              plan: p,
+              nextRank: p.currentRank + 1,
+              cost: p.currentRank + 1
+            }))
+            .filter((x) => x.cost <= skillPointPool)
+            .sort((a, b) => {
+              if (a.cost !== b.cost) return a.cost - b.cost;
+              return byName(a.plan.skill, b.plan.skill);
+            });
 
-      while (true) {
-        const candidates = skillPlans
-          .filter((p) => p.currentRank < p.targetRank)
-          .filter((p) => !upgradedThisLevel.has(p.skill.id))
-          .filter((p) => Number(p.skill.required_level || 1) <= lvlState.level)
-          .filter((p) => {
-            if (!requiresPrereqForSkill(p.skill) || !p.skill.ability_id) return true;
-            const reqLvl = assignedTalentLevel.get(p.skill.ability_id);
-            return typeof reqLvl === "number" && reqLvl <= lvlState.level;
-          })
-          .map((p) => ({
-            plan: p,
-            nextRank: p.currentRank + 1,
-            cost: p.currentRank + 1
-          }))
-          .filter((x) => x.cost <= skillPointPool)
-          .sort((a, b) => {
-            if (a.cost !== b.cost) return a.cost - b.cost;
-            return byName(a.plan.skill, b.plan.skill);
+          if (candidates.length === 0) break;
+          const pick = candidates[0];
+          const before = pick.plan.currentRank;
+          pick.plan.currentRank = pick.nextRank;
+          upgradedThisLevel.add(pick.plan.skill.id);
+          skillPointPool -= pick.cost;
+          lvlState.skillSpent += pick.cost;
+          lvlState.skillActions.push({
+            skill: pick.plan.skill,
+            from: before,
+            to: pick.nextRank,
+            cost: pick.cost
           });
-
-        if (candidates.length === 0) break;
-        const pick = candidates[0];
-        const before = pick.plan.currentRank;
-        pick.plan.currentRank = pick.nextRank;
-        upgradedThisLevel.add(pick.plan.skill.id);
-        skillPointPool -= pick.cost;
-        lvlState.skillSpent += pick.cost;
-        lvlState.skillActions.push({
-          skill: pick.plan.skill,
-          from: before,
-          to: pick.nextRank,
-          cost: pick.cost
-        });
+        }
+      } else {
+        let progressed = true;
+        while (progressed) {
+          progressed = false;
+          for (let i = 0; i < manualSkillQueue.length; i += 1) {
+            const skillId = manualSkillQueue[i];
+            if (!skillId) continue;
+            const plan = skillPlanById.get(skillId);
+            if (!plan) {
+              manualSkillQueue[i] = "";
+              continue;
+            }
+            if (plan.currentRank >= plan.targetRank) {
+              manualSkillQueue[i] = "";
+              continue;
+            }
+            if (upgradedThisLevel.has(skillId)) continue;
+            if (Number(plan.skill.required_level || 1) > lvlState.level) continue;
+            if (requiresPrereqForSkill(plan.skill) && plan.skill.ability_id) {
+              const reqLvl = assignedTalentLevel.get(plan.skill.ability_id);
+              if (!(typeof reqLvl === "number" && reqLvl <= lvlState.level)) continue;
+            }
+            const cost = plan.currentRank + 1;
+            if (cost > skillPointPool) continue;
+            const before = plan.currentRank;
+            plan.currentRank = before + 1;
+            upgradedThisLevel.add(skillId);
+            skillPointPool -= cost;
+            lvlState.skillSpent += cost;
+            lvlState.skillActions.push({
+              skill: plan.skill,
+              from: before,
+              to: before + 1,
+              cost
+            });
+            manualSkillQueue[i] = "";
+            progressed = true;
+            break;
+          }
+        }
       }
 
       lvlState.skillCarry = skillPointPool;
@@ -3715,12 +3859,20 @@
       const next = Math.max(floor, target - 1);
       if (next <= floor) delete state.selectedSkillTargets[skillId];
       else state.selectedSkillTargets[skillId] = next;
+      if (!state.skillAutoRecalc) {
+        for (let i = state.skillActionOrder.length - 1; i >= 0; i -= 1) {
+          if (state.skillActionOrder[i] !== skillId) continue;
+          state.skillActionOrder.splice(i, 1);
+          break;
+        }
+      }
     }
     if (lockLevel > 0 && Number(levelState.level) === Number(lockLevel) && profId) {
       delete state.selectedSpecializationByClass[profId];
       delete state.specializationLockLevelByClass[profId];
     }
     cleanseInvalidSelections();
+    syncSkillActionOrderToTargets();
     renderAll();
     persist();
   }
@@ -3736,6 +3888,8 @@
       selectedSpecializationByClass: state.selectedSpecializationByClass,
       specializationLockLevelByClass: state.specializationLockLevelByClass,
       selectedSkillTargets: state.selectedSkillTargets,
+      skillAutoRecalc: state.skillAutoRecalc,
+      skillActionOrder: state.skillActionOrder,
       attributes: state.attributes,
       creationAttrMode: state.creationAttrMode,
       manualAttributeBonuses: state.manualAttributeBonuses,
@@ -3787,6 +3941,8 @@
     state.selectedSpecializationByClass = clean.selectedSpecializationByClass;
     state.specializationLockLevelByClass = clean.specializationLockLevelByClass;
     state.selectedSkillTargets = clean.selectedSkillTargets;
+    state.skillAutoRecalc = clean.skillAutoRecalc;
+    state.skillActionOrder = clean.skillActionOrder;
     state.attributes = clean.attributes;
     state.creationAttrMode = clean.creationAttrMode === "dice" ? "dice" : "manual";
     state.manualAttributeBonuses = clean.manualAttributeBonuses;
@@ -3914,6 +4070,8 @@
       selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
       specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
       selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, getSkillRankCap()),
+      skillAutoRecalc: payload.skillAutoRecalc !== false,
+      skillActionOrder: sanitizeIdList(payload.skillActionOrder),
       attributes: sanitizeAttributes(payload.attributes),
       creationAttrMode: payload.creationAttrMode === "dice" ? "dice" : "manual",
       manualAttributeBonuses: sanitizeAttributeBonuses(payload.manualAttributeBonuses),
@@ -4065,6 +4223,7 @@
       if (t > floor) cleaned[id] = t;
     }
     state.selectedSkillTargets = cleaned;
+    syncSkillActionOrderToTargets();
 
     const classTalents = state.talents
       .filter((t) => t.prof_id === profId)
