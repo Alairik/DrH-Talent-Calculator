@@ -9,26 +9,41 @@
   function getMainEmbedStyleText() {
     const showTalents = activeTab === "talents";
     return `
+      html, body { height: 100% !important; min-height: 0 !important; }
       .column-controls { display: none !important; }
       .gap-icons-panel, .plan-panel, #mobileStickyHeader, #mobileSectionNav, #mobileLevelPill { display: none !important; }
       .layout {
         grid-template-columns: minmax(0, 1fr) !important;
         gap: 12px !important;
         width: 100% !important;
+        height: 100% !important;
         max-width: none !important;
         padding: 10px !important;
       }
       .talents-panel {
         display: ${showTalents ? "block" : "none"} !important;
-        height: calc(100dvh - 44px) !important;
+        height: 100% !important;
         min-height: 0 !important;
-        overflow: auto !important;
+        overflow: hidden !important;
       }
       .skills-panel {
         display: ${showTalents ? "none" : "block"} !important;
-        height: calc(100dvh - 44px) !important;
+        height: 100% !important;
         min-height: 0 !important;
         overflow: hidden !important;
+      }
+      .talents-panel .general-branch,
+      .talents-panel .spec-picker,
+      .talents-panel .branch-grid,
+      .talents-panel .branch,
+      .talents-panel .branch .branch-nodes {
+        min-height: 0 !important;
+        height: 100% !important;
+      }
+      .skills-panel .skills-split,
+      .skills-panel .skills-list {
+        min-height: 0 !important;
+        height: 100% !important;
       }
     `;
   }
@@ -158,4 +173,3 @@
   if (mainFrame) mainFrame.addEventListener("load", applyMainEmbedStyle);
   if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);
 })();
-
