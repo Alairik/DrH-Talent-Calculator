@@ -170,10 +170,19 @@ h1, h2, h3 { margin: 0; }
   font-size: 1.05rem;
 }
 
-.aux-tab-content p {
+#auxTabHint {
   margin: 0;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+#auxTabHint ul {
+  margin: 0.35rem 0 0.7rem 1.1rem;
+  padding: 0;
+}
+
+#auxTabHint li {
+  margin: 0.15rem 0;
 }
 
 @media (max-width: 1280px) {
