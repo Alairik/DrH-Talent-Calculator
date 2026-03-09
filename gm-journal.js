@@ -35,7 +35,8 @@
     skills: [],
     build: null,
     activeTab: "skills",
-    maxLevel: MAX_LEVEL_DEFAULT
+    maxLevel: MAX_LEVEL_DEFAULT,
+    lastStorageSnapshot: ""
   };
 
   const els = {
@@ -87,6 +88,7 @@
     ensureBuildDefaults();
     applyBuildToControls();
     renderAll();
+    startStorageSyncLoop();
   }
 
   function populateSelectors() {
@@ -283,8 +285,36 @@
       els.tabContent.innerHTML = renderList(spells.length ? spells : ["Bez kouzel."]);
       return;
     }
+    if (state.activeTab === "calculator") {
+      renderCalculatorTab();
+      return;
+    }
     const items = buildItemPreview();
     els.tabContent.innerHTML = renderList(items.length ? items : ["Bez predmetu."]);
+  }
+
+  function renderCalculatorTab() {
+    const encoded = encodeBase64UrlUtf8(JSON.stringify(sanitizeBuildPayload(state.build)));
+    const src = `./index.html?build=${encoded}`;
+    els.tabContent.innerHTML = `
+      <div class="calc-wrap">
+        <div class="calc-bar">
+          <button id="reloadFromCalcBtn" type="button">Nacist zmeny z kalkulatoru</button>
+        </div>
+        <iframe class="calc-iframe" src="${escapeHtml(src)}" title="DrH Kalkulator"></iframe>
+      </div>
+    `;
+    const btn = document.getElementById("reloadFromCalcBtn");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const payload = parseBuildFromStorage();
+        if (!payload) return;
+        state.build = sanitizeBuildPayload(payload);
+        ensureBuildDefaults();
+        applyBuildToControls();
+        renderAll();
+      });
+    }
   }
 
   function renderSkillsTab() {
@@ -526,10 +556,34 @@
 
   function persistBuild() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeBuildPayload(state.build)));
+      const json = JSON.stringify(sanitizeBuildPayload(state.build));
+      localStorage.setItem(STORAGE_KEY, json);
+      state.lastStorageSnapshot = json;
     } catch (_err) {
       // ignore
     }
+  }
+
+  function startStorageSyncLoop() {
+    try {
+      state.lastStorageSnapshot = localStorage.getItem(STORAGE_KEY) || "";
+    } catch (_err) {
+      state.lastStorageSnapshot = "";
+    }
+    window.setInterval(() => {
+      try {
+        const cur = localStorage.getItem(STORAGE_KEY) || "";
+        if (!cur || cur === state.lastStorageSnapshot) return;
+        state.lastStorageSnapshot = cur;
+        const parsed = JSON.parse(cur);
+        state.build = sanitizeBuildPayload(parsed);
+        ensureBuildDefaults();
+        applyBuildToControls();
+        if (state.activeTab !== "calculator") renderAll();
+      } catch (_err) {
+        // ignore
+      }
+    }, 1300);
   }
 
   function parseBuildFromStorage() {
