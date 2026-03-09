@@ -749,21 +749,23 @@ h3,
 
   .column-controls,
   .layout {
-    grid-template-columns: minmax(0, 1fr) clamp(56px, 7vw, 92px) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
     width: min(calc(100vw - 1.4rem), 1720px);
+  }
+
+  .column-controls {
+    display: grid !important;
   }
 
   #controlSlotGap,
   .layout > .gap-icons-panel {
-    display: block;
+    display: none !important;
   }
 
   .column-controls > :nth-child(1),
-  .column-controls > :nth-child(2),
   .column-controls > :nth-child(3),
   .column-controls > :nth-child(4),
   .layout > .talents-panel,
-  .layout > .gap-icons-panel,
   .layout > .skills-panel,
   .layout > .plan-panel {
     justify-self: stretch;
