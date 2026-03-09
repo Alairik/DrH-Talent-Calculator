@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const COL_TAB_KEY = "dh_journal_col_tab_v1";
   const colTabButtons = Array.from(document.querySelectorAll(".col-tab-btn"));
   const mainFrame = document.getElementById("calcEmbedFrame");
@@ -14,49 +14,90 @@
     raceName: "",
     level: 1,
     inventorySig: "",
-    inventoryItems: []
+    inventoryItems: [],
+    selectedOptionalSpells: {}
   };
 
-  const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
+  const SPELL_CLASSES = ["hraniÄŤĂˇĹ™", "kouzelnĂ­k", "klerik"];
+  const SPELLS_STORAGE_KEY = "dh_journal_spells_v1";
+  const SPELLS_DATA = {
+    hranicar: {
+      fixed: [
+        { minLevel: 1, name: "Zakladni hranicarska kouzla (PPZ) - automaticky" },
+        { minLevel: 6, name: "Ochrana pred smeckou" },
+        { minLevel: 6, name: "Ochrana pred zimou" },
+        { minLevel: 6, name: "Odvraceni zvirat" },
+        { minLevel: 6, name: "Sledovani" },
+        { minLevel: 6, name: "Uder nenavisti" },
+        { minLevel: 6, name: "Uzdrav tezka zraneni" }
+      ],
+      optionalGroups: [
+        { label: "Hranicarsky luk", spells: ["Dest sipu", "Jasna strela", "Ochromujici sip", "Plamenny sip", "Trefa do cerneho"] },
+        { label: "Hranicaruv kun", spells: ["Nezdolnost", "Privolej kone", "S vetrem o zavod", "Uklidni zvire", "Zvireci posel"] },
+        { label: "Chodecka magie", spells: ["Falesna stopa", "Mateni pachu", "Mateni stop", "Oci prirody", "Uhrancivy pohled"] },
+        { label: "Chodcuv mec", spells: ["Odrazeni kouzla", "Posileni zbrane", "Transmutace zbrane", "Zablesk", "Zivelne ostri"] },
+        { label: "Magie lovcu monster", spells: ["Bleskovy vypad", "Dvojity svih", "Srazeni projektilu", "Poskozeni zbrane", "Virive ostri"] },
+        { label: "Druidova kouzla", spells: ["Obri rust", "Poskytni pribytek", "Pozehnani prirody", "Probuzeni hvozdu", "Prilnavost brectanu", "Privolej Druida", "Splynuti", "Trnovy stit", "Uklidneni hvozdu", "Uvadni"] }
+      ],
+      note: "Volitelna kouzla vychazeji z volitelnych schopnosti a specializaci PPP."
+    },
+    kouzelnik: {
+      fixed: [
+        { minLevel: 1, name: "Kouzelnicke triky (zaklad) - automaticky" },
+        { minLevel: 1, name: "Obecna magie (zakladni kouzla dle PPZ) - automaticky" }
+      ],
+      optionalGroups: [],
+      note: "Detailni checklist oborovych kouzel doplnime podle kompletniho seznamu kouzel v datech."
+    },
+    klerik: {
+      fixed: [
+        { minLevel: 1, name: "Zakladni prosby klerika (PPZ) - automaticky" },
+        { minLevel: 1, name: "Zvolani (specialni forma vzyvani) - pravidlove dostupne" }
+      ],
+      optionalGroups: [],
+      note: "Detailni checklist proseb dle nauk doplnime podle kompletniho seznamu proseb v datech."
+    }
+  };
+
   const STARTER_RULE_LINES = [
-    "3 blízké dovednosti povolání automaticky na stupni 3.",
-    "+3 dovednostní body na začátku.",
-    "Člověk: +2 dovednostní body navíc (Všestrannost)."
+    "3 blĂ­zkĂ© dovednosti povolĂˇnĂ­ automaticky na stupni 3.",
+    "+3 dovednostnĂ­ body na zaÄŤĂˇtku.",
+    "ÄŚlovÄ›k: +2 dovednostnĂ­ body navĂ­c (VĹˇestrannost)."
   ];
   const COMMON_STARTER_ITEMS = [
-    "Cestovní plášť a pevné boty",
-    "Měšec s mincemi",
+    "CestovnĂ­ plĂˇĹˇĹĄ a pevnĂ© boty",
+    "MÄ›Ĺˇec s mincemi",
     "Tornistra / vak",
-    "Křesadlo, lano, svíce nebo louč"
+    "KĹ™esadlo, lano, svĂ­ce nebo louÄŤ"
   ];
   const CLASS_LOADOUTS = {
     valecnik: {
-      fixed: ["Bojová zbraň (jednoruční nebo obouruční)", "Štít nebo druhá zbraň", "Střední zbroj"],
-      pool: ["Záložní dýka", "Kroužková kukla", "Lékárnička", "Opravná sada na zbroj", "Vrhací sekera"]
+      fixed: ["BojovĂˇ zbraĹ (jednoruÄŤnĂ­ nebo obouruÄŤnĂ­)", "Ĺ tĂ­t nebo druhĂˇ zbraĹ", "StĹ™ednĂ­ zbroj"],
+      pool: ["ZĂˇloĹľnĂ­ dĂ˝ka", "KrouĹľkovĂˇ kukla", "LĂ©kĂˇrniÄŤka", "OpravnĂˇ sada na zbroj", "VrhacĂ­ sekera"]
     },
     hranicar: {
-      fixed: ["Luk + toulec šípů", "Lehká/střední zbraň na blízko", "Kožená zbroj"],
-      pool: ["Lovecký nůž", "Past na zvěř", "Bylinkářská brašna", "Maskovací plášť", "Náhradní tětiva"]
+      fixed: ["Luk + toulec ĹˇĂ­pĹŻ", "LehkĂˇ/stĹ™ednĂ­ zbraĹ na blĂ­zko", "KoĹľenĂˇ zbroj"],
+      pool: ["LoveckĂ˝ nĹŻĹľ", "Past na zvÄ›Ĺ™", "BylinkĂˇĹ™skĂˇ braĹˇna", "MaskovacĂ­ plĂˇĹˇĹĄ", "NĂˇhradnĂ­ tÄ›tiva"]
     },
     alchymista: {
-      fixed: ["Alchymistická brašna", "Základní skleněné baňky", "Sada surovin"],
-      pool: ["Přenosný hmoždíř", "Filtrační plátno", "2x prázdný flakón", "Měřicí sada", "Destilační mini-set"]
+      fixed: ["AlchymistickĂˇ braĹˇna", "ZĂˇkladnĂ­ sklenÄ›nĂ© baĹky", "Sada surovin"],
+      pool: ["PĹ™enosnĂ˝ hmoĹľdĂ­Ĺ™", "FiltraÄŤnĂ­ plĂˇtno", "2x prĂˇzdnĂ˝ flakĂłn", "MÄ›Ĺ™icĂ­ sada", "DestilaÄŤnĂ­ mini-set"]
     },
     kouzelnik: {
-      fixed: ["Hůl / fokus", "Kniha poznámek", "Lehký oděv bez zbroje"],
-      pool: ["Rituální chalk", "Svíce a kadidlo", "Náhradní fokus", "Pergameny", "Ochranný talisman"]
+      fixed: ["HĹŻl / fokus", "Kniha poznĂˇmek", "LehkĂ˝ odÄ›v bez zbroje"],
+      pool: ["RituĂˇlnĂ­ chalk", "SvĂ­ce a kadidlo", "NĂˇhradnĂ­ fokus", "Pergameny", "OchrannĂ˝ talisman"]
     },
     zlodej: {
-      fixed: ["Lehká zbraň", "Lehká zbroj", "Sada paklíčů / nářadí"],
-      pool: ["Házecí dýky", "Kápě", "Lanko s hákem", "Kouřová ampule", "Maskovací sada"]
+      fixed: ["LehkĂˇ zbraĹ", "LehkĂˇ zbroj", "Sada paklĂ­ÄŤĹŻ / nĂˇĹ™adĂ­"],
+      pool: ["HĂˇzecĂ­ dĂ˝ky", "KĂˇpÄ›", "Lanko s hĂˇkem", "KouĹ™ovĂˇ ampule", "MaskovacĂ­ sada"]
     },
     klerik: {
-      fixed: ["Posvátný symbol", "Jednoruční zbraň", "Lehká/střední zbroj"],
-      pool: ["Cestovní oltářík", "Léčivé obvazy", "Svěcená voda", "Modlitební kniha", "Kadidelnice"]
+      fixed: ["PosvĂˇtnĂ˝ symbol", "JednoruÄŤnĂ­ zbraĹ", "LehkĂˇ/stĹ™ednĂ­ zbroj"],
+      pool: ["CestovnĂ­ oltĂˇĹ™Ă­k", "LĂ©ÄŤivĂ© obvazy", "SvÄ›cenĂˇ voda", "ModlitebnĂ­ kniha", "Kadidelnice"]
     },
     fallback: {
-      fixed: ["Základní zbraň", "Cestovní oděv"],
-      pool: ["Dýka", "Lano", "Lékárnička", "Vak na zásoby"]
+      fixed: ["ZĂˇkladnĂ­ zbraĹ", "CestovnĂ­ odÄ›v"],
+      pool: ["DĂ˝ka", "Lano", "LĂ©kĂˇrniÄŤka", "Vak na zĂˇsoby"]
     }
   };
 
@@ -137,10 +178,10 @@
     const extras = pickRandomUnique(loadout.pool || [], extrasCount);
     const levelLine =
       snapshot.level <= 5
-        ? "Nízké úrovně: lehká, praktická výbava."
+        ? "NĂ­zkĂ© ĂşrovnÄ›: lehkĂˇ, praktickĂˇ vĂ˝bava."
         : snapshot.level <= 10
-          ? "Střední úrovně: širší sada nástrojů a záloh."
-          : "Vyšší úrovně: robustní výbava s více specializací.";
+          ? "StĹ™ednĂ­ ĂşrovnÄ›: ĹˇirĹˇĂ­ sada nĂˇstrojĹŻ a zĂˇloh."
+          : "VyĹˇĹˇĂ­ ĂşrovnÄ›: robustnĂ­ vĂ˝bava s vĂ­ce specializacĂ­.";
 
     return [
       ...COMMON_STARTER_ITEMS,
@@ -148,6 +189,83 @@
       ...extras,
       levelLine
     ];
+  }
+
+  function loadOptionalSpellsState() {
+    try {
+      const raw = localStorage.getItem(SPELLS_STORAGE_KEY);
+      if (!raw) return {};
+      const parsed = JSON.parse(raw);
+      return parsed && typeof parsed === "object" ? parsed : {};
+    } catch {
+      return {};
+    }
+  }
+
+  function saveOptionalSpellsState() {
+    try {
+      localStorage.setItem(SPELLS_STORAGE_KEY, JSON.stringify(journalState.selectedOptionalSpells || {}));
+    } catch {
+      // ignore storage failures
+    }
+  }
+
+  function getSpellsContext() {
+    const classKey = getClassKey(journalState.className);
+    return {
+      classKey,
+      def: SPELLS_DATA[classKey] || null,
+      level: Math.max(1, Number(journalState.level || 1))
+    };
+  }
+
+  function getSelectedSpellKey(classKey, spellName) {
+    return `${classKey}::${spellName}`;
+  }
+
+  function renderSpellsHtml() {
+    const ctx = getSpellsContext();
+    if (!ctx.def) {
+      return `<p>Toto povolani nema vlastni sekci kouzel.</p>`;
+    }
+    const fixed = (ctx.def.fixed || []).filter((x) => (x.minLevel || 1) <= ctx.level);
+    const fixedHtml = fixed.length
+      ? `<ul>${fixed.map((x) => `<li>${escapeHtml(x.name)}</li>`).join("")}</ul>`
+      : "<p>Na teto urovni nejsou evidovana zadna pevna kouzla.</p>";
+
+    const groups = ctx.def.optionalGroups || [];
+    const groupsHtml = groups.length
+      ? groups.map((g) => {
+          const checks = (g.spells || []).map((spell) => {
+            const key = getSelectedSpellKey(ctx.classKey, spell);
+            const checked = !!journalState.selectedOptionalSpells[key];
+            return `
+              <label class="spell-check">
+                <input type="checkbox" data-spell-key="${escapeHtml(key)}" ${checked ? "checked" : ""} />
+                <span>${escapeHtml(spell)}</span>
+              </label>
+            `;
+          }).join("");
+          return `
+            <div class="spell-group">
+              <h4>${escapeHtml(g.label)}</h4>
+              <div class="spell-checklist">${checks}</div>
+            </div>
+          `;
+        }).join("")
+      : "<p>Volitelna kouzla zatim nejsou pro tuto tridu vypsana.</p>";
+
+    return `
+      <div>
+        <strong>Pevna kouzla (automaticka):</strong>
+        ${fixedHtml}
+      </div>
+      <div>
+        <strong>Volitelna kouzla (checklist):</strong>
+        ${groupsHtml}
+      </div>
+      ${ctx.def.note ? `<p>${escapeHtml(ctx.def.note)}</p>` : ""}
+    `;
   }
 
   function classHasSpells(className) {
@@ -450,14 +568,14 @@
     const byTab = {
       spells: {
         title: "Kouzla",
-        hint: "Sekce kouzel pro zvolené povolání. Obsah bude navázán na pravidla povolání."
+        hint: ""
       },
       recipes: {
         title: "Recepty",
-        hint: "Sekce receptů Alchymisty. Obsah bude navázán na pravidla povolání."
+        hint: "Sekce receptĹŻ Alchymisty. Obsah bude navĂˇzĂˇn na pravidla povolĂˇnĂ­."
       },
       inventory: {
-        title: "Inventář",
+        title: "InventĂˇĹ™",
         hint: ""
       }
     };
@@ -467,7 +585,9 @@
       return;
     }
     auxTabTitle.textContent = data.title;
-    if (activeTab === "inventory") {
+    if (activeTab === "spells") {
+      auxTabHint.innerHTML = renderSpellsHtml();
+    } else if (activeTab === "inventory") {
       const starterHtml = STARTER_RULE_LINES.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
       const itemsHtml = (journalState.inventoryItems || [])
         .map((line) => `<li>${escapeHtml(line)}</li>`)
@@ -478,7 +598,7 @@
           <ul>${starterHtml}</ul>
         </div>
         <div>
-          <strong>Doporučená výbava (${escapeHtml(journalState.className || "postava")} · úroveň ${escapeHtml(journalState.level)}):</strong>
+          <strong>DoporuÄŤenĂˇ vĂ˝bava (${escapeHtml(journalState.className || "postava")} Â· ĂşroveĹ ${escapeHtml(journalState.level)}):</strong>
           <ul>${itemsHtml}</ul>
         </div>
       `;
@@ -573,11 +693,26 @@
     applyRightPaneMode();
   }
 
+  journalState.selectedOptionalSpells = loadOptionalSpellsState();
+
   for (const btn of colTabButtons) {
     btn.addEventListener("click", () => setActiveTab(btn.dataset.colTab || "talents"));
   }
   setActiveTab(activeTab);
 
+  if (auxTabContent) {
+    auxTabContent.addEventListener("change", (ev) => {
+      const target = ev.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (target.type !== "checkbox") return;
+      const key = String(target.dataset.spellKey || "");
+      if (!key) return;
+      if (target.checked) journalState.selectedOptionalSpells[key] = true;
+      else delete journalState.selectedOptionalSpells[key];
+      saveOptionalSpellsState();
+    });
+  }
   if (mainFrame) mainFrame.addEventListener("load", applyRightPaneMode);
   if (creatorFrame) creatorFrame.addEventListener("load", applyCreatorEmbedStyle);
 })();
+
