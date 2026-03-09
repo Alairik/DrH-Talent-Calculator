@@ -1,4 +1,5 @@
 ﻿(function () {
+  const RULES_KB_PATH = "./research/rules-knowledge-base.json";
   const BRANCH_NAMES = {
     PROF_1: ["Berserkr", "Rytíř", "Šermíř"],
     PROF_2: ["Druid", "Chodec", "Pán šelem"],
@@ -714,6 +715,7 @@
 
   async function init() {
     const [
+      rulesKnowledgeBasePayload,
       professionsPayload,
       racesPayload,
       talentsPayload,
@@ -722,6 +724,7 @@
       manualPdfTalentsPayload
     ] =
       await Promise.all([
+        fetchJsonOptional(RULES_KB_PATH),
         fetchJson("./research/sirael-professions.json"),
         fetchJson("./research/sirael-races.json"),
         fetchJson("./research/sirael-player-talents.json"),
@@ -729,6 +732,8 @@
         fetchJsonOptional("./research/pdf_consolidation/pdf_coverage_map.json"),
         fetchJsonOptional("./research/pdf_consolidation/manual_talents_from_pdf.json")
       ]);
+
+    applyRulesKnowledgeBase(rulesKnowledgeBasePayload);
 
     state.professions = professionsPayload.items || [];
     state.races = (racesPayload.items || []).map((r) => ({
@@ -804,6 +809,85 @@
     });
   }
 
+  function applyRulesKnowledgeBase(payload) {
+    if (!payload || typeof payload !== "object") return;
+
+    if (payload.appConfig && typeof payload.appConfig === "object") {
+      if (Number.isFinite(Number(payload.appConfig.maxLevel))) {
+        window.APP_CONFIG.maxLevel = Number(payload.appConfig.maxLevel);
+      }
+      if (payload.appConfig.points && typeof payload.appConfig.points === "object") {
+        window.APP_CONFIG.points = {
+          ...window.APP_CONFIG.points,
+          ...payload.appConfig.points
+        };
+      }
+      if (payload.appConfig.racePointBonusesByTalentId && typeof payload.appConfig.racePointBonusesByTalentId === "object") {
+        window.APP_CONFIG.racePointBonusesByTalentId = {
+          ...window.APP_CONFIG.racePointBonusesByTalentId,
+          ...payload.appConfig.racePointBonusesByTalentId
+        };
+      }
+      if (payload.appConfig.raceBonusTalentIdByRaceId && typeof payload.appConfig.raceBonusTalentIdByRaceId === "object") {
+        window.APP_CONFIG.raceBonusTalentIdByRaceId = {
+          ...window.APP_CONFIG.raceBonusTalentIdByRaceId,
+          ...payload.appConfig.raceBonusTalentIdByRaceId
+        };
+      }
+      if (payload.appConfig.creationRules && typeof payload.appConfig.creationRules === "object") {
+        window.APP_CONFIG.creationRules = {
+          ...window.APP_CONFIG.creationRules,
+          ...payload.appConfig.creationRules
+        };
+      }
+    }
+
+    if (payload.branchNames && typeof payload.branchNames === "object") {
+      replaceObject(BRANCH_NAMES, payload.branchNames);
+    }
+    if (payload.specializationRequirements && typeof payload.specializationRequirements === "object") {
+      replaceObject(SPECIALIZATION_REQUIREMENTS, payload.specializationRequirements);
+    }
+    if (payload.classRules && typeof payload.classRules === "object") {
+      replaceObject(CLASS_RULES, payload.classRules);
+    }
+    if (payload.raceBaseAttributes && typeof payload.raceBaseAttributes === "object") {
+      replaceObject(RACE_BASE_ATTRIBUTES, payload.raceBaseAttributes);
+    }
+    if (payload.classDominantAttributes && typeof payload.classDominantAttributes === "object") {
+      replaceObject(CLASS_DOMINANT_ATTRIBUTES, payload.classDominantAttributes);
+    }
+    if (Array.isArray(payload.basicSkillNames)) {
+      replaceSet(BASIC_SKILL_NAMES, payload.basicSkillNames);
+    }
+    if (payload.skillClassOverrides && typeof payload.skillClassOverrides === "object") {
+      replaceMap(SKILL_CLASS_OVERRIDES, payload.skillClassOverrides);
+    }
+    if (Array.isArray(payload.skillNoPrereqNames)) {
+      replaceSet(SKILL_NO_PREREQ_NAMES, payload.skillNoPrereqNames);
+    }
+    if (Array.isArray(payload.dTalentNames)) {
+      replaceSet(D_TALENT_NAMES, payload.dTalentNames);
+    }
+  }
+
+  function replaceObject(target, src) {
+    for (const k of Object.keys(target)) delete target[k];
+    for (const [k, v] of Object.entries(src)) target[k] = v;
+  }
+
+  function replaceSet(targetSet, values) {
+    targetSet.clear();
+    for (const v of values) targetSet.add(normalize(v));
+  }
+
+  function replaceMap(targetMap, objectValues) {
+    targetMap.clear();
+    for (const [k, v] of Object.entries(objectValues)) {
+      if (!v) continue;
+      targetMap.set(normalize(k), String(v));
+    }
+  }
   function wireEvents() {
     if (els.mobileClassSelect) els.mobileClassSelect.addEventListener("change", () => {
       applyProfessionChange(els.mobileClassSelect.value);
@@ -950,7 +1034,7 @@
     if (els.floatingPanel && els.floatingPanelSlideBtn) {
       els.floatingPanelSlideBtn.addEventListener("click", () => {
         const collapsed = els.floatingPanel.classList.toggle("collapsed");
-        els.floatingPanelSlideBtn.textContent = collapsed ? "⌃" : "⌄";
+        els.floatingPanelSlideBtn.textContent = collapsed ? "^" : "?";
         els.floatingPanelSlideBtn.setAttribute("aria-expanded", collapsed ? "false" : "true");
         els.floatingPanelSlideBtn.setAttribute("aria-label", collapsed ? "Rozbalit panel" : "Sbalit panel");
       });
@@ -2259,7 +2343,7 @@
       if (!hasPrereq) {
         const lock = document.createElement("span");
         lock.className = "skill-lock";
-        lock.textContent = `⛔ ${reqTalent ? reqTalent.name : s.ability_id}`;
+        lock.textContent = `? ${reqTalent ? reqTalent.name : s.ability_id}`;
         controls.appendChild(lock);
       } else {
         const minus = document.createElement("button");
@@ -3877,7 +3961,11 @@
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
-      .replace(/\"/g, "&quot;")
+      .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
 })();
+
+
+
+

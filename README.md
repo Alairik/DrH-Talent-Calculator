@@ -26,6 +26,7 @@ Pak otevri:
 
 ## Data
 
+- `research/rules-knowledge-base.json` (primarni pravidlovy SSOT override)
 - `research/sirael-player-talents.json`
 - `research/sirael-skills-all.json`
 - `research/sirael-professions.json`

@@ -1,0 +1,157 @@
+{
+  "version": "drh-rules-v1",
+  "appConfig": {
+    "maxLevel": 36,
+    "points": {
+      "talentLevel1": 2,
+      "talentPerLevel": 1,
+      "skillLevel1": 3,
+      "skillPerLevel": 1
+    },
+    "racePointBonusesByTalentId": {
+      "ABI_81": {
+        "skillLevel1": 2,
+        "skillPerLevel": 2
+      }
+    },
+    "raceBonusTalentIdByRaceId": {
+      "RACE_2": "ABI_81"
+    },
+    "creationRules": {
+      "classStarterSkills": 3
+    }
+  },
+  "branchNames": {
+    "PROF_1": ["Berserkr", "Rytíř", "Šermíř"],
+    "PROF_2": ["Druid", "Chodec", "Pán šelem"],
+    "PROF_3": ["Medikus", "Pyromant", "Theurg"],
+    "PROF_4": ["Bojový mág", "Čaroděj", "Nekromant"],
+    "PROF_5": ["Assassin", "Lupič", "Sicco"],
+    "PROF_6": ["Bojový mnich", "Exorcista", "Kněz"]
+  },
+  "specializationRequirements": {
+    "PROF_1": {
+      "0": ["Skola boje s obourucni zbrani", "Skola boje drtice kosti", "Urputnost"],
+      "1": ["Skola boje se stitem", "Skola boje s jednorucni zbrani", "Veleni"],
+      "2": ["Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi", "Rozvaznost"]
+    },
+    "PROF_2": {
+      "0": ["Bojova hul", "Lecitelstvi", "Magie prirody"],
+      "1": ["Obranne ostri", "Pruzkumnictvi", "Magie pocestnych"],
+      "2": ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
+    },
+    "PROF_3": {
+      "0": ["Nauka anatomie", "Nauka elixiry", "Substituce"],
+      "1": ["Nauka predmety", "Nauka substance", "Vyroba svitku"],
+      "2": ["Nauka sestavy", "Nauka energie", "Precizni vyroba"]
+    },
+    "PROF_4": {
+      "0": ["Obor Divoka magie", "Obor Ochranna magie", "Rychle kouzleni"],
+      "1": ["Obor Vysoka magie", "Obor Mentalni magie", "Kouzleni z knih"],
+      "2": ["Obor Vitalni magie", "Obor Magie promen", "Ritual krve"]
+    },
+    "PROF_5": {
+      "0": ["Umeni rvacu", "Umeni skryvani", "Vrhani dyk"],
+      "1": ["Umeni zelezneho klice", "Umeni kociciho pohybu", "Improvizace"],
+      "2": ["Umeni promen", "Umeni sarmu", "Zlodejska hantyrka"]
+    },
+    "PROF_6": {
+      "0": ["Bozi bojovnik", "Nauka Bojovniku viry", "Nauka Svate pravdy"],
+      "1": ["Osviceni", "Nauka Bozich patronu", "Nauka Demonologie"],
+      "2": ["Pozehnane zdravi", "Nauka Milosrdenstvi", "Nauka Zehnani aurami"]
+    }
+  },
+  "classRules": {
+    "PROF_1": {
+      "starterSkills": ["Atletika", "Prvni pomoc", "Vydrz"],
+      "skillPointsMultiplier": 3
+    },
+    "PROF_2": {
+      "starterSkills": ["Prvni pomoc", "Preziti v prirode", "Znalost prirody"],
+      "starterTalents": ["Hranicarske umeni", "Pouto s prirodou"],
+      "starterSkillsByTalent": ["Hranicarske umeni", "Pouto s prirodou"],
+      "skillPointsMultiplier": 5
+    },
+    "PROF_3": {
+      "starterSkills": ["Cteni a psani", "Mechanika", "Znalost prirody"],
+      "skillPointsMultiplier": 4
+    },
+    "PROF_4": {
+      "starterSkills": ["Cizi jazyky", "Cteni a psani", "Historie"],
+      "skillPointsMultiplier": 3
+    },
+    "PROF_5": {
+      "starterSkills": ["Akrobacie", "Postreh", "Reflex"],
+      "skillPointsMultiplier": 8
+    },
+    "PROF_6": {
+      "starterSkills": ["Cteni a psani", "Teologie", "Vule"],
+      "skillPointsMultiplier": 3
+    }
+  },
+  "raceBaseAttributes": {
+    "clovek": { "sil": 7, "obr": 7, "odo": 7, "int": 7, "cha": 7 },
+    "trpaslik": { "sil": 10, "obr": 5, "odo": 10, "int": 5, "cha": 5 },
+    "elf": { "sil": 6, "obr": 7, "odo": 5, "int": 10, "cha": 9 },
+    "barbar": { "sil": 9, "obr": 8, "odo": 8, "int": 5, "cha": 5 },
+    "obr": { "sil": 12, "obr": 3, "odo": 12, "int": 3, "cha": 3 },
+    "gnom": { "sil": 4, "obr": 10, "odo": 5, "int": 9, "cha": 5 },
+    "pulcik": { "sil": 6, "obr": 9, "odo": 6, "int": 7, "cha": 8 }
+  },
+  "classDominantAttributes": {
+    "PROF_1": ["sil", "odo"],
+    "PROF_2": ["obr", "int"],
+    "PROF_3": ["obr", "odo"],
+    "PROF_4": ["int", "cha"],
+    "PROF_5": ["obr", "cha"],
+    "PROF_6": ["int", "cha"]
+  },
+  "basicSkillNames": [
+    "akrobacie",
+    "atletika",
+    "cizi jazyky",
+    "cteni a psani",
+    "historie",
+    "jizda na zvireti",
+    "mechanika",
+    "plavani",
+    "plizeni",
+    "postreh",
+    "prvni pomoc",
+    "preziti v prirode",
+    "reflex",
+    "remesla",
+    "teologie",
+    "umeni",
+    "vule",
+    "vydrz",
+    "znalost prirody",
+    "zpracovani zvere"
+  ],
+  "skillClassOverrides": {
+    "znalost prirody": "PROF_2",
+    "zpracovani zvere": "PROF_2",
+    "videni many": "PROF_3",
+    "destilace many": "PROF_3"
+  },
+  "skillNoPrereqNames": [
+    "prosby",
+    "hazardni hry",
+    "odhad ceny",
+    "presvedcovani",
+    "vybirani kapes"
+  ],
+  "dTalentNames": [
+    "lecitelstvi",
+    "ochocovani zvirat",
+    "pruzkumnictvi",
+    "pokrocila identifikace",
+    "vyroba svitku",
+    "umeni kociciho pohybu",
+    "umeni promen",
+    "umeni rvacu",
+    "umeni skryvani",
+    "umeni sarmu",
+    "umeni zelezneho klice"
+  ]
+}
