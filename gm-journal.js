@@ -143,6 +143,38 @@
       #mobileStickyHeader .mobile-class-select-wrap select,
       #mobileStickyHeader .gm-journal-race-wrap select {
         width: 100% !important;
+        appearance: none !important;
+        background: #16110d !important;
+        border: 1px solid #8b6a3d !important;
+        color: #f3e8d1 !important;
+        border-radius: 12px !important;
+        min-height: 44px !important;
+        padding: 0.4rem 2rem 0.4rem 0.75rem !important;
+      }
+      #floatingPanel .floating-row-level {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        gap: 6px !important;
+      }
+      #floatingPanel .floating-row-level #quickRandomBtn,
+      #floatingPanel .floating-row-level #quickResetBtn {
+        width: 40px !important;
+        min-width: 40px !important;
+        height: 40px !important;
+        padding: 0 !important;
+        display: inline-grid !important;
+        place-items: center !important;
+      }
+      #floatingPanel .floating-row-save {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+        align-items: center !important;
+      }
+      #floatingPanel #quickSaveBtn,
+      #floatingPanel #quickExportBtn {
+        width: 100% !important;
       }
       #floatingPanel {
         display: block !important;
@@ -205,6 +237,24 @@
       } else if (randomBtn.nextElementSibling !== resetBtn) {
         levelRow.insertBefore(randomBtn, resetBtn);
       }
+    }
+
+    const saveRow = doc.querySelector("#floatingPanel .floating-row-save");
+    const saveBtn = doc.getElementById("quickSaveBtn");
+    if (saveRow && saveBtn) {
+      let exportBtn = doc.getElementById("quickExportBtn");
+      if (!exportBtn) {
+        exportBtn = doc.createElement("button");
+        exportBtn.type = "button";
+        exportBtn.id = "quickExportBtn";
+        exportBtn.className = "floating-save-btn";
+        exportBtn.title = "Export postavy";
+        exportBtn.setAttribute("aria-label", "Export postavy");
+        exportBtn.textContent = "Export postavy";
+        exportBtn.addEventListener("click", () => {});
+      }
+      if (saveBtn.parentElement !== saveRow) saveRow.prepend(saveBtn);
+      if (exportBtn.parentElement !== saveRow) saveRow.appendChild(exportBtn);
     }
   }
 
