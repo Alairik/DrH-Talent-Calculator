@@ -13,6 +13,12 @@ python -m http.server 8080
 Pak otevri:
 
 - http://localhost:8080/
+- http://localhost:8080/gm-journal.html
+
+## URL na GitHub Pages
+
+- kalkulator: `https://alairik.github.io/DrH-Talent-Calculator/`
+- GM journal (nova stranka): `https://alairik.github.io/DrH-Talent-Calculator/gm-journal.html`
 
 ## Co umi
 
