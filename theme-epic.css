@@ -117,6 +117,8 @@ body.theme-epic .talents-panel {
   --shell-inset-side: calc(0.8rem + var(--edge-extra) + 14px);
   padding-left: calc(0.8rem + var(--edge-extra) + 14px);
   padding-right: calc(0.8rem + var(--edge-extra) + 14px);
+  position: relative;
+  isolation: isolate;
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -219,6 +221,29 @@ body.theme-epic .talents-panel .branch {
 body.theme-epic .talents-panel .spec-picker,
 body.theme-epic .talents-panel .branch {
   width: 100%;
+}
+
+/* Keep tile edges visually "under parchment" at top/bottom of column 1. */
+body.theme-epic .talents-panel::before,
+body.theme-epic .talents-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 12;
+}
+
+body.theme-epic .talents-panel::before {
+  top: 0;
+  height: calc(var(--shell-inset-top) + 8px);
+  background: linear-gradient(180deg, rgba(216, 188, 144, 0.62), rgba(216, 188, 144, 0));
+}
+
+body.theme-epic .talents-panel::after {
+  bottom: 0;
+  height: calc(var(--shell-inset-bottom) + 12px);
+  background: linear-gradient(0deg, rgba(216, 188, 144, 0.7), rgba(216, 188, 144, 0));
 }
 
 body.theme-epic .talents-panel .spec-picker {
