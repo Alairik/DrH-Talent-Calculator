@@ -382,6 +382,34 @@
         gap: 6px !important;
       }
       ` : ``}
+
+      ${!showTalents ? `
+      .skills-panel .skills-split {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+      }
+      .skills-panel #skillListClass {
+        order: 1 !important;
+      }
+      .skills-panel #skillListBasic {
+        order: 2 !important;
+      }
+      .skills-panel .skill-item {
+        min-height: 47px !important;
+        padding: 0.36rem 0.42rem !important;
+        gap: 0.26rem !important;
+        font-size: 0.9rem !important;
+        align-items: center !important;
+      }
+      .skills-panel .skill-rank-controls button {
+        width: 34px !important;
+        min-width: 34px !important;
+        height: 34px !important;
+        min-height: 34px !important;
+        font-size: 1rem !important;
+      }
+      ` : ``}
     `;
   }
 
