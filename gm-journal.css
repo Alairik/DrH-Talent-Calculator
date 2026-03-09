@@ -212,6 +212,57 @@ h1, h2, h3 { margin: 0; }
   font-size: 0.9rem;
 }
 
+.inv-toolbar {
+  display: flex;
+  gap: 0.45rem;
+  margin: 0.5rem 0 0.55rem;
+}
+
+.inv-toolbar button {
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #201822;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.inv-list {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.inv-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 34px;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.inv-input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #6d5532;
+  border-radius: 8px;
+  background: rgba(18, 14, 11, 0.92);
+  color: #f3e8d1;
+  padding: 0.38rem 0.5rem;
+  font: inherit;
+}
+
+.inv-remove {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #8b6a3d;
+  border-radius: 8px;
+  background: rgba(28, 22, 16, 0.92);
+  color: #f7e8cc;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
 @media (max-width: 1280px) {
   .sheet-layout {
     grid-template-columns: 1fr;

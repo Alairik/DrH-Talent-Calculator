@@ -15,11 +15,13 @@
     level: 1,
     inventorySig: "",
     inventoryItems: [],
+    inventoryEntries: [],
     selectedOptionalSpells: {}
   };
 
   const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
   const SPELLS_STORAGE_KEY = "dh_journal_spells_v1";
+  const INVENTORY_STORAGE_KEY = "dh_journal_inventory_v1";
   const SPELLS_DATA = {
     hranicar: {
       fixed: [
@@ -192,6 +194,82 @@
       ...extras,
       levelLine
     ];
+  }
+
+  function loadInventoryEntriesState() {
+    try {
+      const raw = localStorage.getItem(INVENTORY_STORAGE_KEY);
+      if (!raw) return [];
+      const parsed = JSON.parse(raw);
+      if (!Array.isArray(parsed)) return [];
+      return parsed.map((x) => String(x || "")).slice(0, 40);
+    } catch {
+      return [];
+    }
+  }
+
+  function saveInventoryEntriesState() {
+    try {
+      localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(journalState.inventoryEntries || []));
+    } catch {
+      // ignore storage failures
+    }
+  }
+
+  function ensureInventoryEntries(forceReset = false) {
+    if (
+      forceReset ||
+      !Array.isArray(journalState.inventoryEntries) ||
+      journalState.inventoryEntries.length === 0
+    ) {
+      journalState.inventoryEntries = [...(journalState.inventoryItems || []), ""];
+      saveInventoryEntriesState();
+    }
+  }
+
+  function getInventorySuggestionPool() {
+    const set = new Set();
+    for (const x of COMMON_STARTER_ITEMS) set.add(x);
+    for (const key of Object.keys(CLASS_LOADOUTS)) {
+      const obj = CLASS_LOADOUTS[key] || {};
+      for (const x of obj.fixed || []) set.add(x);
+      for (const x of obj.pool || []) set.add(x);
+    }
+    return Array.from(set);
+  }
+
+  function renderInventoryEditorHtml() {
+    const starterHtml = STARTER_RULE_LINES.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
+    const rows = (journalState.inventoryEntries || []).map((entry, idx) => `
+      <div class="inv-row">
+        <input
+          class="inv-input"
+          type="text"
+          list="journalInventorySuggestions"
+          data-inv-input="${idx}"
+          value="${escapeHtml(entry)}"
+          placeholder="Zadej nebo vyber předmět..."
+        />
+        <button type="button" class="inv-remove" data-inv-remove="${idx}" aria-label="Odstranit řádek">−</button>
+      </div>
+    `).join("");
+    const options = getInventorySuggestionPool().map((x) => `<option value="${escapeHtml(x)}"></option>`).join("");
+
+    return `
+      <div>
+        <strong>Start podle pravidel (PPZ, krok 5):</strong>
+        <ul>${starterHtml}</ul>
+      </div>
+      <div>
+        <strong>Doporučená výbava (${escapeHtml(journalState.className || "postava")} · úroveň ${escapeHtml(journalState.level)}):</strong>
+      </div>
+      <div class="inv-toolbar">
+        <button type="button" class="inv-add" data-inv-add>+ Přidat řádek</button>
+        <button type="button" class="inv-reset" data-inv-reset>Reset návrhu</button>
+      </div>
+      <div class="inv-list">${rows}</div>
+      <datalist id="journalInventorySuggestions">${options}</datalist>
+    `;
   }
 
   function loadOptionalSpellsState() {
@@ -617,6 +695,9 @@
     if (forceInventoryReroll || journalState.inventorySig !== sig || journalState.inventoryItems.length === 0) {
       journalState.inventoryItems = buildInventorySuggestion(snap);
       journalState.inventorySig = sig;
+      ensureInventoryEntries(true);
+    } else {
+      ensureInventoryEntries(false);
     }
   }
 
@@ -645,20 +726,8 @@
     if (activeTab === "spells") {
       auxTabHint.innerHTML = renderSpellsHtml();
     } else if (activeTab === "inventory") {
-      const starterHtml = STARTER_RULE_LINES.map((line) => `<li>${escapeHtml(line)}</li>`).join("");
-      const itemsHtml = (journalState.inventoryItems || [])
-        .map((line) => `<li>${escapeHtml(line)}</li>`)
-        .join("");
-      auxTabHint.innerHTML = `
-        <div>
-          <strong>Start podle pravidel (PPZ, krok 5):</strong>
-          <ul>${starterHtml}</ul>
-        </div>
-        <div>
-          <strong>Doporučená výbava (${escapeHtml(journalState.className || "postava")} · úroveň ${escapeHtml(journalState.level)}):</strong>
-          <ul>${itemsHtml}</ul>
-        </div>
-      `;
+      ensureInventoryEntries(false);
+      auxTabHint.innerHTML = renderInventoryEditorHtml();
     } else {
       auxTabHint.textContent = data.hint;
     }
@@ -751,6 +820,7 @@
   }
 
   journalState.selectedOptionalSpells = loadOptionalSpellsState();
+  journalState.inventoryEntries = loadInventoryEntriesState();
 
   for (const btn of colTabButtons) {
     btn.addEventListener("click", () => setActiveTab(btn.dataset.colTab || "talents"));
@@ -758,6 +828,40 @@
   setActiveTab(activeTab);
 
   if (auxTabContent) {
+    auxTabContent.addEventListener("click", (ev) => {
+      const target = ev.target;
+      if (!(target instanceof HTMLElement)) return;
+      if (target.matches("[data-inv-add]")) {
+        journalState.inventoryEntries.push("");
+        saveInventoryEntriesState();
+        if (activeTab === "inventory") updateAuxTabContent();
+        return;
+      }
+      if (target.matches("[data-inv-reset]")) {
+        ensureInventoryEntries(true);
+        if (activeTab === "inventory") updateAuxTabContent();
+        return;
+      }
+      const removeIdxRaw = target.getAttribute("data-inv-remove");
+      if (removeIdxRaw !== null) {
+        const idx = Math.max(0, Number.parseInt(removeIdxRaw, 10) || 0);
+        journalState.inventoryEntries.splice(idx, 1);
+        if (journalState.inventoryEntries.length === 0) journalState.inventoryEntries.push("");
+        saveInventoryEntriesState();
+        if (activeTab === "inventory") updateAuxTabContent();
+      }
+    });
+
+    auxTabContent.addEventListener("input", (ev) => {
+      const target = ev.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      const idxRaw = target.getAttribute("data-inv-input");
+      if (idxRaw === null) return;
+      const idx = Math.max(0, Number.parseInt(idxRaw, 10) || 0);
+      journalState.inventoryEntries[idx] = target.value;
+      saveInventoryEntriesState();
+    });
+
     auxTabContent.addEventListener("change", (ev) => {
       const target = ev.target;
       if (!(target instanceof HTMLInputElement)) return;
