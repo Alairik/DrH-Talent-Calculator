@@ -26,6 +26,10 @@
     PROF_5: 2,
     PROF_6: 4
   };
+  const CLASS_RESOURCE_LABEL = {
+    PROF_2: "Duševní síla",
+    PROF_6: "Přízeň"
+  };
 
   const state = {
     kb: null,
@@ -51,6 +55,7 @@
     charName: document.getElementById("charName"),
     charMeta: document.getElementById("charMeta"),
     hpValue: document.getElementById("hpValue"),
+    resourceLabel: document.getElementById("resourceLabel"),
     manaValue: document.getElementById("manaValue"),
     attrsGrid: document.getElementById("attrsGrid"),
     tabButtons: [...document.querySelectorAll(".tab-btn")],
@@ -252,6 +257,7 @@
     els.charName.textContent = name;
     els.charMeta.textContent = `${race ? race.name : "-"} • ${profession ? profession.name : "-"} • Level ${level}`;
     els.hpValue.textContent = String(hp);
+    els.resourceLabel.textContent = CLASS_RESOURCE_LABEL[profession && profession.id] || "Mana";
     els.manaValue.textContent = String(mana);
 
     els.attrsGrid.innerHTML = ATTR_KEYS.map((k) => {
