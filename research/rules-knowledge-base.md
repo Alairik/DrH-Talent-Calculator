@@ -7,6 +7,7 @@ Ucel: jeden centralni zdroj pravidel pro vsechny nastroje v tomto repu:
 
 Primarni textovy referencni prehled:
 - `research/PPZ_RULES_STRUCTURED.md` (kapitoly 1-18, tagy, vazby, implementacni mapovani)
+- `research/PPP_RULES_STRUCTURED.md` (pokrocile specializace, subsystemy, RSS, vazby na PPZ)
 
 Status:
 - cast pravidel je potvrzena
