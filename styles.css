@@ -749,19 +749,21 @@ h3,
 
   .column-controls,
   .layout {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) clamp(56px, 7vw, 92px) minmax(0, 1fr) minmax(0, 1fr);
     width: min(calc(100vw - 1.4rem), 1720px);
   }
 
   #controlSlotGap,
   .layout > .gap-icons-panel {
-    display: none;
+    display: block;
   }
 
   .column-controls > :nth-child(1),
+  .column-controls > :nth-child(2),
   .column-controls > :nth-child(3),
   .column-controls > :nth-child(4),
   .layout > .talents-panel,
+  .layout > .gap-icons-panel,
   .layout > .skills-panel,
   .layout > .plan-panel {
     justify-self: stretch;
@@ -770,28 +772,10 @@ h3,
   }
 }
 
-/* Small desktop: show top class dropdown when top class picker row is hidden. */
+/* Small desktop keeps classic 4-column layout with class icon column. */
 @media (min-width: 1025px) and (max-width: 1366px) {
-  body {
-    grid-template-rows: auto minmax(0, 1fr);
-  }
-
   .mobile-sticky-header {
-    display: block;
-    position: sticky;
-    top: 0;
-    z-index: 40;
-    padding: 0.35rem 0.55rem;
-    background: linear-gradient(180deg, rgba(29, 22, 16, 0.96), rgba(22, 17, 13, 0.92));
-    border-bottom: 1px solid var(--line);
-  }
-
-  #mobileClassSelect {
-    width: 100%;
-    min-height: 36px;
-    font-size: 0.84rem;
-    padding: 0.35rem 0.45rem;
-    line-height: 1.1;
+    display: none !important;
   }
 }
 
