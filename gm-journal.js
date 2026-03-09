@@ -99,10 +99,18 @@
         border: 0 !important;
         padding: 8px !important;
       }
-      #mobileStickyHeader .mobile-class-select-wrap {
+      #mobileStickyHeader .gm-journal-header-row {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+        gap: 8px !important;
+        align-items: center !important;
+      }
+      #mobileStickyHeader .mobile-class-select-wrap,
+      #mobileStickyHeader .gm-journal-race-wrap {
         width: 100% !important;
       }
-      #mobileStickyHeader select {
+      #mobileStickyHeader .mobile-class-select-wrap select,
+      #mobileStickyHeader .gm-journal-race-wrap select {
         width: 100% !important;
       }
       #floatingPanel {
@@ -127,6 +135,32 @@
         overflow: auto !important;
       }
     `;
+  }
+
+  function arrangeCreatorHeaderControls() {
+    if (!creatorFrame || !creatorFrame.contentDocument) return;
+    const doc = creatorFrame.contentDocument;
+    const header = doc.getElementById("mobileStickyHeader");
+    const classWrap = header ? header.querySelector(".mobile-class-select-wrap") : null;
+    const raceSelect = doc.getElementById("quickRaceSelect");
+    if (!header || !classWrap || !raceSelect) return;
+
+    let row = header.querySelector(".gm-journal-header-row");
+    if (!row) {
+      row = doc.createElement("div");
+      row.className = "gm-journal-header-row";
+      header.prepend(row);
+    }
+
+    let raceWrap = row.querySelector(".gm-journal-race-wrap");
+    if (!raceWrap) {
+      raceWrap = doc.createElement("label");
+      raceWrap.className = "gm-journal-race-wrap";
+      row.appendChild(raceWrap);
+    }
+
+    if (raceSelect.parentElement !== raceWrap) raceWrap.appendChild(raceSelect);
+    if (classWrap.parentElement !== row) row.appendChild(classWrap);
   }
 
   function injectStyle(frame, id, cssText) {
@@ -190,6 +224,7 @@
   function applyCreatorEmbedStyle() {
     try {
       injectStyle(creatorFrame, "gm-journal-creator-embed-style", getCreatorEmbedStyleText());
+      arrangeCreatorHeaderControls();
       hookCreatorEvents();
     } catch (err) {
       console.warn("GM journal creator iframe styling failed", err);
