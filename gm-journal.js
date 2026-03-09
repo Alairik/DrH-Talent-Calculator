@@ -390,6 +390,7 @@
   }
 
   function renderTabs() {
+    if (state.activeTab === "calculator") state.activeTab = "talents";
     els.tabButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.tab === state.activeTab);
     });
@@ -411,15 +412,15 @@
       renderSystemsTab();
       return;
     }
-    if (state.activeTab === "calculator") {
-      renderCalculatorTab();
-      return;
-    }
     const items = buildItemPreview();
     els.tabContent.innerHTML = renderList(items.length ? items : ["Bez predmetu."]);
   }
 
   function renderCalculatorTab() {
+    renderTalentsTab();
+  }
+
+  function renderTalentsTab() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
     const requiredLevel = getRequiredLevelForBuild();
@@ -427,7 +428,8 @@
     const selectedSkillTargets = state.build.selectedSkillTargets || {};
     const talentFilter = state.calcFilters.talents;
     const skillFilter = state.calcFilters.skills;
-    const talents = getAvailableTalents(profId, level)
+    const talents = state.talents
+      .filter((t) => t.prof_id === profId)
       .filter((t) => matchesLocalFilter(t.name, talentFilter))
       .sort((a, b) => {
         const la = Number(a.required_level || 1);
@@ -435,7 +437,7 @@
         if (la !== lb) return la - lb;
         return byName(a, b);
       });
-    const skills = getAvailableSkills(profId, level)
+    const skills = getAvailableSkills(profId, Math.max(level, 36))
       .filter((s) => matchesLocalFilter(s.name, skillFilter))
       .sort((a, b) => {
         const aClass = isClassSkillForProfession(a, profId) ? 0 : 1;
@@ -459,12 +461,16 @@
             <h4>Talenty</h4>
             <input id="calcTalentSearch" type="search" placeholder="Filtrovat talenty..." value="${escapeHtml(talentFilter)}" />
             <div class="interactive-list calc-native-list">
-              ${talents.map((t) => `
+              ${talents.map((t) => {
+                const req = Number(t.required_level || 1);
+                const locked = req > level;
+                return `
                 <label class="interactive-row">
-                  <span>Lv ${Number(t.required_level || 1)} - ${escapeHtml(t.name)}</span>
-                  <input type="checkbox" data-calc-talent-id="${escapeHtml(t.id)}" ${selectedTalentIds.has(t.id) ? "checked" : ""} />
+                  <span>Lv ${req} - ${escapeHtml(t.name)}${locked ? " (zamceno)" : ""}</span>
+                  <input type="checkbox" data-calc-talent-id="${escapeHtml(t.id)}" ${selectedTalentIds.has(t.id) ? "checked" : ""} ${locked && !selectedTalentIds.has(t.id) ? "disabled" : ""} />
                 </label>
-              `).join("")}
+              `;
+              }).join("")}
             </div>
           </section>
           <section class="calc-native-col">
@@ -493,14 +499,14 @@
     if (talentSearchEl) {
       talentSearchEl.addEventListener("input", () => {
         state.calcFilters.talents = String(talentSearchEl.value || "");
-        renderCalculatorTab();
+        renderTalentsTab();
       });
     }
     const skillSearchEl = document.getElementById("calcSkillSearch");
     if (skillSearchEl) {
       skillSearchEl.addEventListener("input", () => {
         state.calcFilters.skills = String(skillSearchEl.value || "");
-        renderCalculatorTab();
+        renderTalentsTab();
       });
     }
     for (const cb of els.tabContent.querySelectorAll("input[data-calc-talent-id]")) {
@@ -637,50 +643,6 @@
         syncLevelWithSelections(false);
         applyBuildToControls();
         renderTabs();
-        persistBuild();
-      });
-    }
-  }
-
-  function renderTalentsTab() {
-    const level = state.build.manualLevel;
-    const profId = state.build.professionId;
-    const selected = new Set(state.build.selectedTalentIds || []);
-
-    const available = getAvailableTalents(profId, level)
-      .sort((a, b) => {
-        const la = Number(a.required_level || 1);
-        const lb = Number(b.required_level || 1);
-        if (la !== lb) return la - lb;
-        return byName(a, b);
-      });
-
-    els.tabContent.innerHTML = `
-      <div class="interactive-list">
-        ${available.map((t) => `
-          <label class="interactive-row">
-            <span>Lv ${Number(t.required_level || 1)} - ${escapeHtml(t.name)}</span>
-            <input type="checkbox" data-talent-id="${escapeHtml(t.id)}" ${selected.has(t.id) ? "checked" : ""} />
-          </label>
-        `).join("")}
-      </div>
-    `;
-
-    for (const cb of els.tabContent.querySelectorAll("input[data-talent-id]")) {
-      cb.addEventListener("change", () => {
-        const id = cb.dataset.talentId;
-        const set = new Set(state.build.selectedTalentIds || []);
-        if (cb.checked) {
-          set.add(id);
-          state.build.talentOrderCounter = Number(state.build.talentOrderCounter || 0) + 1;
-          state.build.selectedTalentOrder[id] = state.build.talentOrderCounter;
-        } else {
-          set.delete(id);
-          delete state.build.selectedTalentOrder[id];
-        }
-        state.build.selectedTalentIds = [...set];
-        syncLevelWithSelections(false);
-        applyBuildToControls();
         persistBuild();
       });
     }
@@ -1005,7 +967,7 @@
         state.build = sanitizeBuildPayload(parsed);
         ensureBuildDefaults();
         applyBuildToControls();
-        if (state.activeTab !== "calculator") renderAll();
+        renderAll();
       } catch (_err) {
         // ignore
       }
