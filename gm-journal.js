@@ -128,6 +128,9 @@
       #floatingPanel.collapsed {
         transform: none !important;
       }
+      #floatingPanel .floating-row-main {
+        display: none !important;
+      }
       #floatingPanelSlideBtn {
         display: none !important;
       }
@@ -161,6 +164,17 @@
 
     if (raceSelect.parentElement !== raceWrap) raceWrap.appendChild(raceSelect);
     if (classWrap.parentElement !== row) row.appendChild(classWrap);
+
+    const levelRow = doc.querySelector("#floatingPanel .floating-row-level");
+    const randomBtn = doc.getElementById("quickRandomBtn");
+    const resetBtn = doc.getElementById("quickResetBtn");
+    if (levelRow && randomBtn && resetBtn) {
+      if (randomBtn.parentElement !== levelRow) {
+        levelRow.insertBefore(randomBtn, resetBtn);
+      } else if (randomBtn.nextElementSibling !== resetBtn) {
+        levelRow.insertBefore(randomBtn, resetBtn);
+      }
+    }
   }
 
   function injectStyle(frame, id, cssText) {
