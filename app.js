@@ -997,6 +997,7 @@
       hideInfoTooltip();
       renderSkills();
       handleResponsiveLayout();
+      positionFloatingPanel();
     });
     if (els.layout) els.layout.addEventListener("scroll", onLayoutScroll, { passive: true });
     document.addEventListener("pointerdown", (ev) => {
@@ -1460,6 +1461,7 @@
     renderTalentTree();
     renderSkills();
     renderPlanOnly();
+    positionFloatingPanel();
   }
 
   function renderControls() {
@@ -1542,6 +1544,26 @@
     hideInfoTooltip();
     if (!isMobileSectionLayout()) return;
     updateMobileSectionNav();
+  }
+
+  function positionFloatingPanel() {
+    if (!els.floatingPanel) return;
+    if (isMobileSectionLayout()) {
+      els.floatingPanel.style.removeProperty("left");
+      els.floatingPanel.style.removeProperty("right");
+      els.floatingPanel.style.removeProperty("bottom");
+      return;
+    }
+    const anchor = els.skillsPanel;
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const panelWidth = Math.max(1, els.floatingPanel.offsetWidth || 194);
+    const viewportWidth = Math.max(1, document.documentElement.clientWidth || window.innerWidth || 1);
+    let left = rect.left + rect.width * 0.52;
+    left = Math.round(Math.max(8, Math.min(left, viewportWidth - panelWidth - 8)));
+    els.floatingPanel.style.left = `${left}px`;
+    els.floatingPanel.style.right = "auto";
+    els.floatingPanel.style.bottom = "14px";
   }
 
   function showInfoTooltip(text, anchorEl, pinned = false) {
