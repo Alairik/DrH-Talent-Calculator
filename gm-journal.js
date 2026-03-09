@@ -13,7 +13,9 @@
   let reloadTimer = null;
   let currentClassName = "";
   const journalState = {
+    classId: "",
     className: "",
+    raceId: "",
     raceName: "",
     level: 1,
     inventorySig: "",
@@ -23,6 +25,7 @@
   };
 
   const SPELL_CLASSES = ["hraničář", "kouzelník", "klerik"];
+  const SPELL_CLASS_IDS = new Set(["PROF_2", "PROF_4", "PROF_6"]);
   const SPELLS_STORAGE_KEY = "dh_journal_spells_v1";
   const INVENTORY_STORAGE_KEY = "dh_journal_inventory_v1";
   const HP_STORAGE_KEY = "dh_journal_hp_override_v1";
@@ -127,7 +130,15 @@
       .replaceAll("'", "&#39;");
   }
 
-  function getClassKey(className) {
+  function getClassKey(className, classId = "") {
+    const id = String(classId || "").trim().toUpperCase();
+    if (id === "PROF_1") return "valecnik";
+    if (id === "PROF_2") return "hranicar";
+    if (id === "PROF_3") return "alchymista";
+    if (id === "PROF_4") return "kouzelnik";
+    if (id === "PROF_5") return "zlodej";
+    if (id === "PROF_6") return "klerik";
+
     const n = normalizeText(className);
     if (n.includes("valecnik")) return "valecnik";
     if (n.includes("hranicar")) return "hranicar";
@@ -141,7 +152,9 @@
   function readCreatorSnapshot() {
     if (!creatorFrame || !creatorFrame.contentDocument) {
       return {
+        classId: journalState.classId || "",
         className: journalState.className || "",
+        raceId: journalState.raceId || "",
         raceName: journalState.raceName || "",
         level: Number.isFinite(journalState.level) ? journalState.level : 1
       };
@@ -154,11 +167,13 @@
     const className = classSelect && classSelect.selectedIndex >= 0
       ? (classSelect.options[classSelect.selectedIndex]?.textContent || "")
       : "";
+    const classId = classSelect ? String(classSelect.value || "") : "";
     const raceName = raceSelect && raceSelect.selectedIndex >= 0
       ? (raceSelect.options[raceSelect.selectedIndex]?.textContent || "")
       : "";
+    const raceId = raceSelect ? String(raceSelect.value || "") : "";
     const level = Math.max(1, Number.parseInt(levelDisplay?.textContent || "1", 10) || 1);
-    return { className, raceName, level };
+    return { classId, className, raceId, raceName, level };
   }
 
   function pickRandomUnique(pool, count) {
@@ -347,7 +362,7 @@
   }
 
   function getSpellsContext() {
-    const classKey = getClassKey(journalState.className);
+    const classKey = getClassKey(journalState.className, journalState.classId);
     return {
       classKey,
       def: SPELLS_DATA[classKey] || null,
@@ -420,20 +435,24 @@
     `;
   }
 
-  function classHasSpells(className) {
+  function classHasSpells(className, classId = "") {
+    const id = String(classId || "").trim().toUpperCase();
+    if (SPELL_CLASS_IDS.has(id)) return true;
     const n = normalizeText(className);
     return SPELL_CLASSES.some((key) => n.includes(normalizeText(key)));
   }
 
-  function classIsAlchemist(className) {
+  function classIsAlchemist(className, classId = "") {
+    const id = String(classId || "").trim().toUpperCase();
+    if (id === "PROF_3") return true;
     const n = normalizeText(className);
     return n.includes("alchymista");
   }
 
-  function getVisibleTabsForClass(className) {
+  function getVisibleTabsForClass(className, classId = "") {
     const tabs = new Set(["talents", "skills", "inventory"]);
-    if (classHasSpells(className)) tabs.add("spells");
-    if (classIsAlchemist(className)) tabs.add("recipes");
+    if (classHasSpells(className, classId)) tabs.add("spells");
+    if (classIsAlchemist(className, classId)) tabs.add("recipes");
     return tabs;
   }
 
@@ -741,12 +760,14 @@
 
   function refreshJournalCharacterState(forceInventoryReroll = false) {
     const snap = readCreatorSnapshot();
+    journalState.classId = snap.classId;
     journalState.className = snap.className;
+    journalState.raceId = snap.raceId;
     journalState.raceName = snap.raceName;
     journalState.level = snap.level;
     currentClassName = snap.className;
 
-    const sig = `${getClassKey(snap.className)}|${normalizeText(snap.raceName)}|${snap.level}`;
+    const sig = `${getClassKey(snap.className, snap.classId)}|${normalizeText(snap.raceName)}|${snap.level}`;
     if (forceInventoryReroll || journalState.inventorySig !== sig || journalState.inventoryItems.length === 0) {
       journalState.inventoryItems = buildInventorySuggestion(snap);
       journalState.inventorySig = sig;
@@ -796,7 +817,7 @@
   }
 
   function syncTabVisibility() {
-    const visibleTabs = getVisibleTabsForClass(currentClassName);
+    const visibleTabs = getVisibleTabsForClass(currentClassName, journalState.classId);
     for (const btn of colTabButtons) {
       const tab = btn.dataset.colTab || "";
       const isVisible = visibleTabs.has(tab);
@@ -871,7 +892,7 @@
   function setActiveTab(next) {
     const nextTab = String(next || "talents");
     activeTab = nextTab;
-    const visibleTabs = getVisibleTabsForClass(currentClassName);
+    const visibleTabs = getVisibleTabsForClass(currentClassName, journalState.classId);
     if (!visibleTabs.has(activeTab)) activeTab = "talents";
     localStorage.setItem(COL_TAB_KEY, activeTab);
     for (const btn of colTabButtons) {
