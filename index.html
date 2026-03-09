@@ -130,12 +130,18 @@
       <button id="quickSaveBtn" type="button" class="floating-save-btn" title="Uložit postavu do URL">Uložit postavu</button>
     </div>
     <div id="quickAttrsPanel" class="floating-attrs">
+      <div class="attr-mode-row" role="group" aria-label="Režim tvorby atributů">
+        <button id="attrModeManualBtn" type="button" class="attr-mode-btn active" aria-pressed="true">Manuálně</button>
+        <button id="attrModeDiceBtn" type="button" class="attr-mode-btn" aria-pressed="false">Kostky</button>
+      </div>
+      <div id="diceRollPool" class="dice-roll-pool" hidden aria-label="Hody kostkou"></div>
       <div class="attr-row">
         <span>SIL</span>
         <button id="attrSilMinus" class="attr-adjust-btn" type="button" aria-label="Snížit SIL">-</button>
         <input id="attrSilBase" maxlength="2" inputmode="numeric" />
         <button id="attrSilPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit SIL">+</button>
         <input id="attrSilMod" maxlength="2" inputmode="numeric" />
+        <div id="attrSilRoll" class="attr-roll-slot" data-attr-key="sil" aria-label="Hod pro SIL"></div>
       </div>
       <div class="attr-row">
         <span>OBR</span>
@@ -143,6 +149,7 @@
         <input id="attrObrBase" maxlength="2" inputmode="numeric" />
         <button id="attrObrPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit OBR">+</button>
         <input id="attrObrMod" maxlength="2" inputmode="numeric" />
+        <div id="attrObrRoll" class="attr-roll-slot" data-attr-key="obr" aria-label="Hod pro OBR"></div>
       </div>
       <div class="attr-row">
         <span>ODO</span>
@@ -150,6 +157,7 @@
         <input id="attrOdoBase" maxlength="2" inputmode="numeric" />
         <button id="attrOdoPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit ODO">+</button>
         <input id="attrOdoMod" maxlength="2" inputmode="numeric" />
+        <div id="attrOdoRoll" class="attr-roll-slot" data-attr-key="odo" aria-label="Hod pro ODO"></div>
       </div>
       <div class="attr-row">
         <span>INT</span>
@@ -157,6 +165,7 @@
         <input id="attrIntBase" maxlength="2" inputmode="numeric" />
         <button id="attrIntPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit INT">+</button>
         <input id="attrIntMod" maxlength="2" inputmode="numeric" />
+        <div id="attrIntRoll" class="attr-roll-slot" data-attr-key="int" aria-label="Hod pro INT"></div>
       </div>
       <div class="attr-row">
         <span>CHA</span>
@@ -164,6 +173,7 @@
         <input id="attrChaBase" maxlength="2" inputmode="numeric" />
         <button id="attrChaPlus" class="attr-adjust-btn" type="button" aria-label="Zvýšit CHA">+</button>
         <input id="attrChaMod" maxlength="2" inputmode="numeric" />
+        <div id="attrChaRoll" class="attr-roll-slot" data-attr-key="cha" aria-label="Hod pro CHA"></div>
       </div>
     </div>
   </aside>

@@ -351,9 +351,82 @@ h3,
   gap: 0.25rem;
 }
 
+.attr-mode-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.attr-mode-btn {
+  min-height: 28px;
+  border-radius: 8px;
+  border: 1px solid #7b6240;
+  background: #20170f;
+  color: #fff0d4;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.attr-mode-btn.active {
+  background: linear-gradient(180deg, #3c2b1a, #2a1e14);
+  box-shadow: 0 0 0 1px rgba(215, 176, 116, 0.35) inset;
+}
+
+.dice-roll-pool {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.dice-roll-chip {
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0 0.35rem;
+  border-radius: 8px;
+  border: 1px solid #7b6240;
+  background: #2a2017;
+  color: #fff0d4;
+  display: inline-grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: grab;
+  user-select: none;
+}
+
+.dice-roll-chip.discarded {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.attr-roll-slot {
+  width: 34px;
+  min-height: 26px;
+  border-radius: 7px;
+  border: 1px dashed #7b6240;
+  background: #17130f;
+  color: #fff0d4;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+
+.attr-roll-slot.filled {
+  border-style: solid;
+  background: #2a2017;
+}
+
+.attr-roll-slot.drag-over {
+  border-color: #d2b074;
+  box-shadow: 0 0 0 1px rgba(210, 176, 116, 0.35);
+}
+
 .attr-row {
   display: grid;
-  grid-template-columns: 34px 24px 42px 24px 28px;
+  grid-template-columns: 34px 24px 42px 24px 28px 34px;
   gap: 0.24rem;
   align-items: center;
 }

@@ -11,6 +11,9 @@
   const hpAutoHint = document.getElementById("hpAutoHint");
   let activeTab = localStorage.getItem(COL_TAB_KEY) || "talents";
   let reloadTimer = null;
+  let creatorSyncTimer = null;
+  let creatorMutationObserver = null;
+  let lastCreatorSnapshotSig = "";
   let currentClassName = "";
   const journalState = {
     classId: "",
@@ -196,7 +199,7 @@
   }
 
   function buildInventorySuggestion(snapshot) {
-    const classKey = getClassKey(snapshot.className);
+    const classKey = getClassKey(snapshot.className, snapshot.classId);
     const loadout = CLASS_LOADOUTS[classKey] || CLASS_LOADOUTS.fallback;
     const extrasCount = getExtraItemCountByLevel(snapshot.level);
     const extras = pickRandomUnique(loadout.pool || [], extrasCount);
@@ -238,17 +241,34 @@
     }
   }
 
-  function getOdoFromCreator() {
-    if (!creatorFrame || !creatorFrame.contentDocument) return 10;
+  function getOdoModFromCreator() {
+    if (!creatorFrame || !creatorFrame.contentDocument) return 0;
     const doc = creatorFrame.contentDocument;
-    const odo = Number.parseInt(doc.getElementById("attrOdoBase")?.value || "10", 10);
-    return Number.isFinite(odo) && odo > 0 ? odo : 10;
+    const raw = String(doc.getElementById("attrOdoMod")?.value || "0").trim();
+    const odoMod = Number.parseInt(raw.replace(/\s+/g, ""), 10);
+    if (Number.isFinite(odoMod)) return odoMod;
+    const odoBase = Number.parseInt(doc.getElementById("attrOdoBase")?.value || "10", 10);
+    if (!Number.isFinite(odoBase)) return 0;
+    if (odoBase <= 1) return -5;
+    if (odoBase <= 3) return -4;
+    if (odoBase <= 5) return -3;
+    if (odoBase <= 7) return -2;
+    if (odoBase <= 9) return -1;
+    if (odoBase <= 11) return 0;
+    if (odoBase <= 13) return 1;
+    if (odoBase <= 15) return 2;
+    if (odoBase <= 17) return 3;
+    if (odoBase <= 19) return 4;
+    if (odoBase <= 21) return 5;
+    return 6;
   }
 
   function computeAutoHp() {
     const level = Math.max(1, Number.parseInt(String(journalState.level || 1), 10) || 1);
-    const odo = getOdoFromCreator();
-    return Math.max(1, 10 + odo + (level - 1) * 4);
+    const odoMod = getOdoModFromCreator();
+    const hpAtLevel1 = 10 + odoMod;
+    const hpPerLevel = 4 + odoMod; // prumer 1k6 (zaokrouhleno nahoru) + ODO
+    return Math.max(1, hpAtLevel1 + (level - 1) * hpPerLevel);
   }
 
   function updateHpUi() {
@@ -783,6 +803,58 @@
     }
   }
 
+  function getCreatorSnapshotSig(snapshot) {
+    if (!snapshot) return "";
+    return [
+      String(snapshot.classId || ""),
+      normalizeText(snapshot.className || ""),
+      String(snapshot.raceId || ""),
+      normalizeText(snapshot.raceName || ""),
+      String(snapshot.level || 1)
+    ].join("|");
+  }
+
+  function syncFromCreatorIfChanged(force = false) {
+    const snap = readCreatorSnapshot();
+    const sig = getCreatorSnapshotSig(snap);
+    if (!force && sig && sig === lastCreatorSnapshotSig) return false;
+    lastCreatorSnapshotSig = sig;
+    refreshJournalCharacterState(false);
+    syncTabVisibility();
+    applyRightPaneMode();
+    return true;
+  }
+
+  function startCreatorAutoSync() {
+    if (creatorSyncTimer) {
+      clearInterval(creatorSyncTimer);
+      creatorSyncTimer = null;
+    }
+    if (creatorMutationObserver) {
+      creatorMutationObserver.disconnect();
+      creatorMutationObserver = null;
+    }
+
+    syncFromCreatorIfChanged(true);
+
+    creatorSyncTimer = setInterval(() => {
+      syncFromCreatorIfChanged(false);
+    }, 700);
+
+    if (!creatorFrame || !creatorFrame.contentDocument) return;
+    const doc = creatorFrame.contentDocument;
+    const classSelect = doc.getElementById("mobileClassSelect");
+    const raceSelect = doc.getElementById("quickRaceSelect");
+    const levelDisplay = doc.getElementById("quickLevelDisplay");
+    const observer = new MutationObserver(() => {
+      syncFromCreatorIfChanged(false);
+    });
+    if (classSelect) observer.observe(classSelect, { childList: true, subtree: true, attributes: true });
+    if (raceSelect) observer.observe(raceSelect, { childList: true, subtree: true, attributes: true });
+    if (levelDisplay) observer.observe(levelDisplay, { childList: true, subtree: true, characterData: true });
+    creatorMutationObserver = observer;
+  }
+
   function updateAuxTabContent() {
     if (!auxTabContent || !auxTabTitle || !auxTabHint) return;
     const byTab = {
@@ -859,6 +931,7 @@
         syncTabVisibility();
         applyRightPaneMode();
         scheduleMainReload();
+        lastCreatorSnapshotSig = getCreatorSnapshotSig(readCreatorSnapshot());
       }
     }, true);
     doc.addEventListener("change", (ev) => {
@@ -868,6 +941,7 @@
         syncTabVisibility();
         applyRightPaneMode();
         scheduleMainReload();
+        lastCreatorSnapshotSig = getCreatorSnapshotSig(readCreatorSnapshot());
       }
     }, true);
     doc.addEventListener("input", (ev) => {
@@ -884,6 +958,7 @@
       syncTabVisibility();
       applyRightPaneMode();
       hookCreatorEvents();
+      startCreatorAutoSync();
     } catch (err) {
       console.warn("GM journal creator iframe styling failed", err);
     }

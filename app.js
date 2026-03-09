@@ -273,6 +273,11 @@
       branchVisible: [false, false, false],
       specOpportunityPulseByClass: {},
       freezeManualLevel: false
+    },
+    creationAttrMode: "manual",
+    manualAttributeBonuses: { sil: 0, obr: 0, odo: 0, int: 0, cha: 0 },
+    diceCreation: {
+      rolls: []
     }
   };
 
@@ -319,28 +324,36 @@
     quickLevelPlus: document.getElementById("quickLevelPlus"),
     quickSaveBtn: document.getElementById("quickSaveBtn"),
     quickAttrsPanel: document.getElementById("quickAttrsPanel"),
+    attrModeManualBtn: document.getElementById("attrModeManualBtn"),
+    attrModeDiceBtn: document.getElementById("attrModeDiceBtn"),
+    diceRollPool: document.getElementById("diceRollPool"),
     floatingPanel: document.getElementById("floatingPanel"),
     floatingPanelSlideBtn: document.getElementById("floatingPanelSlideBtn"),
     attrSilBase: document.getElementById("attrSilBase"),
     attrSilMinus: document.getElementById("attrSilMinus"),
     attrSilPlus: document.getElementById("attrSilPlus"),
     attrSilMod: document.getElementById("attrSilMod"),
+    attrSilRoll: document.getElementById("attrSilRoll"),
     attrObrBase: document.getElementById("attrObrBase"),
     attrObrMinus: document.getElementById("attrObrMinus"),
     attrObrPlus: document.getElementById("attrObrPlus"),
     attrObrMod: document.getElementById("attrObrMod"),
+    attrObrRoll: document.getElementById("attrObrRoll"),
     attrOdoBase: document.getElementById("attrOdoBase"),
     attrOdoMinus: document.getElementById("attrOdoMinus"),
     attrOdoPlus: document.getElementById("attrOdoPlus"),
     attrOdoMod: document.getElementById("attrOdoMod"),
+    attrOdoRoll: document.getElementById("attrOdoRoll"),
     attrIntBase: document.getElementById("attrIntBase"),
     attrIntMinus: document.getElementById("attrIntMinus"),
     attrIntPlus: document.getElementById("attrIntPlus"),
     attrIntMod: document.getElementById("attrIntMod"),
+    attrIntRoll: document.getElementById("attrIntRoll"),
     attrChaBase: document.getElementById("attrChaBase"),
     attrChaMinus: document.getElementById("attrChaMinus"),
     attrChaPlus: document.getElementById("attrChaPlus"),
     attrChaMod: document.getElementById("attrChaMod"),
+    attrChaRoll: document.getElementById("attrChaRoll"),
     saveCharacterModal: document.getElementById("saveCharacterModal"),
     saveCharacterUrl: document.getElementById("saveCharacterUrl"),
     copyCharacterUrlBtn: document.getElementById("copyCharacterUrlBtn"),
@@ -388,6 +401,14 @@
   const tooltipState = {
     pinned: false,
     anchorEl: null
+  };
+  const ATTRIBUTE_KEYS = ["sil", "obr", "odo", "int", "cha"];
+  const ATTR_DOM_MAP = {
+    sil: { base: () => els.attrSilBase, mod: () => els.attrSilMod, minus: () => els.attrSilMinus, plus: () => els.attrSilPlus, slot: () => els.attrSilRoll },
+    obr: { base: () => els.attrObrBase, mod: () => els.attrObrMod, minus: () => els.attrObrMinus, plus: () => els.attrObrPlus, slot: () => els.attrObrRoll },
+    odo: { base: () => els.attrOdoBase, mod: () => els.attrOdoMod, minus: () => els.attrOdoMinus, plus: () => els.attrOdoPlus, slot: () => els.attrOdoRoll },
+    int: { base: () => els.attrIntBase, mod: () => els.attrIntMod, minus: () => els.attrIntMinus, plus: () => els.attrIntPlus, slot: () => els.attrIntRoll },
+    cha: { base: () => els.attrChaBase, mod: () => els.attrChaMod, minus: () => els.attrChaMinus, plus: () => els.attrChaPlus, slot: () => els.attrChaRoll }
   };
   const SHARE_BUILD_PARAM = "build";
   const MAX_SHARE_PARAM_LENGTH = 12000;
@@ -784,14 +805,31 @@
     state.config.points.talentPerLevel = window.APP_CONFIG.points.talentPerLevel;
     state.config.points.skillLevel1 = window.APP_CONFIG.points.skillLevel1;
     state.config.points.skillPerLevel = window.APP_CONFIG.points.skillPerLevel;
+    ensureCreationDiceDefaults();
     ensureAttributeDefaults();
     if (areAttributesPristine()) applyCreationAttributeProfile();
   }
 
+  function ensureCreationDiceDefaults() {
+    if (state.creationAttrMode !== "manual" && state.creationAttrMode !== "dice") {
+      state.creationAttrMode = "manual";
+    }
+    if (!state.diceCreation || typeof state.diceCreation !== "object") state.diceCreation = { rolls: [] };
+    if (!Array.isArray(state.diceCreation.rolls)) state.diceCreation.rolls = [];
+    if (!state.manualAttributeBonuses || typeof state.manualAttributeBonuses !== "object") {
+      state.manualAttributeBonuses = { sil: 0, obr: 0, odo: 0, int: 0, cha: 0 };
+    }
+    for (const key of ATTRIBUTE_KEYS) {
+      state.manualAttributeBonuses[key] = clampInt(state.manualAttributeBonuses[key], 0, 6, 0);
+    }
+    if (state.creationAttrMode === "dice" && state.diceCreation.rolls.length !== 6) {
+      generateDiceCreationRolls();
+    }
+  }
+
   function ensureAttributeDefaults() {
-    const keys = ["sil", "obr", "odo", "int", "cha"];
     if (!state.attributes || typeof state.attributes !== "object") state.attributes = {};
-    for (const key of keys) {
+    for (const key of ATTRIBUTE_KEYS) {
       const cur = state.attributes[key] || {};
       state.attributes[key] = {
         base: clampInt(cur.base, 1, 21, 10),
@@ -802,8 +840,7 @@
   }
 
   function areAttributesPristine() {
-    const keys = ["sil", "obr", "odo", "int", "cha"];
-    return keys.every((k) => {
+    return ATTRIBUTE_KEYS.every((k) => {
       const a = state.attributes[k] || {};
       return Number(a.base) === 10 && Number(a.mod) === 0 && Number(a.bonus) === 0;
     });
@@ -1007,6 +1044,12 @@
     if (els.quickSaveBtn) els.quickSaveBtn.addEventListener("click", () => {
       openSaveCharacterModal();
     });
+    document.addEventListener("click", (ev) => {
+      const target = ev.target;
+      if (!(target instanceof HTMLElement)) return;
+      if (target.id !== "quickExportBtn") return;
+      openCharacterPrintPreview();
+    });
     if (els.copyCharacterUrlBtn) els.copyCharacterUrlBtn.addEventListener("click", async () => {
       const text = els.saveCharacterUrl ? String(els.saveCharacterUrl.value || "") : "";
       if (!text) return;
@@ -1039,6 +1082,18 @@
         els.floatingPanelSlideBtn.setAttribute("aria-label", collapsed ? "Rozbalit panel" : "Sbalit panel");
       });
     }
+
+    if (els.attrModeManualBtn) {
+      els.attrModeManualBtn.addEventListener("click", () => {
+        setCreationAttrMode("manual");
+      });
+    }
+    if (els.attrModeDiceBtn) {
+      els.attrModeDiceBtn.addEventListener("click", () => {
+        setCreationAttrMode("dice");
+      });
+    }
+    wireDiceDropZones();
 
     bindAttributeInput("sil", els.attrSilBase, els.attrSilMod, els.attrSilMinus, els.attrSilPlus);
     bindAttributeInput("obr", els.attrObrBase, els.attrObrMod, els.attrObrMinus, els.attrObrPlus);
@@ -1117,6 +1172,9 @@
       1
     );
     state.selectedProfessionId = nextId;
+    if (state.creationAttrMode === "dice") {
+      autoAssignDiceRollsForClass(nextId);
+    }
     applyCreationAttributeProfile();
     cleanseInvalidSelections();
     // Keep displayed level stable across class switch so skill point totals recalc for the same level.
@@ -1142,6 +1200,10 @@
     state.levelMode = "manual";
     state.manualLevel = 1;
     ensureAttributeDefaults();
+    if (state.creationAttrMode === "dice") {
+      generateDiceCreationRolls();
+      autoAssignDiceRollsForClass(state.selectedProfessionId);
+    }
     applyCreationAttributeProfile();
     renderAll();
     persist();
@@ -1167,7 +1229,12 @@
     state.levelMode = "manual";
     state.manualLevel = targetLevel;
 
-    randomizeCreationAttributesByClass(profId);
+    if (state.creationAttrMode === "dice") {
+      generateDiceCreationRolls();
+      autoAssignDiceRollsForClass(profId);
+    } else {
+      randomizeCreationAttributesByClass(profId);
+    }
     applyCreationAttributeProfile();
 
     const classTalents = state.talents.filter((t) => t.prof_id === profId).sort(byRequiredThenName);
@@ -1193,6 +1260,7 @@
   }
 
   function randomizeCreationAttributesByClass(profId) {
+    ensureCreationDiceDefaults();
     const attrOrderByClass = {
       PROF_1: ["sil", "odo", "obr", "int", "cha"],
       PROF_2: ["obr", "int", "odo", "sil", "cha"],
@@ -1207,7 +1275,9 @@
     for (let i = 0; i < keys.length; i += 1) assigned[keys[i]] = rolls[i];
     for (const key of ["sil", "obr", "odo", "int", "cha"]) {
       const cur = state.attributes[key] || {};
-      state.attributes[key] = { ...cur, bonus: clampInt(Number(assigned[key] || 1), 0, 6, 0) };
+      const b = clampInt(Number(assigned[key] || 1), 0, 6, 0);
+      state.attributes[key] = { ...cur, bonus: b };
+      state.manualAttributeBonuses[key] = b;
     }
   }
 
@@ -1498,6 +1568,353 @@
     els.saveCharacterModal.hidden = true;
   }
 
+  function collectPrintableCharacterData() {
+    const profId = state.selectedProfessionId;
+    const raceId = state.selectedRaceId;
+    const professionName = (state.professions.find((p) => p.id === profId) || {}).name || "Nezvoleno";
+    const raceName = (state.races.find((r) => r.id === raceId) || {}).name || "Nezvoleno";
+    const level = clampInt(getCurrentCharacterLevel(), 1, state.config.maxLevel, 1);
+
+    const attrRows = ATTRIBUTE_KEYS.map((key) => {
+      const a = state.attributes[key] || { base: 10, mod: 0 };
+      return {
+        key: key.toUpperCase(),
+        base: clampInt(a.base, 1, 21, 10),
+        mod: formatSignedInt(clampInt(a.mod, -5, 6, 0))
+      };
+    });
+
+    const starterIds = new Set(getClassStarterSkillIds());
+    const visibleSkills = state.skills
+      .filter((s) => (isSkillAvailableForClass(s, profId) || starterIds.has(s.id)) && isSkillVisibleForCurrentSpec(s, profId))
+      .sort((a, b) => {
+        const bucketA = getSkillSortBucket(a, profId, new Set(getClassCloseStarterSkillIds()));
+        const bucketB = getSkillSortBucket(b, profId, new Set(getClassCloseStarterSkillIds()));
+        if (bucketA !== bucketB) return bucketA - bucketB;
+        return normalize(a.name).localeCompare(normalize(b.name), "cs");
+      });
+    const skillRows = [];
+    for (const s of visibleSkills) {
+      const floor = getSkillFloor(s, starterIds, profId);
+      const rank = getSkillTargetRank(s.id, floor);
+      if (rank <= 0) continue;
+      const checks = Array.isArray(s.check_type) && s.check_type.length
+        ? ` (${s.check_type.map((x) => String(x || "").toUpperCase()).join("/")})`
+        : "";
+      skillRows.push(`${s.name}${checks} ${rank}`);
+    }
+
+    const selectedTalents = [...state.selectedTalentIds]
+      .map((id) => state.talents.find((t) => t.id === id))
+      .filter(Boolean)
+      .sort((a, b) => {
+        const oa = Number(state.selectedTalentOrder[a.id] || 0);
+        const ob = Number(state.selectedTalentOrder[b.id] || 0);
+        if (oa !== ob) return oa - ob;
+        return normalize(a.name).localeCompare(normalize(b.name), "cs");
+      })
+      .map((t) => t.name);
+
+    return {
+      professionName,
+      raceName,
+      level,
+      attrRows,
+      skillRows,
+      selectedTalents
+    };
+  }
+
+  function buildPrintableCharacterHtml(data) {
+    const attrsHtml = data.attrRows.map((x) => `
+      <div class="attr-card">
+        <div class="attr-key">${escapeHtml(x.key)}</div>
+        <div class="attr-base">${escapeHtml(x.base)}</div>
+        <div class="attr-mod">${escapeHtml(x.mod)}</div>
+      </div>
+    `).join("");
+    const skillsHtml = data.skillRows.length
+      ? `<ul class="list cols">${data.skillRows.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>`
+      : "<p class=\"empty\">Žádné dovednosti k tisku.</p>";
+    const talentsHtml = data.selectedTalents.length
+      ? `<ul class="list">${data.selectedTalents.map((x) => `<li>${escapeHtml(x)}</li>`).join("")}</ul>`
+      : "<p class=\"empty\">Žádné vybrané schopnosti.</p>";
+
+    return `<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Export postavy</title>
+  <style>
+    @page { size: A4; margin: 12mm; }
+    body { font-family: "Georgia", "Times New Roman", serif; color: #1e1b17; background: #fff; }
+    .sheet { max-width: 190mm; margin: 0 auto; }
+    .head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #222; padding-bottom: 6px; margin-bottom: 10px; }
+    .title { font-size: 28px; font-weight: 700; }
+    .sub { font-size: 18px; font-weight: 600; }
+    .meta { font-size: 16px; }
+    .attrs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 10px 0 14px; }
+    .attr-card { border: 1px solid #444; padding: 8px 6px; text-align: center; }
+    .attr-key { font-size: 12px; letter-spacing: 0.06em; }
+    .attr-base { font-size: 26px; line-height: 1.1; font-weight: 700; margin-top: 4px; }
+    .attr-mod { font-size: 16px; margin-top: 2px; }
+    h2 { margin: 14px 0 6px; font-size: 22px; }
+    .list { margin: 0; padding-left: 20px; }
+    .list li { margin: 2px 0; font-size: 16px; }
+    .list.cols { columns: 2; column-gap: 18px; }
+    .empty { color: #555; font-style: italic; }
+    @media print { .sheet { max-width: none; } }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="head">
+      <div>
+        <div class="title">Dračí Hlídka</div>
+        <div class="sub">${escapeHtml(data.raceName)} ${escapeHtml(data.professionName)} · úroveň ${escapeHtml(data.level)}</div>
+      </div>
+      <div class="meta">Export postavy</div>
+    </div>
+    <div class="attrs">${attrsHtml}</div>
+    <h2>Dovednosti</h2>
+    ${skillsHtml}
+    <h2>Schopnosti</h2>
+    ${talentsHtml}
+  </div>
+</body>
+</html>`;
+  }
+
+  function openCharacterPrintPreview() {
+    const data = collectPrintableCharacterData();
+    const html = buildPrintableCharacterHtml(data);
+    const w = window.open("", "_blank", "noopener,noreferrer,width=900,height=1200");
+    if (!w) {
+      alert("Nepodařilo se otevřít okno pro tisk. Zkontroluj blokování vyskakovacích oken.");
+      return;
+    }
+    w.document.open();
+    w.document.write(html);
+    w.document.close();
+    w.focus();
+    w.addEventListener("load", () => {
+      try {
+        w.print();
+      } catch {
+        // ignore
+      }
+    }, { once: true });
+  }
+
+  function newDiceRollRecord(value, index) {
+    return {
+      id: `r${Date.now()}_${index}_${Math.floor(Math.random() * 100000)}`,
+      value: clampInt(value, 1, 6, 1),
+      assignedTo: null,
+      discarded: false
+    };
+  }
+
+  function generateDiceCreationRolls() {
+    const rolls = [];
+    for (let i = 0; i < 6; i += 1) rolls.push(newDiceRollRecord(rollD6(), i));
+    let discardIdx = 0;
+    for (let i = 1; i < rolls.length; i += 1) {
+      if (rolls[i].value < rolls[discardIdx].value) discardIdx = i;
+    }
+    rolls[discardIdx].discarded = true;
+    state.diceCreation.rolls = rolls;
+  }
+
+  function getRollById(rollId) {
+    if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls)) return null;
+    return state.diceCreation.rolls.find((x) => x.id === rollId) || null;
+  }
+
+  function clearAttributeRollAssignment(attrKey) {
+    if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls)) return;
+    for (const roll of state.diceCreation.rolls) {
+      if (roll.assignedTo === attrKey) roll.assignedTo = null;
+    }
+  }
+
+  function assignRollToAttribute(rollId, attrKey) {
+    const roll = getRollById(rollId);
+    if (!roll || roll.discarded) return;
+    if (!ATTRIBUTE_KEYS.includes(attrKey)) return;
+    clearAttributeRollAssignment(attrKey);
+    roll.assignedTo = attrKey;
+  }
+
+  function setDiscardedRoll(rollId) {
+    if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls)) return;
+    const target = getRollById(rollId);
+    if (!target) return;
+    for (const roll of state.diceCreation.rolls) roll.discarded = false;
+    target.discarded = true;
+    target.assignedTo = null;
+  }
+
+  function autoAssignDiceRollsForClass(profId) {
+    if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls) || state.diceCreation.rolls.length !== 6) {
+      generateDiceCreationRolls();
+    }
+    const attrOrderByClass = {
+      PROF_1: ["sil", "odo", "obr", "int", "cha"],
+      PROF_2: ["obr", "int", "odo", "sil", "cha"],
+      PROF_3: ["int", "obr", "odo", "cha", "sil"],
+      PROF_4: ["int", "cha", "obr", "odo", "sil"],
+      PROF_5: ["obr", "cha", "int", "odo", "sil"],
+      PROF_6: ["cha", "int", "odo", "obr", "sil"]
+    };
+    const keys = attrOrderByClass[profId] || ATTRIBUTE_KEYS;
+    for (const roll of state.diceCreation.rolls) roll.assignedTo = null;
+    const usable = state.diceCreation.rolls.filter((x) => !x.discarded).sort((a, b) => b.value - a.value);
+    for (let i = 0; i < keys.length && i < usable.length; i += 1) usable[i].assignedTo = keys[i];
+  }
+
+  function setCreationAttrMode(nextMode) {
+    const mode = nextMode === "dice" ? "dice" : "manual";
+    if (state.creationAttrMode === mode) return;
+    ensureCreationDiceDefaults();
+    if (mode === "dice") {
+      for (const key of ATTRIBUTE_KEYS) {
+        state.manualAttributeBonuses[key] = clampInt(Number((state.attributes[key] || {}).bonus), 0, 6, 0);
+      }
+    }
+    state.creationAttrMode = mode;
+    if (mode === "dice") {
+      if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls) || state.diceCreation.rolls.length !== 6) {
+        generateDiceCreationRolls();
+      }
+      autoAssignDiceRollsForClass(state.selectedProfessionId);
+    } else {
+      for (const key of ATTRIBUTE_KEYS) {
+        if (!state.attributes[key] || typeof state.attributes[key] !== "object") state.attributes[key] = { base: 10, mod: 0, bonus: 0 };
+        state.attributes[key].bonus = clampInt(state.manualAttributeBonuses[key], 0, 6, 0);
+      }
+    }
+    applyCreationAttributeProfile();
+    renderQuickAttributeInputs();
+    persist();
+  }
+
+  function renderDiceCreationUi() {
+    if (!els.attrModeManualBtn || !els.attrModeDiceBtn || !els.diceRollPool) return;
+    const isDice = state.creationAttrMode === "dice";
+    els.attrModeManualBtn.classList.toggle("active", !isDice);
+    els.attrModeManualBtn.setAttribute("aria-pressed", !isDice ? "true" : "false");
+    els.attrModeDiceBtn.classList.toggle("active", isDice);
+    els.attrModeDiceBtn.setAttribute("aria-pressed", isDice ? "true" : "false");
+    els.diceRollPool.hidden = !isDice;
+
+    const slotByAttr = {
+      sil: els.attrSilRoll,
+      obr: els.attrObrRoll,
+      odo: els.attrOdoRoll,
+      int: els.attrIntRoll,
+      cha: els.attrChaRoll
+    };
+
+    if (!isDice) {
+      for (const key of ATTRIBUTE_KEYS) {
+        const slot = slotByAttr[key];
+        if (!slot) continue;
+        slot.textContent = "";
+        slot.classList.remove("filled", "drag-over");
+      }
+      els.diceRollPool.innerHTML = "";
+      return;
+    }
+
+    if (!Array.isArray(state.diceCreation.rolls) || state.diceCreation.rolls.length !== 6) {
+      generateDiceCreationRolls();
+      autoAssignDiceRollsForClass(state.selectedProfessionId);
+    }
+
+    for (const key of ATTRIBUTE_KEYS) {
+      const slot = slotByAttr[key];
+      if (!slot) continue;
+      const assigned = state.diceCreation.rolls.find((r) => r.assignedTo === key && !r.discarded) || null;
+      slot.textContent = assigned ? String(assigned.value) : "";
+      slot.classList.toggle("filled", !!assigned);
+    }
+
+    const chipsHtml = state.diceCreation.rolls.map((roll) => {
+      const classes = ["dice-roll-chip"];
+      if (roll.discarded) classes.push("discarded");
+      if (roll.assignedTo) classes.push("assigned");
+      const attrLabel = roll.assignedTo ? ` · ${String(roll.assignedTo).toUpperCase()}` : "";
+      return `<button type="button" class="${classes.join(" ")}" draggable="true" data-roll-id="${escapeHtml(String(roll.id))}" title="Hod ${roll.value}${attrLabel}${roll.discarded ? " (škrtnutý)" : ""}">${roll.value}</button>`;
+    }).join("");
+    els.diceRollPool.innerHTML = chipsHtml;
+
+    const chipButtons = Array.from(els.diceRollPool.querySelectorAll(".dice-roll-chip"));
+    for (const chip of chipButtons) {
+      chip.addEventListener("dragstart", (ev) => {
+        const rollId = chip.getAttribute("data-roll-id");
+        if (!rollId) return;
+        const roll = getRollById(rollId);
+        if (!roll || roll.discarded) {
+          ev.preventDefault();
+          return;
+        }
+        ev.dataTransfer?.setData("text/plain", rollId);
+        ev.dataTransfer.effectAllowed = "move";
+      });
+      chip.addEventListener("click", () => {
+        const rollId = chip.getAttribute("data-roll-id");
+        if (!rollId) return;
+        setDiscardedRoll(rollId);
+        applyCreationAttributeProfile();
+        renderQuickAttributeInputs();
+        persist();
+      });
+    }
+  }
+
+  function wireDiceDropZones() {
+    const slots = [
+      els.attrSilRoll,
+      els.attrObrRoll,
+      els.attrOdoRoll,
+      els.attrIntRoll,
+      els.attrChaRoll
+    ].filter(Boolean);
+    for (const slot of slots) {
+      slot.addEventListener("dragover", (ev) => {
+        if (state.creationAttrMode !== "dice") return;
+        ev.preventDefault();
+        slot.classList.add("drag-over");
+      });
+      slot.addEventListener("dragleave", () => {
+        slot.classList.remove("drag-over");
+      });
+      slot.addEventListener("drop", (ev) => {
+        if (state.creationAttrMode !== "dice") return;
+        ev.preventDefault();
+        slot.classList.remove("drag-over");
+        const rollId = ev.dataTransfer?.getData("text/plain");
+        const attrKey = String(slot.dataset.attrKey || "");
+        if (!rollId || !attrKey) return;
+        assignRollToAttribute(rollId, attrKey);
+        applyCreationAttributeProfile();
+        renderQuickAttributeInputs();
+        persist();
+      });
+      slot.addEventListener("click", () => {
+        if (state.creationAttrMode !== "dice") return;
+        const attrKey = String(slot.dataset.attrKey || "");
+        if (!attrKey) return;
+        clearAttributeRollAssignment(attrKey);
+        applyCreationAttributeProfile();
+        renderQuickAttributeInputs();
+        persist();
+      });
+    }
+  }
+
   function bindAttributeInput(attrKey, baseInput, modInput, minusBtn, plusBtn) {
     if (baseInput) {
       baseInput.readOnly = true;
@@ -1520,11 +1937,14 @@
   }
 
   function changeAttributeBonus(attrKey, delta) {
+    if (state.creationAttrMode === "dice") return;
+    ensureCreationDiceDefaults();
     ensureAttributeDefaults();
     const cur = state.attributes[attrKey] || { base: 10, mod: 0, bonus: 0 };
     const nextBonus = clampInt(Number(cur.bonus || 0) + Number(delta || 0), 0, 6, Number(cur.bonus || 0));
     if (nextBonus === Number(cur.bonus || 0)) return;
     state.attributes[attrKey] = { ...cur, bonus: nextBonus };
+    state.manualAttributeBonuses[attrKey] = nextBonus;
     applyCreationAttributeProfile();
     renderQuickAttributeInputs();
     persist();
@@ -1753,9 +2173,10 @@
       const bonus = clampInt(Number(a.bonus), 0, 6, 0);
       if (baseEl) baseEl.value = String(clampInt(a.base, 1, 21, 10));
       if (modEl) modEl.value = formatSignedInt(clampInt(a.mod, -5, 5, 0));
-      if (minusEl) minusEl.disabled = bonus <= 0;
-      if (plusEl) plusEl.disabled = bonus >= 6;
+      if (minusEl) minusEl.disabled = state.creationAttrMode === "dice" || bonus <= 0;
+      if (plusEl) plusEl.disabled = state.creationAttrMode === "dice" || bonus >= 6;
     }
+    renderDiceCreationUi();
   }
 
   function formatSignedInt(value) {
@@ -3263,6 +3684,9 @@
       specializationLockLevelByClass: state.specializationLockLevelByClass,
       selectedSkillTargets: state.selectedSkillTargets,
       attributes: state.attributes,
+      creationAttrMode: state.creationAttrMode,
+      manualAttributeBonuses: state.manualAttributeBonuses,
+      diceCreation: state.diceCreation,
       manualLevel: state.manualLevel,
       levelMode: state.levelMode,
       config: state.config
@@ -3311,6 +3735,9 @@
     state.specializationLockLevelByClass = clean.specializationLockLevelByClass;
     state.selectedSkillTargets = clean.selectedSkillTargets;
     state.attributes = clean.attributes;
+    state.creationAttrMode = clean.creationAttrMode === "dice" ? "dice" : "manual";
+    state.manualAttributeBonuses = clean.manualAttributeBonuses;
+    state.diceCreation = clean.diceCreation;
     state.manualLevel = Number.isFinite(clean.manualLevel)
       ? clampInt(clean.manualLevel, 1, 36, 1)
       : 1;
@@ -3346,6 +3773,7 @@
         state.config.points.skillPerLevel
       );
     }
+    ensureCreationDiceDefaults();
     ensureDefaults();
     cleanseInvalidSelections();
   }
@@ -3434,6 +3862,9 @@
       specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
       selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, getSkillRankCap()),
       attributes: sanitizeAttributes(payload.attributes),
+      creationAttrMode: payload.creationAttrMode === "dice" ? "dice" : "manual",
+      manualAttributeBonuses: sanitizeAttributeBonuses(payload.manualAttributeBonuses),
+      diceCreation: sanitizeDiceCreation(payload.diceCreation),
       talentOrderCounter: clampInt(payload.talentOrderCounter, 0, 9999, 0),
       manualLevel: clampInt(payload.manualLevel, 1, 36, 1),
       levelMode: payload.levelMode === "manual" ? "manual" : "auto",
@@ -3483,7 +3914,7 @@
   }
 
   function sanitizeAttributes(value) {
-    const keys = ["sil", "obr", "odo", "int", "cha"];
+    const keys = ATTRIBUTE_KEYS;
     const src = value && typeof value === "object" ? value : {};
     const out = {};
     for (const key of keys) {
@@ -3493,6 +3924,50 @@
         mod: clampInt(item.mod, -5, 5, 0),
         bonus: clampInt(item.bonus, 0, 6, 0)
       };
+    }
+    return out;
+  }
+
+  function sanitizeAttributeBonuses(value) {
+    const src = value && typeof value === "object" ? value : {};
+    const out = {};
+    for (const key of ATTRIBUTE_KEYS) {
+      out[key] = clampInt(src[key], 0, 6, 0);
+    }
+    return out;
+  }
+
+  function sanitizeDiceCreation(value) {
+    const out = { rolls: [] };
+    if (!value || typeof value !== "object" || !Array.isArray(value.rolls)) return out;
+    const usedAttrs = new Set();
+    let discardedCount = 0;
+    for (const raw of value.rolls.slice(0, 6)) {
+      const id = sanitizeId(raw && raw.id);
+      const v = clampInt(raw && raw.value, 1, 6, 1);
+      const discarded = !!(raw && raw.discarded);
+      const assignedToRaw = String((raw && raw.assignedTo) || "");
+      const assignedTo = ATTRIBUTE_KEYS.includes(assignedToRaw) && !usedAttrs.has(assignedToRaw) && !discarded
+        ? assignedToRaw
+        : null;
+      if (assignedTo) usedAttrs.add(assignedTo);
+      if (discarded) discardedCount += 1;
+      out.rolls.push({
+        id: id || `r_s_${out.rolls.length}_${Math.floor(Math.random() * 100000)}`,
+        value: v,
+        assignedTo,
+        discarded
+      });
+    }
+    while (out.rolls.length < 6) out.rolls.push(newDiceRollRecord(rollD6(), out.rolls.length));
+    if (discardedCount !== 1) {
+      for (const r of out.rolls) r.discarded = false;
+      let discardIdx = 0;
+      for (let i = 1; i < out.rolls.length; i += 1) {
+        if (out.rolls[i].value < out.rolls[discardIdx].value) discardIdx = i;
+      }
+      out.rolls[discardIdx].discarded = true;
+      out.rolls[discardIdx].assignedTo = null;
     }
     return out;
   }
@@ -3584,11 +4059,27 @@
     return clampInt(Number(raceBase[attrKey] || 10) + add, 1, 21, 10);
   }
 
+  function getAssignedDiceBonus(attrKey) {
+    if (!state.diceCreation || !Array.isArray(state.diceCreation.rolls)) return 0;
+    const assigned = state.diceCreation.rolls.find((r) => r.assignedTo === attrKey && !r.discarded);
+    if (!assigned) return 0;
+    return clampInt(Number(assigned.value || 0), 0, 6, 0);
+  }
+
   function applyCreationAttributeProfile() {
     ensureAttributeDefaults();
-    const keys = ["sil", "obr", "odo", "int", "cha"];
-    for (const key of keys) {
-      const bonus = clampInt(Number((state.attributes[key] || {}).bonus), 0, 6, 0);
+    for (const key of ATTRIBUTE_KEYS) {
+      const bonus = state.creationAttrMode === "dice"
+        ? getAssignedDiceBonus(key)
+        : clampInt(
+            Number((state.attributes[key] || {}).bonus ?? (state.manualAttributeBonuses || {})[key]),
+            0,
+            6,
+            0
+          );
+      if (state.creationAttrMode === "manual" && state.manualAttributeBonuses) {
+        state.manualAttributeBonuses[key] = bonus;
+      }
       const score = clampInt(getCreationAttributeBaseScore(key) + bonus, 1, 21, 10);
       state.attributes[key] = {
         base: score,
@@ -3964,6 +4455,8 @@
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
   }
+
+  window.openCharacterPrintPreview = openCharacterPrintPreview;
 })();
 
 
