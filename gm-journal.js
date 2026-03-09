@@ -23,12 +23,56 @@
     PROF_2: 2,
     PROF_3: 5,
     PROF_4: 6,
-    PROF_5: 2,
+    PROF_5: 0,
     PROF_6: 4
   };
   const CLASS_RESOURCE_LABEL = {
-    PROF_2: "Duševní síla",
-    PROF_6: "Přízeň"
+    PROF_1: "Adrenalin",
+    PROF_2: "Dusevni sila",
+    PROF_3: "Mana",
+    PROF_4: "Mana",
+    PROF_5: "Zdroj",
+    PROF_6: "Prizen"
+  };
+  const SPECIALIZATION_OPTIONS = {
+    PROF_1: [{ key: "berserkr", name: "Berserkr" }, { key: "rytir", name: "Rytir" }, { key: "sermir", name: "Sermir" }],
+    PROF_2: [{ key: "chodec", name: "Chodec" }, { key: "druid", name: "Druid" }, { key: "pan_zvirat", name: "Pan zvirat" }],
+    PROF_3: [{ key: "medicus", name: "Medicus" }, { key: "pyromant", name: "Pyromant" }, { key: "theurg", name: "Theurg" }],
+    PROF_4: [{ key: "bojovy_mag", name: "Bojovy mag" }, { key: "carodej", name: "Carodej" }, { key: "nekromant", name: "Nekromant" }],
+    PROF_5: [{ key: "assassin", name: "Assassin" }, { key: "lupic", name: "Lupic" }, { key: "sicco", name: "Sicco" }],
+    PROF_6: [{ key: "bojovy_mnich", name: "Bojovy mnich" }, { key: "exorcista", name: "Exorcista" }, { key: "knez", name: "Knez" }]
+  };
+  const SPEC_PREREQS = {
+    PROF_1: {
+      berserkr: ["Skola boje s obourucni zbrani", "Skola boje drticu kosti", "Urputnost"],
+      rytir: ["Skola boje se stitem", "Skola boje s jednorucni zbrani", "Veleni"],
+      sermir: ["Skola boje s bodnou zbrani", "Skola boje se dvema zbranemi", "Rozvaznost"]
+    },
+    PROF_2: {
+      chodec: ["Obratne ostri", "Pruzkumnictvi", "Magie pocestnych"],
+      druid: ["Bojova hul", "Lecitelstvi", "Magie prirody"],
+      pan_zvirat: ["Boj se zviraty", "Magie zvirat", "Ochocovani zvirat"]
+    },
+    PROF_3: {
+      medicus: ["Alchymisticke ingredience", "Lektvary a elixiry", "Substituce"],
+      pyromant: ["Magicke predmety", "Nestabilni substance", "Vyroba svitku"],
+      theurg: ["Hvezdne sestavy", "Krystaly a energie", "Precizni vyroba"]
+    },
+    PROF_4: {
+      bojovy_mag: ["Divoka magie", "Ochranna magie", "Rychle kouzleni"],
+      carodej: ["Vysoka magie", "Mentalni magie", "Kouzleni z knih"],
+      nekromant: ["Vitalni magie", "Magie promen", "Ritual krve"]
+    },
+    PROF_5: {
+      assassin: ["Umeni rvacu", "Umeni skryvani", "Vrhani dyk"],
+      lupic: ["Umeni zelezneho klice", "Umeni kociciho pohybu", "Improvizace"],
+      sicco: ["Umeni promen", "Umeni sarmu", "Zlodejska hantyrka"]
+    },
+    PROF_6: {
+      bojovy_mnich: ["Bozi bojovnik", "Nauka bojovniku viry", "Nauka svate pravdy"],
+      exorcista: ["Nauka bozich patronu", "Nauka demonologie", "Osviceni"],
+      knez: ["Nauka milosrdenstvi", "Nauka zehnani aurami", "Pozehnane zdravi"]
+    }
   };
 
   const state = {
@@ -60,6 +104,7 @@
     attrsGrid: document.getElementById("attrsGrid"),
     tabButtons: [...document.querySelectorAll(".tab-btn")],
     tabContent: document.getElementById("tabContent"),
+    progressionContent: document.getElementById("progressionContent"),
     saveModal: document.getElementById("saveModal"),
     saveUrlBox: document.getElementById("saveUrlBox"),
     copyUrlBtn: document.getElementById("copyUrlBtn"),
@@ -109,6 +154,7 @@
     els.levelDownBtn.addEventListener("click", () => {
       state.build.manualLevel = clampLevel(state.build.manualLevel - 1);
       state.build.levelMode = "manual";
+      enforceRulesModeByLevel();
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -116,6 +162,7 @@
     els.levelUpBtn.addEventListener("click", () => {
       state.build.manualLevel = clampLevel(state.build.manualLevel + 1);
       state.build.levelMode = "manual";
+      enforceRulesModeByLevel();
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -123,6 +170,7 @@
     els.levelInput.addEventListener("change", () => {
       state.build.manualLevel = clampLevel(Number(els.levelInput.value || 1));
       state.build.levelMode = "manual";
+      enforceRulesModeByLevel();
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -196,8 +244,21 @@
       selectedTalentOrder: {},
       talentOrderCounter: 0,
       selectedSpecializationByClass: {},
+      selectedSpecializationKeyByClass: {},
       specializationLockLevelByClass: {},
       selectedSkillTargets: {},
+      journalMeta: {
+        rulesMode: "ppz",
+        rssEnabled: false,
+        warriorPath: "",
+        warriorPathRank: 0,
+        rangerGroveState: "spici",
+        rangerGroveMana: 0,
+        alchemistWorkshopTier: 0,
+        wizardFocusItem: "hul",
+        thiefNetworkSize: 0,
+        clericSiteMode: "normal"
+      },
       attributes: defaultAttributes(),
       manualLevel: 1,
       levelMode: "auto",
@@ -231,6 +292,16 @@
     if (!state.build.config || typeof state.build.config !== "object") {
       state.build.config = createEmptyBuild().config;
     }
+    if (!state.build.selectedSpecializationKeyByClass || typeof state.build.selectedSpecializationKeyByClass !== "object") {
+      state.build.selectedSpecializationKeyByClass = {};
+    }
+    state.build.journalMeta = sanitizeJournalMeta(state.build.journalMeta);
+    if (state.build.manualLevel >= 6 && state.build.journalMeta.rulesMode === "ppz") {
+      state.build.journalMeta.rulesMode = "ppp";
+    }
+    if (state.build.manualLevel < 6 && state.build.journalMeta.rulesMode === "ppp") {
+      state.build.journalMeta.rulesMode = "ppz";
+    }
     state.build.config.maxLevel = state.maxLevel;
     cleanseBuildForClass();
   }
@@ -243,6 +314,7 @@
 
   function renderAll() {
     renderDiary();
+    renderProgressionPanel();
     renderTabs();
   }
 
@@ -273,6 +345,68 @@
     }).join("");
   }
 
+  function renderProgressionPanel() {
+    const level = state.build.manualLevel;
+    const profId = state.build.professionId;
+    const specs = SPECIALIZATION_OPTIONS[profId] || [];
+    const canUsePpp = level >= 6;
+    const mode = canUsePpp ? state.build.journalMeta.rulesMode : "ppz";
+    if (!canUsePpp) state.build.journalMeta.rulesMode = "ppz";
+    const selectedSpec = state.build.selectedSpecializationKeyByClass[profId] || "";
+    const prereqNames = ((SPEC_PREREQS[profId] || {})[selectedSpec] || []);
+    const prereqPills = prereqNames.map((name) => {
+      const ok = hasNamedAbility(name);
+      return `<span class="pill ${ok ? "ok" : "bad"}">${escapeHtml(name)}</span>`;
+    }).join("");
+
+    const subsystemHtml = renderClassSubsystem(profId);
+    const optionsHtml = [`<option value="">Bez specializace</option>`]
+      .concat(specs.map((s) => `<option value="${escapeHtml(s.key)}" ${selectedSpec === s.key ? "selected" : ""}>${escapeHtml(s.name)}</option>`))
+      .join("");
+
+    els.progressionContent.innerHTML = `
+      <div class="progress-grid">
+        <div class="progress-row">
+          <label>Pravidlovy rezim</label>
+          <div class="mode-row">
+            <button class="mode-btn ${mode === "ppz" ? "active" : ""}" data-mode="ppz" type="button">PPZ</button>
+            <button class="mode-btn ${mode === "ppp" ? "active" : ""}" data-mode="ppp" type="button" ${canUsePpp ? "" : "disabled"}>PPP</button>
+          </div>
+          <div class="meta-help">${canUsePpp ? "PPP je dostupne od 6. urovne." : "Do 5. urovne jedete ciste PPZ."}</div>
+        </div>
+        <div class="progress-row">
+          <label>Specializace</label>
+          <select id="specSelect">${optionsHtml}</select>
+        </div>
+        ${prereqPills ? `<div class="progress-row"><label>Predpoklady</label><div class="pill-row">${prereqPills}</div></div>` : ""}
+        ${subsystemHtml}
+      </div>
+    `;
+
+    for (const btn of els.progressionContent.querySelectorAll("button[data-mode]")) {
+      btn.addEventListener("click", () => {
+        const next = btn.dataset.mode === "ppp" && canUsePpp ? "ppp" : "ppz";
+        state.build.journalMeta.rulesMode = next;
+        renderAll();
+        persistBuild();
+      });
+    }
+    const specSelect = document.getElementById("specSelect");
+    if (specSelect) {
+      specSelect.addEventListener("change", () => {
+        if (!state.build.selectedSpecializationKeyByClass) state.build.selectedSpecializationKeyByClass = {};
+        if (!specSelect.value) delete state.build.selectedSpecializationKeyByClass[profId];
+        else state.build.selectedSpecializationKeyByClass[profId] = specSelect.value;
+        if (!state.build.specializationLockLevelByClass) state.build.specializationLockLevelByClass = {};
+        if (specSelect.value) state.build.specializationLockLevelByClass[profId] = level;
+        else delete state.build.specializationLockLevelByClass[profId];
+        renderProgressionPanel();
+        persistBuild();
+      });
+    }
+    wireSubsystemInputs();
+  }
+
   function renderTabs() {
     els.tabButtons.forEach((btn) => {
       btn.classList.toggle("active", btn.dataset.tab === state.activeTab);
@@ -289,6 +423,10 @@
     if (state.activeTab === "spells") {
       const spells = buildSpellPreview();
       els.tabContent.innerHTML = renderList(spells.length ? spells : ["Bez kouzel."]);
+      return;
+    }
+    if (state.activeTab === "systems") {
+      renderSystemsTab();
       return;
     }
     if (state.activeTab === "calculator") {
@@ -319,6 +457,45 @@
         ensureBuildDefaults();
         applyBuildToControls();
         renderAll();
+      });
+    }
+  }
+
+  function renderSystemsTab() {
+    const profId = state.build.professionId;
+    const level = state.build.manualLevel;
+    const mode = state.build.journalMeta.rulesMode;
+    const spec = state.build.selectedSpecializationKeyByClass[profId] || "";
+    const specName = ((SPECIALIZATION_OPTIONS[profId] || []).find((x) => x.key === spec) || {}).name || "Bez specializace";
+    const lockLevel = state.build.specializationLockLevelByClass[profId];
+    const canSpec = level >= 6;
+    const unlockRule = canSpec ? "Specializace je od 6. urovne. Bez locku lze brat 1 spec schopnost kazdou 6. uroven." : "Do 5. urovne jedete pouze PPZ.";
+    const rssEnabled = Boolean(state.build.journalMeta.rssEnabled);
+
+    els.tabContent.innerHTML = `
+      <div class="progress-grid">
+        <div class="progress-row">
+          <strong>Režim pravidel: ${mode.toUpperCase()}</strong>
+          <div class="meta-help">${unlockRule}</div>
+        </div>
+        <div class="progress-row">
+          <strong>Aktivni specializace: ${escapeHtml(specName)}</strong>
+          <div class="meta-help">${lockLevel ? `Locknuto na urovni ${lockLevel}.` : "Specializace zatim neni locknuta."}</div>
+        </div>
+        <div class="progress-row">
+          <label>
+            <input id="rssEnabledInput" type="checkbox" ${rssEnabled ? "checked" : ""} />
+            Pouzivat RSS poznamky pro encounter
+          </label>
+          <div class="meta-help">RSS pridava teren, viditelnost, AB ekonomiku a reakce. ZSS zustava validni fallback.</div>
+        </div>
+      </div>
+    `;
+    const rssEl = document.getElementById("rssEnabledInput");
+    if (rssEl) {
+      rssEl.addEventListener("change", () => {
+        state.build.journalMeta.rssEnabled = Boolean(rssEl.checked);
+        persistBuild();
       });
     }
   }
@@ -453,6 +630,12 @@
       cleanTargets[id] = t;
     }
     state.build.selectedSkillTargets = cleanTargets;
+    const selectedSpec = state.build.selectedSpecializationKeyByClass && state.build.selectedSpecializationKeyByClass[profId];
+    const allowed = new Set((SPECIALIZATION_OPTIONS[profId] || []).map((x) => x.key));
+    if (selectedSpec && !allowed.has(selectedSpec)) {
+      delete state.build.selectedSpecializationKeyByClass[profId];
+      if (state.build.specializationLockLevelByClass) delete state.build.specializationLockLevelByClass[profId];
+    }
   }
 
   function randomizeBuild() {
@@ -524,6 +707,7 @@
   }
 
   function calcMana(level, profId, attrs) {
+    if (profId === "PROF_5") return 0;
     const intv = Number(attrs && attrs.int && attrs.int.base || 10);
     return intv * 3 + (Math.max(1, level) - 1) * (CLASS_MANA_PER_LEVEL[profId] || 2);
   }
@@ -531,18 +715,27 @@
   function buildSpellPreview() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
+    const mode = state.build.journalMeta.rulesMode;
+    const spec = state.build.selectedSpecializationKeyByClass[profId] || "";
     const spells = [];
     if (profId === "PROF_4") spells.push("Magicka strela", "Stit many", "Iluze");
     if (profId === "PROF_3") spells.push("Destilace many", "Alchymisticka analyza");
     if (profId === "PROF_6") spells.push("Prosba za ochranu", "Ocisteni");
     if (profId === "PROF_2") spells.push("Pouto s prirodou");
-    if (level >= 6 && spells.length) spells.push("Specializacni formula");
+    if (mode === "ppp" && level >= 6) {
+      if (profId === "PROF_2") spells.push("Ochrana pred smeckou", "Sledovani");
+      if (profId === "PROF_4") spells.push("Retezovy blesk", "Teleport");
+      if (profId === "PROF_6") spells.push("Hlas viry", "Pozehnani zdaru");
+      if (spec) spells.push(`Spec: ${spec}`);
+    }
     return spells;
   }
 
   function buildItemPreview() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
+    const mode = state.build.journalMeta.rulesMode;
+    const meta = state.build.journalMeta;
     const out = [];
     if (profId === "PROF_1") out.push("Dlouhy mec", "Krouzkova zbroj", "Stit");
     if (profId === "PROF_2") out.push("Luk", "Lecive byliny", "Maskovaci plast");
@@ -550,9 +743,147 @@
     if (profId === "PROF_4") out.push("Kouzelnicka hul", "Grimoar", "Krystaly many");
     if (profId === "PROF_5") out.push("Dyka", "Paklice", "Maska");
     if (profId === "PROF_6") out.push("Posvatny symbol", "Kadidlo");
+    if (mode === "ppp") {
+      if (profId === "PROF_1" && meta.warriorPath) out.push(`Cesta: ${meta.warriorPath} (stupen ${meta.warriorPathRank || 0})`);
+      if (profId === "PROF_2") out.push(`Hvozd: ${meta.rangerGroveState || "spici"} / mana ${meta.rangerGroveMana || 0}`);
+      if (profId === "PROF_3" && Number(meta.alchemistWorkshopTier || 0) > 0) out.push(`Dilna tier ${meta.alchemistWorkshopTier}`);
+      if (profId === "PROF_4") out.push(`Fokus: ${meta.wizardFocusItem || "hul"}`);
+      if (profId === "PROF_5" && Number(meta.thiefNetworkSize || 0) > 0) out.push(`Siccova sit: ${meta.thiefNetworkSize}`);
+      if (profId === "PROF_6") out.push(`Misto proseb: ${meta.clericSiteMode || "normal"}`);
+    }
     if (level >= 5) out.push("Lecive lektvary x2");
     if (level >= 10) out.push("Vzacna surovina x1");
     return out;
+  }
+
+  function hasNamedAbility(name) {
+    const target = normalize(name);
+    const selectedTalentIds = new Set(state.build.selectedTalentIds || []);
+    for (const t of state.talents) {
+      if (!selectedTalentIds.has(t.id)) continue;
+      if (normalize(t.name) === target) return true;
+    }
+    for (const [skillId, rank] of Object.entries(state.build.selectedSkillTargets || {})) {
+      if (!rank || rank <= 0) continue;
+      const s = state.skills.find((x) => x.id === skillId);
+      if (!s) continue;
+      if (normalize(s.name) === target) return true;
+    }
+    return false;
+  }
+
+  function renderClassSubsystem(profId) {
+    const jm = state.build.journalMeta || {};
+    if (profId === "PROF_1") {
+      return `
+        <div class="progress-row">
+          <label>Cesta valecnika</label>
+          <select id="warriorPathSelect">
+            <option value="">Nezvoleno</option>
+            <option value="mec" ${jm.warriorPath === "mec" ? "selected" : ""}>Cesta mece</option>
+            <option value="sekera" ${jm.warriorPath === "sekera" ? "selected" : ""}>Cesta sekery</option>
+            <option value="kopi_hul" ${jm.warriorPath === "kopi_hul" ? "selected" : ""}>Cesta hole a kopi</option>
+            <option value="kladivo" ${jm.warriorPath === "kladivo" ? "selected" : ""}>Cesta kladiva</option>
+            <option value="strategie" ${jm.warriorPath === "strategie" ? "selected" : ""}>Cesta strategie</option>
+          </select>
+          <label>Stupen cesty</label>
+          <input id="warriorPathRankInput" type="number" min="0" max="4" value="${clampInt(jm.warriorPathRank, 0, 4, 0)}" />
+        </div>
+      `;
+    }
+    if (profId === "PROF_2") {
+      return `
+        <div class="progress-row">
+          <label>Stav hvozdu</label>
+          <select id="groveStateSelect">
+            <option value="spici" ${jm.rangerGroveState === "spici" ? "selected" : ""}>Spici</option>
+            <option value="drimajici" ${jm.rangerGroveState === "drimajici" ? "selected" : ""}>Drimajici</option>
+            <option value="procitajici" ${jm.rangerGroveState === "procitajici" ? "selected" : ""}>Procitajici</option>
+            <option value="probuzeny" ${jm.rangerGroveState === "probuzeny" ? "selected" : ""}>Probuzeny</option>
+            <option value="besnici" ${jm.rangerGroveState === "besnici" ? "selected" : ""}>Besnici</option>
+          </select>
+          <label>Nastredana many hvozdu</label>
+          <input id="groveManaInput" type="number" min="0" max="99999" value="${clampInt(jm.rangerGroveMana, 0, 99999, 0)}" />
+        </div>
+      `;
+    }
+    if (profId === "PROF_3") {
+      return `
+        <div class="progress-row">
+          <label>Uroven alchymisticke dilny</label>
+          <select id="workshopTierSelect">
+            <option value="0" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 0 ? "selected" : ""}>Bez dilny</option>
+            <option value="1" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 1 ? "selected" : ""}>1 - Mala</option>
+            <option value="2" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 2 ? "selected" : ""}>2 - Stredni</option>
+            <option value="3" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 3 ? "selected" : ""}>3 - Velka</option>
+            <option value="4" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 4 ? "selected" : ""}>4 - Vez</option>
+          </select>
+        </div>
+      `;
+    }
+    if (profId === "PROF_4") {
+      return `
+        <div class="progress-row">
+          <label>Fokus predmet</label>
+          <select id="wizardFocusSelect">
+            <option value="hul" ${jm.wizardFocusItem === "hul" ? "selected" : ""}>Kouzelnicka hul</option>
+            <option value="zbran" ${jm.wizardFocusItem === "zbran" ? "selected" : ""}>Zbran bojoveho maga</option>
+            <option value="carodejova_hul" ${jm.wizardFocusItem === "carodejova_hul" ? "selected" : ""}>Carodejova hul</option>
+            <option value="dyka" ${jm.wizardFocusItem === "dyka" ? "selected" : ""}>Nekromantova dyka</option>
+          </select>
+        </div>
+      `;
+    }
+    if (profId === "PROF_5") {
+      return `
+        <div class="progress-row">
+          <label>Siccova sit (clenu)</label>
+          <input id="thiefNetworkInput" type="number" min="0" max="50" value="${clampInt(jm.thiefNetworkSize, 0, 50, 0)}" />
+        </div>
+      `;
+    }
+    if (profId === "PROF_6") {
+      return `
+        <div class="progress-row">
+          <label>Režim mista proseb</label>
+          <select id="clericSiteModeSelect">
+            <option value="normal" ${jm.clericSiteMode === "normal" ? "selected" : ""}>Normalni</option>
+            <option value="posvatne" ${jm.clericSiteMode === "posvatne" ? "selected" : ""}>Posvatne</option>
+            <option value="proklete" ${jm.clericSiteMode === "proklete" ? "selected" : ""}>Proklete</option>
+          </select>
+        </div>
+      `;
+    }
+    return "";
+  }
+
+  function wireSubsystemInputs() {
+    const jm = state.build.journalMeta;
+    const bindSelect = (id, key, castFn) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", () => {
+        jm[key] = castFn ? castFn(el.value) : el.value;
+        persistBuild();
+      });
+    };
+    const bindInput = (id, key, min, max) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.addEventListener("change", () => {
+        jm[key] = clampInt(el.value, min, max, min);
+        el.value = String(jm[key]);
+        persistBuild();
+      });
+    };
+    bindSelect("warriorPathSelect", "warriorPath");
+    bindInput("warriorPathRankInput", "warriorPathRank", 0, 4);
+    bindSelect("groveStateSelect", "rangerGroveState");
+    bindInput("groveManaInput", "rangerGroveMana", 0, 99999);
+    bindSelect("workshopTierSelect", "alchemistWorkshopTier", (v) => clampInt(v, 0, 4, 0));
+    bindSelect("wizardFocusSelect", "wizardFocusItem");
+    bindInput("thiefNetworkInput", "thiefNetworkSize", 0, 50);
+    bindSelect("clericSiteModeSelect", "clericSiteMode");
   }
 
   function openSaveModal() {
@@ -645,8 +976,10 @@
     out.selectedTalentOrder = sanitizeIntMap(p.selectedTalentOrder, 1, 9999);
     out.talentOrderCounter = clampInt(p.talentOrderCounter, 0, 9999, 0);
     out.selectedSpecializationByClass = sanitizeIntMap(p.selectedSpecializationByClass, 0, 2);
+    out.selectedSpecializationKeyByClass = sanitizeIdMap(p.selectedSpecializationKeyByClass);
     out.specializationLockLevelByClass = sanitizeIntMap(p.specializationLockLevelByClass, 1, 36);
     out.selectedSkillTargets = sanitizeIntMap(p.selectedSkillTargets, 1, 36);
+    out.journalMeta = sanitizeJournalMeta(p.journalMeta);
     out.attributes = sanitizeAttributes(p.attributes);
     out.manualLevel = clampLevel(p.manualLevel);
     out.levelMode = p.levelMode === "manual" ? "manual" : "auto";
@@ -685,6 +1018,34 @@
       out[id] = n;
     }
     return out;
+  }
+
+  function sanitizeIdMap(value) {
+    const out = {};
+    if (!value || typeof value !== "object") return out;
+    for (const [k, v] of Object.entries(value)) {
+      const id = sanitizeId(k);
+      const val = sanitizeId(v);
+      if (!id || !val) continue;
+      out[id] = val;
+    }
+    return out;
+  }
+
+  function sanitizeJournalMeta(value) {
+    const src = value && typeof value === "object" ? value : {};
+    return {
+      rulesMode: src.rulesMode === "ppp" ? "ppp" : "ppz",
+      rssEnabled: Boolean(src.rssEnabled),
+      warriorPath: sanitizeId(src.warriorPath),
+      warriorPathRank: clampInt(src.warriorPathRank, 0, 4, 0),
+      rangerGroveState: ["spici", "drimajici", "procitajici", "probuzeny", "besnici"].includes(src.rangerGroveState) ? src.rangerGroveState : "spici",
+      rangerGroveMana: clampInt(src.rangerGroveMana, 0, 99999, 0),
+      alchemistWorkshopTier: clampInt(src.alchemistWorkshopTier, 0, 4, 0),
+      wizardFocusItem: ["hul", "zbran", "dyka", "carodejova_hul"].includes(src.wizardFocusItem) ? src.wizardFocusItem : "hul",
+      thiefNetworkSize: clampInt(src.thiefNetworkSize, 0, 50, 0),
+      clericSiteMode: ["normal", "posvatne", "proklete"].includes(src.clericSiteMode) ? src.clericSiteMode : "normal"
+    };
   }
 
   function sanitizeAttributes(value) {
@@ -774,6 +1135,16 @@
 
   function clampLevel(v) {
     return clampInt(v, 1, state.maxLevel, 1);
+  }
+
+  function enforceRulesModeByLevel() {
+    const level = state.build.manualLevel;
+    if (!state.build.journalMeta) state.build.journalMeta = sanitizeJournalMeta(null);
+    if (level < 6) {
+      state.build.journalMeta.rulesMode = "ppz";
+    } else if (state.build.journalMeta.rulesMode !== "ppp") {
+      state.build.journalMeta.rulesMode = "ppp";
+    }
   }
 
   function randInt(min, max) {
