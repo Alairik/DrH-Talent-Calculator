@@ -117,6 +117,8 @@ body.theme-epic .talents-panel {
   --shell-inset-side: calc(0.8rem + var(--edge-extra) + 14px);
   padding-left: calc(0.8rem + var(--edge-extra) + 14px);
   padding-right: calc(0.8rem + var(--edge-extra) + 14px);
+  --talents-mask-top: calc(0.8rem + var(--edge-extra) + 14px);
+  --talents-mask-bottom: calc(0.8rem + var(--edge-extra) + 12px);
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -219,6 +221,33 @@ body.theme-epic .talents-panel .branch {
 body.theme-epic .talents-panel .spec-picker,
 body.theme-epic .talents-panel .branch {
   width: 100%;
+}
+
+/* Scroll content in column 1 should disappear under parchment top/bottom like other columns. */
+body.theme-epic .talents-panel::before,
+body.theme-epic .talents-panel::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 6;
+}
+
+body.theme-epic .talents-panel::before {
+  top: 0;
+  height: var(--talents-mask-top);
+  background:
+    linear-gradient(180deg, rgba(255, 237, 202, 0.34), rgba(255, 237, 202, 0)),
+    var(--drh-bg-pergamen-top) top center / 100% 100% no-repeat;
+}
+
+body.theme-epic .talents-panel::after {
+  bottom: 0;
+  height: var(--talents-mask-bottom);
+  background:
+    linear-gradient(0deg, rgba(255, 237, 202, 0.34), rgba(255, 237, 202, 0)),
+    var(--drh-bg-pergamen-bottom) bottom center / 100% 100% no-repeat;
 }
 
 body.theme-epic .talents-panel .spec-picker {
