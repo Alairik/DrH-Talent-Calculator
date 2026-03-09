@@ -120,6 +120,7 @@ body.theme-epic .talents-panel {
   min-height: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  contain: paint;
 }
 body.theme-epic .skills-panel { --edge-scale: 2.2; }    /* increased reduction for middle column */
 body.theme-epic .skills-panel {
@@ -381,6 +382,14 @@ body.theme-epic #timelineHelpBtn.timeline-help-btn {
   min-width: 42px;
   height: 42px;
   font-size: 1.2rem;
+}
+
+/* Keep talent controls clipped inside parchment bounds on smaller displays. */
+body.theme-epic .talents-panel .general-branch,
+body.theme-epic .talents-panel .spec-picker,
+body.theme-epic .talents-panel .branch-grid,
+body.theme-epic .talents-panel .branch {
+  overflow: hidden;
 }
 
 @media (max-width: 1024px) {

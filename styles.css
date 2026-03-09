@@ -770,6 +770,31 @@ h3,
   }
 }
 
+/* Small desktop: show top class dropdown when top class picker row is hidden. */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  body {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .mobile-sticky-header {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    padding: 0.35rem 0.55rem;
+    background: linear-gradient(180deg, rgba(29, 22, 16, 0.96), rgba(22, 17, 13, 0.92));
+    border-bottom: 1px solid var(--line);
+  }
+
+  #mobileClassSelect {
+    width: 100%;
+    min-height: 36px;
+    font-size: 0.84rem;
+    padding: 0.35rem 0.45rem;
+    line-height: 1.1;
+  }
+}
+
 /* Wide desktop: use the icon gap-column picker only, hide top class picker. */
 @media (min-width: 1367px) {
   #classPicker.top-class-picker {
@@ -2711,6 +2736,17 @@ textarea {
     font-weight: 700;
     font-size: 0.9rem;
     box-shadow: 0 0 0 1px #503a1f, 0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Let timeline scroll as part of the panel on touch devices. */
+  .plan-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .timeline {
+    overflow: visible;
+    max-height: none;
   }
 }
 
