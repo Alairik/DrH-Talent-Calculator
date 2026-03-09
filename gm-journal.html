@@ -10,75 +10,33 @@
   <main class="sheet-layout">
     <section class="left-column">
       <section class="panel controls-panel">
-        <h1>GM Journal Builder</h1>
-        <div class="controls-grid">
-          <label>
-            Povolani
-            <select id="professionSelect"></select>
-          </label>
-          <label>
-            Rasa
-            <select id="raceSelect"></select>
-          </label>
-          <label>
-            Level
-            <div class="level-row">
-              <button id="levelDownBtn" type="button">-</button>
-              <input id="levelInput" type="number" min="1" max="36" value="1" />
-              <button id="levelUpBtn" type="button">+</button>
-            </div>
-          </label>
-        </div>
-        <div class="actions-row">
-          <button id="randomizeBtn" type="button">Randomize postavy</button>
-          <button id="resetBtn" type="button">Reset</button>
-          <button id="saveBtn" type="button">Ulozit URL</button>
-        </div>
-        <p class="hint">Denik a kalkulator bezi v jednom rozhrani.</p>
+        <h1>Denik PJ</h1>
+        <p class="hint">Vpravo bezi primo hlavni kalkulator. Pouzita je identicka logika sloupce 1, sloupce 3 i schovavaciho panelu.</p>
       </section>
 
       <section class="panel diary-panel">
-        <header class="diary-head">
-          <div>
-            <h2 id="charName">Postava</h2>
-            <p id="charMeta">-</p>
-          </div>
-          <div class="life-mana">
-            <div><span>Zivoty:</span> <strong id="hpValue">0</strong></div>
-            <div><span id="resourceLabel">Mana</span>: <strong id="manaValue">0</strong></div>
-          </div>
-        </header>
-        <section class="attrs-grid" id="attrsGrid"></section>
+        <h3>Poznamky</h3>
+        <textarea id="journalNotes" class="journal-notes" placeholder="Sem si pis poznamky k postave, vypraveci, kampani..."></textarea>
       </section>
 
       <section class="panel progression-panel">
-        <h3>Postup postavy</h3>
-        <div id="progressionContent"></div>
+        <h3>Checklist</h3>
+        <textarea id="journalChecklist" class="journal-notes" placeholder="- cil sezeni&#10;- NPC&#10;- lokace&#10;- loot"></textarea>
       </section>
     </section>
 
     <section class="panel tabs-panel">
-      <nav class="tab-nav">
-        <button class="tab-btn active" data-tab="skills" type="button">Dovednosti</button>
-        <button class="tab-btn" data-tab="talents" type="button">Talenty</button>
-        <button class="tab-btn" data-tab="spells" type="button">Kouzla</button>
-        <button class="tab-btn" data-tab="items" type="button">Predmety</button>
-      </nav>
-      <div class="tab-content" id="tabContent"></div>
+      <header class="embed-head">
+        <h2>Kalkulator (1:1)</h2>
+        <a href="./index.html" target="_blank" rel="noopener">Otevrit samostatne</a>
+      </header>
+      <div class="calc-embed-wrap">
+        <iframe id="calcEmbedFrame" title="DrH kalkulator" src="./index.html"></iframe>
+      </div>
     </section>
   </main>
-
-  <div id="saveModal" class="save-modal" hidden>
-    <div class="save-card">
-      <h3>URL postavy</h3>
-      <textarea id="saveUrlBox" readonly></textarea>
-      <div class="save-actions">
-        <button id="copyUrlBtn" type="button">Kopirovat</button>
-        <button id="closeModalBtn" type="button">Zavrit</button>
-      </div>
-    </div>
-  </div>
 
   <script src="./gm-journal.js"></script>
 </body>
 </html>
+
