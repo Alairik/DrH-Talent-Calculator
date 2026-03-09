@@ -300,6 +300,59 @@
     PROF_6: ["int", "cha"]
   };
 
+  const TALENT_DESCRIPTION_OVERRIDES = {
+    "PROF_6|spojeni s bohem": "Základní schopnost klerika. Umožňuje vzývat boha a používat prosby skrze Přízeň.",
+    "PROF_6|sveceni": "Rituál za 1 bod Přízně. Posvětí tekutinu nebo předmět; svěcené zbraně a voda jsou účinnější proti nemrtvým, démonům a dalším nadpozemským bytostem.",
+    "PROF_6|bozi bojovnik": "Klerik získá bojový výcvik posílený vírou a přístup k bojově zaměřeným prosbám.",
+    "PROF_6|dar slitovani": "Při kritických situacích souvisejících se smrtí či záchranou života házíš výhodněji.",
+    "PROF_6|osviceni": "Tvé spojení s bohem se prohloubí a zvyšuje se zásoba Přízně.",
+    "PROF_6|posvatny symbol": "Posvátný symbol zesiluje modlitby a usnadňuje jejich sesílání.",
+    "PROF_6|pozehnane zdravi": "Vyšší odolnost těla i ducha; zvyšuje šanci přežít těžká zranění a vyčerpání.",
+    "PROF_6|ritualy a obrady": "Klerik ovládá obřady, které mohou posílit věřící, místo nebo obnovu Přízně.",
+    "PROF_6|nauka bojovniku viry": "Otevírá pokročilé prosby nauky Bojovníků víry.",
+    "PROF_6|nauka bozich patronu": "Otevírá pokročilé prosby nauky Božích patronů.",
+    "PROF_6|nauka demonologie": "Otevírá pokročilé prosby nauky Demonologie a boj proti posednutí.",
+    "PROF_6|nauka milosrdenstvi": "Otevírá pokročilé léčivé a podpůrné prosby nauky Milosrdenství.",
+    "PROF_6|nauka svate pravdy": "Otevírá pokročilé prosby odhalování lži, klamu a nečistých sil.",
+    "PROF_6|nauka zehnani aurami": "Otevírá pokročilé prosby aur, které dlouhodobě podporují spojence.",
+    "PROF_6|asketismus": "Slibem chudoby se maximum Přízně klerika zvýší na dvojnásobek.",
+    "PROF_6|bohosluzby": "Obřadem zvýšíš Přízeň a účastníci získají Výhodu (+5) k hodům na Vůli.",
+    "PROF_6|bozska domena": "Klerik získá přístup ke speciálním efektům domény svého boha.",
+    "PROF_6|flagelantstvi": "Obětí vlastních životů lze doplňovat Přízeň.",
+    "PROF_6|nositel slova": "Prosby se sebe/dotek lze sesílat i na jiné cíle a na větší vzdálenost.",
+    "PROF_6|mnohoprosby": "Stejnou prosbu lze seslat vícekrát současně i na více cílů.",
+    "PROF_6|pozehnani": "U vybraného hodu můžeš házet dvakrát a vybrat lepší výsledek.",
+    "PROF_6|radovy slib": "Získáš výhody i závazky člena řádu a rozpoznáš jeho členy.",
+    "PROF_6|sakralni predmety": "Umožní vyrábět posvátné předměty s částí božské moci.",
+    "PROF_6|strazce mysteria": "Naučíš se 4 mocné prosby (nebo je nahradíš jinými): Beregondovo osvícení, Mezisvět, Vyhnání, Znamení života.",
+    "PROF_6|sveceni mist": "Vytvoříš Posvátné místo, kde jsou prosby účinnější.",
+    "PROF_6|vzkriseni": "Při oběti ve službě bohu může být klerik navrácen k životu.",
+    "PROF_6|bozi zbroj": "Bez omezení nosíš libovolnou zbroj; její kvalita +1, proti magickým a nadpozemským bytostem +2.",
+    "PROF_6|bozske mantry": "Mantrami posílíš mysl družiny; 10 kol Výhoda (+5) k ověřením na Vůli.",
+    "PROF_6|fanatismus": "Útočíš 3× za 2 kola; od 12. úrovně 2× v každém kole.",
+    "PROF_6|inkvizitorsky vycvik": "Neupadneš do bezvědomí a bojuješ až do Hranice smrti; rozšiřuje Nauku Svaté pravdy o další prosby.",
+    "PROF_6|lovec carodejnic": "Rozpoznáš přítomnost many kouzelníků a získáš rezistenci vůči magii.",
+    "PROF_6|paladinsky vycvik": "Základ Odolnosti +1 a nové prosby nauky Bojovníků víry.",
+    "PROF_6|posvatny vliv": "Tví následovníci získají bonus +1 ke všem ověřovacím hodům.",
+    "PROF_6|posvatna zbran": "Můžeš nosit libovolně těžkou zbraň; ta působí jako nadpozemská a má +2 do Útočnosti i Zranění.",
+    "PROF_6|astralni poutnik": "Exorcista vstupuje do astrálu, kde lze nadpozemské bytosti definitivně zničit.",
+    "PROF_6|desobijec": "V boji s nadpřirozenými tvory máš trvale +2 k Útoku, Obraně i Zranění (bonus dále roste).",
+    "PROF_6|exorcismus": "Odhalíš posedlé a získáš prosby k ochraně před posednutím i k vyhánění démonů.",
+    "PROF_6|jazyk prastarych": "Rozumíš nadpozemskému jazyku; vzývání Poslů je o 3 body Přízně levnější.",
+    "PROF_6|kletby": "Rozpoznáš prokletá místa, bytosti i předměty a lépe zjistíš původce prokletí.",
+    "PROF_6|mystika": "Dokážeš odposlouchávat a falšovat božskou komunikaci; zároveň se vůči tomu lépe bráníš.",
+    "PROF_6|nadprirozeny boj": "Tvé útoky i obrany získají magický a nadpozemský efekt.",
+    "PROF_6|svetlonos": "Aura Světlonoše vrací část zranění útočníkům a může je zastrašit.",
+    "PROF_6|avatar": "Kněz se promění v mocnou nadpozemskou bytost své domény.",
+    "PROF_6|bozi ochrana": "Máš šanci zcela odvrátit efekt nevyžádaného kouzla či prosby.",
+    "PROF_6|ikony": "Vyrábíš svaté obrazy a symboly, přes které lze sesílat prosby.",
+    "PROF_6|jasnozrivost": "Získáš vidění, která odhalují skryté souvislosti a rizika.",
+    "PROF_6|obeti": "Obětí snížíš Obtížnost následující prosby o 10 bodů.",
+    "PROF_6|vycvik lazaretnich lecitelu": "První pomoc i Znalost přírody +1 a přístup k řádovým léčivům, mastem a lektvarům.",
+    "PROF_6|zazraky": "Můžeš činit nadpozemské zázraky a získáš mocné prosby Nauky Milosrdenství.",
+    "PROF_6|zazehnuti aury": "Sesíláš více aur současně a můžeš je přesouvat mezi cíli; navíc odemkneš nové aury."
+  };
+
   const els = {
     layout: document.querySelector(".layout"),
     classTopControls: document.getElementById("classTopControls"),
@@ -4236,10 +4289,13 @@
   }
 
   function normalizeTalentRecord(talent) {
+    const p = String(talent.prof_id || "");
+    const n = normalize(talent.name);
+    const override = TALENT_DESCRIPTION_OVERRIDES[`${p}|${n}`];
     return {
       ...talent,
       name: sanitizeCzechText(talent.name),
-      description: sanitizeCzechText(talent.description),
+      description: sanitizeCzechText(override || talent.description),
       text: sanitizeCzechText(talent.text),
       text_formatted: sanitizeCzechText(talent.text_formatted)
     };
