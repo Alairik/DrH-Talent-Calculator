@@ -188,6 +188,38 @@ button:hover {
   gap: 0.26rem;
 }
 
+.interactive-list {
+  display: grid;
+  gap: 0.32rem;
+}
+
+.interactive-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  border: 1px solid rgba(122, 95, 54, 0.55);
+  border-radius: 9px;
+  padding: 0.35rem 0.5rem;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.interactive-row > span {
+  min-width: 0;
+}
+
+.rank-ctrl {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.rank-ctrl button {
+  width: 28px;
+  min-width: 28px;
+  padding: 0.16rem;
+}
+
 .save-modal {
   position: fixed;
   inset: 0;
