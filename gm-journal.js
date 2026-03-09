@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   const SHARE_BUILD_PARAM = "build";
   const STORAGE_KEY = "dh_calc_build_v1";
   const MAX_LEVEL_DEFAULT = 36;
@@ -84,7 +84,11 @@
     build: null,
     activeTab: "skills",
     maxLevel: MAX_LEVEL_DEFAULT,
-    lastStorageSnapshot: ""
+    lastStorageSnapshot: "",
+    calcFilters: {
+      talents: "",
+      skills: ""
+    }
   };
 
   const els = {
@@ -128,7 +132,7 @@
     state.kb = kb || {};
     state.professions = (professionsPayload.items || []).slice().sort(byName);
     state.races = (racesPayload.items || []).slice().sort(byName);
-    state.talents = talentsPayload.items || [];
+    state.talents = (talentsPayload.items || []).filter((x) => !x.monster);
     state.skills = skillsPayload.items || [];
     state.maxLevel = clampInt(state.kb && state.kb.appConfig && state.kb.appConfig.maxLevel, 1, 36, MAX_LEVEL_DEFAULT);
 
@@ -136,6 +140,7 @@
     wireEvents();
     hydrateBuild();
     ensureBuildDefaults();
+    syncLevelWithSelections(false);
     applyBuildToControls();
     renderAll();
     startStorageSyncLoop();
@@ -154,7 +159,7 @@
     els.levelDownBtn.addEventListener("click", () => {
       state.build.manualLevel = clampLevel(state.build.manualLevel - 1);
       state.build.levelMode = "manual";
-      enforceRulesModeByLevel();
+      syncLevelWithSelections(false);
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -162,7 +167,7 @@
     els.levelUpBtn.addEventListener("click", () => {
       state.build.manualLevel = clampLevel(state.build.manualLevel + 1);
       state.build.levelMode = "manual";
-      enforceRulesModeByLevel();
+      syncLevelWithSelections(false);
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -170,7 +175,7 @@
     els.levelInput.addEventListener("change", () => {
       state.build.manualLevel = clampLevel(Number(els.levelInput.value || 1));
       state.build.levelMode = "manual";
-      enforceRulesModeByLevel();
+      syncLevelWithSelections(false);
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -179,24 +184,28 @@
       state.build.professionId = els.professionSelect.value;
       cleanseBuildForClass();
       ensureAttributeProfile();
+      syncLevelWithSelections(false);
       renderAll();
       persistBuild();
     });
     els.raceSelect.addEventListener("change", () => {
       state.build.raceId = els.raceSelect.value;
       ensureAttributeProfile();
+      syncLevelWithSelections(false);
       renderAll();
       persistBuild();
     });
     els.randomizeBtn.addEventListener("click", () => {
       randomizeBuild();
       applyBuildToControls();
+      syncLevelWithSelections(false);
       renderAll();
       persistBuild();
     });
     els.resetBtn.addEventListener("click", () => {
       state.build = createEmptyBuild();
       ensureBuildDefaults();
+      syncLevelWithSelections(false);
       applyBuildToControls();
       renderAll();
       persistBuild();
@@ -248,16 +257,7 @@
       specializationLockLevelByClass: {},
       selectedSkillTargets: {},
       journalMeta: {
-        rulesMode: "ppz",
-        rssEnabled: false,
-        warriorPath: "",
-        warriorPathRank: 0,
-        rangerGroveState: "spici",
-        rangerGroveMana: 0,
-        alchemistWorkshopTier: 0,
-        wizardFocusItem: "hul",
-        thiefNetworkSize: 0,
-        clericSiteMode: "normal"
+        rssEnabled: false
       },
       attributes: defaultAttributes(),
       manualLevel: 1,
@@ -296,12 +296,6 @@
       state.build.selectedSpecializationKeyByClass = {};
     }
     state.build.journalMeta = sanitizeJournalMeta(state.build.journalMeta);
-    if (state.build.manualLevel >= 6 && state.build.journalMeta.rulesMode === "ppz") {
-      state.build.journalMeta.rulesMode = "ppp";
-    }
-    if (state.build.manualLevel < 6 && state.build.journalMeta.rulesMode === "ppp") {
-      state.build.journalMeta.rulesMode = "ppz";
-    }
     state.build.config.maxLevel = state.maxLevel;
     cleanseBuildForClass();
   }
@@ -327,7 +321,7 @@
     const mana = calcMana(level, profession && profession.id, state.build.attributes);
 
     els.charName.textContent = name;
-    els.charMeta.textContent = `${race ? race.name : "-"} • ${profession ? profession.name : "-"} • Level ${level}`;
+    els.charMeta.textContent = `${race ? race.name : "-"} - ${profession ? profession.name : "-"} - Level ${level}`;
     els.hpValue.textContent = String(hp);
     els.resourceLabel.textContent = CLASS_RESOURCE_LABEL[profession && profession.id] || "Mana";
     els.manaValue.textContent = String(mana);
@@ -349,17 +343,14 @@
     const level = state.build.manualLevel;
     const profId = state.build.professionId;
     const specs = SPECIALIZATION_OPTIONS[profId] || [];
-    const canUsePpp = level >= 6;
-    const mode = canUsePpp ? state.build.journalMeta.rulesMode : "ppz";
-    if (!canUsePpp) state.build.journalMeta.rulesMode = "ppz";
+    const canSpecialize = level >= 6;
     const selectedSpec = state.build.selectedSpecializationKeyByClass[profId] || "";
     const prereqNames = ((SPEC_PREREQS[profId] || {})[selectedSpec] || []);
     const prereqPills = prereqNames.map((name) => {
       const ok = hasNamedAbility(name);
       return `<span class="pill ${ok ? "ok" : "bad"}">${escapeHtml(name)}</span>`;
     }).join("");
-
-    const subsystemHtml = renderClassSubsystem(profId);
+    const requiredLevel = getRequiredLevelForBuild();
     const optionsHtml = [`<option value="">Bez specializace</option>`]
       .concat(specs.map((s) => `<option value="${escapeHtml(s.key)}" ${selectedSpec === s.key ? "selected" : ""}>${escapeHtml(s.name)}</option>`))
       .join("");
@@ -367,30 +358,18 @@
     els.progressionContent.innerHTML = `
       <div class="progress-grid">
         <div class="progress-row">
-          <label>Pravidlovy rezim</label>
-          <div class="mode-row">
-            <button class="mode-btn ${mode === "ppz" ? "active" : ""}" data-mode="ppz" type="button">PPZ</button>
-            <button class="mode-btn ${mode === "ppp" ? "active" : ""}" data-mode="ppp" type="button" ${canUsePpp ? "" : "disabled"}>PPP</button>
-          </div>
-          <div class="meta-help">${canUsePpp ? "PPP je dostupne od 6. urovne." : "Do 5. urovne jedete ciste PPZ."}</div>
+          <label>Pravidla postavy</label>
+          <div class="meta-help">PPZ + PPP tvori jednu navaznou progresi. Omezujeme pouze podle urovne a zvolene specializace.</div>
+          <div class="meta-help">Minimalni uroven dle aktualniho vyberu: <strong>${requiredLevel}</strong></div>
         </div>
         <div class="progress-row">
           <label>Specializace</label>
-          <select id="specSelect">${optionsHtml}</select>
+          <select id="specSelect" ${canSpecialize ? "" : "disabled"}>${optionsHtml}</select>
+          <div class="meta-help">${canSpecialize ? "Specializace je dostupna od 6. urovne." : "Specializaci lze vybrat od 6. urovne."}</div>
         </div>
         ${prereqPills ? `<div class="progress-row"><label>Predpoklady</label><div class="pill-row">${prereqPills}</div></div>` : ""}
-        ${subsystemHtml}
       </div>
     `;
-
-    for (const btn of els.progressionContent.querySelectorAll("button[data-mode]")) {
-      btn.addEventListener("click", () => {
-        const next = btn.dataset.mode === "ppp" && canUsePpp ? "ppp" : "ppz";
-        state.build.journalMeta.rulesMode = next;
-        renderAll();
-        persistBuild();
-      });
-    }
     const specSelect = document.getElementById("specSelect");
     if (specSelect) {
       specSelect.addEventListener("change", () => {
@@ -400,11 +379,12 @@
         if (!state.build.specializationLockLevelByClass) state.build.specializationLockLevelByClass = {};
         if (specSelect.value) state.build.specializationLockLevelByClass[profId] = level;
         else delete state.build.specializationLockLevelByClass[profId];
+        syncLevelWithSelections(false);
         renderProgressionPanel();
+        renderTabs();
         persistBuild();
       });
     }
-    wireSubsystemInputs();
   }
 
   function renderTabs() {
@@ -438,25 +418,130 @@
   }
 
   function renderCalculatorTab() {
-    const encoded = encodeBase64UrlUtf8(JSON.stringify(sanitizeBuildPayload(state.build)));
-    const src = `./index.html?build=${encoded}`;
+    const profId = state.build.professionId;
+    const level = state.build.manualLevel;
+    const requiredLevel = getRequiredLevelForBuild();
+    const selectedTalentIds = new Set(state.build.selectedTalentIds || []);
+    const selectedSkillTargets = state.build.selectedSkillTargets || {};
+    const talentFilter = state.calcFilters.talents;
+    const skillFilter = state.calcFilters.skills;
+    const talents = getAvailableTalents(profId, level)
+      .filter((t) => matchesLocalFilter(t.name, talentFilter))
+      .sort((a, b) => {
+        const la = Number(a.required_level || 1);
+        const lb = Number(b.required_level || 1);
+        if (la !== lb) return la - lb;
+        return byName(a, b);
+      });
+    const skills = getAvailableSkills(profId, level)
+      .filter((s) => matchesLocalFilter(s.name, skillFilter))
+      .sort((a, b) => {
+        const aClass = isClassSkillForProfession(a, profId) ? 0 : 1;
+        const bClass = isClassSkillForProfession(b, profId) ? 0 : 1;
+        if (aClass !== bClass) return aClass - bClass;
+        return byName(a, b);
+      });
+    const selectedTalentCount = selectedTalentIds.size;
+    const selectedSkillPoints = Object.values(selectedSkillTargets).reduce((sum, x) => sum + Math.max(0, Number(x) || 0), 0);
+
     els.tabContent.innerHTML = `
-      <div class="calc-wrap">
-        <div class="calc-bar">
-          <button id="reloadFromCalcBtn" type="button">Nacist zmeny z kalkulatoru</button>
+      <div class="calc-native-wrap">
+        <div class="calc-native-head">
+          <div>Aktualni uroven: <strong>${level}</strong></div>
+          <div>Potrebna uroven: <strong>${requiredLevel}</strong></div>
+          <div>Talenty: <strong>${selectedTalentCount}</strong></div>
+          <div>Body dovednosti: <strong>${selectedSkillPoints}</strong></div>
         </div>
-        <iframe class="calc-iframe" src="${escapeHtml(src)}" title="DrH Kalkulator"></iframe>
+        <div class="calc-native-grid">
+          <section class="calc-native-col">
+            <h4>Talenty</h4>
+            <input id="calcTalentSearch" type="search" placeholder="Filtrovat talenty..." value="${escapeHtml(talentFilter)}" />
+            <div class="interactive-list calc-native-list">
+              ${talents.map((t) => `
+                <label class="interactive-row">
+                  <span>Lv ${Number(t.required_level || 1)} - ${escapeHtml(t.name)}</span>
+                  <input type="checkbox" data-calc-talent-id="${escapeHtml(t.id)}" ${selectedTalentIds.has(t.id) ? "checked" : ""} />
+                </label>
+              `).join("")}
+            </div>
+          </section>
+          <section class="calc-native-col">
+            <h4>Dovednosti</h4>
+            <input id="calcSkillSearch" type="search" placeholder="Filtrovat dovednosti..." value="${escapeHtml(skillFilter)}" />
+            <div class="interactive-list calc-native-list">
+              ${skills.map((s) => {
+                const rank = Number(selectedSkillTargets[s.id] || 0);
+                return `
+                  <div class="interactive-row">
+                    <span>Lv ${Number(s.required_level || 1)} - ${escapeHtml(s.name)}</span>
+                    <div class="rank-ctrl">
+                      <button type="button" data-calc-skill-minus="${escapeHtml(s.id)}">-</button>
+                      <strong>${rank}</strong>
+                      <button type="button" data-calc-skill-plus="${escapeHtml(s.id)}">+</button>
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          </section>
+        </div>
       </div>
     `;
-    const btn = document.getElementById("reloadFromCalcBtn");
-    if (btn) {
-      btn.addEventListener("click", () => {
-        const payload = parseBuildFromStorage();
-        if (!payload) return;
-        state.build = sanitizeBuildPayload(payload);
-        ensureBuildDefaults();
+    const talentSearchEl = document.getElementById("calcTalentSearch");
+    if (talentSearchEl) {
+      talentSearchEl.addEventListener("input", () => {
+        state.calcFilters.talents = String(talentSearchEl.value || "");
+        renderCalculatorTab();
+      });
+    }
+    const skillSearchEl = document.getElementById("calcSkillSearch");
+    if (skillSearchEl) {
+      skillSearchEl.addEventListener("input", () => {
+        state.calcFilters.skills = String(skillSearchEl.value || "");
+        renderCalculatorTab();
+      });
+    }
+    for (const cb of els.tabContent.querySelectorAll("input[data-calc-talent-id]")) {
+      cb.addEventListener("change", () => {
+        const id = cb.dataset.calcTalentId;
+        const set = new Set(state.build.selectedTalentIds || []);
+        if (cb.checked) {
+          set.add(id);
+          state.build.talentOrderCounter = Number(state.build.talentOrderCounter || 0) + 1;
+          state.build.selectedTalentOrder[id] = state.build.talentOrderCounter;
+        } else {
+          set.delete(id);
+          delete state.build.selectedTalentOrder[id];
+        }
+        state.build.selectedTalentIds = [...set];
+        syncLevelWithSelections(false);
         applyBuildToControls();
         renderAll();
+        persistBuild();
+      });
+    }
+    for (const btn of els.tabContent.querySelectorAll("button[data-calc-skill-minus]")) {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.calcSkillMinus;
+        const cur = Number(state.build.selectedSkillTargets[id] || 0);
+        const next = Math.max(0, cur - 1);
+        if (next <= 0) delete state.build.selectedSkillTargets[id];
+        else state.build.selectedSkillTargets[id] = next;
+        syncLevelWithSelections(false);
+        applyBuildToControls();
+        renderAll();
+        persistBuild();
+      });
+    }
+    for (const btn of els.tabContent.querySelectorAll("button[data-calc-skill-plus]")) {
+      btn.addEventListener("click", () => {
+        const id = btn.dataset.calcSkillPlus;
+        const cur = Number(state.build.selectedSkillTargets[id] || 0);
+        state.build.selectedSkillTargets[id] = Math.min(36, cur + 1);
+        syncLevelWithSelections(false);
+        applyBuildToControls();
+        renderAll();
+        persistBuild();
       });
     }
   }
@@ -464,18 +549,17 @@
   function renderSystemsTab() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
-    const mode = state.build.journalMeta.rulesMode;
     const spec = state.build.selectedSpecializationKeyByClass[profId] || "";
     const specName = ((SPECIALIZATION_OPTIONS[profId] || []).find((x) => x.key === spec) || {}).name || "Bez specializace";
     const lockLevel = state.build.specializationLockLevelByClass[profId];
     const canSpec = level >= 6;
-    const unlockRule = canSpec ? "Specializace je od 6. urovne. Bez locku lze brat 1 spec schopnost kazdou 6. uroven." : "Do 5. urovne jedete pouze PPZ.";
+    const unlockRule = canSpec ? "Specializace je od 6. urovne. Bez locku lze brat 1 spec schopnost kazdou 6. uroven." : "Specializace se otevre na 6. urovni.";
     const rssEnabled = Boolean(state.build.journalMeta.rssEnabled);
 
     els.tabContent.innerHTML = `
       <div class="progress-grid">
         <div class="progress-row">
-          <strong>Režim pravidel: ${mode.toUpperCase()}</strong>
+          <strong>Progrese postavy</strong>
           <div class="meta-help">${unlockRule}</div>
         </div>
         <div class="progress-row">
@@ -503,21 +587,10 @@
   function renderSkillsTab() {
     const level = state.build.manualLevel;
     const profId = state.build.professionId;
-    const skillClassOverrides = state.kb.skillClassOverrides || {};
-    const basicSkillNames = new Set((state.kb.basicSkillNames || []).map(normalize));
-
-    const available = state.skills
-      .filter((s) => Number(s.required_level || 1) <= level)
-      .filter((s) => {
-        const n = normalize(s.name);
-        const overrideProf = skillClassOverrides[n];
-        if (overrideProf && overrideProf !== profId) return false;
-        if (!s.prof_id || s.prof_id === profId) return true;
-        return basicSkillNames.has(n);
-      })
+    const available = getAvailableSkills(profId, level)
       .sort((a, b) => {
-        const aClass = a.prof_id === profId ? 0 : 1;
-        const bClass = b.prof_id === profId ? 0 : 1;
+        const aClass = isClassSkillForProfession(a, profId) ? 0 : 1;
+        const bClass = isClassSkillForProfession(b, profId) ? 0 : 1;
         if (aClass !== bClass) return aClass - bClass;
         return byName(a, b);
       });
@@ -547,6 +620,8 @@
         const next = Math.max(0, cur - 1);
         if (next <= 0) delete state.build.selectedSkillTargets[id];
         else state.build.selectedSkillTargets[id] = next;
+        syncLevelWithSelections(false);
+        applyBuildToControls();
         renderTabs();
         persistBuild();
       });
@@ -557,6 +632,8 @@
         const cur = Number(state.build.selectedSkillTargets[id] || 0);
         const next = Math.min(36, cur + 1);
         state.build.selectedSkillTargets[id] = next;
+        syncLevelWithSelections(false);
+        applyBuildToControls();
         renderTabs();
         persistBuild();
       });
@@ -568,9 +645,7 @@
     const profId = state.build.professionId;
     const selected = new Set(state.build.selectedTalentIds || []);
 
-    const available = state.talents
-      .filter((t) => t.prof_id === profId)
-      .filter((t) => Number(t.required_level || 1) <= level)
+    const available = getAvailableTalents(profId, level)
       .sort((a, b) => {
         const la = Number(a.required_level || 1);
         const lb = Number(b.required_level || 1);
@@ -582,7 +657,7 @@
       <div class="interactive-list">
         ${available.map((t) => `
           <label class="interactive-row">
-            <span>Lv ${Number(t.required_level || 1)} • ${escapeHtml(t.name)}</span>
+            <span>Lv ${Number(t.required_level || 1)} - ${escapeHtml(t.name)}</span>
             <input type="checkbox" data-talent-id="${escapeHtml(t.id)}" ${selected.has(t.id) ? "checked" : ""} />
           </label>
         `).join("")}
@@ -602,6 +677,8 @@
           delete state.build.selectedTalentOrder[id];
         }
         state.build.selectedTalentIds = [...set];
+        syncLevelWithSelections(false);
+        applyBuildToControls();
         persistBuild();
       });
     }
@@ -619,10 +696,12 @@
 
     const basicSkillNames = new Set((state.kb.basicSkillNames || []).map(normalize));
     const overrides = state.kb.skillClassOverrides || {};
+    const selectedTalentIds = new Set(state.build.selectedTalentIds || []);
     const cleanTargets = {};
     for (const [id, target] of Object.entries(state.build.selectedSkillTargets || {})) {
       const s = state.skills.find((x) => x.id === id);
       if (!s) continue;
+      if (s.ability_id && !selectedTalentIds.has(s.ability_id)) continue;
       const n = normalize(s.name);
       if (overrides[n] && overrides[n] !== profId) continue;
       if (s.prof_id && s.prof_id !== profId && !basicSkillNames.has(n)) continue;
@@ -656,16 +735,7 @@
       state.build.selectedTalentOrder[id] = state.build.talentOrderCounter;
     }
 
-    const basicSkillNames = new Set((state.kb.basicSkillNames || []).map(normalize));
-    const overrides = state.kb.skillClassOverrides || {};
-    const candidates = state.skills
-      .filter((s) => Number(s.required_level || 1) <= level)
-      .filter((s) => {
-        const n = normalize(s.name);
-        if (overrides[n] && overrides[n] !== profId) return false;
-        if (!s.prof_id || s.prof_id === profId) return true;
-        return basicSkillNames.has(n);
-      });
+    const candidates = getAvailableSkills(profId, level);
     shuffle(candidates);
     const chosen = candidates.slice(0, Math.min(12 + level, candidates.length));
     state.build.selectedSkillTargets = {};
@@ -715,14 +785,13 @@
   function buildSpellPreview() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
-    const mode = state.build.journalMeta.rulesMode;
     const spec = state.build.selectedSpecializationKeyByClass[profId] || "";
     const spells = [];
     if (profId === "PROF_4") spells.push("Magicka strela", "Stit many", "Iluze");
     if (profId === "PROF_3") spells.push("Destilace many", "Alchymisticka analyza");
     if (profId === "PROF_6") spells.push("Prosba za ochranu", "Ocisteni");
     if (profId === "PROF_2") spells.push("Pouto s prirodou");
-    if (mode === "ppp" && level >= 6) {
+    if (level >= 6) {
       if (profId === "PROF_2") spells.push("Ochrana pred smeckou", "Sledovani");
       if (profId === "PROF_4") spells.push("Retezovy blesk", "Teleport");
       if (profId === "PROF_6") spells.push("Hlas viry", "Pozehnani zdaru");
@@ -734,8 +803,6 @@
   function buildItemPreview() {
     const profId = state.build.professionId;
     const level = state.build.manualLevel;
-    const mode = state.build.journalMeta.rulesMode;
-    const meta = state.build.journalMeta;
     const out = [];
     if (profId === "PROF_1") out.push("Dlouhy mec", "Krouzkova zbroj", "Stit");
     if (profId === "PROF_2") out.push("Luk", "Lecive byliny", "Maskovaci plast");
@@ -743,14 +810,6 @@
     if (profId === "PROF_4") out.push("Kouzelnicka hul", "Grimoar", "Krystaly many");
     if (profId === "PROF_5") out.push("Dyka", "Paklice", "Maska");
     if (profId === "PROF_6") out.push("Posvatny symbol", "Kadidlo");
-    if (mode === "ppp") {
-      if (profId === "PROF_1" && meta.warriorPath) out.push(`Cesta: ${meta.warriorPath} (stupen ${meta.warriorPathRank || 0})`);
-      if (profId === "PROF_2") out.push(`Hvozd: ${meta.rangerGroveState || "spici"} / mana ${meta.rangerGroveMana || 0}`);
-      if (profId === "PROF_3" && Number(meta.alchemistWorkshopTier || 0) > 0) out.push(`Dilna tier ${meta.alchemistWorkshopTier}`);
-      if (profId === "PROF_4") out.push(`Fokus: ${meta.wizardFocusItem || "hul"}`);
-      if (profId === "PROF_5" && Number(meta.thiefNetworkSize || 0) > 0) out.push(`Siccova sit: ${meta.thiefNetworkSize}`);
-      if (profId === "PROF_6") out.push(`Misto proseb: ${meta.clericSiteMode || "normal"}`);
-    }
     if (level >= 5) out.push("Lecive lektvary x2");
     if (level >= 10) out.push("Vzacna surovina x1");
     return out;
@@ -772,118 +831,91 @@
     return false;
   }
 
-  function renderClassSubsystem(profId) {
-    const jm = state.build.journalMeta || {};
-    if (profId === "PROF_1") {
-      return `
-        <div class="progress-row">
-          <label>Cesta valecnika</label>
-          <select id="warriorPathSelect">
-            <option value="">Nezvoleno</option>
-            <option value="mec" ${jm.warriorPath === "mec" ? "selected" : ""}>Cesta mece</option>
-            <option value="sekera" ${jm.warriorPath === "sekera" ? "selected" : ""}>Cesta sekery</option>
-            <option value="kopi_hul" ${jm.warriorPath === "kopi_hul" ? "selected" : ""}>Cesta hole a kopi</option>
-            <option value="kladivo" ${jm.warriorPath === "kladivo" ? "selected" : ""}>Cesta kladiva</option>
-            <option value="strategie" ${jm.warriorPath === "strategie" ? "selected" : ""}>Cesta strategie</option>
-          </select>
-          <label>Stupen cesty</label>
-          <input id="warriorPathRankInput" type="number" min="0" max="4" value="${clampInt(jm.warriorPathRank, 0, 4, 0)}" />
-        </div>
-      `;
-    }
-    if (profId === "PROF_2") {
-      return `
-        <div class="progress-row">
-          <label>Stav hvozdu</label>
-          <select id="groveStateSelect">
-            <option value="spici" ${jm.rangerGroveState === "spici" ? "selected" : ""}>Spici</option>
-            <option value="drimajici" ${jm.rangerGroveState === "drimajici" ? "selected" : ""}>Drimajici</option>
-            <option value="procitajici" ${jm.rangerGroveState === "procitajici" ? "selected" : ""}>Procitajici</option>
-            <option value="probuzeny" ${jm.rangerGroveState === "probuzeny" ? "selected" : ""}>Probuzeny</option>
-            <option value="besnici" ${jm.rangerGroveState === "besnici" ? "selected" : ""}>Besnici</option>
-          </select>
-          <label>Nastredana many hvozdu</label>
-          <input id="groveManaInput" type="number" min="0" max="99999" value="${clampInt(jm.rangerGroveMana, 0, 99999, 0)}" />
-        </div>
-      `;
-    }
-    if (profId === "PROF_3") {
-      return `
-        <div class="progress-row">
-          <label>Uroven alchymisticke dilny</label>
-          <select id="workshopTierSelect">
-            <option value="0" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 0 ? "selected" : ""}>Bez dilny</option>
-            <option value="1" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 1 ? "selected" : ""}>1 - Mala</option>
-            <option value="2" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 2 ? "selected" : ""}>2 - Stredni</option>
-            <option value="3" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 3 ? "selected" : ""}>3 - Velka</option>
-            <option value="4" ${clampInt(jm.alchemistWorkshopTier, 0, 4, 0) === 4 ? "selected" : ""}>4 - Vez</option>
-          </select>
-        </div>
-      `;
-    }
-    if (profId === "PROF_4") {
-      return `
-        <div class="progress-row">
-          <label>Fokus predmet</label>
-          <select id="wizardFocusSelect">
-            <option value="hul" ${jm.wizardFocusItem === "hul" ? "selected" : ""}>Kouzelnicka hul</option>
-            <option value="zbran" ${jm.wizardFocusItem === "zbran" ? "selected" : ""}>Zbran bojoveho maga</option>
-            <option value="carodejova_hul" ${jm.wizardFocusItem === "carodejova_hul" ? "selected" : ""}>Carodejova hul</option>
-            <option value="dyka" ${jm.wizardFocusItem === "dyka" ? "selected" : ""}>Nekromantova dyka</option>
-          </select>
-        </div>
-      `;
-    }
-    if (profId === "PROF_5") {
-      return `
-        <div class="progress-row">
-          <label>Siccova sit (clenu)</label>
-          <input id="thiefNetworkInput" type="number" min="0" max="50" value="${clampInt(jm.thiefNetworkSize, 0, 50, 0)}" />
-        </div>
-      `;
-    }
-    if (profId === "PROF_6") {
-      return `
-        <div class="progress-row">
-          <label>Režim mista proseb</label>
-          <select id="clericSiteModeSelect">
-            <option value="normal" ${jm.clericSiteMode === "normal" ? "selected" : ""}>Normalni</option>
-            <option value="posvatne" ${jm.clericSiteMode === "posvatne" ? "selected" : ""}>Posvatne</option>
-            <option value="proklete" ${jm.clericSiteMode === "proklete" ? "selected" : ""}>Proklete</option>
-          </select>
-        </div>
-      `;
-    }
-    return "";
+  function getAvailableTalents(profId, level) {
+    return state.talents
+      .filter((t) => t.prof_id === profId)
+      .filter((t) => Number(t.required_level || 1) <= level);
   }
 
-  function wireSubsystemInputs() {
-    const jm = state.build.journalMeta;
-    const bindSelect = (id, key, castFn) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener("change", () => {
-        jm[key] = castFn ? castFn(el.value) : el.value;
-        persistBuild();
+  function getAvailableSkills(profId, level) {
+    const skillClassOverrides = state.kb.skillClassOverrides || {};
+    const basicSkillNames = new Set((state.kb.basicSkillNames || []).map(normalize));
+    const selectedTalentIds = new Set(state.build.selectedTalentIds || []);
+    return state.skills
+      .filter((s) => Number(s.required_level || 1) <= level)
+      .filter((s) => !s.ability_id || selectedTalentIds.has(s.ability_id))
+      .filter((s) => {
+        const n = normalize(s.name);
+        const overrideProf = skillClassOverrides[n];
+        if (overrideProf && overrideProf !== profId) return false;
+        if (!s.prof_id || s.prof_id === profId) return true;
+        return basicSkillNames.has(n);
       });
-    };
-    const bindInput = (id, key, min, max) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.addEventListener("change", () => {
-        jm[key] = clampInt(el.value, min, max, min);
-        el.value = String(jm[key]);
-        persistBuild();
-      });
-    };
-    bindSelect("warriorPathSelect", "warriorPath");
-    bindInput("warriorPathRankInput", "warriorPathRank", 0, 4);
-    bindSelect("groveStateSelect", "rangerGroveState");
-    bindInput("groveManaInput", "rangerGroveMana", 0, 99999);
-    bindSelect("workshopTierSelect", "alchemistWorkshopTier", (v) => clampInt(v, 0, 4, 0));
-    bindSelect("wizardFocusSelect", "wizardFocusItem");
-    bindInput("thiefNetworkInput", "thiefNetworkSize", 0, 50);
-    bindSelect("clericSiteModeSelect", "clericSiteMode");
+  }
+
+  function isClassSkillForProfession(skill, profId) {
+    const overrides = state.kb.skillClassOverrides || {};
+    const overrideProf = overrides[normalize(skill && skill.name)];
+    if (overrideProf) return overrideProf === profId;
+    return Boolean(skill && skill.prof_id === profId);
+  }
+
+  function matchesLocalFilter(name, rawFilter) {
+    const q = normalize(rawFilter);
+    if (!q) return true;
+    return normalize(name).includes(q);
+  }
+
+  function getRequiredLevelForBuild() {
+    const profId = state.build.professionId;
+    const selectedTalentIds = new Set(state.build.selectedTalentIds || []);
+    const selectedSkillTargets = state.build.selectedSkillTargets || {};
+
+    let maxReqLevel = 1;
+    let selectedTalentCount = 0;
+    for (const t of state.talents) {
+      if (!selectedTalentIds.has(t.id)) continue;
+      if (t.prof_id !== profId) continue;
+      selectedTalentCount += 1;
+      maxReqLevel = Math.max(maxReqLevel, Number(t.required_level || 1));
+    }
+
+    let selectedSkillPoints = 0;
+    for (const [skillId, rank] of Object.entries(selectedSkillTargets)) {
+      const points = Math.max(0, Number(rank) || 0);
+      if (points <= 0) continue;
+      const s = state.skills.find((x) => x.id === skillId);
+      if (!s) continue;
+      selectedSkillPoints += points;
+      maxReqLevel = Math.max(maxReqLevel, Number(s.required_level || 1));
+    }
+
+    const talentL1 = clampInt(state.build.config?.points?.talentLevel1, 0, 50, 2);
+    const talentPer = clampInt(state.build.config?.points?.talentPerLevel, 0, 50, 1);
+    const skillL1 = clampInt(state.build.config?.points?.skillLevel1, 0, 50, 3);
+    const skillPer = clampInt(state.build.config?.points?.skillPerLevel, 0, 50, 1);
+
+    const levelByTalentPoints = minLevelForPoints(selectedTalentCount, talentL1, talentPer, state.maxLevel);
+    const levelBySkillPoints = minLevelForPoints(selectedSkillPoints, skillL1, skillPer, state.maxLevel);
+
+    return clampLevel(Math.max(1, maxReqLevel, levelByTalentPoints, levelBySkillPoints));
+  }
+
+  function minLevelForPoints(pointsNeeded, pointsLevel1, pointsPerLevel, maxLevel) {
+    if (pointsNeeded <= pointsLevel1) return 1;
+    if (pointsPerLevel <= 0) return maxLevel;
+    const rest = pointsNeeded - pointsLevel1;
+    return clampInt(1 + Math.ceil(rest / pointsPerLevel), 1, maxLevel, maxLevel);
+  }
+
+  function syncLevelWithSelections(allowDecrease) {
+    const required = getRequiredLevelForBuild();
+    const current = clampLevel(state.build.manualLevel);
+    if (allowDecrease) {
+      state.build.manualLevel = required;
+    } else if (current < required) {
+      state.build.manualLevel = required;
+    }
   }
 
   function openSaveModal() {
@@ -1035,16 +1067,7 @@
   function sanitizeJournalMeta(value) {
     const src = value && typeof value === "object" ? value : {};
     return {
-      rulesMode: src.rulesMode === "ppp" ? "ppp" : "ppz",
-      rssEnabled: Boolean(src.rssEnabled),
-      warriorPath: sanitizeId(src.warriorPath),
-      warriorPathRank: clampInt(src.warriorPathRank, 0, 4, 0),
-      rangerGroveState: ["spici", "drimajici", "procitajici", "probuzeny", "besnici"].includes(src.rangerGroveState) ? src.rangerGroveState : "spici",
-      rangerGroveMana: clampInt(src.rangerGroveMana, 0, 99999, 0),
-      alchemistWorkshopTier: clampInt(src.alchemistWorkshopTier, 0, 4, 0),
-      wizardFocusItem: ["hul", "zbran", "dyka", "carodejova_hul"].includes(src.wizardFocusItem) ? src.wizardFocusItem : "hul",
-      thiefNetworkSize: clampInt(src.thiefNetworkSize, 0, 50, 0),
-      clericSiteMode: ["normal", "posvatne", "proklete"].includes(src.clericSiteMode) ? src.clericSiteMode : "normal"
+      rssEnabled: Boolean(src.rssEnabled)
     };
   }
 
@@ -1137,16 +1160,6 @@
     return clampInt(v, 1, state.maxLevel, 1);
   }
 
-  function enforceRulesModeByLevel() {
-    const level = state.build.manualLevel;
-    if (!state.build.journalMeta) state.build.journalMeta = sanitizeJournalMeta(null);
-    if (level < 6) {
-      state.build.journalMeta.rulesMode = "ppz";
-    } else if (state.build.journalMeta.rulesMode !== "ppp") {
-      state.build.journalMeta.rulesMode = "ppp";
-    }
-  }
-
   function randInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -1174,3 +1187,9 @@
     }
   }
 })();
+
+
+
+
+
+
