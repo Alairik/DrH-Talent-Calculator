@@ -411,12 +411,22 @@
       #mobileStickyHeader .gm-journal-race-wrap select {
         width: 100% !important;
         appearance: none !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
         background: #16110d !important;
+        background-image:
+          linear-gradient(45deg, transparent 50%, #d2b074 50%),
+          linear-gradient(135deg, #d2b074 50%, transparent 50%) !important;
+        background-position:
+          calc(100% - 18px) 50%,
+          calc(100% - 12px) 50% !important;
+        background-size: 6px 6px, 6px 6px !important;
+        background-repeat: no-repeat !important;
         border: 1px solid #8b6a3d !important;
         color: #f3e8d1 !important;
         border-radius: 12px !important;
         min-height: 44px !important;
-        padding: 0.4rem 2rem 0.4rem 0.75rem !important;
+        padding: 0.4rem 2.25rem 0.4rem 0.75rem !important;
       }
       #floatingPanel .floating-row-level {
         display: flex !important;
