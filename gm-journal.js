@@ -24,26 +24,13 @@
         display: ${showTalents ? "block" : "none"} !important;
         height: 100% !important;
         min-height: 0 !important;
-        overflow: hidden !important;
+        overflow: auto !important;
       }
       .skills-panel {
         display: ${showTalents ? "none" : "block"} !important;
         height: 100% !important;
         min-height: 0 !important;
-        overflow: hidden !important;
-      }
-      .talents-panel .general-branch,
-      .talents-panel .spec-picker,
-      .talents-panel .branch-grid,
-      .talents-panel .branch,
-      .talents-panel .branch .branch-nodes {
-        min-height: 0 !important;
-        height: 100% !important;
-      }
-      .skills-panel .skills-split,
-      .skills-panel .skills-list {
-        min-height: 0 !important;
-        height: 100% !important;
+        overflow: auto !important;
       }
     `;
   }
