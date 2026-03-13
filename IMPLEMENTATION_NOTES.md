@@ -100,11 +100,27 @@ Prubeh:
 
 Nasledujici casti jsou zatim konfigurovane / odhadnute a je potreba je potvrdit podle fotek pravidel:
 
-1. presna tabulka bodu za level (talenty + dovednosti)
-2. presne rasove bonusy na body (vsechny rasy)
-3. presne rasove pridane dovednosti (vsechny rasy)
+1. ~~presna tabulka bodu za level (talenty + dovednosti)~~ **POTVRZENO** (viz sekce 6.1)
+2. ~~presne rasove bonusy na body (vsechny rasy)~~ **POTVRZENO** - pouze Clovek ma +2 per level (Vsestrannost)
+3. presne rasove pridane dovednosti (vsechny rasy) - **POTVRZENO: zadne extra dovednosti dle rasy, vzdy dle povolani**
 4. pripadne dalsi prerequisite logika mimo `ability_id`
 5. finalni rozdeleni class talentu do 3 vetvi (API nema explicitni branch pole)
+
+## 6.1) Potvrzena pravidla (zdroj: pravidla_draci_hlidka.txt)
+
+- **Maximalni uroven = 24** (pravidla explicitne: "Na Hlidce existuje 24 urovni") - opraveno v `config.js`
+- **Dovednostni body per level = uroven × multiplikator povolani:**
+  - Valecnik: 3× uroven
+  - Hranicar: 5× uroven
+  - Alchymista: 4× uroven
+  - Kouzelnik: 3× uroven
+  - Zlodej: 8× uroven
+  - Klerik: 3× uroven
+- **Startovni dovednostni body = 3** pro vsechny rasy (lide 5 celkem: 3 + 2 za Vsestrannost)
+- **Vsestrannost (Clovek)**: +2 dovednostni body na L1 I pri kazdem dalsim levelu (potvrzeno textem ABI_81 a RULE_5)
+- **Blizke dovednosti = 3** pro kazde povolani, automaticky na 3. stupen zvladnuti
+- **Schopnosti per level = 1** od L2 (NOVA ZVLASTNI SCHOPNOST sekce v pravidlech)
+- **Dovednosti dle rasy**: zadne extra - vsechny rasy maji pristup ke stejnemu seznamu obecnych dovednosti
 
 ## 7) Co staci dodat v dalsim kroku
 
@@ -134,7 +150,7 @@ Poznamka k souladu pravidel:
 
 - text v `ABI_81 (Vsestrannost)` rika +2 dovednostni body na zacatku i pri kazdem dalsim levelu
 - text v `RULE_5` explicitne potvrzuje +2 na startu a moznost odlozit body
-- po dodani fotek pravidel je potreba definitivne potvrdit, jestli +2 plati i per-level ve vsech rezimech
+- **POTVRZENO**: +2 per-level plati (config.js ma `skillPerLevel: 2` pro ABI_81, kod to spravne aplikuje)
 
 ## 9) Dopad na planner (todo po potvrzeni pravidel)
 

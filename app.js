@@ -3350,8 +3350,9 @@
     const uiRaceId = String((els.quickRaceSelect && els.quickRaceSelect.value) || "");
     const selectedRaceId = String(uiRaceId || state.selectedRaceId || "");
     if (selectedRaceId && selectedRaceId !== state.selectedRaceId) state.selectedRaceId = selectedRaceId;
-    // Current rules in this app: only Human gets extra skill points at level 1.
-    // Keep this hard-bound to Human race id to avoid stale/mismatched bonus states.
+    // Rules confirmed: Human (RACE_2) gets +2 skill points at L1 AND +2 per every subsequent level (Všestrannost).
+    // Other races: no extra skill point bonus (racial abilities are non-point-based).
+    // Hard-bound to Human race id to avoid stale/mismatched bonus states.
     if (selectedRaceId !== "RACE_2") return base;
     const raceMap = window.APP_CONFIG.raceBonusTalentIdByRaceId || {};
     const bonusTalentId = raceMap[selectedRaceId] || "ABI_81";

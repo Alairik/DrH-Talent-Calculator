@@ -1,6 +1,6 @@
 window.APP_CONFIG = {
   storageKey: "dh_calc_build_v1",
-  maxLevel: 36,
+  maxLevel: 24,
   points: {
     talentLevel1: 2,
     talentPerLevel: 1,
