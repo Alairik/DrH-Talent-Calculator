@@ -509,7 +509,7 @@
       "name": "Brutalita",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Navysuje ucinek vybranych bojovych triku berserkra.",
+      "description": "Protivník musí uspět v ověřovacím hodu proti Berserkrovu bojovému triku (Atletika vs. Reflex), jinak se jeho Zranění navýší o Berserkrův bonus za Odolnost (ODO).",
       "branch_index": 0
     },
     {
@@ -517,7 +517,7 @@
       "name": "Cesta krve",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Po utrzeni zraneni ziskava dalsi adrenalin.",
+      "description": "Jestliže se vzdá Obrany a nechá se zranit, získá další Adrenalin navíc.",
       "branch_index": 0
     },
     {
@@ -525,7 +525,7 @@
       "name": "Mrstnost",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Bez zbroje ziskava bonus k ZO, OBR a pohyblivosti.",
+      "description": "Jakmile se vzdá nošení zbroje, získá bonus +2 k ZO. Zároveň získá bonus +2 k Obratnosti (OBR) a Pohyblivosti.",
       "branch_index": 0
     },
     {
@@ -533,7 +533,7 @@
       "name": "Pohled zabijaka",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Vzdoruje ovlivnovani pomoci ODO misto vule.",
+      "description": "Dokáže vzdorovat pokusům o Přesvědčování a podobné formy ovlivňování pomocí své Odolnosti (ODO) místo obvyklé Vůle.",
       "branch_index": 0
     },
     {
@@ -541,7 +541,7 @@
       "name": "Smysl bestie",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Trvaly bonus k reflexu a postrehu.",
+      "description": "Reflex i Postřeh Berserkra se trvale zvýší o +3 body.",
       "branch_index": 0
     },
     {
@@ -549,7 +549,7 @@
       "name": "Tuhy korinek",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Pri prestupu na uroven ziskava vice zivotu.",
+      "description": "Při přestupu na vyšší úroveň získá vždy o +1 život navíc. Odpočinkem pak získá o +4 životy více, než je obvyklé.",
       "branch_index": 0
     },
     {
@@ -557,7 +557,7 @@
       "name": "Vrazedna zurivost",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Vyhoda ke vsem utokum, ale riziko neovladatelnosti.",
+      "description": "Získá Výhodu ke všem svým útokům, ale hrozí mu, že nekontrolovaně napadne své spolubojovníky.",
       "branch_index": 0
     },
     {
@@ -565,7 +565,7 @@
       "name": "Zjizvena kuze",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Zakladni obrana se zvysi o +2.",
+      "description": "Jeho Základní Obrana (ZO) se zvýší o +2 (KZ kůže).",
       "branch_index": 0
     },
     {
@@ -573,7 +573,7 @@
       "name": "Bojove rozkazy",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Muze pridat dodatecne akce spolubojovnikum.",
+      "description": "Může přidat dodatečné akce svým spolubojovníkům.",
       "branch_index": 1
     },
     {
@@ -581,7 +581,7 @@
       "name": "Boj stitem",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Dodatecny utok stitem a kryti ostatnich.",
+      "description": "Jednou za dvě kola může provést Dodatečný útok štítem a získá s jeho pomocí bonus ke krytí ostatních.",
       "branch_index": 1
     },
     {
@@ -589,7 +589,7 @@
       "name": "Krupobiti",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Pri tezke zbroji rezistence proti streleckym a vrhacim utokum.",
+      "description": "Při použití těžké zbroje získá rezistenci proti střeleckým a vrhacím útokům.",
       "branch_index": 1
     },
     {
@@ -597,7 +597,7 @@
       "name": "Majestat",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Ke presvedcovani/zastraseni pricita kvalitu zbroje.",
+      "description": "K ověřovacímu hodu na Přesvědčování či Zastrašení si přičte i kvalitu své zbroje.",
       "branch_index": 1
     },
     {
@@ -605,7 +605,7 @@
       "name": "Mistr zbroje",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Pri noseni stredni/tezke zbroje bonus +3 k ZO.",
+      "description": "Po dobu nošení střední nebo těžké zbroje získá bonus +3 k Základní Obraně (ZO).",
       "branch_index": 1
     },
     {
@@ -613,7 +613,7 @@
       "name": "Sebeobetovani",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Kdyz nema adrenalin, cerpa za zivoty.",
+      "description": "Nemá-li, čerpá Adrenalin za své životy.",
       "branch_index": 1
     },
     {
@@ -621,7 +621,7 @@
       "name": "Zakryti",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Stit se pocita do ZO a proti jednomu protivnikovi ma neomezenou obranu.",
+      "description": "Štít se nově započítává do Základní Obrany (ZO) Rytíře a proti jednomu protivníkovi má neomezený počet Obran.",
       "branch_index": 1
     },
     {
@@ -629,7 +629,7 @@
       "name": "Zelezny muz",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Bonus +5 k hodum na vydrz.",
+      "description": "Dostane bonus +5 ke svým hodům na Výdrž.",
       "branch_index": 1
     },
     {
@@ -637,7 +637,7 @@
       "name": "Boj s presilou",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Nema postihy pri boji s vice nepriteli najednou.",
+      "description": "Nevztahují se na něj postihy pokud bojuje s více nepřáteli najednou.",
       "branch_index": 2
     },
     {
@@ -645,7 +645,7 @@
       "name": "Cteni vzdalenosti",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Bonus +2 do ZO pri boji zblizka.",
+      "description": "Bonus +2 do jeho Základní obrany (ZO) při boji zblízka.",
       "branch_index": 2
     },
     {
@@ -653,7 +653,7 @@
       "name": "Mistr boje dvema zbranemi",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Sekundarni zbrani muze byt i lehka/stredni zbran.",
+      "description": "Jako svou sekundární zbraň může použít i lehkou či střední zbraň.",
       "branch_index": 2
     },
     {
@@ -661,7 +661,7 @@
       "name": "Rutina",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Vsechny triky stoji o 1 bod adrenalinu mene.",
+      "description": "Všechny triky stojí Šermíře o 1 bod Adrenalinu méně.",
       "branch_index": 2
     },
     {
@@ -669,7 +669,7 @@
       "name": "Rychly hrot",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Pri boji s bodnou zbrani ziska +1 utok za 2 kola.",
+      "description": "V boji s bodnou zbraní získá navíc +1 Útok za 2 kola.",
       "branch_index": 2
     },
     {
@@ -677,7 +677,7 @@
       "name": "Rytmus boje",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Utok i obrana se zvysuji pri delsim souboji 1v1.",
+      "description": "Šermířův Útok i Obrana se navyšují, pokud s jedním protivníkem bojuje déle.",
       "branch_index": 2
     },
     {
@@ -685,7 +685,7 @@
       "name": "Sermirska obratnost",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Trvaly bonus +3 k atletice, akrobacii a iniciative.",
+      "description": "Získává trvalý bonus +3 k ověřovacím hodům na Atletiku, Akrobacii a Iniciativu (INC).",
       "branch_index": 2
     },
     {
@@ -693,7 +693,7 @@
       "name": "Zamena",
       "prof_id": "PROF_1",
       "required_level": 6,
-      "description": "Muze se rozhodnout, zda do OC/UC pocita SIL nebo OBR.",
+      "description": "Může se rozhodnout, který atribut, zda Sílu či Obratnost, si bude započítávat do svého OČ a ÚČ.",
       "branch_index": 2
     },
     {
