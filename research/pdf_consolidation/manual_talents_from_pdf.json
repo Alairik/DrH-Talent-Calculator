@@ -2167,6 +2167,71 @@
       "required_level": 6,
       "description": "Volitelna schopnost Kneze.",
       "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_01",
+      "name": "Astrální sféry",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Pronikne do samé podstaty tajemství astrálních sfér. Může tak přivolávat démony s vlastnostmi dle svých potřeb a přání a tím je schopen vyrábět naprosto nové, unikátní a vlastní předměty.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_02",
+      "name": "Ovládnutí živlů",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Díky této schopnosti dokáže ovládat mocné projevy – vyvolat zemětřesení, přílivovou vlnu, požár nebo hurikán. Sám také může určit, jak moc se projeví.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_03",
+      "name": "Oživlé pomůcky",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Naučí se přivolávat specifické démony, kterým dá jistou míru svobody. Dokáže tak vyrobit: Chodící truhla, Létající lucerna, Mluvící hlava a Oživlý obušek.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_04",
+      "name": "Portály a zrcadla",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "S touto schopností dokáže propojovat různá místa mezi sebou. Zvládne proto vyrobit: Mimoprostorové zrcadlo, Portál, Vidoucí kameny, Zrcadlo duší.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_05",
+      "name": "Poslové živlů",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Díky této schopnosti se naučí přivolávat elementály, mocné služebníky živlů: ohnivý elementál Igni, vodní elementál Undina, elementál země Terra nebo elementál vzduchu Sylfa.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_06",
+      "name": "Práce s esencemi",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Dokáže z many vyseparovat ještě jemnější částice – esence, kterými dokáže provádět mnoho jednoduchých změn hmoty a energie dle vlastního uvážení.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_07",
+      "name": "Práce s vichry many",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Dokáže pracovat s Vichry many a vyrábět předměty: Detektor vichrů many, Manafiltr, Managenerátor a Manatransformátor.",
+      "branch_index": 2
+    },
+    {
+      "id": "PDF_ABI_THGX_08",
+      "name": "Talismany",
+      "prof_id": "PROF_3",
+      "required_level": 6,
+      "description": "Naučí se rozpoznávat drahé kameny a aktivovat jejich skrytou sílu. Díky tomu bude moci vyrobit mnoho užitečných talismanů se zvláštními schopnostmi.",
+      "branch_index": 2
     }
-  ]
+  ],
+  "count": 288
 }
