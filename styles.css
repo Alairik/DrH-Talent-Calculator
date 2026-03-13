@@ -2231,10 +2231,40 @@ button:hover {
   gap: 0.45rem;
 }
 
+.standalone-app #floatingPanel {
+  display: none;
+}
+
 .skills-points-row .kpi.kpi-skill-points {
   width: auto;
   flex: 1 1 auto;
   min-width: 0;
+}
+
+.human-skill-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  min-height: 30px;
+  padding: 0 0.58rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(24, 18, 13, 0.96);
+  color: var(--text);
+  font-size: 0.78rem;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+}
+
+.human-skill-toggle input {
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.human-skill-toggle.is-active {
+  border-color: #c6a062;
+  color: #ffedc9;
 }
 
 .skill-auto-recalc-btn {

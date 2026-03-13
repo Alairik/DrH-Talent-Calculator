@@ -249,6 +249,7 @@
     previewSpecializationByClass: {},
     specializationLockLevelByClass: {},
     selectedSkillTargets: {},
+    skillPointHumanBonusEnabled: false,
     skillAutoRecalc: true,
     skillActionOrder: [],
     unspecializedPickLevelByTalentId: {},
@@ -435,6 +436,7 @@
     talentPerLevel: document.getElementById("talentPerLevel"),
     skillL1: document.getElementById("skillL1"),
     skillPerLevel: document.getElementById("skillPerLevel"),
+    humanSkillBonusToggle: document.getElementById("humanSkillBonusToggle"),
     manualLevelMinus: document.getElementById("manualLevelMinus"),
     manualLevelDisplay: document.getElementById("manualLevelDisplay"),
     manualLevelPlus: document.getElementById("manualLevelPlus"),
@@ -453,6 +455,8 @@
     skillsPanel: document.querySelector(".skills-panel"),
     talentsPanel: document.querySelector(".talents-panel")
   };
+  document.body.classList.toggle("standalone-app", window.self === window.top);
+  document.body.classList.toggle("embedded-app", window.self !== window.top);
   els.mobileSectionButtons = Array.from(document.querySelectorAll(".mobile-section-btn"));
   const tooltipState = {
     pinned: false,
@@ -863,6 +867,9 @@
     state.config.points.skillPerLevel = window.APP_CONFIG.points.skillPerLevel;
     ensureCreationDiceDefaults();
     if (!Array.isArray(state.skillActionOrder)) state.skillActionOrder = [];
+    if (typeof state.skillPointHumanBonusEnabled !== "boolean") {
+      state.skillPointHumanBonusEnabled = normalize((getRaceById(state.selectedRaceId) || {}).name) === "clovek";
+    }
     if (typeof state.skillAutoRecalc !== "boolean") state.skillAutoRecalc = true;
     ensureAttributeDefaults();
     if (areAttributesPristine()) applyCreationAttributeProfile();
@@ -919,6 +926,14 @@
     els.skillAutoRecalcBtn.setAttribute("aria-pressed", on ? "true" : "false");
     els.skillAutoRecalcBtn.classList.toggle("is-off", !on);
     els.skillAutoRecalcBtn.textContent = on ? "Auto dovednosti: ON" : "Auto dovednosti: OFF";
+  }
+
+  function updateHumanSkillBonusUi() {
+    if (!els.humanSkillBonusToggle) return;
+    const on = !!state.skillPointHumanBonusEnabled;
+    els.humanSkillBonusToggle.checked = on;
+    const wrap = els.humanSkillBonusToggle.closest(".human-skill-toggle");
+    if (wrap) wrap.classList.toggle("is-active", on);
   }
 
   function ensureCreationDiceDefaults() {
@@ -1050,6 +1065,7 @@
 
     const onQuickRaceChange = () => {
       state.selectedRaceId = String(els.quickRaceSelect.value || "");
+      state.skillPointHumanBonusEnabled = normalize((getRaceById(state.selectedRaceId) || {}).name) === "clovek";
       applyCreationAttributeProfile();
       cleanseInvalidSelections();
       renderAll();
@@ -1155,6 +1171,13 @@
     if (els.quickSaveBtn) els.quickSaveBtn.addEventListener("click", () => {
       openSaveCharacterModal();
     });
+    if (els.humanSkillBonusToggle) {
+      els.humanSkillBonusToggle.addEventListener("change", () => {
+        state.skillPointHumanBonusEnabled = !!els.humanSkillBonusToggle.checked;
+        renderAll();
+        persist();
+      });
+    }
     if (els.skillAutoRecalcBtn) {
       els.skillAutoRecalcBtn.addEventListener("click", () => {
         const next = !state.skillAutoRecalc;
@@ -2113,11 +2136,12 @@
     els.skillL1.value = state.config.points.skillLevel1;
     els.skillPerLevel.value = state.config.points.skillPerLevel;
     const manual = clampInt(state.manualLevel, 1, state.config.maxLevel, 1);
-    if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = String(manual);
-    if (els.quickLevelDisplay) els.quickLevelDisplay.textContent = String(manual);
-    updateSkillAutoRecalcUi();
-    renderQuickAttributeInputs();
-  }
+      if (els.manualLevelDisplay) els.manualLevelDisplay.textContent = String(manual);
+      if (els.quickLevelDisplay) els.quickLevelDisplay.textContent = String(manual);
+      updateHumanSkillBonusUi();
+      updateSkillAutoRecalcUi();
+      renderQuickAttributeInputs();
+    }
 
   function renderMobileClassSelect() {
     if (!els.mobileClassSelect) return;
@@ -3880,17 +3904,18 @@
   function exportBuild() {
     return {
       version: 4,
-      professionId: state.selectedProfessionId,
-      raceId: state.selectedRaceId,
-      selectedTalentIds: [...state.selectedTalentIds],
-      selectedTalentOrder: state.selectedTalentOrder,
-      talentOrderCounter: state.talentOrderCounter,
-      selectedSpecializationByClass: state.selectedSpecializationByClass,
-      specializationLockLevelByClass: state.specializationLockLevelByClass,
-      selectedSkillTargets: state.selectedSkillTargets,
-      skillAutoRecalc: state.skillAutoRecalc,
-      skillActionOrder: state.skillActionOrder,
-      attributes: state.attributes,
+        professionId: state.selectedProfessionId,
+        raceId: state.selectedRaceId,
+        selectedTalentIds: [...state.selectedTalentIds],
+        selectedTalentOrder: state.selectedTalentOrder,
+        talentOrderCounter: state.talentOrderCounter,
+        selectedSpecializationByClass: state.selectedSpecializationByClass,
+        specializationLockLevelByClass: state.specializationLockLevelByClass,
+        selectedSkillTargets: state.selectedSkillTargets,
+        skillPointHumanBonusEnabled: state.skillPointHumanBonusEnabled,
+        skillAutoRecalc: state.skillAutoRecalc,
+        skillActionOrder: state.skillActionOrder,
+        attributes: state.attributes,
       creationAttrMode: state.creationAttrMode,
       manualAttributeBonuses: state.manualAttributeBonuses,
       diceCreation: state.diceCreation,
@@ -3941,6 +3966,7 @@
     state.selectedSpecializationByClass = clean.selectedSpecializationByClass;
     state.specializationLockLevelByClass = clean.specializationLockLevelByClass;
     state.selectedSkillTargets = clean.selectedSkillTargets;
+    state.skillPointHumanBonusEnabled = clean.skillPointHumanBonusEnabled;
     state.skillAutoRecalc = clean.skillAutoRecalc;
     state.skillActionOrder = clean.skillActionOrder;
     state.attributes = clean.attributes;
@@ -4070,6 +4096,7 @@
       selectedSpecializationByClass: sanitizeIntMap(payload.selectedSpecializationByClass, 0, 2),
       specializationLockLevelByClass: sanitizeIntMap(payload.specializationLockLevelByClass, 1, 36),
       selectedSkillTargets: sanitizeIntMap(payload.selectedSkillTargets, 0, getSkillRankCap()),
+      skillPointHumanBonusEnabled: payload.skillPointHumanBonusEnabled === true,
       skillAutoRecalc: payload.skillAutoRecalc !== false,
       skillActionOrder: sanitizeIdList(payload.skillActionOrder),
       attributes: sanitizeAttributes(payload.attributes),
@@ -4322,12 +4349,8 @@
       skillPerLevel: 0
     };
     void raceTalent;
-    const uiRaceId = String((els.quickRaceSelect && els.quickRaceSelect.value) || "");
-    const selectedRaceId = String(uiRaceId || state.selectedRaceId || "");
-    if (selectedRaceId && selectedRaceId !== state.selectedRaceId) state.selectedRaceId = selectedRaceId;
-    // Current rules in this app: only Human gets extra skill points at level 1.
-    // Keep this hard-bound to Human race id to avoid stale/mismatched bonus states.
-    if (selectedRaceId !== "RACE_2") return base;
+    if (!state.skillPointHumanBonusEnabled) return base;
+    const selectedRaceId = getHumanRaceId() || "RACE_2";
     const raceMap = window.APP_CONFIG.raceBonusTalentIdByRaceId || {};
     const bonusTalentId = raceMap[selectedRaceId] || "ABI_81";
     const fromConfig = window.APP_CONFIG.racePointBonusesByTalentId || {};
