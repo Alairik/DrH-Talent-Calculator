@@ -794,42 +794,42 @@
     },
     {
       "id": "PDF_ABI_RNGX_01",
-      "name": "Bdely spanek",
+      "name": "Bdělý spánek",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Lepse vnimani nebezpeci i behem spanku, rychlejsi regenerace.",
+      "description": "Tvé smysly dokáží vycítit nebezpečí i během spánku. Navíc se během něj lépe regeneruješ a uzdravuješ.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_02",
-      "name": "Hranicarsky luk",
+      "name": "Hraničářský luk",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Zvlastni luk a navazujici strelecka kouzla.",
+      "description": "Naučíš se vyrábět speciální luk, který je silnější než ostatní. Zároveň ovládneš několik kouzel, která můžeš při střelbě s ním použít. Jde o Déšť šípů, Jasná střela, Ochromující šíp, Plamenný šíp a Trefa do černého.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_03",
-      "name": "Hranicarsky kun",
+      "name": "Hraničářský oř",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Zvlastni jezdecke zvire a navazujici kouzla.",
+      "description": "Získáš možnost mít zvláštní jezdecké zvíře a zlepšit svou schopnost jízdy na něm. Zároveň se naučíš několik kouzel, která jsou s ním spojena. Jde o Nezdolnost, Přivolej koně, S větrem o závod, Uklidni zvíře a Zvířecí posel.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_04",
-      "name": "Lovcova korist",
+      "name": "Lovcova kořist",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Vyber druhu tvora, proti nemu bonus +3 k UC i OC.",
+      "description": "Vybereš si určitý druh tvora a poznáš tak dokonale jeho slabiny. V boji proti němu tak budeš mít vždy bonus +3 k Útoku a Obraně.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_05",
-      "name": "Mluveni se zviraty",
+      "name": "Mluvení se zvířaty",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Porozumeni a komunikace se zviraty.",
+      "description": "Naučíš se porozumět zvířatům a komunikovat s nimi.",
       "rng_l6_general": true
     },
     {
@@ -837,47 +837,47 @@
       "name": "Moudrost",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Do ZO lze pocitat INT misto OBR.",
+      "description": "Dokážeš hodnotu své Základní obrany určovat bonusem za Inteligenci (INT), místo obvyklého bonusu za obratnost (OBR).",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_07",
-      "name": "Ostrazitost",
+      "name": "Ostražitost",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Trvaly bonus +3 k iniciative, reflexu a postrehu.",
+      "description": "Získáš „šestý smysl\", který tě učiní vnímavějším. Projevuje se trvalým bonusem +3 k Iniciativě, Reflexu i Postřehu.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_08",
-      "name": "Spriznenost se zviraty",
+      "name": "Spřízněnost se zvířaty",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Zvirata neutoci bez duvodu, lze je uklidnit.",
+      "description": "Zvířata tě napadnou pouze v případě, kdy na ně sám zaútočíš. Zároveň je dokážeš uklidnit v každé situaci.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_09",
-      "name": "Strelba na kratkou vzdalenost",
+      "name": "Střelba na krátkou vzdálenost",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Bez postihu na kratkou vzdalenost, +2 k UC a zraneni.",
+      "description": "Dokážeš bez omezení střílet i na velmi krátké vzdálenosti. V takové situaci máš k Obraně (OČ) a Zranění bonus +2.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_10",
-      "name": "Svetobeznik",
+      "name": "Světoběžník",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Pri prestupu na level vice dovednostnich bodu.",
+      "description": "Při každém přestupu na další úroveň získáváš navíc tolik dovednostních bodů, kolik je její aktuální hodnota.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGX_11",
-      "name": "Urputna strelba",
+      "name": "Urputná střelba",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Opakovana strelba na stejny cil dava kumulacni bonus.",
+      "description": "Při střeleckém útoku na stejný cíl získáváš k Útoku bonus +1 (a to až do maximálního bonusu +5).",
       "rng_l6_general": true
     },
     {
@@ -885,31 +885,31 @@
       "name": "Totem",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Vyroba totemu s vybranou zvireci schopnosti.",
+      "description": "Dokážeš vyrobit totem, který ti na místě lovu poskytne zvláštní schopnosti vybraného zvířete.",
       "rng_l6_general": true
     },
     {
       "id": "PDF_ABI_RNGD_01",
-      "name": "Dary prirody",
+      "name": "Dary přírody",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Vyroba lecitelskych masti a druidskych odvaru.",
+      "description": "Naučíš se vyrábět Léčivou mast a speciální druidské odvary: Jarní doušek, Letní žár, Podzimní pomocník, Zimní spáč a Odvar z bezoáru.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGD_02",
-      "name": "Druidova hul",
+      "name": "Druidova hůl",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Vzacna hul se zvlastnimi schopnostmi.",
+      "description": "Díky této schopnosti získáš od hvozdu vzácný dar. Zvláštní hůl, která je silnější než ostatní a má nadpřirozené schopnosti.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGD_03",
-      "name": "Druidske ritualy",
+      "name": "Druidské rituály",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Pristup k pokrocilym druidskym ritualum.",
+      "description": "Naučíš se provádět rituály: Dar života, Láska hvozdu, Nenávist hvozdu, Uzdrav lykantropii, Uzdrav zmrzačení, Zruš zkamenění.",
       "branch_index": 0
     },
     {
@@ -917,7 +917,7 @@
       "name": "Magie lesa",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Kouzla lesni vetve.",
+      "description": "Dokážeš seslat tato lesní kouzla: Bludný kořen, Listová bouřka, Otevřená náruč lesa, Povolej víly, Procházení stromy, Přivolej bludičky, Snový mrak a Změna počasí.",
       "branch_index": 0
     },
     {
@@ -925,47 +925,47 @@
       "name": "Magie hvozdu",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Kouzla hvozdu a jeho moci.",
+      "description": "Dokážeš seslat tato kouzla hvozdu: Hněv hvozdu, Koroze, Najdi bytost, Probuzení Pastýře lesa, Probuzení stromu, Trnová stěna, Zapletení, Zestromovatění.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGD_06",
-      "name": "Prostoupeni",
+      "name": "Prostoupení",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Propojeni se stromem a jeho ovladani.",
+      "description": "Dokážeš vstoupit do stromu, propojit se s ním a dokonce ho i kontrolovat a ovládat.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGD_07",
-      "name": "Sila prirody",
+      "name": "Síla přírody",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Meditace ve hvozdu zdvojnasobuje dusevni silu.",
+      "description": "Ve hvozdu dokážeš meditací soustředit svou Duševní sílu tak, že se její hodnota zdvojnásobí.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGD_08",
-      "name": "Vladni prirozenym vecem",
+      "name": "Vládni přirozeným věcem",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Prosby prirozenym vecem o uposlechnuti prikazu.",
+      "description": "Pomocí této schopnosti dokáže Druid vyprosit na přirozených (přírodních) věcech, aby uposlechly jeho příkaz.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_RNGC_01",
-      "name": "Chodcuv mec",
+      "name": "Chodcův meč",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Specialni magicky mec a jeho posilovani kouzly.",
+      "description": "Získáš speciální magickou zbraň, která je silnější než ostatní. Navíc ovládneš i několik kouzel, kterými ji můžeš posilovat a proměňovat. Jsou jimi: Odražení kouzla, Posílení zbraně, Transmutace zbraně, Záblesk a Živelné ostří.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_02",
-      "name": "Chodecka magie",
+      "name": "Chodecká magie",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Specialni cestovatelska kouzla.",
+      "description": "Naučíš se několik speciálních kouzel na cesty. Jsou jimi: Falešná stopa, Matení pachů, Matení stop, Oči přírody a Uhranivý pohled.",
       "branch_index": 1
     },
     {
@@ -973,47 +973,47 @@
       "name": "Instinkt lovce",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Lepsi odhad nejslabsich a nejsilnejsich protivniku.",
+      "description": "Dokážeš automaticky rozeznat a vycítit nejslabší i nejsilnější protivníky a získáváš speciální bonus +3 v boji proti nim.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_04",
-      "name": "Jista ruka",
+      "name": "Jistá ruka",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Pri hodu 1 v boji druhy pokus; plati druhy vysledek.",
+      "description": "Pokud ti v boji padne na kostce 1, házíš si znovu. Teprve výsledek druhého hodu se pak započítává do Útoku (ÚČ) i Obrany (OČ).",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_05",
-      "name": "Magicke pasti",
+      "name": "Magické pasti",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Vyroba a pouziti pasti posilenych prirodni magii.",
+      "description": "Naučíš se vyrábět nebezpečné pasti udržované a posilované přírodní magií. Jsou jimi: Jedová past, Svazující past, Varovná past, Věštík, Vyskakující kolíky a Výbušná past.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_06",
-      "name": "Magie lovcu monster",
+      "name": "Magie lovců monster",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Kouzla pro dominanci v boji.",
+      "description": "Ovládneš kouzla, kterými zajistíš svou dominanci v boji. Jedná se o: Bleskový výpad, Dvojitý švih, Sražení projektilu, Poškození zbraně a Vírové ostří.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_07",
-      "name": "Pozirac",
+      "name": "Požírač",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Pozrenim organu lze docasne prevzit cast schopnosti.",
+      "description": "Požitím orgánu protivníka dokážeš získat na týden část jeho schopností (hodnotu vybraného atributu).",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_RNGC_08",
-      "name": "Soustredeni dusevni sily",
+      "name": "Soustředění duševní síly",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Koncentrace dusevni sily pro posileni tela i mysli.",
+      "description": "Dokážeš Duševní sílu koncentrovat tak, aby posilovala tvé fyzické a psychické schopnosti. Ovládneš kouzla: Očištění, Přizpůsobení, Uvolnění, Zacílení a Utužení.",
       "branch_index": 1
     },
     {
@@ -1021,63 +1021,63 @@
       "name": "Bestie",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Promena v bestii zvysuje bojove parametry.",
+      "description": "Přeměnou v bestii se zvýší tvá OBR a SÍL o +3. Zároveň získáš 3 útoky za dvě kola a mocné drápy (8/+2/+2).",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_02",
-      "name": "Boj ve smecce",
+      "name": "Boj ve smečce",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Bonusy v boji za kazde zvire ve smecce.",
+      "description": "Za každé zvíře ve své smečce získáš k Útoku a Obraně bonus +1, a to až do výše maximálního bonusu +5.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_03",
-      "name": "Divoke pokriky",
+      "name": "Divoké pokřiky",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Pokriky odemykaji bojova ovlivnovaci kouzla.",
+      "description": "Napodobením řevů zvířat získáš přístup ke speciálním kouzlům k ovlivnění protivníků i spojenců v boji. Jsou jimi: Bojovný řev, Děsivý řev, Pokřik lovu, Varovný výkřik a Vábící křik.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_04",
-      "name": "Magie smecky",
+      "name": "Magie smečky",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Sesilani kouzel prostrednictvim smecky.",
+      "description": "Získáš schopnost sesílat kouzla prostřednictvím své smečky. Kromě toho ovládneš několik kouzel sloužících k ovlivnění smečky. Jsou jimi: Chraň, Stůj, Trhej, Zadrž a Zachraň.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_05",
-      "name": "Pokrocila magie zvirat",
+      "name": "Pokročilá magie zvířat",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Dalsi uzitecna kouzla magie zvirat.",
+      "description": "Díky této schopnosti pronikneš hlouběji do tajů Magie zvířat a naučíš se tato užitečná kouzla: Mimikry, Nakrm zvíře, Oči zvířete, Pochvala a Poslouchej.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_06",
-      "name": "Samanismus",
+      "name": "Šamanismus",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Spojeni s duchy mrtvych zvirat a jejich oziveni.",
+      "description": "Dokážeš se spojit s dušemi mrtvých zvířat a získat od nich informace. Stejně tak dokážeš mrtvé zvíře oživit.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_07",
-      "name": "Tvaromenic",
+      "name": "Tvaromeníč",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Prenos mysli do zvirete sve smecky a jeho ovladani.",
+      "description": "Dokážeš přenést svou mysl do zvířete tvé smečky a následně ho ovládat, bojovat jeho prostřednictvím nebo s ním putovat.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_RNGP_08",
-      "name": "Zvireci sampion",
+      "name": "Zvířecí šampión",
       "prof_id": "PROF_2",
       "required_level": 6,
-      "description": "Promeni vybrane zvire smecky na mocneho sampiona.",
+      "description": "Promníš jedno ze zvířat své smečky v šampióna, který je vyšší o třídu velikosti, má bonus +3 k Útoku a Obraně a další schopnosti.",
       "branch_index": 2
     },
     {
@@ -1085,23 +1085,23 @@
       "name": "Artefakty",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vytvori unikatni predmet nesouci cast alchymistovy podstaty.",
+      "description": "Dokáže vytvořit unikátní předmět, který ponese jeho jméno, část duše a přetrvá navždy.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_02",
-      "name": "Bojova konzumace",
+      "name": "Bojová konzumace",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba a pouziti alchymistickych pripravku skrze poziti surovin.",
+      "description": "Dokáže vyrábět jednoduché alchymistické lektvary a elixíry tím, že pozře přísady potřebné na jejich výrobu.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_03",
-      "name": "Cestovni alchymie",
+      "name": "Cestovní alchymie",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyssi sance na zdroje many a vyroba uzitecnych cestovnich predmetu.",
+      "description": "Díky dlouhodobým zkušenostem v terénu se výrazně zvyšuje šance najít zdroje many a surovin. Zároveň umí vyrobit tyto užitečné cestovní předměty: Jehlák, Kotlíkosamovar, Magický kompas, Neúnavné boty, Plátěný palác.",
       "alc_l6_general": true
     },
     {
@@ -1109,7 +1109,7 @@
       "name": "Forenzika",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vysetrovaci metody a specialni forenzni predmety.",
+      "description": "Tato schopnost umožňuje Alchymistovi proniknout k podstatě věcí při vyšetřování složitých případů. Naučil se proto vytvářet unikátní předměty, které mu v tom mohou pomoci. Jsou jimi: Akustický kalich, Prášek Deletorium, Krevní lampa, Protijed esence, Zorníčko.",
       "alc_l6_general": true
     },
     {
@@ -1117,79 +1117,79 @@
       "name": "Herbalista",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Pestovani rostlin bohatych na manu a suroviny.",
+      "description": "Dokáže si pěstovat rostliny bohaté na manu a suroviny. Zároveň se naučí vyrábět několik užitečných preparátů ke stimulaci jejich růstu. Jsou jimi: Hydroponický nálev, Lektvar Houbovrah, Lektvar Likvidátor, Lektvar Manamutace a Prášek Rychlorost.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_06",
-      "name": "Hromadna vyroba",
+      "name": "Hromadná výroba",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba vice kusu stejneho alchymistickeho predmetu najednou.",
+      "description": "Zvládne za stejný čas vyrobit více dávek i kusů jednoho druhu alchymistického předmětu.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_07",
-      "name": "Koncentrovane substance",
+      "name": "Koncentrované substance",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Posilovani ucinku, nebezpecnosti a delky trvani vyrobku.",
+      "description": "Tato schopnost umožňuje Alchymistovi vylepšovat nebezpečnost, účinnost i délku trvání efektu u jeho výrobků. Týká se všech lektvarů, elixírů, jedů a receptů z oboru Nestabilní substance.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_08",
-      "name": "Laboratorni specialista",
+      "name": "Laboratorní specialista",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vice dovednostnich bodu a pristup ke specialnim laboratornim nastrojum.",
+      "description": "Zvyšuje počet dovednostních bodů a naučí se vyrábět speciální předměty, které nejsou běžně dostupné ani v alchymistické dílně. Jsou jimi: Kukátko zření many, Pokročilá destilační aparatura, Křišťálová mísa a Postříbřený flakón.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_09",
-      "name": "Magicke hulky",
+      "name": "Magické hůlky",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba magickych hulek a jejich variant.",
+      "description": "Naučí se vyrábět magické hůlky s mnoha užitečnými schopnostmi. Jestliže zná navíc Výrobu svitků, může vyrábět i hůlky s kouzly. Mezi ty „obyčejné\" patří: Ebonitová hůlka, Hůlka vzduchu, Hůlka země, Ohnivá hůlka a Vodní hůlka.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_10",
-      "name": "Recyklator",
+      "name": "Recyklátor",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Oprava nebo rozebrani magickych predmetu se ziskem surovin zpet.",
+      "description": "Dokáže opravit poškozený magický předmět, případně ho rozebrat a získat z něj zpět jeho základ a část many i surovin.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_11",
-      "name": "Saboter",
+      "name": "Sabotér",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Uprava vyrobku tak, aby za danych podminek selhaly nebo se chovaly jinak.",
+      "description": "Naučí se upravovat alchymistické výrobky tak, aby za specifických podmínek selhaly nebo se projevily jiným způsobem, než je obvyklé.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCX_12",
-      "name": "Travicstvi",
+      "name": "Travičství",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Znalost vzacnych jedu a jejich receptur.",
+      "description": "Získá znalosti utajených receptur vzácných jedů. S jejich pomocí dokáže vyrobit následující: Antisérum, Arzaharův jed, Jed Bolehlav, Jed Post Scriptum a Jed Temnota.",
       "alc_l6_general": true
     },
     {
       "id": "PDF_ABI_ALCM_01",
-      "name": "Biologicka augmentace",
+      "name": "Biologická augmentace",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Biologicka vylepseni tela a souvisejici alchymisticke postupy.",
+      "description": "Tato schopnost umožní provádět různá biologická vylepšení. Zároveň se Medicus naučí vyrábět několik pokročilých předmětů Alchymistické anatomie. Jsou jimi: Druhý mozek, Druhé srdce, Vílí křídla a Žábra.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCM_02",
-      "name": "Bojova anatomie",
+      "name": "Bojová anatomie",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vysetreni tela a vyuziti anatomickych znalosti v boji.",
+      "description": "Dokáže ohledat těla mrtvých a určit jejich příčinu smrti. Zároveň může své znalosti využít v boji, kde protivníkovi ublíží dle uvážení nebo ho ranami ochromí.",
       "branch_index": 0
     },
     {
@@ -1197,23 +1197,23 @@
       "name": "Infuze a inhalace",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Aplikace lektvaru a jedu injekcne i inhalaci.",
+      "description": "Může podávat lektvary i jedy formou injekcí s upraveným dávkováním a použít je opakovaně. Rovněž je může proměnit v aerosol vhodný ke vdechnutí. Navíc se naučí vyrábět tyto další předměty z oboru Lektvar a elixír: Elixír lásky, Lektvar Berserker, Lektvar Purpurových řek, Lektvar Změny osobnosti, Sérum pravdy a Umělá krev.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCM_04",
-      "name": "Mechanicka augmentace",
+      "name": "Mechanická augmentace",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vpraveni mechanickych prvku do tela.",
+      "description": "Díky této schopnosti dokáže do těla vpravit různé mechanické strojky a zařízení. Zároveň se jich naučí několik vyrábět. Jsou jimi: Exoskelet, Mechanické oko, Umělá noha a Umělá paže.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCM_05",
-      "name": "Plasticka chirurgie",
+      "name": "Plastická chirurgie",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Zasahy meni vzhled a rekonstrukci tkani.",
+      "description": "Dokáže zašít rány tak, aby nezanechaly žádné jizvy. Stejně tak dokáže sbírat kůži i obličeje jiných. Ty pak může používat jako masky, nebo je někomu přišít a tím je změnit.",
       "branch_index": 0
     },
     {
@@ -1221,31 +1221,31 @@
       "name": "Resuscitace",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Obnova zivotnich funkci cerstve zemreleho tvora.",
+      "description": "Má šanci obnovit životní funkce čerstvě zemřelého tvora. Pokud to nevyjde, stále může využít jeho orgány jako zdroj many a surovin.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCM_07",
-      "name": "Sesivanci",
+      "name": "Sešívanci",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Sestavovani tvoru z tel a organu ruznych bytos ti.",
+      "description": "Zvládne sešívat dohromady těla a orgány různých tvorů a druhů. Výsledná monstra jej následně poslouchají jako jeho služebníci.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCM_08",
-      "name": "Tetovani",
+      "name": "Tetování",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Specialni tetovani a aktivacni inkousty posilujici organismus.",
+      "description": "Speciálním tetováním dokáže posílit schopnosti orgánů těla. Zároveň dokáže vyrobit tyto speciální inkousty, které je aktivují: Inkoust doplňování many, Inkoust průběžné léčby, Inkoust protekce dračímu dechu, Inkoust protekce fyzických zranění, Inkoust protekce mrazu a Inkoust protekce ohni.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_ALCP_01",
-      "name": "Kapsularni gemy",
+      "name": "Kapsulární gemy",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Uzamykani many do runovych kamenu jako specialnich baterii.",
+      "description": "Naučí se uzamknout manu runových kamenů a používat je jako speciální baterie. Těmi lze pohánět konstrukty, posilovat předměty nebo je použít k sesílání kouzel.",
       "branch_index": 1
     },
     {
@@ -1253,47 +1253,47 @@
       "name": "Konstrukty",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba mechanickych pomocniku do boje i na cesty.",
+      "description": "Dokáže vyrábět různé mechanické pomocníky, kteří mu mohou pomoci v boji i na cestách.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_ALCP_03",
-      "name": "Mistr nestabilnich substanci",
+      "name": "Mistr nestabilních substancí",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyssi odolnost a vyroba extremne nebezpecnych substanci.",
+      "description": "Jeho Charisma se sníží o 5, ale získá Rezistenci proti zraněním ohněm, mrazem i kyselinou. Zároveň se naučí vyrábět extrémně nebezpečné předměty z oboru Nestabilních substancí. Jsou jimi: Chrlič, Dusivý plyn, Leptavý plyn, Mrazivý plyn a Slzný plyn.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_ALCP_04",
-      "name": "Palne zbrane",
+      "name": "Palné zbraně",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba specialnich palnych zbrani a munice.",
+      "description": "Získá znalosti potřebné k výrobě speciálních palných zbraní a jejich munice. Jsou jimi: Hákovnice, Pistole, Polní dělo, Runice a Turét.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_ALCP_05",
-      "name": "Prace s energii",
+      "name": "Práce s energií",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Dobijeni magickych predmetu a vyroba dalsich energetickych pomucek.",
+      "description": "Naučí se znovu dobíjet energii Magických předmětů a zároveň zvládne výrobu několika dalších. Jsou jimi: Hrací skříňka, Kostka štěstí, Paralyzér, Plášť proměn a Replikátor.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_ALCP_06",
-      "name": "Sapersky vycvik",
+      "name": "Sapérský výcvik",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyhoda na hledani, zneskodnovani a nastrazeni pasti.",
+      "description": "Díky této schopnosti získá Výhodu (bonus +5) ke všem ověřovacím hodům na nalezení, zneškodnění nebo nastražení pasti. Zároveň se naučí vyrábět tyto předměty: Bomba s krystalem, Detektor pohybu, Detektor výbušnin, Detonátor a Nášlapná past.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_ALCP_07",
-      "name": "Strely a rachejtle",
+      "name": "Střely a rachejtle",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Vyroba a obsluha specialnich typu munice.",
+      "description": "Naučí se vyrábět a obsluhovat speciální druhy munice — rachejtle a střely. Jsou jimi: Lehká rachejtle, Ohňostroj, Řízená střela, Střela naváděná na terč, Světlice a Těžká rachejtle.",
       "branch_index": 1
     },
     {
@@ -1301,7 +1301,7 @@
       "name": "Transmutace kovu",
       "prof_id": "PROF_3",
       "required_level": 6,
-      "description": "Zmena struktury kovu a premena jednoho kovu na jiny.",
+      "description": "Dokáže změnit strukturu kovu tak, aby získal nové vlastnosti. Stejně tak dokáže přeměnit jeden druh kovu na jiný.",
       "branch_index": 1
     },
     {
@@ -1309,31 +1309,31 @@
       "name": "Citlivost na vichry many",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Dokáže nasát více many, než je obvyklé.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_02",
-      "name": "Magistr magickeho oboru",
+      "name": "Magistr magického oboru",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Zvýší šance seslat kouzlo daného oboru magie a naučí se navíc 3 další.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_03",
-      "name": "Posilovani kouzel",
+      "name": "Posilování kouzel",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Umožňuje posílit efekt kouzla změnou dosahu nebo délky jeho trvání.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_04",
-      "name": "Precizni kouzleni",
+      "name": "Precizní kouzlení",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Sesílání kouzla trvá 2x déle, ale získá Výhodu (bonus +5) na seslání daného kouzla.",
       "wiz_l6_general": true
     },
     {
@@ -1341,23 +1341,23 @@
       "name": "Pyrokineze",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Silou myšlenky dokáže zažehnout libovolný hořlavý předmět.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_06",
-      "name": "Ritualni kouzleni",
+      "name": "Rituální kouzlení",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Umožňuje využít manu více Kouzelníků pro sesílání náročných kouzel.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_07",
-      "name": "Rychly odpocinek",
+      "name": "Rychlý odpočinek",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Stačí mu jen poloviční doba odpočinku, aby mohl provést meditaci.",
       "wiz_l6_general": true
     },
     {
@@ -1365,7 +1365,7 @@
       "name": "Telekineze",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Silou myšlenky dokáže pohybovat s předměty ve svém dosahu.",
       "wiz_l6_general": true
     },
     {
@@ -1373,7 +1373,7 @@
       "name": "Telepatie",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Silou myšlenky dokáže komunikovat s myslí jiných tvorů.",
       "wiz_l6_general": true
     },
     {
@@ -1381,87 +1381,87 @@
       "name": "Transfer many",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Dokáže dát i vysát manu jinému Kouzelníkovi nebo tvorovi.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_11",
-      "name": "Utajene kouzleni",
+      "name": "Utajené kouzlení",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Snižuje postihy při kouzlení bez gest a slov.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZX_12",
-      "name": "Zamena kouzel",
+      "name": "Záměna kouzel",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost kouzelnika od 6. urovne.",
+      "description": "Dokáže svá, již jednou naučená kouzla, nahradit za jiná.",
       "wiz_l6_general": true
     },
     {
       "id": "PDF_ABI_WIZB_01",
-      "name": "Bitevni trenink",
+      "name": "Bitevní trénink",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Získá trvalý bonus +1 do Útoku (ÚČ) i Obrany (OČ) a zvládne nasát manu během jednoho kola.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_02",
-      "name": "Bojove sesilani",
+      "name": "Bojové sesílání",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "V rámci půlkolových kouzel může použít akci Útok i Obrana. Pokud sesílá kouzlo o trvání jednoho kola, může se i bránit. Neutrží žádný postih za vyrušení při sesílání.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_03",
-      "name": "Energeticka zbran",
+      "name": "Energetická zbraň",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Dokáže si vyvolat magickou zbraň a štít.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_04",
-      "name": "Lamani kouzel",
+      "name": "Lámání kouzel",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Dokáže okamžitě rozpoznat kouzlo sesílané dalšími Kouzelníky a zrušit jeho sesílání.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_05",
-      "name": "Magicka dominance",
+      "name": "Magická dominance",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Za určité množství many dokáže zvýšit počet kostek, kterými hází na Útok i Obranu.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_06",
-      "name": "Magicka zranitelnost",
+      "name": "Magická zranitelnost",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Dává mu šanci prorážet svými kouzly rezistence a imunity nepřátel.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_07",
-      "name": "Posilena ochrana",
+      "name": "Posílená ochrana",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "Ochranná kouzla jsou o 3 body many levnější (nejméně 1 bod many).",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_WIZB_08",
-      "name": "Zivlomag",
+      "name": "Živlomág",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho maga.",
+      "description": "S touto schopností může změnit podstatu živlu kouzla Divoké magie.",
       "branch_index": 0
     },
     {
@@ -1469,63 +1469,63 @@
       "name": "Aura moci",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Získá Výhodu (Bonus +5) ke všem svým hodům na Charisma.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_02",
-      "name": "Hromadne sesilani",
+      "name": "Hromadné sesílání",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Dokáže seslat jedno kouzlo na více cílů najednou.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_03",
-      "name": "Magicke obrazce",
+      "name": "Magické obrazce",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Umí nakreslit obrazce, do kterých uzamkne kouzlo. To se následně aktivuje narušením.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_04",
-      "name": "Mentalni souboj",
+      "name": "Mentální souboj",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Dokáže prostřednictvím své mysli napadnout i zabít někoho jiného.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_05",
-      "name": "Michani kouzel",
+      "name": "Míchání kouzel",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Dokáže seslat dvě kouzla najednou dle vlastního výběru.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_06",
-      "name": "Podrobovani",
+      "name": "Podrobování",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Dokáže si podrobit tělo tvora poraženého v Mentálním souboji a ovládat ho.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_07",
-      "name": "Predkouzleni",
+      "name": "Předkouzlení",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Získá schopnost připravit kouzlo a držet ho v hlavě pro pozdější finální seslání.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_WIZC_08",
-      "name": "Vladce many",
+      "name": "Vládce many",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Carodeje.",
+      "description": "Je schopen nakumulovat o polovinu svého vlastního maxima many více.",
       "branch_index": 1
     },
     {
@@ -1533,23 +1533,23 @@
       "name": "Dar noci",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "V noci získává Výhodu (bonus +5) k sesílání kouzel Vitální magie, Magie proměn a kouzel Nekromanta.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_02",
-      "name": "Nemrtvy druh",
+      "name": "Nemrtvý druh",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Nemrtví jej vnímají jako dalšího nemrtvého, kterého nenapadají.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_03",
-      "name": "Nemrtve spojeni",
+      "name": "Nemrtvé spojení",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Dokáže vidět, mluvit (pokud je toho „služebník\" schopen) a dokonce sesílat kouzla skrze svého nemrtvého „služebníka\".",
       "branch_index": 2
     },
     {
@@ -1557,135 +1557,135 @@
       "name": "Pouto smrti",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Dokáže vysát životy z ovládaných nemrtvých.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_05",
-      "name": "Ritualni obetovani",
+      "name": "Rituální obětování",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Obětováním tvora získá tolik životů, kolik měla oběť.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_06",
-      "name": "Sberatel dusi",
+      "name": "Sběratel duší",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Dokáže do své dýky nasát duše mrtvých a oživit je ve formě mocných nehmotných a vyšších nemrtvých. Zároveň se naučí kouzlo Pokročilá reanimace.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_07",
-      "name": "Srazlivost krve",
+      "name": "Srážlivost krve",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Jeho tělo je odolnější proti krvácivým, bodným a sečným zraněním a rychleji se z nich léčí.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_WIZN_08",
-      "name": "Vitalni drahy",
+      "name": "Vitální dráhy",
       "prof_id": "PROF_4",
       "required_level": 6,
-      "description": "Volitelna schopnost Nekromanta.",
+      "description": "Dokáže rozpoznat sílu toků energie v těle a to, jak mocné je zdravé i zraněné.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFX_01",
-      "name": "Boj se dvema zbranemi",
+      "name": "Boj se dvěma zbraněmi",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "K lehké jednoruční zbrani, či boji beze zbraně, může navíc v druhé ruce použít lehkou krátkou zbraň a jejich statistiky se sčítají.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_02",
-      "name": "Cileny utok",
+      "name": "Cílený útok",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Útoky nyní může mířit přesně na hlavu nebo na končetiny a tím nepříteli způsobit krvácení nebo jej zmrzačit.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_03",
-      "name": "Citliva mista",
+      "name": "Citlivá místa",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Získá bonus +3 do Zranění střelnými, vrhacími a lehkými zbraněmi (včetně pěstí).",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_04",
-      "name": "Expertiza",
+      "name": "Expertíza",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Při každém přestupu na další úroveň získává navíc tolik dovednostních bodů, kolik je její aktuální hodnota. Navíc si dokáže zvýšit stupeň dovednosti až 2x za úroveň.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_05",
-      "name": "Mistrovstvi sily osobnosti",
+      "name": "Mistrovství síly osobnosti",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Naučí se dva nové Zlodějské triky: Manipulace, Odhad sociálního statusu.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_06",
-      "name": "Mistrovstvi zlatky",
+      "name": "Mistrovství zlatky",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Naučí se dva nové Zlodějské triky: Handlování, Ukrytí předmětu.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_07",
-      "name": "Nocni zivel",
+      "name": "Noční živel",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Zlodějovy smysly si přivyknou na tmu, a proto dokáže provádět všechny akce na bezprostřední vzdálenosti v naprosté tmě.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_08",
-      "name": "Obratny bojovnik",
+      "name": "Obratný bojovník",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Při boji s lehkými jednoručními zbraněmi může použít OBR místo SÍL.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_09",
-      "name": "Rychle taseni",
+      "name": "Rychlé tažení",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Dokáže během své okamžité akce buď přezbrojit, vypít lektvar nebo aplikovat jed.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_10",
-      "name": "Svizne ostri",
+      "name": "Svižné ostří",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Při boji s lehkými jednoručními zbraněmi dokáže útočit 3x za 2 kola.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_11",
-      "name": "Sesty smysl",
+      "name": "Šestý smysl",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Získá Výhodu (bonus +5) k náhlým hodům na Postřeh, Reflex při hrozícím nebezpečí a získá bonus +3 k iniciativě.",
       "thf_l6_general": true
     },
     {
       "id": "PDF_ABI_THFX_12",
-      "name": "Technika nabijeni",
+      "name": "Technika nabíjení",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost zlodeje od 6. urovne.",
+      "description": "Naučí se používat nabíjecí kladky. Kuše pro něj již nemají nároky na SÍL, ale na OBR.",
       "thf_l6_general": true
     },
     {
@@ -1693,127 +1693,127 @@
       "name": "Assassinace",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Při Útoku ze utajení, či Útoku do Základní obrany způsobuje protivníkovi Zranění 2x.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_02",
-      "name": "Mistrovstvi rvacu",
+      "name": "Mistrovství rváčů",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Naučí se tři nové Zlodějské triky: Dokonalá muška, Otřesení, Přesný zásah.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_03",
-      "name": "Mistrovstvi skryvani",
+      "name": "Mistrovství skrývání",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Naučí se tři nové Zlodějské triky: Infiltrace, Pán stínů, Utajený útok.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_04",
-      "name": "Riskantni utok",
+      "name": "Riskantní útok",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Získá jeden Útok navíc, ale ztratí tím jednu Obranu.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_05",
-      "name": "Umeni prepadu",
+      "name": "Umění přepadu",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Naučí se novému umění, které zahrnuje tři speciální Zlodějské triky použitelné v boji. Jsou jimi: Hlavou nová finta, Kontrolovaná trajektorie a Prohození pozic.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_06",
-      "name": "Vejir dyk",
+      "name": "Vějíř dýk",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "V Útoku na dálku dokáže Assassin vrhnout 2 projektily najednou.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_07",
-      "name": "Vyhodna pozice",
+      "name": "Výhodná pozice",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Při prvním Útoku v boji si místo hodu 1k6 počítá automaticky číslo 6 a teprve pak hází. Zvýší tak své šance na Kritický útok.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFA_08",
-      "name": "Vyroba jedu",
+      "name": "Výroba jedů",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Assassina.",
+      "description": "Naučí se chovat drobná exotická zvířata jako zdroj jedu, který může při svých akcích použít. Jsou jimi: Černá smrt, Divotvorné sérum, Měsíční polibek.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_THFL_01",
-      "name": "Bojova kreativita",
+      "name": "Bojová kreativita",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Výhoda na bojové akce s novou improvizovanou zbraní po dobu 1 kola.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_02",
-      "name": "Druha sance",
+      "name": "Druhá šance",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Jednou za den může přehodit neúspěch u profesní dovednosti.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_03",
-      "name": "Lupicska udelatka",
+      "name": "Lupičská udělátka",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Dokáže vyrábět všechny zbraně Zlodějského cechu a zároveň tři speciální lupičská udělátka: Padák, Sada univerzálních klíčů, Zvonící koule.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_04",
-      "name": "Lupicuv partak",
+      "name": "Lupičův parťák",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Vycvičí si užitečné zvíře, které mu bude pomáhat.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_05",
-      "name": "Mistr uteku",
+      "name": "Mistr útěků",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Při použití akce Přesun/Sprint se může bránit svým OČ. Navíc se jeho Pohyblivost zvýší o 10.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_06",
-      "name": "Mistrovstvi kociciho pohybu",
+      "name": "Mistrovství kočičího pohybu",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Naučí se tři nové Zlodějské triky: Flexibilita, Parkur, Útok z výšky.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_07",
-      "name": "Mistrovstvi zelezneho klice",
+      "name": "Mistrovství železného klíče",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Naučí se tři nové Zlodějské triky: Nastražení pastí, Otevírání magických zámků, Padělání cenností.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_THFL_08",
-      "name": "Umeni neferoveho boje",
+      "name": "Umění neférového boje",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Lupice.",
+      "description": "Naučí se novou dovednost spolu se třemi novými Zlodějskými triky: Podkopnutí, Souboj na zemi, Útok do slabiny.",
       "branch_index": 1
     },
     {
@@ -1821,63 +1821,63 @@
       "name": "Alter ego",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Je schopen si vytvořit obstojné alter ego, které je těžké odhalit. Získá tak Výhodu +5 k hodům v určitých sociálních interakcích.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_02",
-      "name": "Duvernik",
+      "name": "Důvěrník",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Sicco získává do své sítě loajálního rádce a bodyguarda, který jej následuje na cestách.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_03",
-      "name": "Mistrovstvi promen",
+      "name": "Mistrovství proměn",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Naučí se tři nové Zlodějské triky: Hraní mrtvého, Falešné tváře, Makety.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_04",
-      "name": "Mistrovstvi sarmu",
+      "name": "Mistrovství šarmu",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Naučí se tři nové Zlodějské triky: Odhad nepřítele, Ostrý jazyk, Sladká slova.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_05",
-      "name": "Povesti a drby",
+      "name": "Pověsti a drby",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Dokáže veřejné osoby vykreslit v dobrém nebo špatném světle. Tyto osoby pak mohou získat Výhodu +5 nebo Nevýhodu ke svým hodům.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_06",
-      "name": "Sifrovani",
+      "name": "Šifrování",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Naučí se psát a zároveň odhalovat složité zločinecké šifry. Komunikace o riskantních tématech je tak pro něj bezpečnější.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_07",
-      "name": "Umeni boje s plastem",
+      "name": "Umění boje s pláštěm",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Naučí se novou dovednost spolu se třemi novými Zlodějskými triky: Držení, Oslepení pláštěm, Svedení útoku.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_THFS_08",
-      "name": "Zrcadleni",
+      "name": "Zrcadlení",
       "prof_id": "PROF_5",
       "required_level": 6,
-      "description": "Volitelna schopnost Sicca.",
+      "description": "Sicco zkopíruje nemagickou akci, kterou provedla jiná bytost. Dokáže tak zaútočit válečnickým trikem nebo získat Výhodu +5 k hodům na dovednost, kterou napodobuje.",
       "branch_index": 2
     },
     {
@@ -1885,31 +1885,31 @@
       "name": "Asketismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Slibem chudoby se zvýší maximum Přízně Klerika na dvojnásobek.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_02",
-      "name": "Bohosluzby",
+      "name": "Bohoslužby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Obřadem zvýší Klerik hodnotu své Přízně a všichni účastníci získají Výhodu (bonus +5) k ověřovacím hodům na Vůli.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_03",
-      "name": "Bozska domena",
+      "name": "Božská doména",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Získá schopnost používat speciální efekty domény svého boha.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_04",
-      "name": "Flagelantstvi",
+      "name": "Flagelantství",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Utrpením a obětováním svých životů dokáže Klerik doplnit svou Přízeň.",
       "clr_l6_general": true
     },
     {
@@ -1917,7 +1917,7 @@
       "name": "Nositel slova",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokáže prosby s efektem na Klerika nebo s dotykovým dosahem přivolat i na jiné tvory a na větší vzdálenost.",
       "clr_l6_general": true
     },
     {
@@ -1925,71 +1925,71 @@
       "name": "Mnohoprosby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokáže v jednom okamžiku seslat stejnou prosbu vícekrát a to i na více cílů.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_07",
-      "name": "Pozehnani",
+      "name": "Požehnání",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "V ověřovacím i bojovém hodu může házet dvakrát a vybrat si lepší výsledek.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_08",
-      "name": "Radovy slib",
+      "name": "Řádový slib",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Získá výhody i závazky řádu a rozpozná jeho členy.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_09",
-      "name": "Sakralni predmety",
+      "name": "Sakrální předměty",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Umí vyrobit posvátné předměty, které mají část boží moci.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_10",
-      "name": "Strazce mysteria",
+      "name": "Strážce mystéria",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokáže se naučit třem mocným prosbám, nebo je nahrazovat jinými, které nejsou v pravidlech. Prosby jsou: Beregondovo osvícení, Mezisvět, Vyhnání, Znamení života.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_11",
-      "name": "Sveceni mist",
+      "name": "Svěcení míst",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Dokáže vytvořit Posvátné místo, kde jsou jeho prosby účinnější.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRX_12",
-      "name": "Vzkriseni",
+      "name": "Vzkříšení",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost klerika od 6. urovne.",
+      "description": "Zemře-li Klerik při službě bohu nebo se při ní obětuje, může být znovu vzkříšen.",
       "clr_l6_general": true
     },
     {
       "id": "PDF_ABI_CLRB_01",
-      "name": "Bozi zbroj",
+      "name": "Boží zbroj",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Může bez omezení nosit libovolnou zbroj a její kvalita se zvyšuje o +1. Proti magickým a nadpozemským bytostem dokonce o +2.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_02",
-      "name": "Bozske mantry",
+      "name": "Božské mantry",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Svými mantrami o bohu vybudí mysl sebe i svých spojenců. K ověření na Vůli následujících 10 kol získávají Výhodu (bonus +5).",
       "branch_index": 0
     },
     {
@@ -1997,63 +1997,63 @@
       "name": "Fanatismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Dokáže útočit 3x za 2 kola. Od dvanácté úrovně pak 2x každém kole.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_04",
-      "name": "Inkvizitorsky vycvik",
+      "name": "Inkvizitorský výcvik",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Získá schopnost neupadnout do bezvědomí a bojovat až do Hranice smrti. Zároveň se rozšíří jeho znalost nauky Svaté pravdy o další čtyři prosby: Falešná smrt, Zadržení protivníka, Zastavení dne a Zmatení mysli.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_05",
-      "name": "Lovec carodejnic",
+      "name": "Lovec čarodějnic",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Dokáže rozpoznat kouzelníky (přítomnost jejich many) a zároveň získá Rezistenci vůči magii.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_06",
-      "name": "Paladinsky vycvik",
+      "name": "Paladinský výcvik",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Jeho základ Odolnosti se zvýší o 1 bod a naučí se několik Proseb rozšiřujících nauku Bojovník víry. Jsou jimi: Andělská zbroj, Kladivo na čarodějnice, Podlom obranu, Požehnej vlastnostem.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_07",
-      "name": "Posvatny vliv",
+      "name": "Posvátný vliv",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Klerikovi následovníci získají bonus +1 ke všem ověřovacím hodům.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRB_08",
-      "name": "Posvatna zbran",
+      "name": "Posvátná zbraň",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Bojoveho mnicha.",
+      "description": "Může nosit libovolně těžkou zbraň, která působí jako nadpozemská a má bonus +3 do Útočnosti i Zranění.",
       "branch_index": 0
     },
     {
       "id": "PDF_ABI_CLRE_01",
-      "name": "Astralni poutnik",
+      "name": "Astrální poutník",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Exorcista dokáže vstupovat do astrálního světa. Jediného místa, kde lze definitivně zabít nadpozemské bytosti.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_CLRE_02",
-      "name": "Desobijec",
+      "name": "Désobijec",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "V boji s nadpřirozenými tvory získává trvalý bonus +2 do Útoku, Obrany i Zranění. Tento bonus navíc s úrovní roste.",
       "branch_index": 1
     },
     {
@@ -2061,15 +2061,15 @@
       "name": "Exorcismus",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokáže vycítit přítomnost posedlých a naučí se další Prosby nauky Démonologie, které mu umožní je vymítat. Jsou jimi: Chraň před posednutím, Odhal démona, Ukaž temnotu, Vyžeň démona.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_CLRE_04",
-      "name": "Jazyk prastarych",
+      "name": "Jazyk prastarých",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Rozumí nadpozemskému jazyku a mluví jím. Vzývání Poslů je tak o 3 body Přízně levnější. Zároveň se naučí další Prosby z nauky Božích patronů. Jsou jimi: Posel bdělosti, Posel domény, Posel lovce, Posel pečeti.",
       "branch_index": 1
     },
     {
@@ -2077,7 +2077,7 @@
       "name": "Kletby",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokáže rozpoznat prokletá místa, bytosti i předměty a vystopovat toho, kdo za prokletím stojí. Zároveň se zvyšují jeho šance na odstranění kletby.",
       "branch_index": 1
     },
     {
@@ -2085,23 +2085,23 @@
       "name": "Mystika",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Dokáže odposlouchávat božskou komunikaci a falšovat ji. Zároveň získává výhodu, pokud by se ho někdo jiný pokusil takto zmanipulovat.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_CLRE_07",
-      "name": "Nadprirozeny boj",
+      "name": "Nadpřirozený boj",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Každý Exorcistův Útok a Obrana má nový magický a nadpřirozený efekt.",
       "branch_index": 1
     },
     {
       "id": "PDF_ABI_CLRE_08",
-      "name": "Svetlonos",
+      "name": "Světlonoš",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Exorcisty.",
+      "description": "Aura Světlonoš dokáže vracet zranění útočníkům a také je zastrašit.",
       "branch_index": 1
     },
     {
@@ -2109,15 +2109,15 @@
       "name": "Avatar",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Promění se v mocnou nadpozemskou bytost reprezentující doménu jeho boha.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_02",
-      "name": "Bozi ochrana",
+      "name": "Boží ochrana",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Má šanci se zcela vyhnout efektu nevyžádaného kouzla i prosby.",
       "branch_index": 2
     },
     {
@@ -2125,47 +2125,47 @@
       "name": "Ikony",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokáže vyrábět svaté obrazy a symboly, které mají posvátnou sílu. Kdokoliv pak dokáže jejich prostřednictvím seslat prosby.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_04",
-      "name": "Jasnozrivost",
+      "name": "Jasnozřivost",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Získá schopnost mít vidění, která mu mohou odhalit skryté souvislosti a pomoci pochopit věci.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_05",
-      "name": "Obeti",
+      "name": "Oběti",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokáže pomocí oběti snížit Obtížnost vzývání následující prosby o 10 bodů.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_06",
-      "name": "Vycvik lazaretnich lecitelu",
+      "name": "Výcvik lazaretních léčitelů",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Zlepší si stupeň zvládnutí dovedností První pomoc a Znalost přírody o +1. Zároveň se naučí vyrábět 5 léčivých mastí: Lék svatého Aurélia, Lék svatého Jana, Lék Svatého Maura, Lék svatého Núbia a Mast svaté Meredith.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_07",
-      "name": "Zazraky",
+      "name": "Zázraky",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokáže činit nadpozemské věci. Zároveň ovládne několik mocných Proseb Nauky Milosrdenství. Jsou jimi: Božská pomoc, Figino zásah osudu, Vrať čas, Zachraň život.",
       "branch_index": 2
     },
     {
       "id": "PDF_ABI_CLRK_08",
-      "name": "Zazehnuti aury",
+      "name": "Zažehnání aury",
       "prof_id": "PROF_6",
       "required_level": 6,
-      "description": "Volitelna schopnost Kneze.",
+      "description": "Dokáže seslat více aur najednou a přesouvat je podle potřeby na jiné bytosti. Zároveň získá znalosti několika nových. Jsou jimi: Aura bratrství, Aura pravého světla, Aura probuzení, Aura strachu.",
       "branch_index": 2
     },
     {
